@@ -1,0 +1,114 @@
+<script type="text/ecmascript-6">
+    import { userStore } from '../../stores/userStore.js';
+
+    export default {
+        /*
+         * The component's name.
+         */
+        name: 'RegisterForm',
+
+        /*
+         * The component's data.
+         */
+        data() {
+            return {
+                form: new Form({
+                    name: '',
+                    email: '',
+                    password: '',
+                    password_confirmation: '',
+                }),
+            }
+        },
+
+        mounted() {
+            if (userStore.isAuthenticated()) {
+                this.$router.push('/');
+            }
+        },
+
+        methods: {
+            /**
+             * Create a new User.
+             */
+            register() {
+                this.form.post('/register')
+                    .then(response => {
+                        if (response.status === 200) {
+                            Bus.$emit('userLoggedIn');
+                            this.$router.push('/');
+                        }
+                    })
+            },
+        }
+    }
+</script>
+
+<template>
+    <div class="container" style="padding-top: 60px;">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">
+                            <strong>Manage.yourShares</strong>
+                        </h2>
+                        <br />
+
+                        <!-- Create User Form -->
+                        <form class="card-text form-horizontal" role="form" method="POST"
+                              v-on:submit.prevent="register" v-on:keydown="form.errors.clear($event.target.name)">
+
+                            <div class="form-group">
+                                <div class="col-md-12" v-bind:class="{ 'has-danger': form.errors.has('name') }">
+                                    <input type="text" id="name" name="name" class="form-control" autofocus v-bind:placeholder="$t('Full Name')" v-model="form.name">
+                                    <label class="sr-only" for="name">{{ $t("Full Name") }}</label>
+
+                                    <span class="form-text text-danger" v-if="form.errors.has('name')" v-text="form.errors.get('name')"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12" v-bind:class="{ 'has-danger': form.errors.has('email') }">
+                                    <input type="email" id="email" name="email" class="form-control" v-bind:placeholder="$t('E-Mail Address')" v-model="form.email">
+                                    <label class="sr-only" for="email">{{ $t("E-Mail Address") }}</label>
+
+                                    <span class="form-text text-danger" v-if="form.errors.has('email')" v-text="form.errors.get('email')"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12" v-bind:class="{ 'has-danger': form.errors.has('password') }">
+                                    <input type="password" id="password" name="password" class="form-control" v-bind:placeholder="$t('Password')" v-model="form.password">
+                                    <label class="sr-only" for="password">{{ $t("Password") }}</label>
+
+                                    <span class="form-text text-danger" v-if="form.errors.has('password')" v-text="form.errors.get('password')"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input type="password" id="password-confirm" name="password_confirmation" class="form-control" v-bind:placeholder="$t('Confirm Password')" v-model="form.password_confirmation">
+                                    <label class="sr-only" for="password-confirm">{{ $t("Confirm Password") }}</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary btn-block" value="register" :disabled="form.errors.any()">
+                                        {{ $t("Register") }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <br />
+                <p class="text-center">
+                    {{ $t("Already have an account?") }}
+                        <router-link to="/login"><b> {{ $t("Login") }}</b></router-link>
+                </p>
+            </div>
+        </div>
+    </div>
+</template>
