@@ -19,18 +19,9 @@
 </script>
 
 <template>
-    <footer class="main-footer">
-        <div class="row justify-content-center">
-            <div class="col-8">
-                <div class="row">
-                    <div class="col-6">
-                        <p class="text-left">Copyright &copy; <router-link to="/">manage.yourShares</router-link></p>
-                    </div>
-                    <div class="col-6">
-                        <p class="text-right">{{ config.version }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <footer class="footer clearfix">
+        <span>Copyright &copy; <router-link to="/">manage.yourShares</router-link></span>
+        
+        <span class="float-right">{{ config.version }}</span>
     </footer>
 </template>

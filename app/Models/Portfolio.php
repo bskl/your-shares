@@ -2,17 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Traits\CanFilterByUser;
 
 class Portfolio extends BaseModel
 {
+    use CanFilterByUser;
     /**
      * The attributes that aren't mass assignable.
      *
      * @var array
      */
     protected $guarded = [
-        'id', 'user_id',
+        'id',
     ];
 
     /**
@@ -21,7 +22,16 @@ class Portfolio extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'name', 'order',
+        'user_id', 'name', 'currency', 'order',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+     protected $hidden = [
+        'user_id', 'created_at', 'updated_at',
     ];
 
     /**
@@ -33,10 +43,10 @@ class Portfolio extends BaseModel
     }
 
     /**
-     * The user symbols that belong to the portfolio.
+     * The symbols that belong to the portfolio.
      */
-    public function userSymbols()
+    public function symbols()
     {
-        return $this->hasMany('App\Models\UserSymbol', 'symbol');
+        return $this->belongsToMany('App\Models\Symbol');
     }
 }

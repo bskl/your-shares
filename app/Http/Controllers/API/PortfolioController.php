@@ -3,11 +3,29 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Portfolio;
+use App\Contracts\PortfolioRepository;
 use App\Http\Requests\API\PortfolioRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class PortfolioController extends Controller
 {
+    /**
+     * The portfolios instance.
+     */
+    protected $portfolios;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param  App\Portfolios\PortfolioRepository  $portfolios
+     * @return void
+     */
+    public function __construct(PortfolioRepository $portfolios)
+    {
+        $this->portfolios = $portfolios;
+    }
+
     /**
      * Create a new portfolio instance for auth user after a valid request.
      *
@@ -16,16 +34,12 @@ class PortfolioController extends Controller
      */
     public function store(PortfolioRequest $request)
     {
-        $order = Auth()->user()->portfolios()->count();
+        $order = $this->portfolios->count();
         $data = $request->all();
+        $data['user_id'] = auth()->user()->id;
         $data['order'] = ++$order;
 
-        Auth()->user()->portfolios()->create($data);
-
-        $portfolio = Portfolio::select('id', 'user_id', 'name', 'order')
-                              ->where('user_id', Auth()->user()->id)
-                              ->get()
-                              ->last();
+        $portfolio = $this->portfolios->create($data);
 
         return response()->json($portfolio);
     }
@@ -34,14 +48,14 @@ class PortfolioController extends Controller
      * Update given portfolio instance after a valid request.
      *
      * @param  PortfolioRequest     $request
-     * @param Portfolio $portfolio
+     * @param  App\Models\Portfolio $portfolio
      * @return App\Models\Portfolio $portfolio
      */
     public function update(PortfolioRequest $request, Portfolio $portfolio)
     {
-        $portfolio->update($request->only('name'));
+        $this->portfolios->update($request->all(), $portfolio);
         
-        return response()->json($portfolio->only('id', 'user_id', 'name', 'order'));
+        return response()->json($portfolio);
     }
 
     /**
@@ -52,8 +66,21 @@ class PortfolioController extends Controller
      */
     public function destroy(Portfolio $portfolio)
     { 
-        $portfolio->delete();
+        $this->portfolios->delete($portfolio);
 
         return response()->json();
+    }
+
+    /**
+     * Add the symbol of the given portfolio.
+     *
+     * @param  Request     $request
+     * @return void
+     */
+    public function addSymbolToPortfolio(Request $request)
+    {
+        $portfolioSymbols = $this->portfolios->attachSymbolToPortfolio($request->all());
+
+        return response()->json($portfolioSymbols);
     }
 }

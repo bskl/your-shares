@@ -19,7 +19,7 @@
 </script>
 
 <template>
-    <span class="name align-middle">
-        {{ state.user.name }}
-    </span>
+    <li class="nav-item">
+        <span class="nav-link">{{ state.user.name }}</span>
+    </li>
 </template>

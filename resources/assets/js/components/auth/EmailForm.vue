@@ -43,12 +43,12 @@
 <template>
     <div class="container" style="padding-top: 60px;">
         <div class="row justify-content-center">
-            <div class="col-4">
+            <div class="col-6">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title text-center">
-                            <strong>Manage.yourShares</strong>
-                        </h2>
+                        <h3 class="card-title text-center">
+                            <strong>manage.yourShares</strong>
+                        </h3>
                         <br />
 
                         <!-- Email Send Form -->

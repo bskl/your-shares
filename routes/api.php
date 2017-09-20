@@ -20,8 +20,10 @@ Route::namespace('API')->group(function () {
     //Route::post('/password/reset', 'ResetPasswordController@reset');
     Route::middleware('auth:api')->group(function () {
         Route::get('/data', 'DataController@getData');
+
         Route::post(  '/portfolio', 'PortfolioController@store');
         Route::put(   '/portfolio/{portfolio}', 'PortfolioController@update');
         Route::delete('/portfolio/{portfolio}', 'PortfolioController@destroy');
+        Route::post(  '/portfolio/add-symbol', 'PortfolioController@addSymbolToPortfolio');
     });
 });

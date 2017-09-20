@@ -25,6 +25,7 @@ class PortfolioRequest extends Request
     {
         return [
             'name' => 'required|string',
+            'currency' => 'required|string',
         ];
     }
 }

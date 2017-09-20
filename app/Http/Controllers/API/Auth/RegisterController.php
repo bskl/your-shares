@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Models\User;
-use App\Models\Portfolio;
 use App\Http\Requests\API\RegisterRequest;
+use App\Events\UserRegistered;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Lang;
 
 class RegisterController extends Controller
 {
@@ -49,25 +48,10 @@ class RegisterController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        $this->createStandart($user);
-
+        event(new UserRegistered($user));
+        
         return $this->loginController->attempLogin(
             $this->loginController->credentials($request)
         );
-    }
-
-    /**
-     * Create standart data for new user.
-     * 
-     * @param  App\Models\User  $user
-     * @return App\Models\Portfolio
-     */
-    public function createStandart(User $user)
-    {
-        Portfolio::create([
-            'user_id' => $user['id'],
-            'name' => Lang::get('app.portfolio.default'),
-            'order' => 1,
-        ]);
     }
 }

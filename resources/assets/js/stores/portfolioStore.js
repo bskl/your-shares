@@ -2,7 +2,6 @@ export const portfolioStore = {
     state: {
         portfolios: {
             id: 0,
-            user_id: 0,
             name: '',
             order: '',
             symbols: {

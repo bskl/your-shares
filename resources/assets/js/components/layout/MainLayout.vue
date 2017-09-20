@@ -29,7 +29,7 @@
 
         <main-footer/>
     </div>
-    <div v-else class="align-bottom">
+    <div v-else>
         <spinner />
     </div>
 </template>

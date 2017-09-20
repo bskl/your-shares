@@ -54,9 +54,9 @@
 
 <template>
     <main-layout :loading="loading">
-        <section class="main-content">
-            <portfolios />
-        </section>
+
+        <portfolios />
+
     </main-layout>
 </template>
 

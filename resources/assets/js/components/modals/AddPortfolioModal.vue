@@ -21,7 +21,14 @@
             return {
                 form: new Form({
                     name: '',
+                    currency: '',
                 }),
+                currencies: [
+                    {
+                        'alphabeticCode': 'TRY',
+                        'currency': 'Turkish Lira'
+                    }
+                ],
                 saving: false,
                 showModal: false,
             };
@@ -99,6 +106,23 @@
 
                                 <span class="form-text text-danger"
                                         v-if="form.errors.has('name')" v-text="form.errors.get('name')"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12"
+                                    v-bind:class="{ 'has-danger': form.errors.has('currency') }">
+                                <select id="currency" name="currency" class="form-control" 
+                                        v-bind:placeholder="$t('Currency')" v-model="form.currency">
+                                    <option disabled value="">{{ $t("Currency") }}</option>
+                                    <option v-for="currency in currencies" v-bind:value="currency.alphabeticCode" :key="currency.key">
+                                        {{ currency.currency }}
+                                    </option>
+                                </select>
+                                <label class="sr-only" for="currency">{{ $t("Currency") }}</label>
+
+                                <span class="form-text text-danger"
+                                        v-if="form.errors.has('currency')" v-text="form.errors.get('currency')"></span>
                             </div>
                         </div>
 

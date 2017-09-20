@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Portfolio;
+use App\Models\Symbol;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -17,10 +18,9 @@ class DataController extends Controller
     public function getData(Request $request)
     {
         return [
-            'user' => Auth()->user()->only('id', 'name', 'email'),
-            'portfolios' => Portfolio::select('id', 'user_id', 'name', 'order')
-                                     ->where('user_id', Auth()->user()->id)
-                                     ->get(),
+            'user' => Auth()->user(),
+            'portfolios' => Portfolio::byCurrentUSer()->with('symbols')->get(),
+            'symbols' => Symbol::get(),
         ];
     }
 }
