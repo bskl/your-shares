@@ -11135,13 +11135,17 @@ function applyToTag (styleElement, obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(75)
+}
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(75),
+  __webpack_require__(77),
   /* template */
-  __webpack_require__(76),
+  __webpack_require__(78),
   /* styles */
-  null,
+  injectStyle,
   /* scopeId */
   null,
   /* moduleIdentifier (server only) */
@@ -11179,7 +11183,7 @@ var Component = __webpack_require__(0)(
   /* script */
   null,
   /* template */
-  __webpack_require__(77),
+  __webpack_require__(79),
   /* styles */
   null,
   /* scopeId */
@@ -11219,7 +11223,7 @@ var Component = __webpack_require__(0)(
   /* script */
   null,
   /* template */
-  __webpack_require__(78),
+  __webpack_require__(80),
   /* styles */
   null,
   /* scopeId */
@@ -47401,9 +47405,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_portfolioStore_js__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Modals_AddPortfolioModal_vue__ = __webpack_require__(73);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Modals_AddPortfolioModal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Modals_AddPortfolioModal_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modals_EditPortfolioModal_vue__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modals_EditPortfolioModal_vue__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modals_EditPortfolioModal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Modals_EditPortfolioModal_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Modals_AddSymbolModal_vue__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Modals_AddSymbolModal_vue__ = __webpack_require__(87);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Modals_AddSymbolModal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Modals_AddSymbolModal_vue__);
 
 
@@ -47494,7 +47498,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
          * Open the modal for adding a new portfolio.
          */
         showAddPortfolioModal: function showAddPortfolioModal() {
-            this.$refs.addPortfolio.open();
+            this.$refs.addPortfolioModal.open();
         },
 
 
@@ -47502,7 +47506,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
          * Open the modal for editing portfolio.
          */
         showEditPortfolioModal: function showEditPortfolioModal(portfolio) {
-            this.$refs.editPortfolio.open(portfolio);
+            this.$refs.editPortfolioModal.open(portfolio);
         },
 
 
@@ -47510,7 +47514,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
          * Open the modal for adding a new symbol.
          */
         showAddSymbolModal: function showAddSymbolModal(portfolioId) {
-            this.$refs.addSymbol.open(portfolioId);
+            this.$refs.addSymbolModal.open(portfolioId);
         }
     }
 });
@@ -47524,7 +47528,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(74),
   /* template */
-  __webpack_require__(79),
+  __webpack_require__(81),
   /* styles */
   null,
   /* scopeId */
@@ -47660,13 +47664,53 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 /* 75 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(76);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(9)("2c425dc8", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4c80897d\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Modal.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4c80897d\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Modal.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 76 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(8)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "\n.modal-mask {\n    position: fixed;\n    z-index: 9998;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, .5);\n    display: table;\n    transition: opacity 1s ease-in-out;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 77 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['showModal', 'width'],
+    props: ['width'],
 
     /**
      * The component's data.
@@ -47679,18 +47723,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 76 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.showModal),
-      expression: "showModal"
-    }],
-    staticClass: "modal fade"
+  return _c('transition', {
+    attrs: {
+      "name": "fade"
+    }
+  }, [_c('div', {
+    staticClass: "modal modal-mask",
+    staticStyle: {
+      "display": "block"
+    },
+    attrs: {
+      "tabindex": "-1",
+      "role": "dialog",
+      "aria-hidden": "true"
+    }
   }, [_c('div', {
     staticClass: "modal-dialog",
     attrs: {
@@ -47701,7 +47751,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     style: ({
       width: _vm.modalWidth
     })
-  }, [_vm._t("default")], 2)])])
+  }, [_vm._t("default")], 2)])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -47712,7 +47762,7 @@ if (false) {
 }
 
 /***/ }),
-/* 77 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -47729,7 +47779,7 @@ if (false) {
 }
 
 /***/ }),
-/* 78 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -47746,23 +47796,29 @@ if (false) {
 }
 
 /***/ }),
-/* 79 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('modal', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (this.showModal),
+      expression: "this.showModal"
+    }],
     attrs: {
-      "width": "360",
-      "show-modal": this.showModal
+      "width": "360"
     }
-  }, [_c('modal-heading', [_c('span', {
-    staticClass: "ft13"
-  }, [_vm._v(_vm._s(_vm.$t("Add Portfolio")))]), _vm._v(" "), _c('button', {
+  }, [_c('modal-heading', [_c('span', [_vm._v(_vm._s(_vm.$t("Add Portfolio")))]), _vm._v(" "), _c('button', {
     staticClass: "close",
     attrs: {
       "type": "button",
       "data-dismiss": "modal",
       "aria-label": "Close"
+    },
+    on: {
+      "click": _vm.close
     }
   }, [_c('span', {
     attrs: {
@@ -47898,19 +47954,19 @@ if (false) {
 }
 
 /***/ }),
-/* 80 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(81)
+  __webpack_require__(83)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(83),
+  __webpack_require__(85),
   /* template */
-  __webpack_require__(84),
+  __webpack_require__(86),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -47942,13 +47998,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 81 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(82);
+var content = __webpack_require__(84);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -47968,7 +48024,7 @@ if(false) {
 }
 
 /***/ }),
-/* 82 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(8)(undefined);
@@ -47982,7 +48038,7 @@ exports.push([module.i, "\n.ft13[data-v-c23ac5e6] { font-size: 1.3rem\n}\n.pa2[d
 
 
 /***/ }),
-/* 83 */
+/* 85 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -48110,27 +48166,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 84 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+  return _c('modal', {
     directives: [{
       name: "show",
       rawName: "v-show",
       value: (this.showModal),
       expression: "this.showModal"
     }],
-    on: {
-      "click": _vm.close
-    }
-  }, [_c('modal', {
     attrs: {
       "width": "360"
     }
-  }, [_c('modal-heading', [_c('span', {
-    staticClass: "ft13"
-  }, [_vm._v(_vm._s(_vm.$t("Update Portfolio")))])]), _vm._v(" "), _c('modal-body', [(_vm.saving) ? _c('div', [_c('spinner')], 1) : _c('div', [_c('form', {
+  }, [_c('modal-heading', [_c('span', [_vm._v(_vm._s(_vm.$t("Update Portfolio")))]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "aria-label": "Close"
+    },
+    on: {
+      "click": _vm.close
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c('modal-body', [(_vm.saving) ? _c('div', [_c('spinner')], 1) : _c('div', [_c('form', {
     staticClass: "form-horizontal",
     attrs: {
       "role": "form",
@@ -48228,7 +48291,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "value": currency.alphabeticCode
       }
-    }, [_vm._v("\n                                    " + _vm._s(currency.currency) + "\n                                ")])
+    }, [_vm._v("\n                                " + _vm._s(currency.currency) + "\n                            ")])
   })], 2), _vm._v(" "), _c('label', {
     staticClass: "sr-only",
     attrs: {
@@ -48259,7 +48322,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit",
       "disabled": _vm.form.errors.any()
     }
-  }, [_vm._v(_vm._s(_vm.$t("Update")))])])])])])])], 1)], 1)
+  }, [_vm._v(_vm._s(_vm.$t("Update")))])])])])])])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -48270,23 +48333,19 @@ if (false) {
 }
 
 /***/ }),
-/* 85 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(86)
-}
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(88),
   /* template */
   __webpack_require__(89),
   /* styles */
-  injectStyle,
+  null,
   /* scopeId */
-  "data-v-17e34732",
+  null,
   /* moduleIdentifier (server only) */
   null
 )
@@ -48311,46 +48370,6 @@ if (false) {(function () {
 })()}
 
 module.exports = Component.exports
-
-
-/***/ }),
-/* 86 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(87);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(9)("d5775b88", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-17e34732\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AddSymbolModal.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-17e34732\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AddSymbolModal.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 87 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(8)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "\n.ft13[data-v-17e34732] { font-size: 1.3rem\n}\n.pa2[data-v-17e34732] { padding: 2rem\n}\n.df[data-v-17e34732] { display: flex\n}\n.aic[data-v-17e34732] { align-items: center\n}\n.acc[data-v-17e34732] { align-content: center\n}\n.jcc[data-v-17e34732] { justify-content: center\n}\n.frame[data-v-17e34732] {\n    margin-left: 2rem;\n    margin-right: 2rem;\n    display: flex;\n    flex-direction: row;\n    flex-wrap: wrap;\n}\n.mb2[data-v-17e34732] { margin-bottom: 2rem\n}\n.lh2[data-v-17e34732] { line-height: 2\n}\n.basic-text[data-v-17e34732] { color: #424C55\n}\n.tar[data-v-17e34732] { text-align: right\n}\n", ""]);
-
-// exports
 
 
 /***/ }),
@@ -48464,23 +48483,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+  return _c('modal', {
     directives: [{
       name: "show",
       rawName: "v-show",
       value: (this.showModal),
       expression: "this.showModal"
     }],
-    on: {
-      "click": _vm.close
-    }
-  }, [_c('modal', {
     attrs: {
       "width": "360"
     }
-  }, [_c('modal-heading', [_c('span', {
-    staticClass: "ft13"
-  }, [_vm._v(_vm._s(_vm.$t("Add Symbol")))])]), _vm._v(" "), _c('modal-body', [(_vm.saving) ? _c('div', [_c('spinner')], 1) : _c('div', [_c('form', {
+  }, [_c('modal-heading', [_c('span', [_vm._v(_vm._s(_vm.$t("Add Symbol")))]), _vm._v(" "), _c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    },
+    on: {
+      "click": _vm.close
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])])]), _vm._v(" "), _c('modal-body', [(_vm.saving) ? _c('div', [_c('spinner')], 1) : _c('div', [_c('form', {
     staticClass: "form-horizontal",
     attrs: {
       "role": "form",
@@ -48537,7 +48564,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       domProps: {
         "value": symbol.id
       }
-    }, [_vm._v("\n                                    " + _vm._s(symbol.name) + " " + _vm._s(symbol.code) + "\n                                ")])
+    }, [_vm._v("\n                                " + _vm._s(symbol.name) + " " + _vm._s(symbol.code) + "\n                            ")])
   })], 2), _vm._v(" "), _c('label', {
     staticClass: "sr-only",
     attrs: {
@@ -48558,7 +48585,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit",
       "disabled": _vm.form.errors.any()
     }
-  }, [_vm._v(_vm._s(_vm.$t("Create")))])])])])])])], 1)], 1)
+  }, [_vm._v(_vm._s(_vm.$t("Create")))])])])])])])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -48647,7 +48674,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_vm._v(_vm._s(_vm.$t("Add Portfolio")))])]), _vm._v(" "), _c('add-portfolio-modal', {
-    ref: "addPortfolio"
+    ref: "addPortfolioModal"
+  }), _vm._v(" "), _c('edit-portfolio-modal', {
+    ref: "editPortfolioModal"
+  }), _vm._v(" "), _c('add-symbol-modal', {
+    ref: "addSymbolModal"
   })], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true

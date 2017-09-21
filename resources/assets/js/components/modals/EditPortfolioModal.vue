@@ -107,60 +107,61 @@
 </script>
 
 <template>
-    <div @click="close" v-show="this.showModal">
-        <modal width="360">
-            <modal-heading>
-                <span class="ft13">{{ $t("Update Portfolio") }}</span>
-            </modal-heading>
-            <modal-body>
-                <div v-if="saving">
-                    <spinner />
-                </div>
-                <div v-else>
-                    <form class="form-horizontal" role="form" method="PUT"
-                            v-on:submit.prevent="updatePortfolio" v-on:keydown="form.errors.clear($event.target.name)">
-                        <div class="form-group">
-                            <div class="col-md-12"
-                                    v-bind:class="{ 'has-danger': form.errors.has('name') }">
-                                <input type="text" id="name" name="name" class="form-control" autofocus
-                                        v-bind:placeholder="$t('Portfolio Name')" v-model="form.name">
-                                <label class="sr-only" for="name">{{ $t("Portfolio Name") }}</label>
+    <modal width="360" v-show="this.showModal">
+        <modal-heading>
+            <span>{{ $t("Update Portfolio") }}</span>
+            <button type="button" class="close" aria-label="Close" @click="close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </modal-heading>
+        <modal-body>
+            <div v-if="saving">
+                <spinner />
+            </div>
+            <div v-else>
+                <form class="form-horizontal" role="form" method="PUT"
+                        v-on:submit.prevent="updatePortfolio" v-on:keydown="form.errors.clear($event.target.name)">
+                    <div class="form-group">
+                        <div class="col-md-12"
+                                v-bind:class="{ 'has-danger': form.errors.has('name') }">
+                            <input type="text" id="name" name="name" class="form-control" autofocus
+                                    v-bind:placeholder="$t('Portfolio Name')" v-model="form.name">
+                            <label class="sr-only" for="name">{{ $t("Portfolio Name") }}</label>
 
-                                <span class="form-text text-danger"
-                                        v-if="form.errors.has('name')" v-text="form.errors.get('name')"></span>
-                            </div>
+                            <span class="form-text text-danger"
+                                    v-if="form.errors.has('name')" v-text="form.errors.get('name')"></span>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <div class="col-md-12"
-                                    v-bind:class="{ 'has-danger': form.errors.has('currency') }">
-                                <select id="currency" name="currency" class="form-control" 
-                                        v-bind:placeholder="$t('Currency')" v-model="form.currency">
-                                    <option disabled value="">{{ $t("Currency") }}</option>
-                                    <option v-for="currency in currencies" v-bind:value="currency.alphabeticCode" :key="currency.key">
-                                        {{ currency.currency }}
-                                    </option>
-                                </select>
-                                <label class="sr-only" for="currency">{{ $t("Currency") }}</label>
+                    <div class="form-group">
+                        <div class="col-md-12"
+                                v-bind:class="{ 'has-danger': form.errors.has('currency') }">
+                            <select id="currency" name="currency" class="form-control" 
+                                    v-bind:placeholder="$t('Currency')" v-model="form.currency">
+                                <option disabled value="">{{ $t("Currency") }}</option>
+                                <option v-for="currency in currencies" v-bind:value="currency.alphabeticCode" :key="currency.key">
+                                    {{ currency.currency }}
+                                </option>
+                            </select>
+                            <label class="sr-only" for="currency">{{ $t("Currency") }}</label>
 
-                                <span class="form-text text-danger"
-                                        v-if="form.errors.has('currency')" v-text="form.errors.get('currency')"></span>
-                            </div>
+                            <span class="form-text text-danger"
+                                    v-if="form.errors.has('currency')" v-text="form.errors.get('currency')"></span>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <div class="col-md-12 text-right">
-                                <button type="button" class="btn btn-danger"
-                                        @click="destroyPortfolio()">{{ $t("Delete Portfolio") }}</button>
-                                <button type="submit" class="btn btn-primary"
-                                        :disabled="form.errors.any()">{{ $t("Update") }}</button>
-                            </div>
+                    <div class="form-group">
+                        <div class="col-md-12 text-right">
+                            <button type="button" class="btn btn-danger"
+                                    @click="destroyPortfolio()">{{ $t("Delete Portfolio") }}</button>
+                            <button type="submit" class="btn btn-primary"
+                                    :disabled="form.errors.any()">{{ $t("Update") }}</button>
                         </div>
-                    </form>
-                </div>
-            </modal-body>
-        </modal>
-    </div>
+                    </div>
+                </form>
+            </div>
+        </modal-body>
+    </modal>
 </template>
 
 <style scoped>

@@ -74,21 +74,21 @@
              * Open the modal for adding a new portfolio.
              */
             showAddPortfolioModal() {
-                this.$refs.addPortfolio.open();
+                this.$refs.addPortfolioModal.open();
             },
 
             /**
              * Open the modal for editing portfolio.
              */
             showEditPortfolioModal(portfolio) {
-                this.$refs.editPortfolio.open(portfolio);
+                this.$refs.editPortfolioModal.open(portfolio);
             },
             
             /**
              * Open the modal for adding a new symbol.
              */
             showAddSymbolModal(portfolioId) {
-                this.$refs.addSymbol.open(portfolioId);
+                this.$refs.addSymbolModal.open(portfolioId);
             },
         },
     }
@@ -130,11 +130,14 @@
                 <span class="code text-success">1590</span>
             </div>
         </div>
+
         <div class="row justify-content-end marketing">
             <button class="btn btn-primary"
                     @click="showAddPortfolioModal()">{{ $t("Add Portfolio") }}</button>
         </div>
         
-        <add-portfolio-modal ref="addPortfolio" />
+        <add-portfolio-modal ref="addPortfolioModal" />
+        <edit-portfolio-modal ref="editPortfolioModal" />
+        <add-symbol-modal ref="addSymbolModal" />
     </div>
 </template>

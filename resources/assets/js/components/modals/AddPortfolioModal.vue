@@ -85,10 +85,10 @@
 </script>
 
 <template>
-    <modal width="360" v-bind:show-modal="this.showModal">
+    <modal width="360" v-show="this.showModal">
         <modal-heading>
-            <span class="ft13">{{ $t("Add Portfolio") }}</span>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span>{{ $t("Add Portfolio") }}</span>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </modal-heading>
