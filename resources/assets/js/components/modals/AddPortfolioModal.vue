@@ -85,76 +85,57 @@
 </script>
 
 <template>
-    <div @click="close" v-show="this.showModal">
-        <modal width="360">
-            <modal-heading>
-                <span class="ft13">{{ $t("Add Portfolio") }}</span>
-            </modal-heading>
-            <modal-body>
-                <div v-if="saving">
-                    <spinner />
-                </div>
-                <div v-else>
-                    <form class="form-horizontal" role="form" method="POST"
-                            v-on:submit.prevent="savePortfolio" v-on:keydown="form.errors.clear($event.target.name)">
-                        <div class="form-group">
-                            <div class="col-md-12"
-                                    v-bind:class="{ 'has-danger': form.errors.has('name') }">
-                                <input type="text" id="name" name="name" class="form-control" autofocus
-                                        v-bind:placeholder="$t('Portfolio Name')" v-model="form.name">
-                                <label class="sr-only" for="name">{{ $t("Portfolio Name") }}</label>
+    <modal width="360" v-bind:show-modal="this.showModal">
+        <modal-heading>
+            <span class="ft13">{{ $t("Add Portfolio") }}</span>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </modal-heading>
+        <modal-body>
+            <div v-if="saving">
+                <spinner />
+            </div>
+            <div v-else>
+                <form class="form-horizontal" role="form" method="POST"
+                        v-on:submit.prevent="savePortfolio" v-on:keydown="form.errors.clear($event.target.name)">
+                    <div class="form-group">
+                        <div class="col-md-12"
+                                v-bind:class="{ 'has-danger': form.errors.has('name') }">
+                            <input type="text" id="name" name="name" class="form-control" autofocus
+                                    v-bind:placeholder="$t('Portfolio Name')" v-model="form.name">
+                            <label class="sr-only" for="name">{{ $t("Portfolio Name") }}</label>
 
-                                <span class="form-text text-danger"
-                                        v-if="form.errors.has('name')" v-text="form.errors.get('name')"></span>
-                            </div>
+                            <span class="form-text text-danger"
+                                    v-if="form.errors.has('name')" v-text="form.errors.get('name')"></span>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <div class="col-md-12"
-                                    v-bind:class="{ 'has-danger': form.errors.has('currency') }">
-                                <select id="currency" name="currency" class="form-control" 
-                                        v-bind:placeholder="$t('Currency')" v-model="form.currency">
-                                    <option disabled value="">{{ $t("Currency") }}</option>
-                                    <option v-for="currency in currencies" v-bind:value="currency.alphabeticCode" :key="currency.key">
-                                        {{ currency.currency }}
-                                    </option>
-                                </select>
-                                <label class="sr-only" for="currency">{{ $t("Currency") }}</label>
+                    <div class="form-group">
+                        <div class="col-md-12"
+                                v-bind:class="{ 'has-danger': form.errors.has('currency') }">
+                            <select id="currency" name="currency" class="form-control" 
+                                    v-bind:placeholder="$t('Currency')" v-model="form.currency">
+                                <option disabled value="">{{ $t("Currency") }}</option>
+                                <option v-for="currency in currencies" v-bind:value="currency.alphabeticCode" :key="currency.key">
+                                    {{ currency.currency }}
+                                </option>
+                            </select>
+                            <label class="sr-only" for="currency">{{ $t("Currency") }}</label>
 
-                                <span class="form-text text-danger"
-                                        v-if="form.errors.has('currency')" v-text="form.errors.get('currency')"></span>
-                            </div>
+                            <span class="form-text text-danger"
+                                    v-if="form.errors.has('currency')" v-text="form.errors.get('currency')"></span>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary btn-block"
-                                        :disabled="form.errors.any()">{{ $t("Create") }}</button>
-                            </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary btn-block"
+                                    :disabled="form.errors.any()">{{ $t("Create") }}</button>
                         </div>
-                    </form>
-                </div>
-            </modal-body>
-        </modal>
-    </div>
+                    </div>
+                </form>
+            </div>
+        </modal-body>
+    </modal>
 </template>
-
-<style scoped>
-    .ft13 { font-size: 1.3rem }
-    .pa2 { padding: 2rem }
-    .df { display: flex }
-    .aic { align-items: center }
-    .acc { align-content: center }
-    .jcc { justify-content: center }
-    .frame {
-        margin-left: 2rem;
-        margin-right: 2rem;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
-    .mb2 { margin-bottom: 2rem }
-    .lh2 { line-height: 2 }
-    .basic-text { color: #424C55 }
-    .tar { text-align: right }
-</style>

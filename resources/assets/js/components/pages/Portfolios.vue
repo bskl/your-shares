@@ -114,7 +114,7 @@
                 </nav>
                 <h4 class="text-muted float-left">{{ portfolio.name }}</h4>
             </div>
-            <div class="marketing" v-if="portfolio.symbols.length === 0">
+            <div class="marketing" v-if="!portfolio.symbols.length">
                 <p class="lead">
                     {{ $t("You have not created any symbol.") }}
                 </p>
@@ -136,7 +136,5 @@
         </div>
         
         <add-portfolio-modal ref="addPortfolio" />
-        <edit-portfolio-modal ref="editPortfolio" />
-        <add-symbol-modal ref="addSymbol" />
     </div>
 </template>

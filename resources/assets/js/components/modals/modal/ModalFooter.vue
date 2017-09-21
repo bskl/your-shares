@@ -1,14 +1,5 @@
 <template>
-    <footer class="modal-footer">
+    <div class="modal-footer">
         <slot />
-    </footer>
+    </div>
 </template>
-
-<style scoped>
-    .modal-footer {
-        display: flex;
-        justify-content: flex-end;
-        align-items: flex-end;
-        padding: 2rem;
-    }
-</style>
