@@ -47,8 +47,6 @@ class RegisterController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
-
-        event(new UserRegistered($user));
         
         return $this->loginController->attempLogin(
             $this->loginController->credentials($request)

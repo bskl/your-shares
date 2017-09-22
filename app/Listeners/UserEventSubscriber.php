@@ -59,7 +59,7 @@ class UserEventSubscriber
      */
     public function subscribe($events) {
         $events->listen(
-                'App\Events\UserRegistered',
+                'Illuminate\Auth\Events\Registered',
                     'App\Listeners\UserEventSubscriber@onUserRegister'
         );
         $events->listen(
