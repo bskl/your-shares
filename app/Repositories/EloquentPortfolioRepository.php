@@ -42,7 +42,7 @@ class EloquentPortfolioRepository extends EloquentBaseRepository implements Port
      * @param  integer  $userId
      * @return App\Models\Portfolio  $portfolio
      */
-    public function createDefaultPortfolio(integer $userId)
+    public function createDefaultPortfolio(int $userId)
     {
         $this->create([
             'user_id' => $userId,
