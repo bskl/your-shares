@@ -16,6 +16,14 @@ interface PortfolioRepository extends BaseRepository
     public function create(array $data);
 
     /**
+     * Create standart portfolio data for given user.
+     *
+     * @param  integer  $userId
+     * @return App\Models\Portfolio  $portfolio
+     */
+    public function createDefaultPortfolio(integer $userId);
+
+    /**
      * Update the portfolio with given data.
      *
      * @param  App\Models\Portfolio  $portfolio
