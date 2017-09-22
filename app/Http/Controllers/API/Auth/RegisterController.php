@@ -46,6 +46,7 @@ class RegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'confirmation_code' = hash_hmac('sha256', str_random(60), config('app.key'));
         ]);
 
         event(new Registered($user));
