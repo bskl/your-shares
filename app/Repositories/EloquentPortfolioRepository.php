@@ -32,7 +32,7 @@ class EloquentPortfolioRepository extends EloquentBaseRepository implements Port
      */
     public function create(array $data)
     {
-        return $this->model->byCurrentUser()->create($data);
+        return $this->model->create($data);
     }
 
     /**
