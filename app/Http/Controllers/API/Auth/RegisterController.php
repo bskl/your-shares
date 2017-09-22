@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API\Auth;
 
 use App\Models\User;
 use App\Http\Requests\API\RegisterRequest;
-use App\Events\UserRegistered;
+use Illuminate\Auth\Events\Registered;
 use App\Http\Controllers\Controller;
 
 class RegisterController extends Controller
@@ -47,7 +47,9 @@ class RegisterController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
-        
+
+        event(new Registered($user));
+
         return $this->loginController->attempLogin(
             $this->loginController->credentials($request)
         );
