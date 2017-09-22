@@ -33,6 +33,11 @@ interface PortfolioRepository extends BaseRepository
     public function delete(Portfolio $portfolio);
 
     /**
+     * @return App\Models\Portfolio  $portfolio
+	 */
+	public function getWithSymbols();
+
+    /**
      * Get the number of portfolios for auth user.
      *
      * @return int

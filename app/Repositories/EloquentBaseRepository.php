@@ -20,6 +20,15 @@ abstract class EloquentBaseRepository implements BaseRepository
     }
 
     /**
+     * @param array $with
+     * @return mixed
+	 */
+	public function withAll(array $with)
+	{
+		return $this->model->with($with)->get();
+	}
+
+    /**
      * @param  int  $id
      * @return App\Models\  $model
      */

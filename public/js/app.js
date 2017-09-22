@@ -48875,7 +48875,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
         getSymbol: __WEBPACK_IMPORTED_MODULE_0_lodash___default.a.debounce(function (search, loading, vm) {
-            http.get('/symbol/search', {
+            axios.get('/symbol/search', {
                 params: {
                     q: search
                 }

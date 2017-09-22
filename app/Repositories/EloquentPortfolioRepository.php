@@ -59,6 +59,14 @@ class EloquentPortfolioRepository extends EloquentBaseRepository implements Port
     }
 
     /**
+     * @return App\Models\Portfolio  $portfolio
+	 */
+    public function getWithSymbols()
+    {
+        return $this->withAll(['symbols']);
+    }
+
+    /**
      * Get the number of portfolios for auth user.
      *
      * @return int
