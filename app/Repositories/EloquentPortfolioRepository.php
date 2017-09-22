@@ -78,9 +78,9 @@ class EloquentPortfolioRepository extends EloquentBaseRepository implements Port
     {
         $portfolio = $this->model->findOrFail($data['portfolio_id']);
         
-        $portfolio->symbols()->attach($data['symbol_id']);
+        $portfolio->symbols()->attach($data['symbol_id']['id']);
 
-        $portfolioSymbol = $portfolio->symbols()->findOrFail($data['symbol_id']);
+        $portfolioSymbol = $portfolio->symbols()->findOrFail($data['symbol_id']['id']);
 
         return $portfolioSymbol;
     }

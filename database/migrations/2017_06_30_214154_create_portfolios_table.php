@@ -17,7 +17,7 @@ class CreatePortfoliosTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('name');
-            $table->string('currency');
+            $table->string('currency', 3)->default(App\Enums\Portfolio::CURRENCY);
             $table->integer('order');
             $table->timestamps();
 

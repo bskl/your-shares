@@ -1,5 +1,6 @@
 <script type="text/ecmascript-6">
-    import { symbolStore } from '../../stores/symbolStore.js';
+    import _ from 'lodash';
+    import vSelect from 'vue-select';
     import Modal from '../modals/modal/Modal.vue';
     import ModalHeading from '../modals/modal/ModalHeading.vue';
     import ModalBody from '../modals/modal/ModalBody.vue';
@@ -12,7 +13,7 @@
         name: 'AddSymbolModal',
 
         components: {
-            Modal, ModalHeading, ModalBody, Spinner,
+            vSelect, Modal, ModalHeading, ModalBody, Spinner,
         },
 
         /**
@@ -24,7 +25,7 @@
                     symbol_id: '',
                     portfolio_id: '',
                 }),
-                state: symbolStore.state,
+                symbols: [],
                 saving: false,
                 showModal: false,
             };
@@ -59,8 +60,28 @@
             close() {
                 this.showModal = false;
                 this.saving = false;
+                this.symbols = [];
                 this.form.reset();
             },
+
+            /**
+             * Search symbols.
+             */
+            searchSymbol(search, loading) {
+                loading(true)
+                this.getSymbol(search, loading, this)
+            },
+
+            getSymbol: _.debounce((search, loading, vm) => {
+                axios.get('/symbol/search', {
+                    params: {
+                        q: search
+                    }
+                }).then(response => {
+                    vm.symbols = response.data
+                    loading(false)
+                })
+            }, 250),
 
             /**
              * Save the symbol and hide the modal.
@@ -101,19 +122,20 @@
                         v-on:submit.prevent="saveSymbol" v-on:keydown="form.errors.clear($event.target.name)">
                     <div class="form-group">
                         <div class="col-md-12"
-                                v-bind:class="{ 'has-danger': form.errors.has('symbol_id') }">
-                            <select id="symbol_id" name="symbol_id" class="form-control"
-                                    v-bind:placeholder="$t('Search Symbol')" v-model="form.symbol_id">
-                                <option disabled value="">{{ $t("Search Symbol") }}</option>
-                                <option v-for="symbol in state.symbols" v-bind:value="symbol.id" :key="symbol.id">
-                                    {{ symbol.name }} {{ symbol.code }}
-                                </option>
-                            </select>
+                             v-bind:class="{ 'has-danger': form.errors.has('symbol_id') }">
+                            <v-select
+                                v-model="form.symbol_id"
+                                @search="searchSymbol"
+                                :options="symbols"
+                                :placeholder="$t('Search Symbol')"
+                                label="code"
+                            >
+                            </v-select>
 
                             <label class="sr-only" for="symbol_id">{{ $t("Search Symbol") }}</label>
 
                             <span class="form-text text-danger"
-                                    v-if="form.errors.has('symbol_id')" v-text="form.errors.get('symbol_id')"></span>
+                                  v-if="form.errors.has('symbol_id')" v-text="form.errors.get('symbol_id')"></span>
                         </div>
                     </div>
 

@@ -18,7 +18,7 @@ class PortfolioController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @param  App\Portfolios\PortfolioRepository  $portfolios
+     * @param  App\Contracts\PortfolioRepository  $portfolios
      * @return void
      */
     public function __construct(PortfolioRepository $portfolios)

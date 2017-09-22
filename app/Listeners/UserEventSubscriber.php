@@ -2,11 +2,27 @@
 
 namespace App\Listeners;
 
-use App\Models\Portfolio;
+use App\Contracts\PortfolioRepository;
 use Illuminate\Support\Facades\Lang;
 
 class UserEventSubscriber
 {
+    /**
+     * The portfolios instance.
+     */
+     protected $portfolios;
+     
+    /**
+     * Create a new instance.
+     *
+     * @param  App\Contracts\PortfolioRepository  $portfolios
+     * @return void
+     */
+    public function __construct(PortfolioRepository $portfolios)
+    {
+        $this->portfolios = $portfolios;
+    }
+    
     /**
      * Handle user register events.
      */
@@ -15,7 +31,7 @@ class UserEventSubscriber
         /**
          * Create standart portfolio data for new user.
          */
-        Portfolio::create([
+        $this->portfolios->create([
             'user_id' => $event->user->id,
             'name' => Lang::get('app.portfolio.default'),
             'order' => 1,

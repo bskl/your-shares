@@ -14,9 +14,10 @@
         "bootstrap": "^4.0.0-beta",
         "cross-env": "^5.0.1",
         "jquery": "^3.1.1",
-        "laravel-mix": "^1.0",
+        "laravel-mix": "^1.4.5",
         "lodash": "^4.17.4",
-        "vue": "^2.1.10"
+        "vue": "^2.4.4",
+        "vue-select": "^2.2.0"
     },
     "dependencies": {
         "local-storage": "^1.4.2",

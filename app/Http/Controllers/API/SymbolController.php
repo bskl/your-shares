@@ -17,7 +17,7 @@ class SymbolController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @param  App\Portfolios\SymbolRepository  $symbols
+     * @param  App\Contracts\SymbolRepository  $symbols
      * @return void
      */
     public function __construct(SymbolRepository $symbols)
@@ -26,17 +26,19 @@ class SymbolController extends Controller
     }
 
     /**
-     * Add the symbol on the given portfolio.
+     * Search the symbol on the given text.
      *
-     * @param  App\Models\Symbol     $symbol
-     * @return App\Models\Portfolio  $portfolio
+     * @param  Illuminate\Http\Request  $request
+     * @return App\Models\Symbol        $symbols
      */
-    public function addSymbolToPortfolio(Request $request)
+    public function searchSymbol(Request $request)
     {
-        $data = $request->all();
-        $symbol = Symbol::findOrFail($data['symbol_id']);
-        $symbol->portfolios()->sync($data['portfolio_id']);
+        $data = trim($request->get('q'));
 
-        return response()->json();
+        
+            $symbols = $this->symbols->searchByCode($data);
+
+            return response()->json($symbols);
+        
     }
 }

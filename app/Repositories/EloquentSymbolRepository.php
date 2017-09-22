@@ -23,4 +23,15 @@ class EloquentSymbolRepository extends EloquentBaseRepository implements SymbolR
     {
         $this->model = $symbol;
     }
+
+    /**
+     * Update the portfolio with given data.
+     *
+     * @param  array   $data
+     * @return App\Models\Symbol  $symbols
+     */
+    public function searchByCode(string $data)
+    {
+        return $this->model->select('id', 'code')->where('code', 'LIKE', "%$data%")->get();
+    }
 }

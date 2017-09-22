@@ -25,5 +25,7 @@ Route::namespace('API')->group(function () {
         Route::put(   '/portfolio/{portfolio}', 'PortfolioController@update');
         Route::delete('/portfolio/{portfolio}', 'PortfolioController@destroy');
         Route::post(  '/portfolio/add-symbol', 'PortfolioController@addSymbolToPortfolio');
+
+        Route::get(  '/symbol/search', 'SymbolController@searchSymbol');
     });
 });

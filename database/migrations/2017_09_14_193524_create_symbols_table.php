@@ -18,9 +18,9 @@ class CreateSymbolsTable extends Migration
             $table->string('code', 10)->unique();
             $table->string('name')->nullable();
             $table->string('title')->nullable();
-            $table->decimal('last_price', 2);
-            $table->tinyInteger('change');
-            $table->decimal('rate_of_change', 2);
+            $table->integer('last_price');
+            $table->integer('rate_of_change');
+            $table->integer('rate_of_price');
             $table->timestamps();
         });
     }
