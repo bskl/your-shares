@@ -3,7 +3,6 @@
 namespace App\Listeners;
 
 use App\Contracts\PortfolioRepository;
-use Illuminate\Support\Facades\Lang;
 
 class UserEventSubscriber
 {
@@ -31,11 +30,7 @@ class UserEventSubscriber
         /**
          * Create standart portfolio data for new user.
          */
-        $this->portfolios->create([
-            'user_id' => $event->user->id,
-            'name' => Lang::get('app.portfolio.default'),
-            'order' => 1,
-        ]);
+        $this->portfolios->createDefaultPortfolio($event->user->id);
     }
 
     /**

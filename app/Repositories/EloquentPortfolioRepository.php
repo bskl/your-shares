@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Portfolio;
 use App\Contracts\PortfolioRepository;
 use App\Repositories\EloquentBaseRespository;
+use Illuminate\Support\Facades\Lang;
 
 class EloquentPortfolioRepository extends EloquentBaseRepository implements PortfolioRepository
 {
@@ -28,11 +29,26 @@ class EloquentPortfolioRepository extends EloquentBaseRepository implements Port
      * Create a new portfolio for the given data.
      *
      * @param  array  $data
-     * @return int
+     * @return App\Models\Portfolio  $portfolio
      */
     public function create(array $data)
     {
         return $this->model->create($data);
+    }
+
+    /**
+     * Create standart portfolio data for given user.
+     *
+     * @param  integer  $userId
+     * @return App\Models\Portfolio  $portfolio
+     */
+    public function createDefaultPortfolio(int $userId)
+    {
+        $this->create([
+            'user_id' => $userId,
+            'name' => Lang::get('app.portfolio.default'),
+            'order' => 1,
+        ]);
     }
 
     /**
@@ -56,6 +72,14 @@ class EloquentPortfolioRepository extends EloquentBaseRepository implements Port
     public function delete(Portfolio $portfolio)
     {
         return $portfolio->delete();
+    }
+
+    /**
+     * @return App\Models\Portfolio  $portfolio
+	 */
+    public function getWithSymbols()
+    {
+        return $this->withAll(['symbols']);
     }
 
     /**

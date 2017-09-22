@@ -7,7 +7,13 @@ interface BaseRepository
     /**
 	 * @return mixed
 	 */
-	public function all();
+    public function all();
+    
+    /**
+     * @param array $with
+     * @return mixed
+	 */
+	public function withAll(array $with);
     
     /**
      * @param  int  $id
