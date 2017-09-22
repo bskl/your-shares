@@ -47653,7 +47653,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         Bus.$on('portfolioAdded', function (payload) {
-            return _this.pushCreatedPortfolio(payload.portfolio);
+            return _this.pushCreatedPortfolio(payload.portfolios);
         });
         Bus.$on('portfolioUpdated', function (payload) {
             return _this.changeUpdatedPortfolio(payload.portfolio);
@@ -47672,8 +47672,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         /**
          * Push created portfolio to portfolios.
          */
-        pushCreatedPortfolio: function pushCreatedPortfolio(portfolio) {
-            this.state.portfolios.push(portfolio);
+        pushCreatedPortfolio: function pushCreatedPortfolio(portfolios) {
+            this.state.portfolios = portfolios;
+            Bus.$off('portfolioAdded');
         },
 
 
@@ -47684,6 +47685,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             console.log(portfolio);
             var indexOfItem = _.findIndex(this.state.portfolios, ['id', portfolio.id]);
             this.state.portfolios.splice(indexOfItem, 1, portfolio);
+            Bus.$off('portfolioUpdated');
         },
 
 
@@ -47693,6 +47695,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         deleteDeletedPortfolio: function deleteDeletedPortfolio(portfolioId) {
             var indexOfItem = _.findIndex(this.state.portfolios, ['id', portfolioId]);
             this.state.portfolios.splice(indexOfItem);
+            Bus.$off('portfolioDeleted');
         },
 
 
@@ -47702,6 +47705,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         pushSymbolToPortfolio: function pushSymbolToPortfolio(symbol) {
             var indexOfItem = _.findIndex(this.state.portfolios, ['id', symbol.pivot.portfolio_id]);
             this.state.portfolios[indexOfItem].symbols.push(symbol);
+            Bus.$off('symbolAdded');
         },
 
 
@@ -47868,7 +47872,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.form.post('/portfolio').then(function (response) {
                 Bus.$emit('portfolioAdded', {
-                    portfolio: response.data
+                    portfolios: response.data
                 });
 
                 _this2.close();
@@ -49130,7 +49134,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             !portfolio.symbols.length
-              ? _c("div", { staticClass: "marketing" }, [
+              ? _c("div", { staticClass: "no-symbol" }, [
                   _c("p", { staticClass: "lead" }, [
                     _vm._v(
                       "\n                " +
@@ -49187,7 +49191,7 @@ var render = function() {
         )
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "row justify-content-end marketing" }, [
+      _c("div", { staticClass: "row justify-content-end no-symbol" }, [
         _c(
           "button",
           {

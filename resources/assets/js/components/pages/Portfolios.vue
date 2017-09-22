@@ -27,7 +27,7 @@
          * Prepare the component.
          */
         mounted() {
-            Bus.$on('portfolioAdded', payload => this.pushCreatedPortfolio(payload.portfolio));
+            Bus.$on('portfolioAdded', payload => this.pushCreatedPortfolio(payload.portfolios));
             Bus.$on('portfolioUpdated', payload => this.changeUpdatedPortfolio(payload.portfolio));
             Bus.$on('portfolioDeleted', payload => this.deleteDeletedPortfolio(payload.portfolioId));
             Bus.$on('symbolAdded', payload => this.pushSymbolToPortfolio(payload.symbol));
@@ -41,8 +41,9 @@
             /**
              * Push created portfolio to portfolios.
              */
-            pushCreatedPortfolio(portfolio) {
-                this.state.portfolios.push(portfolio);
+            pushCreatedPortfolio(portfolios) {
+                this.state.portfolios = portfolios;
+                Bus.$off('portfolioAdded');
             },
 
             /**
@@ -52,6 +53,7 @@
                 console.log(portfolio);
                 let indexOfItem = _.findIndex(this.state.portfolios, ['id', portfolio.id]);
                 this.state.portfolios.splice(indexOfItem, 1, portfolio);
+                Bus.$off('portfolioUpdated');
             },
 
             /**
@@ -60,6 +62,7 @@
             deleteDeletedPortfolio(portfolioId) {
                 let indexOfItem = _.findIndex(this.state.portfolios, ['id', portfolioId]);
                 this.state.portfolios.splice(indexOfItem);
+                Bus.$off('portfolioDeleted');
             },
 
             /**
@@ -68,6 +71,7 @@
             pushSymbolToPortfolio(symbol) {
                 let indexOfItem = _.findIndex(this.state.portfolios, ['id', symbol.pivot.portfolio_id]);
                 this.state.portfolios[indexOfItem].symbols.push(symbol);
+                Bus.$off('symbolAdded');
             },
 
             /**
@@ -114,7 +118,7 @@
                 </nav>
                 <h4 class="text-muted float-left">{{ portfolio.name }}</h4>
             </div>
-            <div class="marketing" v-if="!portfolio.symbols.length">
+            <div class="no-symbol" v-if="!portfolio.symbols.length">
                 <p class="lead">
                     {{ $t("You have not created any symbol.") }}
                 </p>
@@ -131,7 +135,7 @@
             </div>
         </div>
 
-        <div class="row justify-content-end marketing">
+        <div class="row justify-content-end no-symbol">
             <button class="btn btn-primary"
                     @click="showAddPortfolioModal()">{{ $t("Add Portfolio") }}</button>
         </div>
