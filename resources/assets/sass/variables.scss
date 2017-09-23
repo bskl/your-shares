@@ -6,7 +6,7 @@ body {
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
-.marketing,
+.no-symbol,
 .footer {
   padding-right: 1rem;
   padding-left: 1rem;
@@ -62,7 +62,6 @@ body {
   margin: 2rem 0;
 }
 
-/* Main marketing message and sign up button */
 .symbol {
   border-bottom: .05rem solid #e5e5e5;
 }
@@ -73,11 +72,10 @@ body {
   line-height: 1.1;
 }
 
-/* Supporting marketing content */
-.marketing {
+.no-symbol {
   margin: 3rem 0;
 }
-.marketing p + h4 {
+.no-symbol p + h4 {
   margin-top: 1.5rem;
 }
 
@@ -85,7 +83,7 @@ body {
 @media screen and (min-width: 48em) {
   /* Remove the padding we set earlier */
   .header,
-  .marketing,
+  .no-symbol,
   .footer {
     padding-right: 0;
     padding-left: 0;
