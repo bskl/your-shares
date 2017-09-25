@@ -9,7 +9,7 @@ class Symbol extends BaseModel
      *
      * @var array
      */
-     protected $guarded = [
+    protected $guarded = [
         'id',
     ];
 
@@ -27,15 +27,15 @@ class Symbol extends BaseModel
      *
      * @var array
      */
-     protected $hidden = [
+    protected $hidden = [
         'created_at', 'updated_at',
     ];
 
     /**
      * The portfolios that belong to the symbol.
      */
-     public function portfolios()
-     {
-         return $this->belongsToMany('App\Models\Portfolio');
-     }
+    public function portfolios()
+    {
+        return $this->belongsToMany('App\Models\Portfolio');
+    }
 }

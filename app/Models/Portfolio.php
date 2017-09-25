@@ -7,6 +7,7 @@ use App\Traits\CanFilterByUser;
 class Portfolio extends BaseModel
 {
     use CanFilterByUser;
+
     /**
      * The attributes that aren't mass assignable.
      *
@@ -30,7 +31,7 @@ class Portfolio extends BaseModel
      *
      * @var array
      */
-     protected $hidden = [
+    protected $hidden = [
         'user_id', 'created_at', 'updated_at',
     ];
 
