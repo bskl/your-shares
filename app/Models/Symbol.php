@@ -19,7 +19,7 @@ class Symbol extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'code', 'name', 'title',
+        'code', 'name', 'title', 'change', 'last_price', 'rate_of_change', 'session_time',
     ];
 
     /**

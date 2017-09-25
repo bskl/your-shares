@@ -31,8 +31,8 @@ class User extends Authenticatable
     /**
      * Get the portfolios for the user.
      */
-     public function portfolios()
-     {
-         return $this->hasMany('App\Models\Portfolio');
-     }
+    public function portfolios()
+    {
+        return $this->hasMany('App\Models\Portfolio');
+    }
 }
