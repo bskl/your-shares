@@ -2,8 +2,9 @@
 
 namespace App\Console\Commands;
 
+
+use App\Contracts\SymbolRepository;
 use Illuminate\Console\Command;
-use App\Models\Symbol;
 use Carbon\Carbon;
 
 class SetSymbols extends Command
@@ -22,9 +23,22 @@ class SetSymbols extends Command
      */
     protected $description = 'Set symbols with xml file from web service.';
 
-    public function __construct()
+    /**
+     * The symbols instance.
+     */
+    protected $symbols;
+
+    /**
+     * Create a new instance.
+     *
+     * @param  App\Contracts\SymbolRepository  $symbols
+     * @return void
+     */
+    public function __construct(SymbolRepository $symbols)
     {
-    	parent::__construct();    	
+        parent::__construct();
+
+        $this->symbols = $symbols;
     }
 
     /**
@@ -91,8 +105,7 @@ class SetSymbols extends Command
     protected function storeSymbols($symbols)
     {
         foreach($symbols as $key => $value) {
-            Symbol::updateOrCreate([
-                'code' => $key], [
+            $this->symbols->updateOrCreate(['code' => $key], [
                 'change' => (int)$value[0],
                 'last_price' => $this->deleteFloat($value[1]),
                 'rate_of_change' => $this->deleteFloat($value[4]),
