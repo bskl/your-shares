@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Money\Currencies\ISOCurrencies;
-use Money\Formatter\IntlMoneyFormatter;
+use Money\Formatter\DecimalMoneyFormatter;
 use Illuminate\Database\Eloquent\Model;
 
 class BaseModel extends Model
@@ -15,13 +15,11 @@ class BaseModel extends Model
      * @param  string  $locale
      * @return string
      */
-    public function getFormattedAmount(\Money\Money $money, string $locale)
+    public function getFormattedAmount(\Money\Money $money)
     {
         $currencies = new ISOCurrencies();
         
-        $numberFormatter = new \NumberFormatter('tr_TR', \NumberFormatter::CURRENCY);
-        
-        $moneyFormatter = new IntlMoneyFormatter($numberFormatter, $currencies);
+        $moneyFormatter = new DecimalMoneyFormatter($currencies);
 
         return $moneyFormatter->format($money);
     }

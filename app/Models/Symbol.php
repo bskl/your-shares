@@ -40,7 +40,7 @@ class Symbol extends BaseModel
      * @var array
      */
     protected $appends = [
-        'last_price_formatted', 'spread',
+        'last_price_formatted',
     ];
 
     /**
@@ -64,7 +64,7 @@ class Symbol extends BaseModel
      */
     public function getLastPriceFormattedAttribute()
     {
-        return $this->getFormattedAmount($this->last_price, 'tr_TR');
+        return $this->getFormattedAmount($this->last_price);
     }
 
     /**
@@ -73,13 +73,5 @@ class Symbol extends BaseModel
     public function getRateOfChangeAttribute()
     {
         return (float) ($this->attributes['rate_of_change'] / 100);
-    }
-
-    /**
-     * Get the rate_of_change attribute with percentage formatted.
-     */
-    public function getSpreadAttribute()
-    {
-        $lastPrice = $this->last_price->getAmount();
     }
 }
