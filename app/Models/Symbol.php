@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Money\Money;
+use Money\Currency;
+
 class Symbol extends BaseModel
 {
     /**
@@ -32,10 +35,51 @@ class Symbol extends BaseModel
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'last_price_formatted', 'spread',
+    ];
+
+    /**
      * The portfolios that belong to the symbol.
      */
     public function portfolios()
     {
         return $this->belongsToMany('App\Models\Portfolio');
+    }
+
+    /**
+     * Get the last_price attribute with money object.
+     */
+    public function getLastPriceAttribute()
+    {
+        return new Money($this->attributes['last_price'], new Currency('TRY'));
+    }
+
+    /**
+     * Get the last_price attribute with the given formatted money.
+     */
+    public function getLastPriceFormattedAttribute()
+    {
+        return $this->getFormattedAmount($this->last_price, 'tr_TR');
+    }
+
+    /**
+     * Get the rate_of_change attribute with divided 100.
+     */
+    public function getRateOfChangeAttribute()
+    {
+        return (float) ($this->attributes['rate_of_change'] / 100);
+    }
+
+    /**
+     * Get the rate_of_change attribute with percentage formatted.
+     */
+    public function getSpreadAttribute()
+    {
+        $lastPrice = $this->last_price->getAmount();
     }
 }

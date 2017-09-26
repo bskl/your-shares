@@ -73,7 +73,7 @@ class SetSymbols extends Command
     protected function getStocks($data)
     {
         if($data['session'] === "error") {
-            echo "Session has error.";
+            exit("Dosyası açılamadı");
         } else {
             return $data['stocks'];
         }
@@ -91,15 +91,20 @@ class SetSymbols extends Command
     }
 
     protected function convertToInt($val)
-    { 
-        if(strpos($val, ",")) { 
-            $val = str_replace(",", "", $val);
+    {
+        if(is_numeric($val)) {
+            return (int)$val = $val * 100;
         }
-        if(strpos($val, ".")) {
-            $val = $val * 100;
+
+        if(preg_match('#^\d*[\.,]\d$#', $val)) { 
+            return (int)$val = str_replace(',', '', $val);
         }
-        
-        return (int)$val;  
+
+        if(preg_match('#\d*([.,\/]?\d+)#', $val)) {
+            return (int)$val = str_replace([',', '.'], '', $val);
+        }
+
+        throw new \InvalidArgumentException("Not a valid currency amount");
     }
 
     protected function storeSymbols($symbols)

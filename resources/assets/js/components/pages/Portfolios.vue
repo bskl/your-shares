@@ -125,9 +125,9 @@
             </div>
             <div class="symbol" v-else v-for="symbol in portfolio.symbols" :key="symbol.id">
                 <span class="code">{{ symbol.code }}</span>
-                <span class="code" v-bind:class="{ 'text-danger': symbol.change == -1, 'text-success': symbol.change == 1 }">{{ symbol.last_price }}</span>
+                <span class="code" v-bind:class="{ 'text-danger': symbol.change == -1, 'text-success': symbol.change == 1 }">{{ symbol.last_price_formatted }}</span>
                 <span class="code" v-bind:class="{ 'text-danger': symbol.change == -1, 'text-success': symbol.change == 1 }">{{ symbol.rate_of_change }}</span>
-                <span class="code">0,10</span>
+                <span class="code">{{ symbol.spread }}</span>
                 <span class="code">100</span>
                 <span class="code">10.50</span>
                 <span class="code">1050</span>
