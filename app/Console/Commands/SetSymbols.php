@@ -90,7 +90,7 @@ class SetSymbols extends Command
         return $symbols;
     }
 
-    protected function deleteFloat($val)
+    protected function convertToInt($val)
     { 
         if(strpos($val, ",")) { 
             $val = str_replace(",", "", $val);
@@ -107,8 +107,8 @@ class SetSymbols extends Command
         foreach($symbols as $key => $value) {
             $this->symbols->updateOrCreate(['code' => $key], [
                 'change' => (int)$value[0],
-                'last_price' => $this->deleteFloat($value[1]),
-                'rate_of_change' => $this->deleteFloat($value[4]),
+                'last_price' => $this->convertToInt($value[1]),
+                'rate_of_change' => $this->convertToInt($value[4]),
                 'session_time' => Carbon::parse($value[10]),
             ]);
         }
