@@ -35,7 +35,6 @@ class DataController extends Controller
         return [
             'user' => Auth()->user(),
             'portfolios' => $this->portfolios->getWithSymbols(),
-            'symbols' => Symbol::get(),
         ];
     }
 }

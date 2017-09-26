@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Symbol;
 use App\Contracts\SymbolRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -35,10 +34,8 @@ class SymbolController extends Controller
     {
         $data = trim($request->get('q'));
 
-        
-            $symbols = $this->symbols->searchByCode($data);
+        $symbols = $this->symbols->searchByCode($data);
 
-            return response()->json($symbols);
-        
+        return response()->json($symbols);
     }
 }
