@@ -14,7 +14,7 @@ class SetSymbols extends Command
      *
      * @var string
      */
-    protected $signature = 'set-symbols';
+    protected $signature = 'yourshares:set-symbols';
 
     /**
      * The console command description.
