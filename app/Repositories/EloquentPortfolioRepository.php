@@ -34,8 +34,6 @@ class EloquentPortfolioRepository extends EloquentBaseRepository implements Port
     public function create(array $data)
     {
         $this->model->create($data);
-
-        return $this->getWithSymbols();
     }
 
     /**
@@ -60,7 +58,7 @@ class EloquentPortfolioRepository extends EloquentBaseRepository implements Port
      * @param  array   $data
      * @return App\Models\Portfolio  $portfolio
      */
-    public function update(array $data, Portfolio $portfolio)
+    public function update(Portfolio $portfolio, array $data)
     {
         return $portfolio->update($data);
     }
@@ -77,14 +75,6 @@ class EloquentPortfolioRepository extends EloquentBaseRepository implements Port
     }
 
     /**
-     * @return App\Models\Portfolio  $portfolio
-	 */
-    public function getWithSymbols()
-    {
-        return $this->withAll(['symbols']);
-    }
-
-    /**
      * Get the number of portfolios for auth user.
      *
      * @return int
@@ -92,22 +82,5 @@ class EloquentPortfolioRepository extends EloquentBaseRepository implements Port
     public function count()
     {
         return $this->model->byCurrentUser()->count();
-    }
-
-    /**
-     * Attach symbol to given user's portfolio.
-     *
-     * @param  array  $data
-     * @return void
-     */
-    public function attachSymbolToPortfolio(array $data)
-    {
-        $portfolio = $this->model->findOrFail($data['portfolio_id']);
-        
-        $portfolio->symbols()->attach($data['symbol_id']['id']);
-
-        $portfolioSymbol = $portfolio->symbols()->findOrFail($data['symbol_id']['id']);
-
-        return $portfolioSymbol;
     }
 }

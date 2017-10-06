@@ -32,6 +32,6 @@ class EloquentSymbolRepository extends EloquentBaseRepository implements SymbolR
      */
     public function searchByCode(string $data)
     {
-        return $this->model->select('id', 'code')->where('code', 'LIKE', "%$data%")->get();
+        return $this->model->where('code', 'LIKE', "%$data%")->get();
     }
 }

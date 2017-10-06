@@ -33,5 +33,15 @@ class AppServiceProvider extends ServiceProvider
             'App\Contracts\SymbolRepository',
             'App\Repositories\EloquentSymbolRepository'
         );
+
+        $this->app->bind(
+            'App\Contracts\PortfolioSymbolRepository',
+            'App\Repositories\EloquentPortfolioSymbolRepository'
+        );
+
+        $this->app->bind(
+            'App\Contracts\TransactionRepository',
+            'App\Repositories\EloquentTransactionRepository'
+        );
     }
 }

@@ -6,7 +6,6 @@ use App\Models\Portfolio;
 use App\Contracts\PortfolioRepository;
 use App\Http\Requests\API\PortfolioRequest;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class PortfolioController extends Controller
 {
@@ -53,7 +52,7 @@ class PortfolioController extends Controller
      */
     public function update(PortfolioRequest $request, Portfolio $portfolio)
     {
-        $this->portfolios->update($request->all(), $portfolio);
+        $this->portfolios->update($portfolio, $request->all());
         
         return response()->json($portfolio);
     }
@@ -69,18 +68,5 @@ class PortfolioController extends Controller
         $this->portfolios->delete($portfolio);
 
         return response()->json();
-    }
-
-    /**
-     * Add the symbol of the given portfolio.
-     *
-     * @param  Request     $request
-     * @return void
-     */
-    public function addSymbolToPortfolio(Request $request)
-    {
-        $portfolioSymbols = $this->portfolios->attachSymbolToPortfolio($request->all());
-
-        return response()->json($portfolioSymbols);
     }
 }

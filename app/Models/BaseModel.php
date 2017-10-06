@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Money\Money;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
+use Money\Parser\DecimalMoneyParser;
 use Illuminate\Database\Eloquent\Model;
 
 class BaseModel extends Model
@@ -15,12 +17,23 @@ class BaseModel extends Model
      * @param  string  $locale
      * @return string
      */
-    public function getFormattedAmount(\Money\Money $money)
+    public function getFormattedAmount(Money $money)
     {
         $currencies = new ISOCurrencies();
         
         $moneyFormatter = new DecimalMoneyFormatter($currencies);
 
         return $moneyFormatter->format($money);
+    }
+
+    public function decimalParser($value)
+    {
+        $currencies = new ISOCurrencies();
+
+        $moneyParser = new DecimalMoneyParser($currencies);
+
+        $money = $moneyParser->parse($value, 'TRY');
+
+        return $money->getAmount();
     }
 }

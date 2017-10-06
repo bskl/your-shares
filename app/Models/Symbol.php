@@ -44,14 +44,6 @@ class Symbol extends BaseModel
     ];
 
     /**
-     * The portfolios that belong to the symbol.
-     */
-    public function portfolios()
-    {
-        return $this->belongsToMany('App\Models\Portfolio');
-    }
-
-    /**
      * Get the last_price attribute with money object.
      */
     public function getLastPriceAttribute()
@@ -64,7 +56,7 @@ class Symbol extends BaseModel
      */
     public function getLastPriceFormattedAttribute()
     {
-        return $this->getFormattedAmount($this->last_price);
+        return $this->getFormattedAmount($this->getLastPriceAttribute());
     }
 
     /**

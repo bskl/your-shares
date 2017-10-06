@@ -30,7 +30,7 @@ interface PortfolioRepository extends BaseRepository
      * @param  array   $data
      * @return App\Models\Portfolio  $portfolio
      */
-    public function update(array $data, Portfolio $portfolio);
+    public function update(Portfolio $portfolio, array $data);
 
     /**
      * Delete the portfolio.
@@ -41,22 +41,9 @@ interface PortfolioRepository extends BaseRepository
     public function delete(Portfolio $portfolio);
 
     /**
-     * @return App\Models\Portfolio  $portfolio
-	 */
-	public function getWithSymbols();
-
-    /**
      * Get the number of portfolios for auth user.
      *
      * @return int
      */
     public function count();
-
-    /**
-     * Attach symbol to given user's portfolio.
-     *
-     * @param  array  $data
-     * @return void
-     */
-     public function attachSymbolToPortfolio(array $data);
 }
