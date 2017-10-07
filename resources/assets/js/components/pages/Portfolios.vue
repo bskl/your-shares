@@ -1,8 +1,8 @@
 <script type="text/ecmascript-6">
     import { portfolioStore } from '../../stores/portfolioStore.js';
-    import AddPortfolioModal from '../Modals/AddPortfolioModal.vue';
-    import EditPortfolioModal from '../Modals/EditPortfolioModal.vue';
-    import AddSymbolModal from '../Modals/AddSymbolModal.vue';
+    import AddPortfolioModal from '../modals/AddPortfolioModal.vue';
+    import EditPortfolioModal from '../modals/EditPortfolioModal.vue';
+    import AddSymbolModal from '../modals/AddSymbolModal.vue';
 
     export default {
         /*

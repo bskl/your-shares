@@ -15,10 +15,13 @@ use Illuminate\Http\Request;
 
 Route::namespace('API')->group(function () {
     Route::post('/register', 'Auth\RegisterController@store');
-    Route::post('/login', 'Auth\LoginController@login'); 
+    Route::post('/login', 'Auth\LoginController@login');
     //Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail');
     //Route::post('/password/reset', 'ResetPasswordController@reset');
     Route::middleware('auth:api')->group(function () {
+        Route::post('/logout', 'Auth\LogoutController@logout');
+        Route::get('/locale/{locale}', 'UserController@setLocale');
+
         Route::get('/data', 'DataController@getData');
 
         Route::post(  '/portfolio', 'PortfolioController@store');

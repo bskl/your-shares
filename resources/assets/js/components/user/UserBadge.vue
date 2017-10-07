@@ -15,11 +15,26 @@
                 state: userStore.state
             }
         },
+
+        methods: {
+            logout () {
+                userStore.logout()
+            }
+        }
     }
 </script>
 
 <template>
-    <li class="nav-item">
-        <span class="nav-link">{{ state.user.name }}</span>
-    </li>
+    <nav>
+        <ul class="nav nav-pills float-right">
+            <li class="nav-item">
+                <span class="nav-link">{{ state.user.name }}</span>
+            </li>
+            <li class="nav-item">
+                <span class="nav-link">
+                    <router-link v-on:click.native="logout" to="/">{{ $t("Logout") }}</router-link>
+                </span>
+            </li>
+        </ul>
+    </nav>
 </template>

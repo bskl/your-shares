@@ -1,3 +1,4 @@
+import { http } from '../services/http.js';
 import { ls } from '../services/ls.js';
 import router from '../router/';
 
@@ -53,5 +54,21 @@ export const userStore = {
         }
 
         return true;
+    },
+
+    /**
+     * Log the current user out.
+     */
+    logout () {
+        return new Promise((resolve, reject) => {
+            http.post('logout', {}, ({ data }) => {
+                ls.remove('access_token')
+                window.onbeforeunload = function () {}
+
+                resolve(data)
+ 
+                window.location.reload()
+            }, error => reject(error))
+        })
     }
 }

@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 
 class RegisterController extends Controller
 {
+    use LoginUsers;
+
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -51,8 +53,6 @@ class RegisterController extends Controller
 
         event(new Registered($user));
 
-        return $this->loginController->attempLogin(
-            $this->loginController->credentials($request)
-        );
+        return $this->loginUser($request);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Models\Symbol;
 use App\Contracts\PortfolioRepository;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class DataController extends Controller
@@ -33,7 +34,7 @@ class DataController extends Controller
     public function getData()
     {
         return [
-            'user' => Auth()->user(),
+            'user' => Auth::user(),
             'portfolios' => $this->portfolios->getWithSymbols(),
         ];
     }

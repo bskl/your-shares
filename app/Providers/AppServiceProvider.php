@@ -14,7 +14,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        \Horizon::auth(function ($request) {
+            dd(auth()->user());
+        });
     }
 
     /**

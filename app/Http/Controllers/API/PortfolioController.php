@@ -6,6 +6,7 @@ use App\Models\Portfolio;
 use App\Contracts\PortfolioRepository;
 use App\Http\Requests\API\PortfolioRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class PortfolioController extends Controller
@@ -36,7 +37,7 @@ class PortfolioController extends Controller
     {
         $order = $this->portfolios->count();
         $data = $request->all();
-        $data['user_id'] = auth()->user()->id;
+        $data['user_id'] = Auth::user()->id;
         $data['order'] = ++$order;
 
         $portfolio = $this->portfolios->create($data);

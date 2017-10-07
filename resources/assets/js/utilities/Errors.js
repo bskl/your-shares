@@ -4,6 +4,7 @@ class Errors {
      */
     constructor() {
         this.errors = {};
+        this.message = null;
     }
 
 
@@ -13,7 +14,7 @@ class Errors {
      * @param {string} field
      */
     has(field) {
-        return this.errors.hasOwnProperty(field);
+        return this.any() && this.errors.hasOwnProperty(field);
     }
 
 
@@ -21,7 +22,7 @@ class Errors {
      * Determine if we have any errors.
      */
     any() {
-        return Object.keys(this.errors).length > 0;
+        return ! _.isEmpty(this.errors);
     }
 
 
@@ -31,19 +32,19 @@ class Errors {
      * @param {string} field
      */
     get(field) {
-        if (this.errors[field]) {
+        if (this.any() && this.errors[field]) {
             return this.errors[field][0];
         }
     }
 
-
     /**
-     * Record the new errors.
+     * Record the new errors and message.
      *
-     * @param {object} error
+     * @param {object} data
      */
-    record(errors) {
-        this.errors = errors;
+    record(data) {
+        this.errors = data.errors;
+        this.message = data.message;
     }
 
 
@@ -55,11 +56,15 @@ class Errors {
     clear(field) {
         if (field) {
             delete this.errors[field];
+            if (! this.any()) {
+                this.message = null;
+            }
 
             return;
         }
 
         this.errors = {};
+        this.message = null;
     }
 }
 

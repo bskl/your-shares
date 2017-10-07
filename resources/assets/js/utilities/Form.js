@@ -97,7 +97,7 @@ class Form {
                 this.onSuccess(response.data);
                 resolve(response);
             }, error => {
-                this.onFail(error.response.data.errors);
+                this.onFail(error.response.data);
                 reject(error.response.data);
             });
         });
@@ -117,10 +117,10 @@ class Form {
     /**
      * Handle a failed form submission.
      *
-     * @param {object} errors
+     * @param {object} data
      */
-    onFail(errors) {
-        this.errors.record(errors);
+    onFail(data) {
+        this.errors.record(data);
     }
 }
 

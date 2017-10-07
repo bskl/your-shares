@@ -17,12 +17,13 @@
         "laravel-mix": "^1.4.5",
         "lodash": "^4.17.4",
         "vue": "^2.4.4",
-        "vue-select": "^2.2.0"
-    },
-    "dependencies": {
+        "vue-select": "^2.3.0",
         "local-storage": "^1.4.2",
         "nprogress": "^0.2.0",
-        "vue-i18n": "^7.2.0",
+        "popper.js": "^1.12.5",
+        "vue-i18n": "^7.3.0",
         "vue-router": "^2.7.0"
+    },
+    "dependencies": {
     }
 }
