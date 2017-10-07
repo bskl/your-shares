@@ -27,8 +27,11 @@ Route::namespace('API')->group(function () {
         Route::post(  '/portfolio', 'PortfolioController@store');
         Route::put(   '/portfolio/{portfolio}', 'PortfolioController@update');
         Route::delete('/portfolio/{portfolio}', 'PortfolioController@destroy');
-        Route::post(  '/portfolio/add-symbol', 'PortfolioController@addSymbolToPortfolio');
 
-        Route::get(  '/symbol/search', 'SymbolController@searchSymbol');
+        Route::post('/portfolio/add-symbol', 'PortfolioSymbolController@store');
+
+        Route::post('/transaction', 'TransactionController@store');
+
+        Route::get('/symbol/search', 'SymbolController@searchSymbol');
     });
 });

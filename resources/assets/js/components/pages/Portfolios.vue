@@ -3,6 +3,7 @@
     import AddPortfolioModal from '../modals/AddPortfolioModal.vue';
     import EditPortfolioModal from '../modals/EditPortfolioModal.vue';
     import AddSymbolModal from '../modals/AddSymbolModal.vue';
+    import AddTransactionModal from '../modals/AddTransactionModal.vue';
 
     export default {
         /*
@@ -11,7 +12,7 @@
         name: 'Portfolios',
 
         components: {
-            AddPortfolioModal, EditPortfolioModal, AddSymbolModal,
+            AddPortfolioModal, EditPortfolioModal, AddSymbolModal, AddTransactionModal,
         },
 
         /*
@@ -27,10 +28,11 @@
          * Prepare the component.
          */
         mounted() {
-            Bus.$on('portfolioAdded', payload => this.pushCreatedPortfolio(payload.portfolios));
-            Bus.$on('portfolioUpdated', payload => this.changeUpdatedPortfolio(payload.portfolio));
-            Bus.$on('portfolioDeleted', payload => this.deleteDeletedPortfolio(payload.portfolioId));
+            Bus.$on('portfolioAdded', payload => this.pushPortfolio(payload.portfolios));
+            Bus.$on('portfolioUpdated', payload => this.updatePortfolio(payload.portfolio));
+            Bus.$on('portfolioDeleted', payload => this.deletePortfolio(payload.portfolioId));
             Bus.$on('symbolAdded', payload => this.pushSymbolToPortfolio(payload.symbol));
+            Bus.$on('transactionAdded', payload => this.updateSymbol(payload.symbol));
         },
 
         created() {
@@ -41,37 +43,50 @@
             /**
              * Push created portfolio to portfolios.
              */
-            pushCreatedPortfolio(portfolios) {
+            pushPortfolio(portfolios) {
                 this.state.portfolios = portfolios;
-                Bus.$off('portfolioAdded');
+                Bus.$off('portfolioAdded', portfolios);
             },
 
             /**
              * Change updated portfolio on portfolios.
              */
-            changeUpdatedPortfolio(portfolio) {
-                console.log(portfolio);
+            updatePortfolio(portfolio) {
                 let indexOfItem = _.findIndex(this.state.portfolios, ['id', portfolio.id]);
                 this.state.portfolios.splice(indexOfItem, 1, portfolio);
-                Bus.$off('portfolioUpdated');
+                Bus.$off('portfolioUpdated', portfolio);
             },
 
             /**
              * Delete deleted portfolio on portfolios.
              */
-            deleteDeletedPortfolio(portfolioId) {
+            deletePortfolio(portfolioId) {
                 let indexOfItem = _.findIndex(this.state.portfolios, ['id', portfolioId]);
                 this.state.portfolios.splice(indexOfItem);
-                Bus.$off('portfolioDeleted');
+                Bus.$off('portfolioDeleted', portfolioId);
             },
 
             /**
              * Push added symbol to given portfolio.
              */
             pushSymbolToPortfolio(symbol) {
-                let indexOfItem = _.findIndex(this.state.portfolios, ['id', symbol.pivot.portfolio_id]);
+                let indexOfItem = _.findIndex(this.state.portfolios, ['id', symbol.portfolio_id]);
                 this.state.portfolios[indexOfItem].symbols.push(symbol);
-                Bus.$off('symbolAdded');
+                Bus.$off('symbolAdded', symbol);
+            },
+
+            /**
+             * Change updated symbol on portfolios.
+             */
+            updateSymbol(symbol) {
+                _.forEach(this.state.portfolios, function(value, key) {
+                    let indexOfItem = _.findIndex(value.symbols, ['id', symbol.id]);
+                    if(indexOfItem != -1) {
+                        value.symbols.splice(indexOfItem, 1, symbol);
+                        break;
+                    }
+                });
+                Bus.$off('transactionAdded', symbol);
             },
 
             /**
@@ -94,6 +109,13 @@
             showAddSymbolModal(portfolioId) {
                 this.$refs.addSymbolModal.open(portfolioId);
             },
+
+            /**
+             * Open the modal for adding a new transaction.
+             */
+            showAddTransactionModal(portfolioSymbolId) {
+                this.$refs.addTransactionModal.open(portfolioSymbolId);
+            }
         },
     }
 </script>
@@ -123,15 +145,29 @@
                     {{ $t("You have not created any symbol.") }}
                 </p>
             </div>
-            <div class="symbol" v-else v-for="symbol in portfolio.symbols" :key="symbol.id">
-                <span class="code">{{ symbol.code }}</span>
-                <span class="code" v-bind:class="{ 'text-danger': symbol.change == -1, 'text-success': symbol.change == 1 }">{{ symbol.last_price_formatted }}</span>
-                <span class="code" v-bind:class="{ 'text-danger': symbol.change == -1, 'text-success': symbol.change == 1 }">{{ symbol.rate_of_change }}</span>
-                <span class="code">{{ symbol.spread }}</span>
-                <span class="code">100</span>
-                <span class="code">10.50</span>
-                <span class="code">1050</span>
-                <span class="code text-success">1590</span>
+            <div class="clearfix" v-else v-for="portfolioSymbol in portfolio.symbols" :key="portfolioSymbol.id">
+                <nav>
+                    <ul class="nav nav-pills float-right">
+                        <li class="nav-item">
+                            <a class="btn btn-sm action-link"
+                                @click="showAddTransactionModal(portfolioSymbol.id)">{{ $t("Add Transaction") }}
+                                <span class="sr-only">{{ $t("Add Transaction") }}</span></a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="symbol float-left">
+                    <span>{{ portfolioSymbol.symbol.code }}</span>
+                    <span v-bind:class="{ 'text-danger': portfolioSymbol.symbol.change == -1, 'text-success': portfolioSymbol.symbol.change == 1 }">
+                        {{ portfolioSymbol.symbol.last_price_formatted }}</span>
+                    <span v-bind:class="{ 'text-danger': portfolioSymbol.symbol.change == -1, 'text-success': portfolioSymbol.symbol.change == 1 }">
+                        {{ portfolioSymbol.symbol.rate_of_change }}%</span>
+                    <span>{{ portfolioSymbol.share }}</span>
+                    <span>{{ portfolioSymbol.average_formatted }}</span>
+                    <span>{{ portfolioSymbol.amount_formatted }}</span>                
+                    <span>{{ portfolioSymbol.total_average_formatted }}</span>
+                    <span v-bind:class="{ 'text-danger': portfolioSymbol.gain_formatted < 0, 'text-success': portfolioSymbol.gain_formatted > 0 }">
+                        {{ portfolioSymbol.gain_formatted }}</span>                
+                </div>
             </div>
         </div>
 
@@ -143,5 +179,6 @@
         <add-portfolio-modal ref="addPortfolioModal" />
         <edit-portfolio-modal ref="editPortfolioModal" />
         <add-symbol-modal ref="addSymbolModal" />
+        <add-transaction-modal ref="addTransactionModal" />
     </div>
 </template>

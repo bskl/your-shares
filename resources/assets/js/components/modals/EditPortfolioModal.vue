@@ -74,7 +74,6 @@
 
                 this.form.put('/portfolio/' + this.form.id)
                     .then(response => {
-                        console.log(response.data);
                         Bus.$emit('portfolioUpdated', {
                             portfolio: response.data
                         });

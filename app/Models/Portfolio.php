@@ -36,6 +36,15 @@ class Portfolio extends BaseModel
     ];
 
     /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = [
+        'symbols',
+    ];
+
+    /**
      * Get the user that owns the portfolio.
      */
     public function user()
@@ -48,6 +57,6 @@ class Portfolio extends BaseModel
      */
     public function symbols()
     {
-        return $this->belongsToMany('App\Models\Symbol');
+        return $this->hasMany('App\Models\PortfolioSymbol');
     }
 }

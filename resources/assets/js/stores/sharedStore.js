@@ -1,13 +1,11 @@
 import { http } from '../services/http.js';
 import { userStore } from './userStore.js';
 import { portfolioStore } from './portfolioStore.js';
-import { symbolStore } from './symbolStore.js';
 
 export const sharedStore = {
     state: {
         user: null,
         portfolios: [],
-        symbols: [],
     },
 
     /**
@@ -24,7 +22,6 @@ export const sharedStore = {
 
                 userStore.init(this.state.user)
                 portfolioStore.init(this.state.portfolios)
-                symbolStore.init(this.state.symbols)
 
                 resolve(this.state)
             }, error => reject(error))

@@ -34,8 +34,8 @@ class DataController extends Controller
     public function getData()
     {
         return [
-            'user' => Auth::user(),
-            'portfolios' => $this->portfolios->getWithSymbols(),
+            'user' => Auth()->user(),
+            'portfolios' => $this->portfolios->all(),
         ];
     }
 }
