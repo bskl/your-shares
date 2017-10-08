@@ -67,7 +67,7 @@
                 this.form.post('/portfolio')
                     .then(response => {
                         Bus.$emit('portfolioAdded', {
-                            portfolios: response.data
+                            portfolio: response.data
                         });
 
                         this.close();

@@ -15,16 +15,20 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('portfolio_symbol_id')->unsigned();
+            $table->integer('share_id')->unsigned();
             $table->integer('type');
             $table->timestamp('date');
-            $table->integer('share');
+            $table->integer('lot');
             $table->integer('price');
+            $table->integer('amount');
             $table->decimal('commission', 5, 4);
+            $table->integer('commission_price');
+            $table->integer('average');
+            $table->integer('sale_gain');
             $table->timestamps();
 
-            $table->foreign('portfolio_symbol_id')
-                  ->references('id')->on('portfolio_symbols')
+            $table->foreign('share_id')
+                  ->references('id')->on('shares')
                   ->onUpdate('cascade')
                   ->onDelete('cascade');
         });
