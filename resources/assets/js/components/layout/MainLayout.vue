@@ -10,7 +10,7 @@
         name: 'MainLayout',
 
         components: { 
-            MainHeader, MainFooter, UserBadge,
+            MainHeader, MainFooter,
         },
     }
 </script>

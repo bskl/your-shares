@@ -126,54 +126,53 @@
 
 <template>
     <div class="container">
-        <div v-for="portfolio in state.portfolios" :key="portfolio.id">
-            <div>
-                <nav>
-                    <ul class="nav nav-pills float-right">
-                        <li class="nav-item">
-                            <a class="btn btn-light nav-link"
-                                @click="showAddSymbolModal(portfolio.id)">{{ $t("Add Symbol") }}
-                                <span class="sr-only">{{ $t("Add Symbol") }}</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-light nav-link"
-                                @click="showEditPortfolioModal(portfolio)">{{ $t("Edit") }}
-                                <span class="sr-only">{{ $t("Edit") }}</span></a>
-                        </li>
-                    </ul>
-                </nav>
-                <h4 class="text-muted float-left">{{ portfolio.name }}</h4>
-            </div>
-            <div class="container" v-if="!anyShares()">
-                 <p>{{ $t("You have not created any symbol.") }}</p>
-            </div>
-            <div class="container" v-else>
-                <table class="table table-striped">
-                    <tr class="clearfix" v-for="share in portfolio.shares" :key="share.id">
-                        <td>{{ share.symbol.code }}</td>
-                        <td v-bind:class="{ 'text-danger': share.symbol.trend == -1, 'text-success': share.symbol.trend == 1 }">
-                            {{ share.symbol.last_price_formatted }}</td>
-                        <td v-bind:class="{ 'text-danger': share.symbol.trend == -1, 'text-success': share.symbol.trend == 1 }">
-                            {{ share.symbol.rate_of_change }}%</td>
-                        <td>{{ share.share }}</td>
-                        <td>{{ share.average_formatted }}</td>
-                        <td>{{ share.amount_formatted }}</td>                
-                        <td>{{ share.total_average_formatted }}</td>
-                        <td v-bind:class="{ 'text-danger': share.gain_formatted < 0, 'text-success': share.gain_formatted > 0 }">
-                            {{ share.gain_formatted }}</td>                
-                        <td>
-                            <a class="btn btn-sm action-link"
-                                @click="showAddTransactionModal(share.id)">{{ $t("Add Transaction") }}
-                                <span class="sr-only">{{ $t("Add Transaction") }}</span></a>
-                        </td>
-                    </tr>
-                </table>
+        <div class="row" v-for="portfolio in state.portfolios" :key="portfolio.id">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <nav class="nav nav-pills float-right">
+                            <a class="nav-link" @click="showAddSymbolModal(portfolio.id)">{{ $t("Add Symbol") }}</a>
+                            <a class="nav-link" @click="showEditPortfolioModal(portfolio)">{{ $t("Edit") }}</a>
+                        </nav>
+                        <h5 class="float-left mt-2">{{ portfolio.name }}</h5>
+                    </div>
+                </div>
+                <hr />
+                <div class="row justify-content-center">
+                    <div class="col-md-10" v-if="!anyShares()">
+                        <p class="text-center mt-3">{{ $t("You have not created any symbol.") }}</p>
+                    </div>
+                    <div class="col-md-10" v-else>
+                        <table class="table table-striped">
+                            <tr class="clearfix" v-for="share in portfolio.shares" :key="share.id">
+                                <td>{{ share.symbol.code }}</td>
+                                <td v-bind:class="{ 'text-danger': share.symbol.trend == -1, 'text-success': share.symbol.trend == 1 }">
+                                    {{ share.symbol.last_price_formatted }}</td>
+                                <td v-bind:class="{ 'text-danger': share.symbol.trend == -1, 'text-success': share.symbol.trend == 1 }">
+                                    {{ share.symbol.rate_of_change }}%</td>
+                                <td>{{ share.share }}</td>
+                                <td>{{ share.average_formatted }}</td>
+                                <td>{{ share.amount_formatted }}</td>                
+                                <td>{{ share.total_average_formatted }}</td>
+                                <td v-bind:class="{ 'text-danger': share.gain_formatted < 0, 'text-success': share.gain_formatted > 0 }">
+                                    {{ share.gain_formatted }}</td>                
+                                <td>
+                                    <a class="btn btn-sm action-link"
+                                        @click="showAddTransactionModal(share.id)">{{ $t("Add Transaction") }}
+                                        <span class="sr-only">{{ $t("Add Transaction") }}</span></a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="row">
-            <button class="btn btn-primary"
-                    @click="showAddPortfolioModal()">{{ $t("Add Portfolio") }}</button>
+        <div class="row justify-content-end">
+            <div class="col-md-2">
+                <button class="btn btn-primary"
+                        @click="showAddPortfolioModal()">{{ $t("Add Portfolio") }}</button>
+            </div>
         </div>
         
         <add-portfolio-modal ref="addPortfolioModal" />

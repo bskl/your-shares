@@ -14,8 +14,8 @@
 </script>
 
 <template>
-    <header class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/" aria-label="Your Shares">Your Shares</a>
+    <header class="navbar navbar-expand-lg navbar-light mb-2">
+        <a class="navbar-brand" href="/" aria-label="Your Shares"><strong>Your Shares</strong></a>
 
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav">

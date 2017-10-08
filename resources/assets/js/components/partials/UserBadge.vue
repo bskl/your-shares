@@ -32,7 +32,7 @@
     <ul class="navbar-nav">
         <li class="nav-item dropdown show" v-if="isAuthenticated()">
             <a class="nav-item nav-link dropdown-toggle" href="#" id="user-badge" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{ state.user.name }}
+                {{ state.user.email }}
             </a>
             <div class="dropdown-menu dropdown-menu-right show" aria-labelledby="user-badge">
                 <router-link v-on:click.native="logout" class="dropdown-item active" to="/">{{ $t("Logout") }}</router-link>
