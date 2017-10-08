@@ -38,9 +38,9 @@ class TransactionController extends Controller
 
         $transaction = $this->transactions->create($data);
 
-        $portfolioSymbol = event(new BuyingTransactionCreated($transaction));
+        event(new BuyingTransactionCreated($transaction));
 
-        return response()->json($portfolioSymbol[0]);
+        return response()->json($transaction->portfolioSymbol);
     }
 
     /**

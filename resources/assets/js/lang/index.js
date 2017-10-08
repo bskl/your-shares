@@ -14,6 +14,6 @@ let messages = {
 // Create VueI18n instance with options
 export default new VueI18n({
     locale: window.navigator.userLanguage || window.navigator.language,
-    fallbackLocale: 'en',
+    fallbackLocale: 'tr',
     messages,
 });

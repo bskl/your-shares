@@ -52,8 +52,8 @@
              * Change updated portfolio on portfolios.
              */
             updatePortfolio(portfolio) {
-                let indexOfItem = _.findIndex(this.state.portfolios, ['id', portfolio.id]);
-                this.state.portfolios.splice(indexOfItem, 1, portfolio);
+                let index = _.findIndex(this.state.portfolios, ['id', portfolio.id]);
+                this.state.portfolios.splice(index, 1, portfolio);
                 Bus.$off('portfolioUpdated', portfolio);
             },
 
@@ -61,8 +61,8 @@
              * Delete deleted portfolio on portfolios.
              */
             deletePortfolio(portfolioId) {
-                let indexOfItem = _.findIndex(this.state.portfolios, ['id', portfolioId]);
-                this.state.portfolios.splice(indexOfItem);
+                let index = _.findIndex(this.state.portfolios, ['id', portfolioId]);
+                this.state.portfolios.splice(index);
                 Bus.$off('portfolioDeleted', portfolioId);
             },
 
@@ -70,8 +70,8 @@
              * Push added symbol to given portfolio.
              */
             pushSymbolToPortfolio(symbol) {
-                let indexOfItem = _.findIndex(this.state.portfolios, ['id', symbol.portfolio_id]);
-                this.state.portfolios[indexOfItem].symbols.push(symbol);
+                let index = _.findIndex(this.state.portfolios, ['id', symbol.portfolio_id]);
+                this.state.portfolios[index].symbols.push(symbol);
                 Bus.$off('symbolAdded', symbol);
             },
 
@@ -79,13 +79,10 @@
              * Change updated symbol on portfolios.
              */
             updateSymbol(symbol) {
-                _.forEach(this.state.portfolios, function(value, key) {
-                    let indexOfItem = _.findIndex(value.symbols, ['id', symbol.id]);
-                    if(indexOfItem != -1) {
-                        value.symbols.splice(indexOfItem, 1, symbol);
-                        break;
-                    }
-                });
+                let portfolioIndex = _.findIndex(this.state.portfolios, ['id', symbol.portfolio_id]);
+                let index = _.findIndex(this.state.portfolios[portfolioIndex].symbols, ['id', symbol.id]);
+                this.state.portfolios[portfolioIndex].symbols.splice(index, 1, symbol);
+
                 Bus.$off('transactionAdded', symbol);
             },
 
@@ -140,35 +137,33 @@
                 </nav>
                 <h4 class="text-muted float-left">{{ portfolio.name }}</h4>
             </div>
-            <div class="no-symbol" v-if="!portfolio.symbols.length">
-                <p class="lead">
-                    {{ $t("You have not created any symbol.") }}
-                </p>
-            </div>
-            <div class="clearfix" v-else v-for="portfolioSymbol in portfolio.symbols" :key="portfolioSymbol.id">
-                <nav>
-                    <ul class="nav nav-pills float-right">
-                        <li class="nav-item">
-                            <a class="btn btn-sm action-link"
-                                @click="showAddTransactionModal(portfolioSymbol.id)">{{ $t("Add Transaction") }}
-                                <span class="sr-only">{{ $t("Add Transaction") }}</span></a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="symbol float-left">
-                    <span>{{ portfolioSymbol.symbol.code }}</span>
-                    <span v-bind:class="{ 'text-danger': portfolioSymbol.symbol.change == -1, 'text-success': portfolioSymbol.symbol.change == 1 }">
-                        {{ portfolioSymbol.symbol.last_price_formatted }}</span>
-                    <span v-bind:class="{ 'text-danger': portfolioSymbol.symbol.change == -1, 'text-success': portfolioSymbol.symbol.change == 1 }">
-                        {{ portfolioSymbol.symbol.rate_of_change }}%</span>
-                    <span>{{ portfolioSymbol.share }}</span>
-                    <span>{{ portfolioSymbol.average_formatted }}</span>
-                    <span>{{ portfolioSymbol.amount_formatted }}</span>                
-                    <span>{{ portfolioSymbol.total_average_formatted }}</span>
-                    <span v-bind:class="{ 'text-danger': portfolioSymbol.gain_formatted < 0, 'text-success': portfolioSymbol.gain_formatted > 0 }">
-                        {{ portfolioSymbol.gain_formatted }}</span>                
-                </div>
-            </div>
+            <table class="table table-striped">
+                <tr class="no-symbol" v-if="!portfolio.symbols.length">
+                    <td>
+                        <p class="lead">
+                            {{ $t("You have not created any symbol.") }}
+                        </p>
+                    </td>
+                </tr>
+                <tr class="clearfix" v-else v-for="portfolioSymbol in portfolio.symbols" :key="portfolioSymbol.id">
+                    <td>{{ portfolioSymbol.symbol.code }}</td>
+                    <td v-bind:class="{ 'text-danger': portfolioSymbol.symbol.trend == -1, 'text-success': portfolioSymbol.symbol.trend == 1 }">
+                        {{ portfolioSymbol.symbol.last_price_formatted }}</td>
+                    <td v-bind:class="{ 'text-danger': portfolioSymbol.symbol.trend == -1, 'text-success': portfolioSymbol.symbol.trend == 1 }">
+                        {{ portfolioSymbol.symbol.rate_of_change }}%</td>
+                    <td>{{ portfolioSymbol.share }}</td>
+                    <td>{{ portfolioSymbol.average_formatted }}</td>
+                    <td>{{ portfolioSymbol.amount_formatted }}</td>                
+                    <td>{{ portfolioSymbol.total_average_formatted }}</td>
+                    <td v-bind:class="{ 'text-danger': portfolioSymbol.gain_formatted < 0, 'text-success': portfolioSymbol.gain_formatted > 0 }">
+                        {{ portfolioSymbol.gain_formatted }}</td>                
+                    <td>
+                        <a class="btn btn-sm action-link"
+                            @click="showAddTransactionModal(portfolioSymbol.id)">{{ $t("Add Transaction") }}
+                            <span class="sr-only">{{ $t("Add Transaction") }}</span></a>
+                    </td>
+                </tr>
+            </table>
         </div>
 
         <div class="row justify-content-end no-symbol">

@@ -35,14 +35,12 @@ class CalculateSymbolAverageAmount
     {
         $portfolioSymbol = $event->transaction->portfolioSymbol;
 
-        $totalAmount = $portfolioSymbol->totalAverage->add($event->transaction->totalPrice);
+        $portfolioSymbol->AddShare($event->transaction->share);
 
-        $data['share'] = $portfolioSymbol->share + $event->transaction->share;
+        $totalAmount = $portfolioSymbol->totalAverage->add($event->transaction->totalPrice);
 
         $data['average'] = $totalAmount->divide($data['share'])->getAmount();
 
-        $this->portfolioSymbols->update($portfolioSymbol, $data);
-
-        return $portfolioSymbol;
+        $portfolioSymbol->update();
     }
 }

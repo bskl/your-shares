@@ -20,13 +20,13 @@ class CreateTransactionsTable extends Migration
             $table->timestamp('date');
             $table->integer('share');
             $table->integer('price');
-            $table->decimal('commission', 1,4);
+            $table->decimal('commission', 5, 4);
             $table->timestamps();
 
             $table->foreign('portfolio_symbol_id')
-                ->references('id')->on('portfolio_symbols')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+                  ->references('id')->on('portfolio_symbols')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
         });
     }
 
