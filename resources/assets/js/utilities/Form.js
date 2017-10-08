@@ -120,7 +120,7 @@ class Form {
      * @param {object} data
      */
     onFail(data) {
-        this.errors.record(data);
+        this.errors.record(data.errors);
     }
 }
 

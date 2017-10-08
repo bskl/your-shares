@@ -4,7 +4,6 @@ class Errors {
      */
     constructor() {
         this.errors = {};
-        this.message = null;
     }
 
 
@@ -38,13 +37,12 @@ class Errors {
     }
 
     /**
-     * Record the new errors and message.
+     * Record the new errors.
      *
-     * @param {object} data
+     * @param {object} errors
      */
-    record(data) {
-        this.errors = data.errors;
-        this.message = data.message;
+    record(errors) {
+        this.errors = errors;
     }
 
 
@@ -56,15 +54,11 @@ class Errors {
     clear(field) {
         if (field) {
             delete this.errors[field];
-            if (! this.any()) {
-                this.message = null;
-            }
 
             return;
         }
 
         this.errors = {};
-        this.message = null;
     }
 }
 

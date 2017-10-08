@@ -2,7 +2,6 @@
     import Spinner from '../loaders/Spinner.vue';
     import MainHeader from './MainHeader.vue';
     import MainFooter from './MainFooter.vue';
-    import UserBadge from '../user/UserBadge.vue';
 
     export default {
         props: ['loading'],
@@ -12,16 +11,14 @@
         name: 'MainLayout',
 
         components: { 
-            Spinner, MainHeader, MainFooter, UserBadge,
+            Spinner, MainHeader, MainFooter,
         },
     }
 </script>
 
 <template>
-    <div v-if="!loading" class="container">
-        <main-header>
-            <user-badge />
-        </main-header>
+    <div v-if="!loading">
+        <main-header />
 
         <main>
             <slot/>

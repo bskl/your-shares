@@ -120,16 +120,16 @@
 <template>
     <div>
         <div class="portfolio" v-for="portfolio in state.portfolios" :key="portfolio.id">
-            <div class="portfolio clearfix">
+            <div>
                 <nav>
                     <ul class="nav nav-pills float-right">
                         <li class="nav-item">
-                            <a class="btn action-link nav-link"
+                            <a class="btn btn-light nav-link"
                                 @click="showAddSymbolModal(portfolio.id)">{{ $t("Add Symbol") }}
                                 <span class="sr-only">{{ $t("Add Symbol") }}</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="btn action-link nav-link"
+                            <a class="btn btn-light nav-link"
                                 @click="showEditPortfolioModal(portfolio)">{{ $t("Edit") }}
                                 <span class="sr-only">{{ $t("Edit") }}</span></a>
                         </li>
@@ -138,14 +138,14 @@
                 <h4 class="text-muted float-left">{{ portfolio.name }}</h4>
             </div>
             <table class="table table-striped">
-                <tr class="no-symbol" v-if="!portfolio.symbols.length">
+                <tr v-if="!portfolio.symbols.length">
                     <td>
-                        <p class="lead">
+                        <p>
                             {{ $t("You have not created any symbol.") }}
                         </p>
                     </td>
                 </tr>
-                <tr class="clearfix" v-else v-for="portfolioSymbol in portfolio.symbols" :key="portfolioSymbol.id">
+                <tr v-else v-for="portfolioSymbol in portfolio.symbols" :key="portfolioSymbol.id">
                     <td>{{ portfolioSymbol.symbol.code }}</td>
                     <td v-bind:class="{ 'text-danger': portfolioSymbol.symbol.trend == -1, 'text-success': portfolioSymbol.symbol.trend == 1 }">
                         {{ portfolioSymbol.symbol.last_price_formatted }}</td>
@@ -158,7 +158,7 @@
                     <td v-bind:class="{ 'text-danger': portfolioSymbol.gain_formatted < 0, 'text-success': portfolioSymbol.gain_formatted > 0 }">
                         {{ portfolioSymbol.gain_formatted }}</td>                
                     <td>
-                        <a class="btn btn-sm action-link"
+                        <a class="btn btn-sm btn-light"
                             @click="showAddTransactionModal(portfolioSymbol.id)">{{ $t("Add Transaction") }}
                             <span class="sr-only">{{ $t("Add Transaction") }}</span></a>
                     </td>
@@ -166,7 +166,7 @@
             </table>
         </div>
 
-        <div class="row justify-content-end no-symbol">
+        <div class="row">
             <button class="btn btn-primary"
                     @click="showAddPortfolioModal()">{{ $t("Add Portfolio") }}</button>
         </div>

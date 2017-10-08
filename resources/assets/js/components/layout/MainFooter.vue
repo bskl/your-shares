@@ -19,9 +19,11 @@
 </script>
 
 <template>
-    <footer class="footer clearfix">
-        <span>Copyright &copy; <router-link to="/">manage.yourShares</router-link></span>
-        
-        <span class="float-right">{{ config.version }}</span>
+    <footer class="footer">
+        <div class="container">
+            <span>Copyright &copy; <router-link to="/">Your Shares</router-link></span>
+            
+            <span class="float-right">{{ config.version }}</span>
+        </div>
     </footer>
 </template>
