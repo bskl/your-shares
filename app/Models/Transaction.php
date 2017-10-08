@@ -23,7 +23,7 @@ class Transaction extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'portfolio_symbol_id', 'type', 'date', 'share', 'price', 'commission',
+        'share_id', 'type', 'date', 'share', 'price', 'amount', 'commission', 'commission_price', 'average', 'sale_gain',
     ];
 
     /**

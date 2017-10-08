@@ -41,7 +41,7 @@ class Portfolio extends BaseModel
      * @var array
      */
     protected $with = [
-        'symbols',
+        'shares',
     ];
 
     /**
@@ -53,10 +53,10 @@ class Portfolio extends BaseModel
     }
 
     /**
-     * The symbols that belong to the portfolio.
+     * The shares that belong to the portfolio.
      */
-    public function symbols()
+    public function shares()
     {
-        return $this->hasMany('App\Models\PortfolioSymbol');
+        return $this->hasMany('App\Models\Share');
     }
 }

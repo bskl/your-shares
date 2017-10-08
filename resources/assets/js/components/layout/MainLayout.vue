@@ -1,5 +1,4 @@
 <script type="text/ecmascript-6">
-    import Spinner from '../loaders/Spinner.vue';
     import MainHeader from './MainHeader.vue';
     import MainFooter from './MainFooter.vue';
 
@@ -11,7 +10,7 @@
         name: 'MainLayout',
 
         components: { 
-            Spinner, MainHeader, MainFooter,
+            MainHeader, MainFooter, UserBadge,
         },
     }
 </script>
@@ -25,8 +24,5 @@
         </main>
 
         <main-footer/>
-    </div>
-    <div v-else>
-        <spinner />
     </div>
 </template>

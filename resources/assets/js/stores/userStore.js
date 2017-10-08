@@ -60,9 +60,13 @@ export const userStore = {
      * Log the current user out.
      */
     logout () {
+        NProgress.start();
+
         return new Promise((resolve, reject) => {
             http.post('logout', {}, ({ data }) => {
+
                 ls.remove('access_token')
+
                 window.onbeforeunload = function () {}
 
                 resolve(data)

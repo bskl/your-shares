@@ -4,7 +4,7 @@ export const portfolioStore = {
             id: 0,
             name: '',
             order: '',
-            symbols: {
+            shares: {
 
             }
         }

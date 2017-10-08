@@ -5,7 +5,7 @@ namespace App\Models;
 use Money\Money;
 use Money\Currency;
 
-class PortfolioSymbol extends BaseModel
+class Share extends BaseModel
 {
     /**
      * The attributes that aren't mass assignable.
@@ -22,7 +22,16 @@ class PortfolioSymbol extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'portfolio_id', 'symbol_id', 'share', 'average',
+        'portfolio_id', 'symbol_id', 'lot', 'average', 'average_amount', 'total_amount', 'gain'
+    ];
+
+    /**
+     * The attributes that are money object.
+     *
+     * @var array
+     */
+    protected $money = [
+        'average', 'average_amount', 'total_amount', 'gain'
     ];
 
     /**
@@ -49,7 +58,7 @@ class PortfolioSymbol extends BaseModel
      * @var array
      */
     protected $appends = [
-        'average_formatted', 'total_average_formatted', 'amount_formatted', 'gain_formatted',
+        'average_formatted', 'average_amount_formatted', 'total_amount_formatted', 'gain_formatted',
     ];
 
     /**
@@ -68,12 +77,9 @@ class PortfolioSymbol extends BaseModel
         return $this->belongsTo('App\Models\Symbol');
     }
 
-    /**
-     * Get the average price attribute with money object.
-     */
-    public function getAverageAttribute()
+    public function calculateTotalAmount(Money $lastPrice)
     {
-        return new Money($this->attributes['average'], new Currency('TRY'));
+        $this->total_amount = $lastPrice->multiply($this->lot);
     }
 
     /**
@@ -89,7 +95,7 @@ class PortfolioSymbol extends BaseModel
      */
     public function getTotalAverageAttribute()
     {
-        return $this->average->multiply($this->share);
+        return $this->average->multiply($this->lot);
     }
 
     /**

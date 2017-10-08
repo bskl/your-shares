@@ -27,9 +27,9 @@
         mounted() {
             if (!userStore.isAuthenticated()) {
                 this.$router.push('/login');
+            } else {
+                this.init();
             }
-
-            this.init();
         },
 
         created() {

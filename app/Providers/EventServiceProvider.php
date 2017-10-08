@@ -16,6 +16,10 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\BuyingTransactionCreated' => [
             'App\Listeners\CalculateSymbolAverageAmount',
         ],
+
+        'App\Events\SymbolUpdated' => [
+            'App\Listeners\CalculateShareAmounts',
+        ],
     ];
 
     /**

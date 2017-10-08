@@ -2,8 +2,7 @@
 
 namespace App\Models;
 
-use Money\Money;
-use Money\Currency;
+use App\Events\SymbolUpdated;
 
 class Symbol extends BaseModel
 {
@@ -44,20 +43,22 @@ class Symbol extends BaseModel
     ];
 
     /**
-     * Get the last_price attribute with money object.
+     * The event map for the model.
+     *
+     * @var array
      */
-    public function getLastPriceAttribute()
-    {
-        return new Money($this->attributes['last_price'], new Currency('TRY'));
-    }
+    protected $dispatchesEvents = [
+        'updated' => SymbolUpdated::class,
+    ];
 
     /**
-     * Get the last_price attribute with the given formatted money.
+     * The attributes that are money object.
+     *
+     * @var array
      */
-    public function getLastPriceFormattedAttribute()
-    {
-        return $this->getFormattedAmount($this->getLastPriceAttribute());
-    }
+    protected $money = [
+        'last_price',
+    ];
 
     /**
      * Get the rate_of_change attribute with divided 100.
