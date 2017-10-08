@@ -49714,6 +49714,7 @@ var render = function() {
                     "a",
                     {
                       staticClass: "nav-link",
+                      attrs: { href: "#" },
                       on: {
                         click: function($event) {
                           _vm.showAddSymbolModal(portfolio.id)
@@ -49727,6 +49728,7 @@ var render = function() {
                     "a",
                     {
                       staticClass: "nav-link",
+                      attrs: { href: "#" },
                       on: {
                         click: function($event) {
                           _vm.showEditPortfolioModal(portfolio)
@@ -49857,9 +49859,10 @@ var render = function() {
       _c("div", { staticClass: "row justify-content-end" }, [
         _c("div", { staticClass: "col-md-2" }, [
           _c(
-            "button",
+            "a",
             {
               staticClass: "btn btn-primary",
+              attrs: { href: "#" },
               on: {
                 click: function($event) {
                   _vm.showAddPortfolioModal()

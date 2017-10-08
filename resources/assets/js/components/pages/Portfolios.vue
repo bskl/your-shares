@@ -131,8 +131,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <nav class="nav nav-pills float-right">
-                            <a class="nav-link" @click="showAddSymbolModal(portfolio.id)">{{ $t("Add Symbol") }}</a>
-                            <a class="nav-link" @click="showEditPortfolioModal(portfolio)">{{ $t("Edit") }}</a>
+                            <a class="nav-link" @click="showAddSymbolModal(portfolio.id)" href="#">{{ $t("Add Symbol") }}</a>
+                            <a class="nav-link" @click="showEditPortfolioModal(portfolio)" href="#">{{ $t("Edit") }}</a>
                         </nav>
                         <h5 class="float-left mt-2">{{ portfolio.name }}</h5>
                     </div>
@@ -170,8 +170,8 @@
 
         <div class="row justify-content-end">
             <div class="col-md-2">
-                <button class="btn btn-primary"
-                        @click="showAddPortfolioModal()">{{ $t("Add Portfolio") }}</button>
+                <a class="btn btn-primary" href="#"
+                   @click="showAddPortfolioModal()">{{ $t("Add Portfolio") }}</a>
             </div>
         </div>
         
