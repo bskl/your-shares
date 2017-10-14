@@ -7,6 +7,7 @@
 
 require('./bootstrap');
 import Vue from 'vue';
+import Vuetify from 'vuetify';
 import router from './router/';
 import i18n from './lang/';
 import Form from './utilities/Form.js';
@@ -14,7 +15,9 @@ import { http } from './services/http.js';
 import NProgress from 'nprogress';
 import App from './components/App.vue';
 
-window.Vue = Vue;
+window.Vue = Vue; 
+Vue.use(Vuetify)
+
 window.http = http;
 window.Form = Form;
 window.NProgress = NProgress;

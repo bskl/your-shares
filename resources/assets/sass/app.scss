@@ -1,12 +1,12 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons");
 
 // Variables
 @import "variables";
 
-// Bootstrap
-@import "node_modules/bootstrap/scss/bootstrap";
+// Vuetify
+@import "node_modules/vuetify/dist/vuetify";
 
 // NProgress
 @import "node_modules/nprogress/nprogress";

@@ -8,7 +8,7 @@ export default new Router({
     routes: [
         {
             path: '/',
-            component: require('../components/pages/Home.vue'),
+            component: require('../components/pages/Portfolios.vue'),
         },
         {
             path: '/login',
