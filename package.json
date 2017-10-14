@@ -14,7 +14,7 @@
         "bootstrap": "^4.0.0-beta",
         "cross-env": "^5.0.1",
         "jquery": "^3.1.1",
-        "laravel-mix": "^1.4.5",
+        "laravel-mix": "^1.5.0",
         "local-storage": "^1.4.2",
         "lodash": "^4.17.4",
         "nprogress": "^0.2.0",
