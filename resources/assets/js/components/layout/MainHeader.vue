@@ -14,15 +14,12 @@
 </script>
 
 <template>
-    <header class="navbar navbar-expand-lg navbar-light mb-2">
-        <a class="navbar-brand" href="/" aria-label="Your Shares"><strong>Your Shares</strong></a>
-
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav">
-            </ul>
-        </div>
+    <v-toolbar>
+        <v-toolbar-title>Your Shares</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-side-icon class="hidden-md-and-up"></v-toolbar-side-icon>
 
         <user-badge />
 
-    </header>
+    </v-toolbar>
 </template>

@@ -22,6 +22,14 @@
                     email: '',
                     password: '',
                 }),
+                emailRules: [
+                    (v) => !!v || 'E-mail is required',
+                    (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+                ],
+                passwordRules: [
+                    (v) => !!v || 'Password is required',
+                    (v) => v.length >= 6 || 'Password must be more than 6 characters'
+                ],
             }
         },
 
@@ -39,6 +47,7 @@
                 this.form.post('/login')
                     .then(response => {
                         if (response.status === 200) {
+                            Bus.$emit('userLoggedIn');
                             this.$router.push('/');
                         }
                     })
@@ -48,50 +57,49 @@
 </script>
 
 <template>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-6">
-                    <div class="card border-light">
-                        <div class="card-header">{{ $t("Sign In") }}</div>
-                        <div class="card-body">
+    <main-layout>
+        <v-layout row wrap>
+            <v-flex xs12 sm10 md8 lg6>
+                <v-card ref="form">
+                    <v-container fill-height fluid>
+                        <v-layout fill-height>
+                            <v-flex xs12 align-end flexbox>
+                                <h5 class="display-5">{{ $t("Sign In") }}</h5>
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
 
-                            <form-errors :errors="form.errors" />
+                    <v-card-text>
+                        <v-text-field name="email" id="email" type="email"
+                            v-model="form.email"
+                            :label="$t('E-Mail Address')"
+                            :rules="emailRules"
+                        ></v-text-field>
+                        <v-text-field name="password" id="password" type="password"
+                            v-model="form.password"
+                            :label="$t('Password')"
+                            
+                        ></v-text-field>
+                    </v-card-text>
 
-                            <!-- Login User Form -->
-                            <form class="card-text form-horizontal" role="form" method="POST"
-                                v-on:submit.prevent="login" v-on:keydown="form.errors.clear($event.target.name)">
+                    <v-card-actions>
+                        <v-flex>
+                            <span class="caption"><router-link to="/password/reset">{{ $t("Forgot password?") }}</router-link></span>
+                        </v-flex>
+                        <v-spacer></v-spacer>
+                        <v-btn right color="primary" flat @click="login">{{ $t("Sign In") }}</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-flex>
 
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <input type="email" id="email" name="email" class="form-control" autofocus required v-bind:placeholder="$t('E-Mail Address')" v-model="form.email">
-                                        <label class="sr-only form-control-label" for="email">{{ $t("E-Mail Address") }}</label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <input type="password" id="password" name="password" class="form-control" required v-bind:placeholder="$t('Password')" v-model="form.password">
-                                        <label class="sr-only form-control-label" for="password">{{ $t("Password") }}</label>
-                                        <div class="form-text text-right"><router-link to="/password/reset"><small>{{ $t("Forgot password?") }}</small></router-link></div>                                    
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary btn-block">
-                                            {{ $t("Login") }}
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <br />
-                    <p class="text-center">
-                        {{ $t("You don't have an account?") }}
-                            <router-link to="/register"><b> {{ $t("Register") }}</b></router-link>
-                    </p>
-                </div>
-            </div>
-        </div>
+            <v-flex xs12 sm10 md8 lg6>
+                <v-card flat>
+                    <v-card-text>
+                        <span class="body-1">{{ $t("You don't have an account?") }}</span>
+                            <router-link to="/register"><span class="body-2">{{ $t("Register") }}</span></router-link>
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </main-layout>
 </template>

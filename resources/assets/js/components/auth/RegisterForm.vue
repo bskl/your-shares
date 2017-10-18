@@ -91,7 +91,7 @@
                     <br />
                     <p class="text-center">
                         {{ $t("Already have an account?") }}
-                            <router-link to="/login"><b> {{ $t("Login") }}</b></router-link>
+                            <router-link to="/login"><b> {{ $t("Sign In") }}</b></router-link>
                     </p>
                 </div>
             </div>

@@ -4,7 +4,7 @@ export default {
     'Password' : 'Şifre',
     'Confirm Password' : 'Şifreni Onayla',
     'Register' : 'Kaydol',
-    'Login' : 'Giriş Yap',
+    'Sign In' : 'Giriş Yap',
     'Logout' : 'Çıkış',
     'Forgot password?' : 'Şifreni mi unuttun?',
     'You don\'t have an account?' : 'Hesabın yok mu?',

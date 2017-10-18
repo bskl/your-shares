@@ -30,6 +30,12 @@
             } else {
                 this.init();
             }
+
+            document.addEventListener("keydown", (e) => {
+                if ((e.ctrlKey && e.keyCode == 82) || e.keyCode == 116) {
+                    this.loading = true;
+                }
+            })
         },
 
         created() {
@@ -55,7 +61,7 @@
 <template>
     <main-layout :loading="loading">
 
-        <portfolios />
+        <portfolios></portfolios>
 
     </main-layout>
 </template>

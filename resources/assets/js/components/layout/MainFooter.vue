@@ -9,21 +9,14 @@
          * The component's data.
          */
         data() {
-            return {
-                config: {
-                    version: 'v0.0.1',
-                }
-            }
+            return {}
         },
     }
 </script>
 
 <template>
-    <footer class="footer">
-        <div class="container">
-            <span>Copyright &copy; <router-link to="/">Your Shares</router-link></span>
-            
-            <span class="float-right">{{ config.version }}</span>
-        </div>
-    </footer>
+    <v-footer app class="pa-3">
+        <v-spacer></v-spacer>
+        <div>© {{ new Date().getFullYear() }}</div>
+    </v-footer>
 </template>

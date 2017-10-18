@@ -4,7 +4,7 @@ export default {
     'Password' : 'Password',
     'Confirm Password' : 'Confirm Password',
     'Register' : 'Register',
-    'Login' : 'Login',
+    'Sign In' : 'Sign In',
     'Logout' : 'Logout',
     'Forgot password?' : 'Forgot password?',
     'You don\'t have an account?' : 'You don\'t have an account?',

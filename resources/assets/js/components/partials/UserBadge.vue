@@ -29,19 +29,21 @@
 </script>
 
 <template>
-    <ul class="navbar-nav">
-        <li class="nav-item dropdown show" v-if="isAuthenticated()">
-            <a class="nav-item nav-link dropdown-toggle" href="#" id="user-badge" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{ state.user.email }}
-            </a>
-            <div class="dropdown-menu dropdown-menu-right show" aria-labelledby="user-badge">
-                <router-link v-on:click.native="logout" class="dropdown-item active" to="/">{{ $t("Logout") }}</router-link>
-            </div>
-        </li>
-        <li class="nav-item" v-else>
-            <a class="nav-item nav-link" href="/register">
-                {{ $t("Register") }}
-            </a>
-        </li>
-    </ul>
+    <v-toolbar-items class="hidden-sm-and-down">
+        <v-menu offset-y v-if="isAuthenticated()">
+            <v-btn flat slot="activator">
+                <span class="pr-2">{{ state.user.email }}</span>
+                <v-icon dark>more_vert</v-icon>
+            </v-btn>
+            <v-list>
+                <v-list-tile @click="logout()">
+                    <v-icon class="pr-2">exit_to_app</v-icon>
+                    <v-list-tile-title>
+                        {{ $t("Logout") }}
+                    </v-list-tile-title>
+                </v-list-tile>
+            </v-list>
+        </v-menu>
+        <v-btn flat to="/register" v-else>{{ $t("Register") }}</v-btn>
+    </v-toolbar-items>
 </template>
