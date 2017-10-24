@@ -6,7 +6,7 @@ use App\Events\SymbolUpdated;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class CalculateSymbolAverageAmount
+class CalculateShareAmount
 {
     /**
      * Handle the event.
