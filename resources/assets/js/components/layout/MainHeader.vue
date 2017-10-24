@@ -14,7 +14,7 @@
 </script>
 
 <template>
-    <v-toolbar flat>
+    <v-toolbar>
         <v-toolbar-title>Your Shares</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-side-icon class="hidden-md-and-up"></v-toolbar-side-icon>

@@ -22,7 +22,7 @@
 
         <main>
             <v-content>
-                <v-container fluid fill-height>
+                <v-container fluid grid-list-xl>
                     <slot />
                 </v-container>
             </v-content>

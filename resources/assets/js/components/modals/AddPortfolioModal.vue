@@ -1,5 +1,4 @@
 <script type="text/ecmascript-6">
-    import vSelect from 'vue-select';
     import Modal from '../modals/modal/Modal.vue';
     import ModalHeading from '../modals/modal/ModalHeading.vue';
     import ModalBody from '../modals/modal/ModalBody.vue';
@@ -12,7 +11,7 @@
         name: 'AddPortfolioModal',
 
         components: {
-            vSelect, Modal, ModalHeading, ModalBody, Spinner,
+            Modal, ModalHeading, ModalBody, Spinner,
         },
 
         /**
