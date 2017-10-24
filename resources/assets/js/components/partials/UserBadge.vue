@@ -31,11 +31,11 @@
 <template>
     <v-toolbar-items class="hidden-sm-and-down">
         <v-menu offset-y v-if="isAuthenticated()">
-            <v-btn flat slot="activator">
+            <v-btn flat small slot="activator">
                 <span class="pr-2">{{ state.user.email }}</span>
                 <v-icon dark>more_vert</v-icon>
             </v-btn>
-            <v-list>
+            <v-list dense>
                 <v-list-tile @click="logout()">
                     <v-icon class="pr-2">exit_to_app</v-icon>
                     <v-list-tile-title>

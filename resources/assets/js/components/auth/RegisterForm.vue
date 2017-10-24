@@ -22,6 +22,15 @@
                     email: '',
                     password: '',
                 }),
+                valid: true,
+                emailRules: [
+                    (v) => !!v || this.$t("E-mail is required"),
+                    (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t("E-mail must be valid")
+                ],
+                passwordRules: [
+                    (v) => !!v || this.$t("Password is required"),
+                    (v) => v.length >= 6 || this.$t("Password must be more than 6 characters")
+                ],
             }
         },
 
@@ -36,13 +45,15 @@
              * Create a new User.
              */
             register() {
-                this.form.post('/register')
-                    .then(response => {
-                        if (response.status === 200) {
-                            Bus.$emit('userLoggedIn');
-                            this.$router.push('/');
-                        }
-                    })
+                if (this.$refs.form.validate()) {
+                    this.form.post('/register')
+                        .then(response => {
+                            if (response.status === 200) {
+                                Bus.$emit('userLoggedIn');
+                                this.$router.push('/');
+                            }
+                        })
+                }
             },
         }
     }
@@ -50,51 +61,49 @@
 
 <template>
     <main-layout>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-6">
-                    <div class="card border-light">
-                        <div class="card-header">{{ $t("Register") }}</div>
-                        <div class="card-body">
-
-                            <form-errors :errors="form.errors" />
-
-                            <!-- Create User Form -->
-                            <form class="card-text form-horizontal" role="form" method="POST"
-                                v-on:submit.prevent="register" v-on:keydown="form.errors.clear($event.target.name)">
-
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <input type="email" id="email" name="email" class="form-control" required v-bind:placeholder="$t('E-Mail Address')" v-model="form.email">
-                                        <label class="sr-only" for="email">{{ $t("E-Mail Address") }}</label>
-
-                                    </div>
+        <v-layout row wrap justify-center>
+            <v-flex xs12 sm6 md4>
+                <v-layout row wrap>
+                    <v-flex xs12>
+                        <v-card>
+                            <v-card-title>
+                                <div>
+                                    <h3 class="headline mb-0">{{ $t("Register") }}</h3>
                                 </div>
-
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <input type="password" id="password" name="password" class="form-control" required v-bind:placeholder="$t('Password')" v-model="form.password">
-                                        <label class="sr-only" for="password">{{ $t("Password") }}</label>                                    
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary btn-block" value="register">
-                                            {{ $t("Register") }}
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <br />
-                    <p class="text-center">
-                        {{ $t("Already have an account?") }}
-                            <router-link to="/login"><b> {{ $t("Sign In") }}</b></router-link>
-                    </p>
-                </div>
-            </div>
-        </div>
+                            </v-card-title>
+                            <v-form v-model="valid" ref="form">
+                                <v-card-text>
+                                    <form-errors :errors="form.errors" />
+                                    <v-text-field name="email" id="email" type="email"
+                                        v-model="form.email"
+                                        :label="$t('E-Mail Address')"
+                                        :rules="emailRules"
+                                        required
+                                    ></v-text-field>
+                                    <v-text-field name="password" id="password" type="password"
+                                        v-model="form.password"
+                                        :label="$t('Password')"
+                                        :rules="passwordRules"
+                                        required
+                                    ></v-text-field>
+                                </v-card-text>
+                            </v-form>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="primary" @click="register">{{ $t("Register") }}</v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-flex>
+                    <v-flex xs12>
+                        <v-card>
+                            <v-card-text>
+                                <span>{{ $t("Already have an account?") }}</span>
+                                <router-link to="/login">{{ $t("Sign In") }}</router-link>
+                            </v-card-text>
+                        </v-card>
+                    </v-flex>
+                </v-layout>
+            </v-flex>
+        </v-layout>
     </main-layout>
 </template>

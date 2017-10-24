@@ -13,7 +13,7 @@
 
 <template>
 
-    <v-alert color="error" dismissible :value="errors.any()">
+    <v-alert class="mb-20" color="error" dismissible :value="errors.any()">
         <dl class="mb-0">
             <template v-for="errorItem in errors.errors">
                 <dd v-for="error in errorItem" :key="error.id">{{ error }}</dd>

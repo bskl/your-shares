@@ -21,6 +21,11 @@
                 form: new Form({
                     email: '',
                 }),
+                valid: true,
+                emailRules: [
+                    (v) => !!v || this.$t("E-mail is required"),
+                    (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t("E-mail must be valid")
+                ],
             }
         },
 
@@ -35,12 +40,14 @@
              * Sends password reset email to user.
              */
             passwordResetEmail() {
-                this.form.post('/password/email')
-                    .then(response => {
-                        if (response.status === 200) {
-                            this.$router.push('/');
-                        }
-                    })
+                if (this.$refs.form.validate()) {
+                    this.form.post('/password/email')
+                        .then(response => {
+                            if (response.status === 200) {
+                                this.$router.push('/');
+                            }
+                        })
+                }
             },
         }
     }
@@ -48,43 +55,45 @@
 
 <template>
     <main-layout>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-6">
-                    <div class="card border-light">
-                        <div class="card-header">{{ $t("Reset Password") }}</div>
-                        <div class="card-body">
-
-                            <form-errors :errors="form.errors" />
-
-                            <!-- Email Send Form -->
-                            <form class="card-text form-horizontal" role="form" method="POST"
-                                v-on:submit.prevent="passwordResetEmail" v-on:keydown="form.errors.clear($event.target.name)">
-
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <input type="email" id="email" name="email" class="form-control" autofocus required v-bind:placeholder="$t('E-Mail Address')" v-model="form.email">
-                                        <label class="sr-only" for="email">{{ $t("E-Mail Address") }}</label>
-                                    </div>
+        <v-layout row wrap justify-center>
+            <v-flex xs12 sm6 md4>
+                <v-layout row wrap>
+                    <v-flex xs12>
+                        <v-card>
+                            <v-card-title>
+                                <div>
+                                    <h3 class="headline mb-0">{{ $t("Reset Password") }}</h3>
                                 </div>
-
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary btn-block">
-                                            {{ $t("Send Password Reset Link") }}
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <br />
-                    <p class="text-center">
-                        {{ $t("You don't have an account?") }}
-                            <router-link to="/register"><b> {{ $t("Register") }}</b></router-link>
-                    </p>
-                </div>
-            </div>
-        </div>
+                            </v-card-title>
+                            <v-form v-model="valid" ref="form">
+                                <v-card-text>
+                                    <form-errors :errors="form.errors" />
+                                    <v-text-field name="email" id="email" type="email"
+                                        v-model="form.email"
+                                        :label="$t('E-Mail Address')"
+                                        :rules="emailRules"
+                                        required
+                                    ></v-text-field>
+                                </v-card-text>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="primary" @click="passwordResetEmail">{{ $t("Send Password Reset Link") }}</v-btn>
+                                </v-card-actions>
+                            </v-form>
+                        </v-card>
+                    </v-flex>
+                    <v-flex xs12>
+                        <v-card>
+                            <v-card-text>
+                                <span>{{ $t("You don't have an account?") }}</span>
+                                <router-link to="/register">{{ $t("Register") }}</router-link>
+                                <span> {{ $t("or") }} </span>
+                                <router-link to="/login">{{ $t("Sign In") }}</router-link>
+                            </v-card-text>
+                        </v-card>
+                    </v-flex>
+                </v-layout>
+            </v-flex>
+        </v-layout>
     </main-layout>
 </template>

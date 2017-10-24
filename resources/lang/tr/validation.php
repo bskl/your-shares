@@ -116,6 +116,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'email' => 'E-Posta Adresi',
+        'password' => 'Şifre',
+    ],
 
 ];

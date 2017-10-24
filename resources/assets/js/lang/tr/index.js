@@ -33,4 +33,9 @@ export default {
     'Sale' : 'Satım',
     'Privacy Policy' : 'Gizlilik Sözleşmesi',
     'Terms of Use' : 'Kullanım Koşulları',
+    'E-mail is required' : 'E-Posta adresi girin',
+    'E-mail must be valid' : 'Geçerli bir E-Posta adresi girin',
+    'Password is required' : 'Şifrenizi girin',
+    'Password must be more than 6 characters' : 'Şifreniz 6 karakterden uzun olmalıdır',
+    'or' : 'veya'
 }
