@@ -36,7 +36,7 @@ class PortfolioController extends Controller
      */
     public function update(PortfolioRequest $request, Portfolio $portfolio)
     {
-        $portfolio->update($request->all());
+        $portfolio = tap($portfolio)->update($request->all());
         
         return response()->json($portfolio);
     }

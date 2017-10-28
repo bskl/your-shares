@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-
 use App\Models\Symbol;
 use Illuminate\Console\Command;
 use Carbon\Carbon;

@@ -3,7 +3,8 @@
     import Modal from '../modals/modal/Modal.vue';
     import ModalHeading from '../modals/modal/ModalHeading.vue';
     import ModalBody from '../modals/modal/ModalBody.vue';
-    import Spinner from '../loaders/Spinner.vue';
+    import ModalFooter from '../modals/modal/ModalFooter.vue';
+    import FormErrors from '../partials/FormErrors.vue';
 
     export default {
         /*
@@ -12,7 +13,7 @@
         name: 'AddSymbolModal',
 
         components: {
-            Modal, ModalHeading, ModalBody, Spinner,
+            Modal, ModalHeading, ModalBody, ModalFooter, FormErrors,
         },
 
         /**
@@ -20,14 +21,26 @@
          */
         data() {
             return {
+                showModal: false,
+                valid: true,
+                search: null,
+                symbols: [],
                 form: new Form({
                     symbol_id: '',
                     portfolio_id: '',
                 }),
-                symbols: [],
+                symbolRules: [
+                    (v) => !!v || this.$t("Symbol is required"),
+                ],
+                loading: false,
                 saving: false,
-                showModal: false,
             };
+        },
+
+        watch: {
+            search (val) {
+                val && this.searchSymbol(val)
+            }
         },
 
         /**
@@ -60,92 +73,85 @@
                 this.showModal = false;
                 this.saving = false;
                 this.symbols = [];
+                this.valid = true;
                 this.form.reset();
             },
 
             /**
              * Search symbols.
              */
-            searchSymbol(search, loading) {
-                loading(true)
-                this.getSymbol(search, loading, this)
-            },
 
-            getSymbol: _.debounce((search, loading, vm) => {
-                axios.get('/symbol/search', {
-                    params: {
-                        q: search
-                    }
-                }).then(response => {
-                    vm.symbols = response.data
-                    loading(false)
-                })
-            }, 250),
+            searchSymbol(val) {
+                this.loading = true
+
+                setTimeout(() => {
+                    axios.get('/symbol/search', {
+                        params: {
+                            q: val
+                        }
+                    }).then(response => {
+                        this.symbols = response.data
+                        this.loading = false
+                    })
+                }, 500)
+            },
 
             /**
              * Save the symbol and hide the modal.
              */
             saveSymbol() {
-                this.saving = true;
+                if (this.$refs.form.validate()) {
+                    this.saving = true;
 
-                this.form.post('/portfolio/add-symbol')
-                    .then(response => {
-                        Bus.$emit('symbolAdded', {
-                            symbol: response.data
-                        });
+                    this.form.post('/share')
+                        .then(response => {
+                            Bus.$emit('shareAdded', {
+                                share: response.data
+                            });
 
-                        this.close();
-                    }, error => {
-                        this.saving = false;
-                    })
-
+                            this.close();
+                        }, error => {
+                            this.saving = false;
+                        })
+                }
             },
         },
     }
 </script>
 
 <template>
-    <modal width="360" v-show="this.showModal">
+    <modal width="360" :dialog="showModal">
         <modal-heading>
-            <span>{{ $t("Add Symbol") }}</span>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+            <span class="headline">{{ $t("Add Symbol") }}</span>
         </modal-heading>
         <modal-body>
-            <div v-if="saving">
-                <spinner />
+            <div class="text-xs-center" v-if="saving">
+                <v-progress-circular indeterminate color="primary"></v-progress-circular>
             </div>
-            <div v-else>
-                <form class="form-horizontal" role="form" method="POST"
-                        v-on:submit.prevent="saveSymbol" v-on:keydown="form.errors.clear($event.target.name)">
-                    <div class="form-group">
-                        <div class="col-md-12"
-                             v-bind:class="{ 'has-danger': form.errors.has('symbol_id') }">
-                            <v-select
-                                v-model="form.symbol_id"
-                                @search="searchSymbol"
-                                :options="symbols"
-                                :placeholder="$t('Search Symbol')"
-                                label="code"
-                            >
-                            </v-select>
-
-                            <label class="sr-only" for="symbol_id">{{ $t("Search Symbol") }}</label>
-
-                            <span class="form-text text-danger"
-                                  v-if="form.errors.has('symbol_id')" v-text="form.errors.get('symbol_id')"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary btn-block"
-                                    :disabled="form.errors.any()">{{ $t("Create") }}</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+            <template v-else>
+                <v-form v-model="valid" ref="form">
+                    <form-errors :errors="form.errors" />
+                    <v-select
+                        :label="$t('Search Symbol')"
+                        :no-data-text = "$t('No data available')"
+                        autocomplete
+                        clearable
+                        :loading="loading"
+                        required
+                        :items="symbols"
+                        item-text="code"
+                        item-value="id"
+                        :rules="symbolRules"
+                        :search-input.sync="search"
+                        v-model="form.symbol_id"
+                    ></v-select>
+                </v-form>
+            </template>
         </modal-body>
+        <modal-footer>
+            <v-spacer></v-spacer>
+            <v-btn color="grey darken-1" flat @click="close">{{ $t("Close") }}</v-btn>
+            <v-btn color="blue darken-1" flat @click="saveSymbol">{{ $t("Create") }}</v-btn>
+        </modal-footer>
     </modal>
 </template>

@@ -22,7 +22,7 @@ class Share extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'portfolio_id', 'symbol_id', 'lot', 'average', 'average_amount', 'total_amount', 'gain'
+        'portfolio_id', 'symbol_id', 'lot', 'average', 'average_amount', 'total_amount', 'gain',
     ];
 
     /**
@@ -31,7 +31,7 @@ class Share extends BaseModel
      * @var array
      */
     protected $money = [
-        'average', 'average_amount', 'total_amount', 'gain'
+        'average', 'total_amount', 'gain',
     ];
 
     /**
@@ -83,58 +83,24 @@ class Share extends BaseModel
     }
 
     /**
-     * Get the average attribute with the given formatted money.
-     */
-    public function getAverageFormattedAttribute()
-    {
-        return $this->getFormattedAmount($this->average);
-    }
-
-    /**
      * Get the average price attribute with money object.
      */
-    public function getTotalAverageAttribute()
+    public function calculateAverageAmount()
     {
-        return $this->average->multiply($this->lot);
+        $this->average_amount = $this->average->multiply($this->lot);
+    }
+
+    public function calculateGain()
+    {
+        $this->gain = $this->total_amount->subtract($this->average_amount);
     }
 
     /**
      * Get the average attribute with the given formatted money.
-     */
-    public function getTotalAverageFormattedAttribute()
-    {
-        return $this->getFormattedAmount($this->total_average);
-    }
-
-    /**
-     * Get the amount price attribute with money object.
-     */
-    public function getAmountAttribute()
-    {
-        return $this->symbol->last_price->multiply($this->share);
-    }
-
-    /**
-     * Get the amount with the given formatted money.
-     */
-    public function getAmountFormattedAttribute()
-    {
-        return $this->getFormattedAmount($this->amount);
-    }
-
-    /**
-     * Get the gain price attribute with money object.
-     */
-    public function getGainAttribute()
-    {
-        return $this->amount->subtract($this->total_average);
-    }
- 
-     /**
-      * Get the gain with the given formatted money.
-      */
-    public function getGainFormattedAttribute()
-    {
-        return $this->getFormattedAmount($this->gain);
-    }
+     
+    *public function getAverageAmountFormattedAttribute()
+    *{
+    *    return $this->getFormattedAmount($this->total_average);
+    *}
+    */
 }

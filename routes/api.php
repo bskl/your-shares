@@ -28,7 +28,7 @@ Route::namespace('API')->group(function () {
         Route::put(   '/portfolio/{portfolio}', 'PortfolioController@update');
         Route::delete('/portfolio/{portfolio}', 'PortfolioController@destroy');
 
-        Route::post('/portfolio/add-symbol', 'PortfolioSymbolController@store');
+        Route::post('/share', 'ShareController@store');
 
         Route::post('/transaction', 'TransactionController@store');
 

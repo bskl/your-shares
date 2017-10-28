@@ -2,7 +2,8 @@
     import Modal from '../modals/modal/Modal.vue';
     import ModalHeading from '../modals/modal/ModalHeading.vue';
     import ModalBody from '../modals/modal/ModalBody.vue';
-    import Spinner from '../loaders/Spinner.vue';
+    import ModalFooter from '../modals/modal/ModalFooter.vue';
+    import FormErrors from '../partials/FormErrors.vue';
 
     export default {
         /*
@@ -11,7 +12,7 @@
         name: 'AddPortfolioModal',
 
         components: {
-            Modal, ModalHeading, ModalBody, Spinner,
+            Modal, ModalHeading, ModalBody, ModalFooter, FormErrors,
         },
 
         /**
@@ -19,13 +20,19 @@
          */
         data() {
             return {
+                showModal: false,
+                valid: true,
                 form: new Form({
                     name: '',
                     currency: '',
                 }),
-                currencies: ['TRY'],
+                nameRules: [
+                    (v) => !!v || this.$t("Name is required"),
+                ],
+                currencyRules: [
+                    (v) => !!v || this.$t("Currency is required"),
+                ],
                 saving: false,
-                showModal: false,
             };
         },
 
@@ -54,6 +61,7 @@
             close() {
                 this.showModal = false;
                 this.saving = false;
+                this.valid = true;
                 this.form.reset();
             },
 
@@ -61,72 +69,57 @@
              * Save the portfolio and hide the modal.
              */
             savePortfolio() {
-                this.saving = true;
+                if (this.$refs.form.validate()) {
+                    this.saving = true;
 
-                this.form.post('/portfolio')
-                    .then(response => {
-                        Bus.$emit('portfolioAdded', {
-                            portfolio: response.data
-                        });
+                    this.form.post('/portfolio')
+                        .then(response => {
+                            Bus.$emit('portfolioAdded', {
+                                portfolio: response.data
+                            });
 
-                        this.close();
-                    }, error => {
-                        this.saving = false;
-                    })
-
+                            this.close();
+                        }, error => {
+                            this.saving = false;
+                        })
+                }
             },
         },
     }
 </script>
 
 <template>
-    <modal width="360" v-show="this.showModal">
+    <modal width="360" :dialog="showModal">
         <modal-heading>
-            <span>{{ $t("Add Portfolio") }}</span>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+            <span class="headline">{{ $t("Add Portfolio") }}</span>
         </modal-heading>
         <modal-body>
-            <div v-if="saving">
-                <spinner />
+            <div class="text-xs-center" v-if="saving">
+                <v-progress-circular indeterminate color="primary"></v-progress-circular>
             </div>
-            <div v-else>
-                <form class="form-horizontal" role="form" method="POST"
-                        v-on:submit.prevent="savePortfolio" v-on:keydown="form.errors.clear($event.target.name)">
-                    <div class="form-group">
-                        <div class="col-md-12"
-                                v-bind:class="{ 'has-danger': form.errors.has('name') }">
-                            <input type="text" id="name" name="name" class="form-control" autofocus
-                                    v-bind:placeholder="$t('Portfolio Name')" v-model="form.name">
-                            <label class="sr-only" for="name">{{ $t("Portfolio Name") }}</label>
-
-                            <span class="form-text text-danger"
-                                    v-if="form.errors.has('name')" v-text="form.errors.get('name')"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-12"
-                                v-bind:class="{ 'has-danger': form.errors.has('currency') }">
-                            <v-select id="currency" name="currency"
-                                      v-bind:placeholder="$t('Currency')" v-model="form.currency" :options="currencies" label="alphabeticCode">
-                            </v-select>
-                            <label class="sr-only" for="currency">{{ $t("Currency") }}</label>
-
-                            <span class="form-text text-danger"
-                                  v-if="form.errors.has('currency')" v-text="form.errors.get('currency')"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary btn-block"
-                                    :disabled="form.errors.any()">{{ $t("Create") }}</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+            <template v-else>
+                <v-form v-model="valid" ref="form">
+                    <form-errors :errors="form.errors" />
+                    <v-text-field name="name" id="name" type="text"
+                        v-model="form.name"
+                        :label="$t('Portfolio Name')"
+                        :rules="nameRules"
+                        required
+                    ></v-text-field>
+                    <v-select name="currency" id="currency" type="select"
+                        v-model="form.currency"
+                        :items="['TRY']"
+                        :label="$t('Currency')"
+                        :rules="currencyRules"
+                        required
+                    ></v-select>
+                </v-form>
+            </template>
         </modal-body>
+        <modal-footer>
+            <v-spacer></v-spacer>
+            <v-btn color="grey darken-1" flat @click="close">{{ $t("Close") }}</v-btn>
+            <v-btn color="blue darken-1" flat @click="savePortfolio">{{ $t("Create") }}</v-btn>
+        </modal-footer>
     </modal>
 </template>

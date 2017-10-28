@@ -1,5 +1,5 @@
 <template>
-    <div class="modal-header">
+    <v-card-title>
         <slot/>
-    </div>
+    </v-card-title>
 </template>

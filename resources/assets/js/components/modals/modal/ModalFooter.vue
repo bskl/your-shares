@@ -1,5 +1,5 @@
 <template>
-    <div class="modal-footer">
-        <slot />
-    </div>
+    <v-card-actions>
+        <slot/>
+    </v-card-actions>
 </template>

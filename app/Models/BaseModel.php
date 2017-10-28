@@ -94,9 +94,11 @@ class BaseModel extends Model
         }
 
         if (ends_with($key, '_formatted')) {
-            $key = str_replace_last('_formatted', '', $key);
+            if (array_key_exists($key, $this->appends)) {
+                $key = str_replace_last('_formatted', '', $key);
 
-            return $this->getMoneyFormattedAttribute($this->$key);
+                return $this->getMoneyFormattedAttribute($key);
+            }
         }
 
         return parent::__get($key);

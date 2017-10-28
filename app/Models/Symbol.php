@@ -39,7 +39,7 @@ class Symbol extends BaseModel
      * @var array
      */
     protected $appends = [
-        'last_price_formatted',
+        
     ];
 
     /**

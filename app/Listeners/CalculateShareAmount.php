@@ -22,6 +22,7 @@ class CalculateShareAmount
 
         $shares->map(function ($share) use ($symbol) {
             $share->calculateTotalAmount($symbol->last_price);
+            $share->calculateGain();
             $share->update();
         });
     }

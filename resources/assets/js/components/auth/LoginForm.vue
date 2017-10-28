@@ -49,7 +49,6 @@
                     this.form.post('/login')
                         .then(response => {
                              if (response.status === 200) {
-                                Bus.$emit('userLoggedIn');
                                 this.$router.push('/');
                             }
                         })
@@ -67,9 +66,7 @@
                     <v-flex xs12>
                         <v-card>
                             <v-card-title>
-                                <div>
-                                    <h3 class="headline mb-0">{{ $t("Sign In") }}</h3>
-                                </div>
+                                <div class="headline mb-0">{{ $t("Sign In") }}</div>
                             </v-card-title>
                             <v-form v-model="valid" ref="form">
                                 <v-card-text>

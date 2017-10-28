@@ -20,6 +20,16 @@
          */
         data() {
             return {
+                headers: [
+                    { text: this.$t("Symbol"), value: 'symbol', align: 'left', sortable: false },
+                    { text: this.$t("Last Price"), value: 'last_price', sortable: false },
+                    { text: this.$t("Change"), value: 'change', sortable: false },
+                    { text: this.$t("Lots"), value: 'lots', sortable: false },
+                    { text: this.$t("Average"), value: 'average', sortable: false },
+                    { text: this.$t("Total Amount"), value: 'total_amount', sortable: false },
+                    { text: this.$t("Average Amount"), value: 'average_amount', sortable: false },
+                    { text: this.$t("Gain"), value: 'gain', sortable: false }
+                ],
                 state: portfolioStore.state,
             }
         },
@@ -31,7 +41,7 @@
             Bus.$on('portfolioAdded', payload => this.pushPortfolio(payload.portfolio));
             Bus.$on('portfolioUpdated', payload => this.updatePortfolio(payload.portfolio));
             Bus.$on('portfolioDeleted', payload => this.deletePortfolio(payload.portfolioId));
-            Bus.$on('symbolAdded', payload => this.pushSymbolToPortfolio(payload.symbol));
+            Bus.$on('shareAdded', payload => this.pushShare(payload.share));
             Bus.$on('transactionAdded', payload => this.updateSymbol(payload.symbol));
         },
 
@@ -41,18 +51,11 @@
 
         methods: {
             /**
-             * Determine if we have any shares.
-             */
-            anyShares() {
-                return ! _.isEmpty(this.state.portfolios.shares);
-            },
-
-            /**
              * Push created portfolio to portfolios.
              */
             pushPortfolio(portfolio) {
                 this.state.portfolios.push(portfolio);
-                Bus.$off('portfolioAdded', portfolios);
+                Bus.$off('portfolioAdded', portfolio);
             },
 
             /**
@@ -74,12 +77,12 @@
             },
 
             /**
-             * Push added symbol to given portfolio.
+             * Push added share to given portfolio.
              */
-            pushSymbolToPortfolio(symbol) {
-                let index = _.findIndex(this.state.portfolios, ['id', symbol.portfolio_id]);
-                this.state.portfolios[index].symbols.push(symbol);
-                Bus.$off('symbolAdded', symbol);
+            pushShare(share) {
+                let index = _.findIndex(this.state.portfolios, ['id', share.portfolio_id]);
+                this.state.portfolios[index].shares.push(share);
+                Bus.$off('shareAdded', share);
             },
 
             /**
@@ -91,13 +94,6 @@
                 this.state.portfolios[portfolioIndex].symbols.splice(index, 1, symbol);
 
                 Bus.$off('transactionAdded', symbol);
-            },
-
-            /**
-             * Open the modal for adding a new portfolio.
-             */
-            showAddPortfolioModal() {
-                this.$refs.addPortfolioModal.open();
             },
 
             /**
@@ -125,59 +121,62 @@
 </script>
 
 <template>
-    <div class="container">
-        <div class="row" v-for="portfolio in state.portfolios" :key="portfolio.id">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-12">
-                        <nav class="nav nav-pills float-right">
-                            <a class="nav-link" @click="showAddSymbolModal(portfolio.id)" href="#">{{ $t("Add Symbol") }}</a>
-                            <a class="nav-link" @click="showEditPortfolioModal(portfolio)" href="#">{{ $t("Edit") }}</a>
-                        </nav>
-                        <h5 class="float-left mt-2">{{ portfolio.name }}</h5>
-                    </div>
-                </div>
-                <hr />
-                <div class="row justify-content-center">
-                    <div class="col-md-10" v-if="!anyShares()">
-                        <p class="text-center mt-3">{{ $t("You have not created any symbol.") }}</p>
-                    </div>
-                    <div class="col-md-10" v-else>
-                        <table class="table table-striped">
-                            <tr class="clearfix" v-for="share in portfolio.shares" :key="share.id">
-                                <td>{{ share.symbol.code }}</td>
-                                <td v-bind:class="{ 'text-danger': share.symbol.trend == -1, 'text-success': share.symbol.trend == 1 }">
-                                    {{ share.symbol.last_price_formatted }}</td>
-                                <td v-bind:class="{ 'text-danger': share.symbol.trend == -1, 'text-success': share.symbol.trend == 1 }">
-                                    {{ share.symbol.rate_of_change }}%</td>
-                                <td>{{ share.share }}</td>
-                                <td>{{ share.average_formatted }}</td>
-                                <td>{{ share.amount_formatted }}</td>                
-                                <td>{{ share.total_average_formatted }}</td>
-                                <td v-bind:class="{ 'text-danger': share.gain_formatted < 0, 'text-success': share.gain_formatted > 0 }">
-                                    {{ share.gain_formatted }}</td>                
-                                <td>
-                                    <a class="btn btn-sm action-link"
-                                        @click="showAddTransactionModal(share.id)">{{ $t("Add Transaction") }}
-                                        <span class="sr-only">{{ $t("Add Transaction") }}</span></a>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <v-layout row wrap justify-center>
+        <v-flex xs12 sm12 md10 offset-md1>
+            <v-layout row wrap>
+                <v-flex xs12 v-for="portfolio in state.portfolios" :key="portfolio.id">
+                    <v-card>
+                        <v-card-title>
+                            <div class="subheading">{{ portfolio.name }}</div>
+                            <v-spacer></v-spacer>
+                            <v-btn icon @click="showEditPortfolioModal(portfolio)">
+                                <v-icon>edit</v-icon>
+                            </v-btn>
+                            <v-btn icon @click="showAddSymbolModal(portfolio.id)">
+                                <v-icon>add</v-icon>
+                            </v-btn>
+                        </v-card-title>
+                        <v-divider></v-divider>
+                        <v-card-text>
+                            <v-data-table
+                                :items="portfolio.shares"
+                                :headers="headers"
+                                item-key="id"
+                                hide-actions
+                                :no-data-text="$t('You have not created any symbol.')"
+                                class="elevation-1"
+                            >
+                                <template slot="items" scope="props">
+                                    <td>{{ props.item.symbol.code }}</td>
+                                    <td class="text-xs-right" :class="{ 'red--text darken-1': share.symbol.trend == -1, 'green--text darken-1': share.symbol.trend == 1 }">
+                                        {{ props.item.last_price_formatted }}</td>
+                                    <td class="text-xs-right" :class="{ 'red--text darken-1': share.symbol.trend == -1, 'green--text darken-1': share.symbol.trend == 1 }">
+                                        {{ props.item.rate_of_change }}%</td>
+                                    <td class="text-xs-right">{{ props.item.share }}</td>
+                                    <td class="text-xs-right">{{ props.item.average_formatted }}</td>
+                                    <td class="text-xs-right">{{ props.item.total_amount_formatted }}</td>
+                                    <td class="text-xs-right">{{ props.item.average_amount_formatted }}</td>
+                                    <td class="text-xs-right" :class="{ 'red--text darken-1': share.gain_formatted < 0, 'green--text darken-1': share.gain_formatted > 0 }">
+                                        {{ props.item.gain_formatted }}</td>
+                                    <td>
+                                        <a class="btn btn-sm action-link"
+                                            @click="showAddTransactionModal(share.id)">{{ $t("Add Transaction") }}
+                                            <span class="sr-only">{{ $t("Add Transaction") }}</span></a>
+                                    </td>
+                                </template>
+                            </v-data-table>
+                        </v-card-text>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                        </v-card-actions>
+                    </v-card>
+                </v-flex>
+            </v-layout>
+        </v-flex>
 
-        <div class="row justify-content-end">
-            <div class="col-md-2">
-                <a class="btn btn-primary" href="#"
-                   @click="showAddPortfolioModal()">{{ $t("Add Portfolio") }}</a>
-            </div>
-        </div>
-        
-        <add-portfolio-modal ref="addPortfolioModal" />
         <edit-portfolio-modal ref="editPortfolioModal" />
         <add-symbol-modal ref="addSymbolModal" />
         <add-transaction-modal ref="addTransactionModal" />
-    </div>
+
+    </v-layout>
 </template>
