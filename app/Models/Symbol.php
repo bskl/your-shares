@@ -25,21 +25,21 @@ class Symbol extends BaseModel
     ];
 
     /**
+     * The attributes that are money object.
+     *
+     * @var array
+     */
+    protected $money = [
+        'last_price',
+    ];
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $hidden = [
-        'last_price', 'created_at', 'updated_at',
-    ];
-
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
-     */
-    protected $appends = [
-        
+        'created_at', 'updated_at',
     ];
 
     /**
@@ -52,19 +52,20 @@ class Symbol extends BaseModel
     ];
 
     /**
-     * The attributes that are money object.
-     *
-     * @var array
-     */
-    protected $money = [
-        'last_price',
-    ];
-
-    /**
      * Get the rate_of_change attribute with divided 100.
      */
     public function getRateOfChangeAttribute()
     {
         return (float) ($this->attributes['rate_of_change'] / 100);
+    }
+
+    /**
+     * Get the last_price attribute with decimal formatted.
+     */
+    public function getLastPriceAttribute()
+    {
+        return $this->convertMoneyToDecimal(
+                $this->getMoneyAttribute('last_price')
+            );
     }
 }

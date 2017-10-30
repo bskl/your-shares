@@ -3,7 +3,8 @@
     import Modal from '../modals/modal/Modal.vue';
     import ModalHeading from '../modals/modal/ModalHeading.vue';
     import ModalBody from '../modals/modal/ModalBody.vue';
-    import Spinner from '../loaders/Spinner.vue';
+    import ModalFooter from '../modals/modal/ModalFooter.vue';
+    import FormErrors from '../partials/FormErrors.vue';
 
     export default {
         /*
@@ -12,7 +13,7 @@
         name: 'AddTransactionModal',
 
         components: {
-            Modal, ModalHeading, ModalBody, Spinner,
+            Modal, ModalHeading, ModalBody, ModalFooter, FormErrors,
         },
 
         /**
@@ -20,20 +21,22 @@
          */
         data() {
             return {
+                showModal: false,
+                valid: true,
+                menu: false,
                 form: new Form({
-                    portfolio_symbol_id: '',
+                    share_id: '',
                     type: '',
-                    date: '',
-                    share: '',
+                    date: null,
+                    lot: '',
                     price: '',
                     commission: '',
                 }),
                 transactions: [
-                    { value: 1, label: 'Buying' },
-                    { value: 2, label: 'Sale' },
+                    { id: 1, label: 'Buying' },
+                    { id: 2, label: 'Sale' },
                 ],
                 saving: false,
-                showModal: false,
             };
         },
 
@@ -52,12 +55,12 @@
             /**
              * Open the model.
              */
-            open(portfolioSymbolId) {
+            open(shareId) {
                 this.form = new Form({
-                    portfolio_symbol_id: portfolioSymbolId,
+                    share_id: shareId,
                     type: '',
-                    date: '',
-                    share: '',
+                    date: null,
+                    lot: '',
                     price: '',
                     commission: '',
                 });
@@ -70,6 +73,7 @@
             close() {
                 this.showModal = false;
                 this.saving = false;
+                this.valid = true;
                 this.form.reset();
             },
 
@@ -77,111 +81,100 @@
              * Save the transaction and hide the modal.
              */
             saveTransaction() {
-                this.saving = true;
+                if (this.$refs.form.validate()) {
+                    this.saving = true;
 
-                this.form.post('/transaction')
-                    .then(response => {
-                        Bus.$emit('transactionAdded', {
-                            symbol: response.data
-                        });
+                    this.form.post('/transaction')
+                        .then(response => {
+                            Bus.$emit('transactionAdded', {
+                                symbol: response.data
+                            });
 
-                        this.close();
-                    }, error => {
-                        this.saving = false;
-                    })
-
+                            this.close();
+                        }, error => {
+                            this.saving = false;
+                        })
+                }
             },
         },
     }
 </script>
 
 <template>
-    <modal width="360" v-show="this.showModal">
+    <modal width="360" :dialog="showModal">
         <modal-heading>
-            <span>{{ $t("Add Transaction") }}</span>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+            <span class="headline">{{ $t("Add Transaction") }}</span>
         </modal-heading>
         <modal-body>
-            <div v-if="saving">
-                <spinner />
+            <div class="text-xs-center" v-if="saving">
+                <v-progress-circular indeterminate color="primary"></v-progress-circular>
             </div>
-            <div v-else>
-                <form class="form-horizontal" role="form" method="POST"
-                        v-on:submit.prevent="saveTransaction" v-on:keydown="form.errors.clear($event.target.name)">
-                    <div class="form-group">
-                        <div class="col-md-12"
-                             v-bind:class="{ 'has-danger': form.errors.has('type') }">
-                            <v-select v-model="form.type" :options="transactions" :placeholder="$t('Select Transaction')"></v-select>
+            <template v-else>
+                <v-form v-model="valid" ref="form">
+                    <form-errors :errors="form.errors" />
+                    <v-select
+                        :items="transactions"
+                        item-text="label"
+                        item-value="id"
+                        v-model="form.type"
+                        :label="$t('Select Transaction')"
+                        single-line
+                        bottom
+                    ></v-select>
 
-                            <label class="sr-only" for="type">{{ $t("Select Transaction") }}</label>
+                    <v-menu
+                        lazy
+                        :close-on-content-click="false"
+                        v-model="menu"
+                        transition="scale-transition"
+                        offset-y
+                        full-width
+                        :nudge-right="40"
+                        max-width="290px"
+                        min-width="290px"
+                    >
+                        <v-text-field
+                            slot="activator"
+                            :label="$t('Select Date')"
+                            v-model="form.date"
+                            prepend-icon="event"
+                            readonly
+                        ></v-text-field>
+                        <v-date-picker v-model="form.date" no-title scrollable actions>
+                        <template scope="{ save, cancel }">
+                            <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn flat color="primary" @click="cancel">Cancel</v-btn>
+                            <v-btn flat color="primary" @click="save">OK</v-btn>
+                            </v-card-actions>
+                        </template>
+                        </v-date-picker>
+                    </v-menu>
 
-                            <span class="form-text text-danger"
-                                  v-if="form.errors.has('type')" v-text="form.errors.get('type')"></span>
-                        </div>
-                    </div>
+                    <v-text-field name="lot" id="lot" type="text"
+                        v-model="form.lot"
+                        :label="$t('Enter Share Amount')"
+                        mask="########"
+                    ></v-text-field>
 
-                    <div class="form-group">
-                        <div class="col-md-12"
-                             v-bind:class="{ 'has-danger': form.errors.has('date') }">
-                            <input type="text" id="date" name="date" class="form-control"
-                                   v-bind:placeholder="$t('Select Date')" v-model="form.date"></v-select>
+                    <v-text-field name="price" id="price" type="text"
+                        v-model="form.price"
+                        :label="$t('Enter Share Price')"
+                        mask="###.###.###.###,##"
+                    ></v-text-field>
 
-                            <label class="sr-only" for="date">{{ $t("Select Date") }}</label>
-
-                            <span class="form-text text-danger"
-                                  v-if="form.errors.has('date')" v-text="form.errors.get('date')"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-12"
-                             v-bind:class="{ 'has-danger': form.errors.has('share') }">
-                            <input type="text" id="share" name="share" class="form-control"
-                                   v-bind:placeholder="$t('Enter Share Amount')" v-model="form.share"></v-select>
-
-                            <label class="sr-only" for="share">{{ $t("Enter Share Amount") }}</label>
-
-                            <span class="form-text text-danger"
-                                  v-if="form.errors.has('share')" v-text="form.errors.get('share')"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-12"
-                             v-bind:class="{ 'has-danger': form.errors.has('price') }">
-                            <input type="text" id="price" name="price" class="form-control"
-                                   v-bind:placeholder="$t('Enter Share Price')" v-model="form.price"></v-select>
-
-                            <label class="sr-only" for="price">{{ $t("Enter Share Price") }}</label>
-
-                            <span class="form-text text-danger"
-                                  v-if="form.errors.has('price')" v-text="form.errors.get('price')"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-12"
-                             v-bind:class="{ 'has-danger': form.errors.has('commission') }">
-                            <input type="text" id="commission" name="commission" class="form-control"
-                                   v-bind:placeholder="$t('Enter Commission Rate')" v-model="form.commission"></v-select>
-
-                            <label class="sr-only" for="commission">{{ $t("Enter Commission Rate") }}</label>
-
-                            <span class="form-text text-danger"
-                                  v-if="form.errors.has('commission')" v-text="form.errors.get('commission')"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary btn-block"
-                                    :disabled="form.errors.any()">{{ $t("Create") }}</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                    <v-text-field name="commission" id="commission" type="text"
+                        v-model="form.commission"
+                        :label="$t('Enter Commission Rate')"
+                        mask="#,####"
+                    ></v-text-field>
+                </v-form>
+            </template>
         </modal-body>
+        <modal-footer>
+            <v-spacer></v-spacer>
+            <v-btn color="grey darken-1" flat @click="close">{{ $t("Close") }}</v-btn>
+            <v-btn color="blue darken-1" flat @click="saveTransaction">{{ $t("Create") }}</v-btn>
+        </modal-footer>
     </modal>
 </template>

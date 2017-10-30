@@ -23,7 +23,7 @@ class Transaction extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'share_id', 'type', 'date', 'share', 'price', 'amount', 'commission', 'commission_price', 'average', 'sale_gain',
+        'share_id', 'type', 'date', 'lot', 'price', 'amount', 'commission', 'commission_price', 'average', 'sale_gain',
     ];
 
     /**
@@ -38,9 +38,9 @@ class Transaction extends BaseModel
     /**
      * Get the portfolio symbol.
      */
-    public function portfolioSymbol()
+    public function share()
     {
-        return $this->belongsTo('App\Models\PortfolioSymbol');
+        return $this->belongsTo('App\Models\Share');
     }
 
     /**
@@ -51,29 +51,5 @@ class Transaction extends BaseModel
         if ($date) {
             $this->attributes['date'] = Carbon::createFromFormat('d.m.Y', $date)->format('Y-m-d');
         }
-    }
-
-    /**
-     * Set the price attribute.
-     */
-    public function setPriceAttribute($value)
-    {
-		$this->attributes['price'] = $this->decimalParser($value);
-    }
-
-    /**
-     * Get the price attribute with money object.
-     */
-    public function getPriceAttribute()
-    {
-        return new Money($this->attributes['price'], new Currency('TRY'));
-    }
-
-    /**
-     * Get the price attribute with money object.
-     */
-    public function getTotalPriceAttribute()
-    {
-        return $this->price->multiply($this->share);
     }
 }

@@ -34,7 +34,7 @@ class TransactionController extends Controller
     public function store(TransactionRequest $request)
     {
         $data = $request->all();
-        $data['type'] = $data['type']['value'];
+        $data['type'] = $data['type']['id'];
 
         $transaction = $this->transactions->create($data);
 

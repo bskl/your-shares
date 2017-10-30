@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Money\Money;
+use Money\Currency;
 use Money\Currencies\ISOCurrencies;
-use Money\Formatter\DecimalMoneyFormatter;
 use Money\Parser\DecimalMoneyParser;
+use Money\Formatter\DecimalMoneyFormatter;
 use Illuminate\Database\Eloquent\Model;
 
 class BaseModel extends Model
@@ -18,41 +19,29 @@ class BaseModel extends Model
     protected $money = [];
 
     /**
-     * Create or update a record matching the attributes, and fill it with values.
+     * Get money object for given attribute from the model.
+     *
+     * @param  string  $key
+     * @return Money
+     */
+    public function getMoneyAttribute($key)
+    {
+        return new Money($this->attributes[$key], new Currency('TRY'));
+    }
+
+    /**
+     * Convert Money object to decimal.
      *
      * @param  Money\Money  $money
-     * @param  string  $locale
      * @return string
      */
-    public function getMoneyFormattedAttribute(Money $money)
+    public function convertMoneyToDecimal(Money $money)
     {
         $currencies = new ISOCurrencies();
         
         $moneyFormatter = new DecimalMoneyFormatter($currencies);
 
         return $moneyFormatter->format($money);
-    }
-
-    public function decimalParser($value)
-    {
-        $currencies = new ISOCurrencies();
-
-        $moneyParser = new DecimalMoneyParser($currencies);
-
-        $money = $moneyParser->parse($value, 'TRY');
-
-        return $money->getAmount();
-    }
-
-    /**
-     * Get an attribute from the model.
-     *
-     * @param  string  $key
-     * @return mixed
-     */
-    public function getMoneyAttribute($key)
-    {
-        return new Money($this->attributes[$key], new Currency('TRY'));
     }
 
     /**
@@ -89,16 +78,8 @@ class BaseModel extends Model
             return;
         }
 
-        if (array_key_exists($key, $this->money)) {
+        if (array_key_exists($key, $this->money)) {           
             return $this->getMoneyAttribute($key);
-        }
-
-        if (ends_with($key, '_formatted')) {
-            if (array_key_exists($key, $this->appends)) {
-                $key = str_replace_last('_formatted', '', $key);
-
-                return $this->getMoneyFormattedAttribute($key);
-            }
         }
 
         return parent::__get($key);

@@ -6,9 +6,22 @@ import tr from './tr/';
 
 Vue.use(VueI18n);
 
-let messages = {
+const messages = {
     en,
     tr,
+}
+
+const numberFormats = {
+    'en-US': {
+        currency: {
+            style: 'currency', currency: 'USD', currencyDisplay: 'symbol', minimumFractionDigits: 2,
+        }
+    },
+    'tr': {
+        currency: {
+            style: 'currency', currency: 'TRY', currencyDisplay: 'symbol', minimumFractionDigits: 2,
+        }
+    }
 }
 
 // Create VueI18n instance with options
@@ -16,4 +29,5 @@ export default new VueI18n({
     locale: window.navigator.userLanguage || window.navigator.language,
     fallbackLocale: 'tr',
     messages,
+    numberFormats,
 });

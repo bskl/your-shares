@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use Money\Money;
-use Money\Currency;
-
 class Share extends BaseModel
 {
     /**
@@ -31,7 +28,7 @@ class Share extends BaseModel
      * @var array
      */
     protected $money = [
-        'average', 'total_amount', 'gain',
+        'average', 'average_amount', 'total_amount', 'gain',
     ];
 
     /**
@@ -53,15 +50,6 @@ class Share extends BaseModel
     ];
 
     /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
-     */
-    protected $appends = [
-        'average_formatted', 'average_amount_formatted', 'total_amount_formatted', 'gain_formatted',
-    ];
-
-    /**
      * Get the portfolio.
      */
     public function portfolio()
@@ -77,30 +65,58 @@ class Share extends BaseModel
         return $this->belongsTo('App\Models\Symbol');
     }
 
+    /**
+     * Calculate the total amount price attribute with money object.
+     */
     public function calculateTotalAmount(Money $lastPrice)
     {
         $this->total_amount = $lastPrice->multiply($this->lot);
     }
 
     /**
-     * Get the average price attribute with money object.
+     * Calculate the average price attribute with money object.
      */
     public function calculateAverageAmount()
     {
         $this->average_amount = $this->average->multiply($this->lot);
     }
 
+    /**
+     * Calculate the gain attribute with money object.
+     */
     public function calculateGain()
     {
         $this->gain = $this->total_amount->subtract($this->average_amount);
     }
 
     /**
-     * Get the average attribute with the given formatted money.
-     
-    *public function getAverageAmountFormattedAttribute()
-    *{
-    *    return $this->getFormattedAmount($this->total_average);
-    *}
-    */
+     * Get the last_price attribute with decimal formatted.
+     */
+    public function getAverageAttribute()
+    {
+        return $this->convertMoneyToDecimal(
+                $this->getMoneyAttribute('average')
+            );
+    }
+
+    public function getAverageAmountAttribute()
+    {
+        return $this->convertMoneyToDecimal(
+                $this->getMoneyAttribute('average_amount')
+            );
+    }
+
+    public function getTotalAmountAttribute()
+    {
+        return $this->convertMoneyToDecimal(
+                $this->getMoneyAttribute('total_amount')
+            );
+    }
+
+    public function getGainAttribute()
+    {
+        return $this->convertMoneyToDecimal(
+                $this->getMoneyAttribute('gain')
+            );
+    }
 }

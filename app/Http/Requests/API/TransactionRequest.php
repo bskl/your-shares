@@ -24,10 +24,10 @@ class TransactionRequest extends Request
     public function rules()
     {
         return [
-            'portfolio_symbol_id' => 'required',
+            'share_id' => 'required',
             'type' => 'required',
             'date' => 'required',
-            'share' => 'required',
+            'lot' => 'required',
             'price' => 'required',
             'commission' => 'required',
         ];

@@ -148,20 +148,20 @@
                             >
                                 <template slot="items" scope="props">
                                     <td>{{ props.item.symbol.code }}</td>
-                                    <td class="text-xs-right" :class="{ 'red--text darken-1': share.symbol.trend == -1, 'green--text darken-1': share.symbol.trend == 1 }">
-                                        {{ props.item.last_price_formatted }}</td>
-                                    <td class="text-xs-right" :class="{ 'red--text darken-1': share.symbol.trend == -1, 'green--text darken-1': share.symbol.trend == 1 }">
-                                        {{ props.item.rate_of_change }}%</td>
-                                    <td class="text-xs-right">{{ props.item.share }}</td>
-                                    <td class="text-xs-right">{{ props.item.average_formatted }}</td>
-                                    <td class="text-xs-right">{{ props.item.total_amount_formatted }}</td>
-                                    <td class="text-xs-right">{{ props.item.average_amount_formatted }}</td>
-                                    <td class="text-xs-right" :class="{ 'red--text darken-1': share.gain_formatted < 0, 'green--text darken-1': share.gain_formatted > 0 }">
-                                        {{ props.item.gain_formatted }}</td>
+                                    <td class="text-xs-right" :class="{ 'red--text darken-1': props.item.symbol.trend == -1, 'green--text darken-1': props.item.symbol.trend == 1 }">
+                                        {{ $n(props.item.symbol.last_price, 'currency') }}</td>
+                                    <td class="text-xs-right" :class="{ 'red--text darken-1': props.item.symbol.trend == -1, 'green--text darken-1': props.item.symbol.trend == 1 }">
+                                        {{ props.item.symbol.rate_of_change }}%</td>
+                                    <td class="text-xs-right">{{ props.item.lot }}</td>
+                                    <td class="text-xs-right">{{ $n(props.item.average, 'currency') }}</td>
+                                    <td class="text-xs-right">{{ $n(props.item.total_amount, 'currency') }}</td>
+                                    <td class="text-xs-right">{{ $n(props.item.average_amount, 'currency') }}</td>
+                                    <td class="text-xs-right" :class="{ 'red--text darken-1': props.item.gain < 0, 'green--text darken-1': props.item.gain > 0 }">
+                                        {{ $n(props.item.gain, 'currency') }}</td>
                                     <td>
-                                        <a class="btn btn-sm action-link"
-                                            @click="showAddTransactionModal(share.id)">{{ $t("Add Transaction") }}
-                                            <span class="sr-only">{{ $t("Add Transaction") }}</span></a>
+                                        <v-btn icon @click="showAddTransactionModal(props.item.id)">
+                                            <v-icon>add_circle_outline</v-icon>
+                                        </v-btn>
                                     </td>
                                 </template>
                             </v-data-table>

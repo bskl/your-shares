@@ -472,12 +472,58 @@ module.exports = {
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(66)
+/* template */
+var __vue_template__ = __webpack_require__(67)
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\partials\\FormErrors.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] FormErrors.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-040b2121", Component.options)
+  } else {
+    hotAPI.reload("data-v-040b2121", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return userStore; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_http_js__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_ls_js__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_http_js__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_ls_js__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__router___ = __webpack_require__(20);
 
 
@@ -563,52 +609,6 @@ var userStore = {
         });
     }
 };
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(0)
-/* script */
-var __vue_script__ = __webpack_require__(66)
-/* template */
-var __vue_template__ = __webpack_require__(67)
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\partials\\FormErrors.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] FormErrors.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-040b2121", Component.options)
-  } else {
-    hotAPI.reload("data-v-040b2121", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
 
 /***/ }),
 /* 4 */
@@ -823,6 +823,52 @@ module.exports = Component.exports
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = __webpack_require__(65)
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\modals\\modal\\ModalFooter.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] ModalFooter.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2c9155f8", Component.options)
+  } else {
+    hotAPI.reload("data-v-2c9155f8", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -17914,7 +17960,7 @@ module.exports = Component.exports
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(26)(module)))
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18014,7 +18060,7 @@ module.exports = defaults;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28214,7 +28260,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28238,12 +28284,12 @@ var ls = {
 };
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return http; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ls_js__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ls_js__ = __webpack_require__(13);
 
 
 /**
@@ -28323,52 +28369,6 @@ var http = {
         });
     }
 };
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(0)
-/* script */
-var __vue_script__ = null
-/* template */
-var __vue_template__ = __webpack_require__(65)
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\modals\\modal\\ModalFooter.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] ModalFooter.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2c9155f8", Component.options)
-  } else {
-    hotAPI.reload("data-v-2c9155f8", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
 
 /***/ }),
 /* 15 */
@@ -28643,7 +28643,7 @@ module.exports = Cancel;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(48);
 
@@ -28658,13 +28658,13 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
         component: __webpack_require__(49)
     }, {
         path: '/login',
-        component: __webpack_require__(95)
+        component: __webpack_require__(88)
     }, {
         path: '/register',
-        component: __webpack_require__(98)
+        component: __webpack_require__(91)
     }, {
         path: '/password/reset',
-        component: __webpack_require__(101)
+        component: __webpack_require__(94)
     }]
 }));
 
@@ -28764,7 +28764,7 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(24);
-module.exports = __webpack_require__(114);
+module.exports = __webpack_require__(107);
 
 
 /***/ }),
@@ -28773,17 +28773,17 @@ module.exports = __webpack_require__(114);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuetify__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuetify___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vuetify__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__router___ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lang___ = __webpack_require__(104);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utilities_Form_js__ = __webpack_require__(108);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_http_js__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_nprogress__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lang___ = __webpack_require__(97);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utilities_Form_js__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_http_js__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_nprogress__ = __webpack_require__(103);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_nprogress___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_nprogress__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_App_vue__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_App_vue__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_App_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_App_vue__);
 
 /**
@@ -28832,7 +28832,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(9);
+window._ = __webpack_require__(10);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -28917,7 +28917,7 @@ module.exports = __webpack_require__(28);
 var utils = __webpack_require__(1);
 var bind = __webpack_require__(15);
 var Axios = __webpack_require__(30);
-var defaults = __webpack_require__(10);
+var defaults = __webpack_require__(11);
 
 /**
  * Create an instance of Axios
@@ -29000,7 +29000,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(10);
+var defaults = __webpack_require__(11);
 var utils = __webpack_require__(1);
 var InterceptorManager = __webpack_require__(40);
 var dispatchRequest = __webpack_require__(41);
@@ -29722,7 +29722,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(1);
 var transformData = __webpack_require__(42);
 var isCancel = __webpack_require__(18);
-var defaults = __webpack_require__(10);
+var defaults = __webpack_require__(11);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -48530,7 +48530,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = __webpack_require__(50)
 /* template */
-var __vue_template__ = __webpack_require__(94)
+var __vue_template__ = __webpack_require__(87)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -48573,9 +48573,9 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_ls_js__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_ls_js__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__stores_sharedStore_js__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__stores_userStore_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__stores_userStore_js__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__layout_MainLayout_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__layout_MainLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__layout_MainLayout_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Portfolios_vue__ = __webpack_require__(75);
@@ -48794,8 +48794,8 @@ module.exports = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return sharedStore; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_http_js__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__userStore_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_http_js__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__userStore_js__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__portfolioStore_js__ = __webpack_require__(21);
 
 
@@ -48980,7 +48980,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modals_AddPortfolioModal_vue__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modals_AddPortfolioModal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__modals_AddPortfolioModal_vue__);
 
@@ -49035,9 +49035,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modals_modal_ModalHeading_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__modals_modal_ModalHeading_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modals_modal_ModalBody_vue__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modals_modal_ModalBody_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__modals_modal_ModalBody_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalFooter_vue__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalFooter_vue__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalFooter_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalFooter_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__partials_FormErrors_vue__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__partials_FormErrors_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__partials_FormErrors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__partials_FormErrors_vue__);
 
 
@@ -49743,7 +49743,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = __webpack_require__(76)
 /* template */
-var __vue_template__ = __webpack_require__(93)
+var __vue_template__ = __webpack_require__(86)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -49817,7 +49817,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      */
     data: function data() {
         return {
-            headers: [{ text: this.$t("Symbol"), value: 'symbol', align: 'left', sortable: false }, { text: this.$t("Last Price"), value: 'last_price', sortable: false }, { text: this.$t("Change"), value: 'change', sortable: false }, { text: this.$t("Shares"), value: 'shares', sortable: false }, { text: this.$t("Average"), value: 'average', sortable: false }, { text: this.$t("Total Amount"), value: 'total_amount', sortable: false }, { text: this.$t("Total Average"), value: 'total_average', sortable: false }, { text: this.$t("Gain"), value: 'gain', sortable: false }],
+            headers: [{ text: this.$t("Symbol"), value: 'symbol', align: 'left', sortable: false }, { text: this.$t("Last Price"), value: 'last_price', sortable: false }, { text: this.$t("Change"), value: 'change', sortable: false }, { text: this.$t("Lots"), value: 'lots', sortable: false }, { text: this.$t("Average"), value: 'average', sortable: false }, { text: this.$t("Total Amount"), value: 'total_amount', sortable: false }, { text: this.$t("Average Amount"), value: 'average_amount', sortable: false }, { text: this.$t("Gain"), value: 'gain', sortable: false }],
             state: __WEBPACK_IMPORTED_MODULE_0__stores_portfolioStore_js__["a" /* portfolioStore */].state
         };
     },
@@ -49983,9 +49983,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modals_modal_ModalHeading_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__modals_modal_ModalHeading_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modals_modal_ModalBody_vue__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modals_modal_ModalBody_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__modals_modal_ModalBody_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalFooter_vue__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalFooter_vue__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalFooter_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalFooter_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__partials_FormErrors_vue__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__partials_FormErrors_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__partials_FormErrors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__partials_FormErrors_vue__);
 
 
@@ -50301,7 +50301,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modals_modal_Modal_vue__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modals_modal_Modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__modals_modal_Modal_vue__);
@@ -50309,9 +50309,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modals_modal_ModalHeading_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__modals_modal_ModalHeading_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalBody_vue__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalBody_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalBody_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modals_modal_ModalFooter_vue__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modals_modal_ModalFooter_vue__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modals_modal_ModalFooter_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__modals_modal_ModalFooter_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__partials_FormErrors_vue__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__partials_FormErrors_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__partials_FormErrors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__partials_FormErrors_vue__);
 
 
@@ -50576,7 +50576,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = __webpack_require__(84)
 /* template */
-var __vue_template__ = __webpack_require__(92)
+var __vue_template__ = __webpack_require__(85)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -50619,7 +50619,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modals_modal_Modal_vue__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modals_modal_Modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__modals_modal_Modal_vue__);
@@ -50627,8 +50627,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modals_modal_ModalHeading_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__modals_modal_ModalHeading_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalBody_vue__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalBody_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalBody_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__loaders_Spinner_vue__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__loaders_Spinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__loaders_Spinner_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modals_modal_ModalFooter_vue__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modals_modal_ModalFooter_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__modals_modal_ModalFooter_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__partials_FormErrors_vue__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__partials_FormErrors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__partials_FormErrors_vue__);
+
 
 
 
@@ -50643,7 +50646,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     name: 'AddTransactionModal',
 
     components: {
-        Modal: __WEBPACK_IMPORTED_MODULE_1__modals_modal_Modal_vue___default.a, ModalHeading: __WEBPACK_IMPORTED_MODULE_2__modals_modal_ModalHeading_vue___default.a, ModalBody: __WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalBody_vue___default.a, Spinner: __WEBPACK_IMPORTED_MODULE_4__loaders_Spinner_vue___default.a
+        Modal: __WEBPACK_IMPORTED_MODULE_1__modals_modal_Modal_vue___default.a, ModalHeading: __WEBPACK_IMPORTED_MODULE_2__modals_modal_ModalHeading_vue___default.a, ModalBody: __WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalBody_vue___default.a, ModalFooter: __WEBPACK_IMPORTED_MODULE_4__modals_modal_ModalFooter_vue___default.a, FormErrors: __WEBPACK_IMPORTED_MODULE_5__partials_FormErrors_vue___default.a
     },
 
     /**
@@ -50651,17 +50654,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      */
     data: function data() {
         return {
+            showModal: false,
+            valid: true,
+            menu: false,
             form: new Form({
-                portfolio_symbol_id: '',
+                share_id: '',
                 type: '',
-                date: '',
-                share: '',
+                date: null,
+                lot: '',
                 price: '',
                 commission: ''
             }),
-            transactions: [{ value: 1, label: 'Buying' }, { value: 2, label: 'Sale' }],
-            saving: false,
-            showModal: false
+            transactions: [{ id: 1, label: 'Buying' }, { id: 2, label: 'Sale' }],
+            saving: false
         };
     },
 
@@ -50684,12 +50689,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         /**
          * Open the model.
          */
-        open: function open(portfolioSymbolId) {
+        open: function open(shareId) {
             this.form = new Form({
-                portfolio_symbol_id: portfolioSymbolId,
+                share_id: shareId,
                 type: '',
-                date: '',
-                share: '',
+                date: null,
+                lot: '',
                 price: '',
                 commission: ''
             });
@@ -50703,6 +50708,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         close: function close() {
             this.showModal = false;
             this.saving = false;
+            this.valid = true;
             this.form.reset();
         },
 
@@ -50713,17 +50719,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         saveTransaction: function saveTransaction() {
             var _this2 = this;
 
-            this.saving = true;
+            if (this.$refs.form.validate()) {
+                this.saving = true;
 
-            this.form.post('/transaction').then(function (response) {
-                Bus.$emit('transactionAdded', {
-                    symbol: response.data
+                this.form.post('/transaction').then(function (response) {
+                    Bus.$emit('transactionAdded', {
+                        symbol: response.data
+                    });
+
+                    _this2.close();
+                }, function (error) {
+                    _this2.saving = false;
                 });
-
-                _this2.close();
-            }, function (error) {
-                _this2.saving = false;
-            });
+            }
         }
     }
 });
@@ -50732,791 +50740,244 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(86)
-}
-var normalizeComponent = __webpack_require__(0)
-/* script */
-var __vue_script__ = null
-/* template */
-var __vue_template__ = __webpack_require__(91)
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\loaders\\Spinner.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Spinner.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-8add9482", Component.options)
-  } else {
-    hotAPI.reload("data-v-8add9482", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 86 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(87);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(89)("00188b14", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-8add9482\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Spinner.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-8add9482\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Spinner.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 87 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(88)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "\n.loader {\n    width: 30px;\n    height: 30px;\n    box-sizing: border-box;\n    border: solid 2px transparent;\n    border-top-color: #29d;\n    border-left-color: #29d;\n    border-radius: 50%;\n    display: inline-block;\n    position: relative;\n    left: 50%;\n    margin: 30px 0px 30px -20px;\n    animation: spinner 400ms linear infinite;\n}\n@keyframes spinner {\n0% { transform: rotate(0deg);\n}\n100% { transform: rotate(360deg);\n}\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 88 */
-/***/ (function(module, exports) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
-
-
-/***/ }),
-/* 89 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
-  Modified by Evan You @yyx990803
-*/
-
-var hasDocument = typeof document !== 'undefined'
-
-if (typeof DEBUG !== 'undefined' && DEBUG) {
-  if (!hasDocument) {
-    throw new Error(
-    'vue-style-loader cannot be used in a non-browser environment. ' +
-    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
-  ) }
-}
-
-var listToStyles = __webpack_require__(90)
-
-/*
-type StyleObject = {
-  id: number;
-  parts: Array<StyleObjectPart>
-}
-
-type StyleObjectPart = {
-  css: string;
-  media: string;
-  sourceMap: ?string
-}
-*/
-
-var stylesInDom = {/*
-  [id: number]: {
-    id: number,
-    refs: number,
-    parts: Array<(obj?: StyleObjectPart) => void>
-  }
-*/}
-
-var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
-var singletonElement = null
-var singletonCounter = 0
-var isProduction = false
-var noop = function () {}
-
-// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-// tags it will allow on a page
-var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
-
-module.exports = function (parentId, list, _isProduction) {
-  isProduction = _isProduction
-
-  var styles = listToStyles(parentId, list)
-  addStylesToDom(styles)
-
-  return function update (newList) {
-    var mayRemove = []
-    for (var i = 0; i < styles.length; i++) {
-      var item = styles[i]
-      var domStyle = stylesInDom[item.id]
-      domStyle.refs--
-      mayRemove.push(domStyle)
-    }
-    if (newList) {
-      styles = listToStyles(parentId, newList)
-      addStylesToDom(styles)
-    } else {
-      styles = []
-    }
-    for (var i = 0; i < mayRemove.length; i++) {
-      var domStyle = mayRemove[i]
-      if (domStyle.refs === 0) {
-        for (var j = 0; j < domStyle.parts.length; j++) {
-          domStyle.parts[j]()
-        }
-        delete stylesInDom[domStyle.id]
-      }
-    }
-  }
-}
-
-function addStylesToDom (styles /* Array<StyleObject> */) {
-  for (var i = 0; i < styles.length; i++) {
-    var item = styles[i]
-    var domStyle = stylesInDom[item.id]
-    if (domStyle) {
-      domStyle.refs++
-      for (var j = 0; j < domStyle.parts.length; j++) {
-        domStyle.parts[j](item.parts[j])
-      }
-      for (; j < item.parts.length; j++) {
-        domStyle.parts.push(addStyle(item.parts[j]))
-      }
-      if (domStyle.parts.length > item.parts.length) {
-        domStyle.parts.length = item.parts.length
-      }
-    } else {
-      var parts = []
-      for (var j = 0; j < item.parts.length; j++) {
-        parts.push(addStyle(item.parts[j]))
-      }
-      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
-    }
-  }
-}
-
-function createStyleElement () {
-  var styleElement = document.createElement('style')
-  styleElement.type = 'text/css'
-  head.appendChild(styleElement)
-  return styleElement
-}
-
-function addStyle (obj /* StyleObjectPart */) {
-  var update, remove
-  var styleElement = document.querySelector('style[data-vue-ssr-id~="' + obj.id + '"]')
-
-  if (styleElement) {
-    if (isProduction) {
-      // has SSR styles and in production mode.
-      // simply do nothing.
-      return noop
-    } else {
-      // has SSR styles but in dev mode.
-      // for some reason Chrome can't handle source map in server-rendered
-      // style tags - source maps in <style> only works if the style tag is
-      // created and inserted dynamically. So we remove the server rendered
-      // styles and inject new ones.
-      styleElement.parentNode.removeChild(styleElement)
-    }
-  }
-
-  if (isOldIE) {
-    // use singleton mode for IE9.
-    var styleIndex = singletonCounter++
-    styleElement = singletonElement || (singletonElement = createStyleElement())
-    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
-    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
-  } else {
-    // use multi-style-tag mode in all other cases
-    styleElement = createStyleElement()
-    update = applyToTag.bind(null, styleElement)
-    remove = function () {
-      styleElement.parentNode.removeChild(styleElement)
-    }
-  }
-
-  update(obj)
-
-  return function updateStyle (newObj /* StyleObjectPart */) {
-    if (newObj) {
-      if (newObj.css === obj.css &&
-          newObj.media === obj.media &&
-          newObj.sourceMap === obj.sourceMap) {
-        return
-      }
-      update(obj = newObj)
-    } else {
-      remove()
-    }
-  }
-}
-
-var replaceText = (function () {
-  var textStore = []
-
-  return function (index, replacement) {
-    textStore[index] = replacement
-    return textStore.filter(Boolean).join('\n')
-  }
-})()
-
-function applyToSingletonTag (styleElement, index, remove, obj) {
-  var css = remove ? '' : obj.css
-
-  if (styleElement.styleSheet) {
-    styleElement.styleSheet.cssText = replaceText(index, css)
-  } else {
-    var cssNode = document.createTextNode(css)
-    var childNodes = styleElement.childNodes
-    if (childNodes[index]) styleElement.removeChild(childNodes[index])
-    if (childNodes.length) {
-      styleElement.insertBefore(cssNode, childNodes[index])
-    } else {
-      styleElement.appendChild(cssNode)
-    }
-  }
-}
-
-function applyToTag (styleElement, obj) {
-  var css = obj.css
-  var media = obj.media
-  var sourceMap = obj.sourceMap
-
-  if (media) {
-    styleElement.setAttribute('media', media)
-  }
-
-  if (sourceMap) {
-    // https://developer.chrome.com/devtools/docs/javascript-debugging
-    // this makes source maps inside style tags work properly in Chrome
-    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
-    // http://stackoverflow.com/a/26603875
-    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
-  }
-
-  if (styleElement.styleSheet) {
-    styleElement.styleSheet.cssText = css
-  } else {
-    while (styleElement.firstChild) {
-      styleElement.removeChild(styleElement.firstChild)
-    }
-    styleElement.appendChild(document.createTextNode(css))
-  }
-}
-
-
-/***/ }),
-/* 90 */
-/***/ (function(module, exports) {
-
-/**
- * Translates the list format produced by css-loader into something
- * easier to manipulate.
- */
-module.exports = function listToStyles (parentId, list) {
-  var styles = []
-  var newStyles = {}
-  for (var i = 0; i < list.length; i++) {
-    var item = list[i]
-    var id = item[0]
-    var css = item[1]
-    var media = item[2]
-    var sourceMap = item[3]
-    var part = {
-      id: parentId + ':' + i,
-      css: css,
-      media: media,
-      sourceMap: sourceMap
-    }
-    if (!newStyles[id]) {
-      styles.push(newStyles[id] = { id: id, parts: [part] })
-    } else {
-      newStyles[id].parts.push(part)
-    }
-  }
-  return styles
-}
-
-
-/***/ }),
-/* 91 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("i", { staticClass: "loader" })
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-8add9482", module.exports)
-  }
-}
-
-/***/ }),
-/* 92 */
-/***/ (function(module, exports, __webpack_require__) {
-
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
     "modal",
-    {
-      directives: [
-        {
-          name: "show",
-          rawName: "v-show",
-          value: this.showModal,
-          expression: "this.showModal"
-        }
-      ],
-      attrs: { width: "360" }
-    },
+    { attrs: { width: "360", dialog: _vm.showModal } },
     [
       _c("modal-heading", [
-        _c("span", [_vm._v(_vm._s(_vm.$t("Add Transaction")))]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "close",
-            attrs: {
-              type: "button",
-              "data-dismiss": "modal",
-              "aria-label": "Close"
-            },
-            on: { click: _vm.close }
-          },
-          [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-        )
+        _c("span", { staticClass: "headline" }, [
+          _vm._v(_vm._s(_vm.$t("Add Transaction")))
+        ])
       ]),
       _vm._v(" "),
-      _c("modal-body", [
-        _vm.saving
-          ? _c("div", [_c("spinner")], 1)
-          : _c("div", [
-              _c(
-                "form",
-                {
-                  staticClass: "form-horizontal",
-                  attrs: { role: "form", method: "POST" },
-                  on: {
-                    submit: function($event) {
-                      $event.preventDefault()
-                      _vm.saveTransaction($event)
-                    },
-                    keydown: function($event) {
-                      _vm.form.errors.clear($event.target.name)
-                    }
-                  }
-                },
+      _c(
+        "modal-body",
+        [
+          _vm.saving
+            ? _c(
+                "div",
+                { staticClass: "text-xs-center" },
                 [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "col-md-12",
-                        class: { "has-danger": _vm.form.errors.has("type") }
+                  _c("v-progress-circular", {
+                    attrs: { indeterminate: "", color: "primary" }
+                  })
+                ],
+                1
+              )
+            : [
+                _c(
+                  "v-form",
+                  {
+                    ref: "form",
+                    model: {
+                      value: _vm.valid,
+                      callback: function($$v) {
+                        _vm.valid = $$v
                       },
-                      [
-                        _c("v-select", {
-                          attrs: {
-                            options: _vm.transactions,
-                            placeholder: _vm.$t("Select Transaction")
-                          },
-                          model: {
-                            value: _vm.form.type,
-                            callback: function($$v) {
-                              _vm.form.type = $$v
-                            },
-                            expression: "form.type"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "label",
-                          { staticClass: "sr-only", attrs: { for: "type" } },
-                          [_vm._v(_vm._s(_vm.$t("Select Transaction")))]
-                        ),
-                        _vm._v(" "),
-                        _vm.form.errors.has("type")
-                          ? _c("span", {
-                              staticClass: "form-text text-danger",
-                              domProps: {
-                                textContent: _vm._s(_vm.form.errors.get("type"))
-                              }
-                            })
-                          : _vm._e()
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "col-md-12",
-                        class: { "has-danger": _vm.form.errors.has("date") }
+                      expression: "valid"
+                    }
+                  },
+                  [
+                    _c("form-errors", { attrs: { errors: _vm.form.errors } }),
+                    _vm._v(" "),
+                    _c("v-select", {
+                      attrs: {
+                        items: _vm.transactions,
+                        "item-text": "label",
+                        "item-value": "id",
+                        label: _vm.$t("Select Transaction"),
+                        "single-line": "",
+                        bottom: ""
                       },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.date,
-                              expression: "form.date"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            id: "date",
-                            name: "date",
-                            placeholder: _vm.$t("Select Date")
-                          },
-                          domProps: { value: _vm.form.date },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.form.date = $event.target.value
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "label",
-                          { staticClass: "sr-only", attrs: { for: "date" } },
-                          [_vm._v(_vm._s(_vm.$t("Select Date")))]
-                        ),
-                        _vm._v(" "),
-                        _vm.form.errors.has("date")
-                          ? _c("span", {
-                              staticClass: "form-text text-danger",
-                              domProps: {
-                                textContent: _vm._s(_vm.form.errors.get("date"))
-                              }
-                            })
-                          : _vm._e()
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
+                      model: {
+                        value: _vm.form.type,
+                        callback: function($$v) {
+                          _vm.form.type = $$v
+                        },
+                        expression: "form.type"
+                      }
+                    }),
+                    _vm._v(" "),
                     _c(
-                      "div",
+                      "v-menu",
                       {
-                        staticClass: "col-md-12",
-                        class: { "has-danger": _vm.form.errors.has("share") }
-                      },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.share,
-                              expression: "form.share"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            id: "share",
-                            name: "share",
-                            placeholder: _vm.$t("Enter Share Amount")
+                        attrs: {
+                          lazy: "",
+                          "close-on-content-click": false,
+                          transition: "scale-transition",
+                          "offset-y": "",
+                          "full-width": "",
+                          "nudge-right": 40,
+                          "max-width": "290px",
+                          "min-width": "290px"
+                        },
+                        model: {
+                          value: _vm.menu,
+                          callback: function($$v) {
+                            _vm.menu = $$v
                           },
-                          domProps: { value: _vm.form.share },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.form.share = $event.target.value
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "label",
-                          { staticClass: "sr-only", attrs: { for: "share" } },
-                          [_vm._v(_vm._s(_vm.$t("Enter Share Amount")))]
-                        ),
-                        _vm._v(" "),
-                        _vm.form.errors.has("share")
-                          ? _c("span", {
-                              staticClass: "form-text text-danger",
-                              domProps: {
-                                textContent: _vm._s(
-                                  _vm.form.errors.get("share")
-                                )
-                              }
-                            })
-                          : _vm._e()
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "col-md-12",
-                        class: { "has-danger": _vm.form.errors.has("price") }
-                      },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.price,
-                              expression: "form.price"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "text",
-                            id: "price",
-                            name: "price",
-                            placeholder: _vm.$t("Enter Share Price")
-                          },
-                          domProps: { value: _vm.form.price },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.form.price = $event.target.value
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "label",
-                          { staticClass: "sr-only", attrs: { for: "price" } },
-                          [_vm._v(_vm._s(_vm.$t("Enter Share Price")))]
-                        ),
-                        _vm._v(" "),
-                        _vm.form.errors.has("price")
-                          ? _c("span", {
-                              staticClass: "form-text text-danger",
-                              domProps: {
-                                textContent: _vm._s(
-                                  _vm.form.errors.get("price")
-                                )
-                              }
-                            })
-                          : _vm._e()
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "col-md-12",
-                        class: {
-                          "has-danger": _vm.form.errors.has("commission")
+                          expression: "menu"
                         }
                       },
                       [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.commission,
-                              expression: "form.commission"
-                            }
-                          ],
-                          staticClass: "form-control",
+                        _c("v-text-field", {
                           attrs: {
-                            type: "text",
-                            id: "commission",
-                            name: "commission",
-                            placeholder: _vm.$t("Enter Commission Rate")
+                            slot: "activator",
+                            label: _vm.$t("Select Date"),
+                            "prepend-icon": "event",
+                            readonly: ""
                           },
-                          domProps: { value: _vm.form.commission },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.form.commission = $event.target.value
-                            }
+                          slot: "activator",
+                          model: {
+                            value: _vm.form.date,
+                            callback: function($$v) {
+                              _vm.form.date = $$v
+                            },
+                            expression: "form.date"
                           }
                         }),
                         _vm._v(" "),
-                        _c(
-                          "label",
-                          {
-                            staticClass: "sr-only",
-                            attrs: { for: "commission" }
-                          },
-                          [_vm._v(_vm._s(_vm.$t("Enter Commission Rate")))]
-                        ),
-                        _vm._v(" "),
-                        _vm.form.errors.has("commission")
-                          ? _c("span", {
-                              staticClass: "form-text text-danger",
-                              domProps: {
-                                textContent: _vm._s(
-                                  _vm.form.errors.get("commission")
-                                )
-                              }
-                            })
-                          : _vm._e()
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("div", { staticClass: "col-md-12" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary btn-block",
+                        _c("v-date-picker", {
                           attrs: {
-                            type: "submit",
-                            disabled: _vm.form.errors.any()
+                            "no-title": "",
+                            scrollable: "",
+                            actions: ""
+                          },
+                          scopedSlots: _vm._u([
+                            {
+                              key: "default",
+                              fn: function(ref) {
+                                var save = ref.save
+                                var cancel = ref.cancel
+                                return [
+                                  _c(
+                                    "v-card-actions",
+                                    [
+                                      _c("v-spacer"),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: { flat: "", color: "primary" },
+                                          on: { click: cancel }
+                                        },
+                                        [_vm._v("Cancel")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: { flat: "", color: "primary" },
+                                          on: { click: save }
+                                        },
+                                        [_vm._v("OK")]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ]
+                              }
+                            }
+                          ]),
+                          model: {
+                            value: _vm.form.date,
+                            callback: function($$v) {
+                              _vm.form.date = $$v
+                            },
+                            expression: "form.date"
                           }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("v-text-field", {
+                      attrs: {
+                        name: "lot",
+                        id: "lot",
+                        type: "text",
+                        label: _vm.$t("Enter Share Amount"),
+                        mask: "########"
+                      },
+                      model: {
+                        value: _vm.form.lot,
+                        callback: function($$v) {
+                          _vm.form.lot = $$v
                         },
-                        [_vm._v(_vm._s(_vm.$t("Create")))]
-                      )
-                    ])
-                  ])
-                ]
-              )
-            ])
-      ])
+                        expression: "form.lot"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("v-text-field", {
+                      attrs: {
+                        name: "price",
+                        id: "price",
+                        type: "text",
+                        label: _vm.$t("Enter Share Price"),
+                        mask: "###.###.###.###,##"
+                      },
+                      model: {
+                        value: _vm.form.price,
+                        callback: function($$v) {
+                          _vm.form.price = $$v
+                        },
+                        expression: "form.price"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("v-text-field", {
+                      attrs: {
+                        name: "commission",
+                        id: "commission",
+                        type: "text",
+                        label: _vm.$t("Enter Commission Rate"),
+                        mask: "#,####"
+                      },
+                      model: {
+                        value: _vm.form.commission,
+                        callback: function($$v) {
+                          _vm.form.commission = $$v
+                        },
+                        expression: "form.commission"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ]
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c(
+        "modal-footer",
+        [
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              attrs: { color: "grey darken-1", flat: "" },
+              on: { click: _vm.close }
+            },
+            [_vm._v(_vm._s(_vm.$t("Close")))]
+          ),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              attrs: { color: "blue darken-1", flat: "" },
+              on: { click: _vm.saveTransaction }
+            },
+            [_vm._v(_vm._s(_vm.$t("Create")))]
+          )
+        ],
+        1
+      )
     ],
     1
   )
@@ -51532,7 +50993,7 @@ if (false) {
 }
 
 /***/ }),
-/* 93 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -51629,16 +51090,19 @@ var render = function() {
                                         staticClass: "text-xs-right",
                                         class: {
                                           "red--text darken-1":
-                                            _vm.share.symbol.trend == -1,
+                                            props.item.symbol.trend == -1,
                                           "green--text darken-1":
-                                            _vm.share.symbol.trend == 1
+                                            props.item.symbol.trend == 1
                                         }
                                       },
                                       [
                                         _vm._v(
                                           "\n                                    " +
                                             _vm._s(
-                                              props.item.last_price_formatted
+                                              _vm.$n(
+                                                props.item.symbol.last_price,
+                                                "currency"
+                                              )
                                             )
                                         )
                                       ]
@@ -51650,34 +51114,30 @@ var render = function() {
                                         staticClass: "text-xs-right",
                                         class: {
                                           "red--text darken-1":
-                                            _vm.share.symbol.trend == -1,
+                                            props.item.symbol.trend == -1,
                                           "green--text darken-1":
-                                            _vm.share.symbol.trend == 1
+                                            props.item.symbol.trend == 1
                                         }
                                       },
                                       [
                                         _vm._v(
                                           "\n                                    " +
-                                            _vm._s(props.item.rate_of_change) +
+                                            _vm._s(
+                                              props.item.symbol.rate_of_change
+                                            ) +
                                             "%"
                                         )
                                       ]
                                     ),
                                     _vm._v(" "),
                                     _c("td", { staticClass: "text-xs-right" }, [
-                                      _vm._v(_vm._s(props.item.share))
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", { staticClass: "text-xs-right" }, [
-                                      _vm._v(
-                                        _vm._s(props.item.average_formatted)
-                                      )
+                                      _vm._v(_vm._s(props.item.lot))
                                     ]),
                                     _vm._v(" "),
                                     _c("td", { staticClass: "text-xs-right" }, [
                                       _vm._v(
                                         _vm._s(
-                                          props.item.total_amount_formatted
+                                          _vm.$n(props.item.average, "currency")
                                         )
                                       )
                                     ]),
@@ -51685,7 +51145,21 @@ var render = function() {
                                     _c("td", { staticClass: "text-xs-right" }, [
                                       _vm._v(
                                         _vm._s(
-                                          props.item.average_amount_formatted
+                                          _vm.$n(
+                                            props.item.total_amount,
+                                            "currency"
+                                          )
+                                        )
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", { staticClass: "text-xs-right" }, [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.$n(
+                                            props.item.average_amount,
+                                            "currency"
+                                          )
                                         )
                                       )
                                     ]),
@@ -51696,51 +51170,49 @@ var render = function() {
                                         staticClass: "text-xs-right",
                                         class: {
                                           "red--text darken-1":
-                                            _vm.share.gain_formatted < 0,
+                                            props.item.gain < 0,
                                           "green--text darken-1":
-                                            _vm.share.gain_formatted > 0
+                                            props.item.gain > 0
                                         }
                                       },
                                       [
                                         _vm._v(
                                           "\n                                    " +
-                                            _vm._s(props.item.gain_formatted)
+                                            _vm._s(
+                                              _vm.$n(
+                                                props.item.gain,
+                                                "currency"
+                                              )
+                                            )
                                         )
                                       ]
                                     ),
                                     _vm._v(" "),
-                                    _c("td", [
-                                      _c(
-                                        "a",
-                                        {
-                                          staticClass: "btn btn-sm action-link",
-                                          on: {
-                                            click: function($event) {
-                                              _vm.showAddTransactionModal(
-                                                _vm.share.id
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            _vm._s(_vm.$t("Add Transaction")) +
-                                              "\n                                        "
-                                          ),
-                                          _c(
-                                            "span",
-                                            { staticClass: "sr-only" },
-                                            [
-                                              _vm._v(
-                                                _vm._s(
-                                                  _vm.$t("Add Transaction")
+                                    _c(
+                                      "td",
+                                      [
+                                        _c(
+                                          "v-btn",
+                                          {
+                                            attrs: { icon: "" },
+                                            on: {
+                                              click: function($event) {
+                                                _vm.showAddTransactionModal(
+                                                  props.item.id
                                                 )
-                                              )
-                                            ]
-                                          )
-                                        ]
-                                      )
-                                    ])
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c("v-icon", [
+                                              _vm._v("add_circle_outline")
+                                            ])
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    )
                                   ]
                                 }
                               }
@@ -51783,7 +51255,7 @@ if (false) {
 }
 
 /***/ }),
-/* 94 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -51808,15 +51280,15 @@ if (false) {
 }
 
 /***/ }),
-/* 95 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(96)
+var __vue_script__ = __webpack_require__(89)
 /* template */
-var __vue_template__ = __webpack_require__(97)
+var __vue_template__ = __webpack_require__(90)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -51854,15 +51326,15 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 96 */
+/* 89 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__);
 
 
@@ -51930,7 +51402,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 97 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -52128,15 +51600,15 @@ if (false) {
 }
 
 /***/ }),
-/* 98 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(99)
+var __vue_script__ = __webpack_require__(92)
 /* template */
-var __vue_template__ = __webpack_require__(100)
+var __vue_template__ = __webpack_require__(93)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -52174,15 +51646,15 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 99 */
+/* 92 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__);
 
 
@@ -52251,7 +51723,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 100 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -52425,15 +51897,15 @@ if (false) {
 }
 
 /***/ }),
-/* 101 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(102)
+var __vue_script__ = __webpack_require__(95)
 /* template */
-var __vue_template__ = __webpack_require__(103)
+var __vue_template__ = __webpack_require__(96)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -52471,15 +51943,15 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 102 */
+/* 95 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__);
 
 
@@ -52541,7 +52013,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 103 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -52713,15 +52185,15 @@ if (false) {
 }
 
 /***/ }),
-/* 104 */
+/* 97 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_i18n__ = __webpack_require__(105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__en___ = __webpack_require__(106);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tr___ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_i18n__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__en___ = __webpack_require__(99);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tr___ = __webpack_require__(100);
 
 
 
@@ -52733,16 +52205,30 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
 var messages = {
     en: __WEBPACK_IMPORTED_MODULE_2__en___["a" /* default */],
     tr: __WEBPACK_IMPORTED_MODULE_3__tr___["a" /* default */]
+};
+
+var numberFormats = {
+    'en-US': {
+        currency: {
+            style: 'currency', currency: 'USD', currencyDisplay: 'symbol', minimumFractionDigits: 2
+        }
+    },
+    'tr': {
+        currency: {
+            style: 'currency', currency: 'TRY', currencyDisplay: 'symbol', minimumFractionDigits: 2
+        }
+    }
 
     // Create VueI18n instance with options
 };/* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vue_i18n__["a" /* default */]({
     locale: window.navigator.userLanguage || window.navigator.language,
     fallbackLocale: 'tr',
-    messages: messages
+    messages: messages,
+    numberFormats: numberFormats
 }));
 
 /***/ }),
-/* 105 */
+/* 98 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -54241,7 +53727,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 
 /***/ }),
-/* 106 */
+/* 99 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -54282,10 +53768,10 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Symbol': 'Symbol',
     'Last Price': 'Last Price',
     'Change': 'Change',
-    'Shares': 'Shares',
+    'Lots': 'Lots',
     'Average': 'Average',
     'Total Amount': 'Total Amount',
-    'Total Average': 'Total Average',
+    'Average Amount': 'Average Amount',
     'Gain': 'Gain',
     'Privacy Policy': 'Privacy Policy',
     'Terms of Use': 'Terms of Use',
@@ -54301,7 +53787,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 });
 
 /***/ }),
-/* 107 */
+/* 100 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -54342,10 +53828,10 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Symbol': 'Hisse',
     'Last Price': 'Son Fiyat',
     'Change': 'Değişim',
-    'Shares': 'Adet',
+    'Lots': 'Adet',
     'Average': 'Ortalama',
     'Total Amount': 'Toplam Tutar',
-    'Total Average': 'Ortalama Tutar',
+    'Average Amount': 'Ortalama Tutar',
     'Gain': 'Kazanç',
     'Privacy Policy': 'Gizlilik Sözleşmesi',
     'Terms of Use': 'Kullanım Koşulları',
@@ -54361,11 +53847,11 @@ if (typeof window !== 'undefined' && window.Vue) {
 });
 
 /***/ }),
-/* 108 */
+/* 101 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Errors__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Errors__ = __webpack_require__(102);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -54525,7 +54011,7 @@ var Form = function () {
 /* harmony default export */ __webpack_exports__["a"] = (Form);
 
 /***/ }),
-/* 109 */
+/* 102 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -54617,7 +54103,7 @@ var Errors = function () {
 /* harmony default export */ __webpack_exports__["a"] = (Errors);
 
 /***/ }),
-/* 110 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/* NProgress, (c) 2013, 2014 Rico Sta. Cruz - http://ricostacruz.com/nprogress
@@ -55103,15 +54589,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/* NProgress, 
 
 
 /***/ }),
-/* 111 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(112)
+var __vue_script__ = __webpack_require__(105)
 /* template */
-var __vue_template__ = __webpack_require__(113)
+var __vue_template__ = __webpack_require__(106)
 /* styles */
 var __vue_styles__ = null
 /* scopeId */
@@ -55149,7 +54635,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 112 */
+/* 105 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -55165,7 +54651,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 113 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -55185,7 +54671,7 @@ if (false) {
 }
 
 /***/ }),
-/* 114 */
+/* 107 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
