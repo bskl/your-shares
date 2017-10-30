@@ -18,7 +18,7 @@ class SymbolController extends Controller
     {
         $data = trim($request->get('q'));
 
-        $symbols =  Symbol::select('id', 'code')
+        $symbols =  Symbol::select('id', 'code', 'last_price')
                           ->where('code', 'LIKE', "%$data%")
                           ->get();
 

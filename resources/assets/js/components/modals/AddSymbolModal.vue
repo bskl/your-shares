@@ -141,6 +141,8 @@
                         :items="symbols"
                         item-text="code"
                         item-value="id"
+                        return-object
+                        :hint="`${$n(form.symbol_id.last_price, 'currency')}`"
                         :rules="symbolRules"
                         :search-input.sync="search"
                         v-model="form.symbol_id"

@@ -129,10 +129,10 @@
                         <v-card-title>
                             <div class="subheading">{{ portfolio.name }}</div>
                             <v-spacer></v-spacer>
-                            <v-btn icon @click="showEditPortfolioModal(portfolio)">
+                            <v-btn icon small @click="showEditPortfolioModal(portfolio)">
                                 <v-icon>edit</v-icon>
                             </v-btn>
-                            <v-btn icon @click="showAddSymbolModal(portfolio.id)">
+                            <v-btn icon small @click="showAddSymbolModal(portfolio.id)">
                                 <v-icon>add</v-icon>
                             </v-btn>
                         </v-card-title>
@@ -146,7 +146,7 @@
                                 :no-data-text="$t('You have not created any symbol.')"
                                 class="elevation-1"
                             >
-                                <template slot="items" scope="props">
+                                <template slot="items" slot-scope="props">
                                     <td>{{ props.item.symbol.code }}</td>
                                     <td class="text-xs-right" :class="{ 'red--text darken-1': props.item.symbol.trend == -1, 'green--text darken-1': props.item.symbol.trend == 1 }">
                                         {{ $n(props.item.symbol.last_price, 'currency') }}</td>
