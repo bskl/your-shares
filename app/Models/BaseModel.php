@@ -9,7 +9,7 @@ use Money\Parser\DecimalMoneyParser;
 use Money\Formatter\DecimalMoneyFormatter;
 use Illuminate\Database\Eloquent\Model;
 
-class BaseModel extends Model
+abstract class BaseModel extends Model
 {
     /**
      * The attributes that are money object.
@@ -78,8 +78,10 @@ class BaseModel extends Model
             return;
         }
 
-        if (array_key_exists($key, $this->money)) {           
-            return $this->getMoneyAttribute($key);
+        if (array_key_exists($key, $this->money)) {
+            return $this->convertMoneyToDecimal(
+                $this->getMoneyAttribute($key)
+            );
         }
 
         return parent::__get($key);

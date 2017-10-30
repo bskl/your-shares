@@ -61,11 +61,12 @@ class Symbol extends BaseModel
 
     /**
      * Get the last_price attribute with decimal formatted.
-     */
-    public function getLastPriceAttribute()
-    {
-        return $this->convertMoneyToDecimal(
-                $this->getMoneyAttribute('last_price')
-            );
-    }
+     *
+    *public function getLastPriceAttribute()
+    *{
+    *    return $this->convertMoneyToDecimal(
+    *            $this->getMoneyAttribute('last_price')
+    *        );
+    *}
+    */
 }
