@@ -18,9 +18,10 @@ class ShareController extends Controller
     {
         $data = $request->all();
         $data['lot'] = 0;
-        $data['average'] = '0';
+        $data['average'] = 0;
 
         $share = Share::create($data);
+        $share->load('symbol');
 
         return response()->json($share);
     }

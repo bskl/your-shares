@@ -78,7 +78,7 @@ abstract class BaseModel extends Model
             return;
         }
 
-        if (array_key_exists($key, $this->money)) {
+        if (in_array($key, $this->money)) {
             return $this->convertMoneyToDecimal(
                 $this->getMoneyAttribute($key)
             );
@@ -100,7 +100,7 @@ abstract class BaseModel extends Model
             return;
         }
 
-        if (array_key_exists($key, $this->money)) {
+        if (in_array($key, $this->money)) {
             return $this->setMoneyAttribute($key, $value);
         }
     }

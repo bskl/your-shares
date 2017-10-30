@@ -39,7 +39,7 @@ class Symbol extends BaseModel
      * @var array
      */
     protected $hidden = [
-        'created_at', 'updated_at',
+        'session_time', 'created_at', 'updated_at',
     ];
 
     /**
@@ -58,15 +58,4 @@ class Symbol extends BaseModel
     {
         return (float) ($this->attributes['rate_of_change'] / 100);
     }
-
-    /**
-     * Get the last_price attribute with decimal formatted.
-     *
-    *public function getLastPriceAttribute()
-    *{
-    *    return $this->convertMoneyToDecimal(
-    *            $this->getMoneyAttribute('last_price')
-    *        );
-    *}
-    */
 }
