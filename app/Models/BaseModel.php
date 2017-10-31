@@ -19,14 +19,19 @@ abstract class BaseModel extends Model
     protected $money = [];
 
     /**
-     * Get money object for given attribute from the model.
+     * Convert the model's money attributes to decimal in attributes.
      *
-     * @param  string  $key
-     * @return Money
+     * @return array
      */
-    public function getMoneyAttribute($key)
+    public function attributesToArray()
     {
-        return new Money($this->attributes[$key], new Currency('TRY'));
+        $attributes = parent::attributesToArray();
+
+        foreach ($this->money as $key) {
+            $attributes[$key] = $this->convertMoneyToDecimal($this->$key);
+        }
+
+        return $attributes;
     }
 
     /**
@@ -42,6 +47,17 @@ abstract class BaseModel extends Model
         $moneyFormatter = new DecimalMoneyFormatter($currencies);
 
         return $moneyFormatter->format($money);
+    }
+    
+    /**
+     * Get money object for given attribute from the model.
+     *
+     * @param  string  $key
+     * @return Money
+     */
+    public function getMoneyAttribute($key)
+    {
+        return new Money($this->attributes[$key], new Currency('TRY'));
     }
 
     /**
@@ -79,9 +95,7 @@ abstract class BaseModel extends Model
         }
 
         if (in_array($key, $this->money)) {
-            return $this->convertMoneyToDecimal(
-                $this->getMoneyAttribute($key)
-            );
+            return $this->getMoneyAttribute($key);
         }
 
         return parent::__get($key);
