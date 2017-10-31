@@ -17,6 +17,8 @@ class PortfolioController extends Controller
      */
     public function store(PortfolioRequest $request)
     {
+        $this->authorize(Portfolio::class);
+
         $order = Portfolio::byCurrentUser()->count();
         $data = $request->all();
         $data['user_id'] = Auth::user()->id;
@@ -36,6 +38,8 @@ class PortfolioController extends Controller
      */
     public function update(PortfolioRequest $request, Portfolio $portfolio)
     {
+        $this->authorize($portfolio);
+
         $portfolio->update($request->all());
         
         return response()->json($portfolio);
@@ -48,7 +52,9 @@ class PortfolioController extends Controller
      * @return JsonResponse
      */
     public function destroy(Portfolio $portfolio)
-    { 
+    {
+        $this->authorize($portfolio);
+
         $portfolio->delete();
 
         return response()->json();
