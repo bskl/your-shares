@@ -43,6 +43,14 @@ class Symbol extends BaseModel
     ];
 
     /**
+     * The shares that belong to the symbol.
+     */
+    public function shares()
+    {
+        return $this->hasMany('App\Models\Share');
+    }
+
+    /**
      * The event map for the model.
      *
      * @var array

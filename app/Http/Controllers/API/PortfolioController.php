@@ -25,6 +25,7 @@ class PortfolioController extends Controller
         $data['order'] = ++$order;
 
         $portfolio = Portfolio::create($data);
+        $portfolio->load('shares');
 
         return response()->json($portfolio);
     }
