@@ -28,7 +28,8 @@ Route::namespace('API')->group(function () {
         Route::put(   '/portfolio/{portfolio}', 'PortfolioController@update');
         Route::delete('/portfolio/{portfolio}', 'PortfolioController@destroy');
 
-        Route::post('/share', 'ShareController@store');
+        Route::post(  '/share', 'ShareController@store');
+        Route::delete('/share/{share}', 'ShareController@destroy');        
 
         Route::post('/transaction', 'TransactionController@store');
 

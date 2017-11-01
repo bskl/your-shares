@@ -2,7 +2,7 @@
     import { portfolioStore } from '../../stores/portfolioStore.js';
     import AddPortfolioModal from '../modals/AddPortfolioModal.vue';
     import EditPortfolioModal from '../modals/EditPortfolioModal.vue';
-    import AddSymbolModal from '../modals/AddSymbolModal.vue';
+    import AddShareModal from '../modals/AddShareModal.vue';
     import AddTransactionModal from '../modals/AddTransactionModal.vue';
 
     export default {
@@ -12,7 +12,7 @@
         name: 'Portfolios',
 
         components: {
-            AddPortfolioModal, EditPortfolioModal, AddSymbolModal, AddTransactionModal,
+            AddPortfolioModal, EditPortfolioModal, AddShareModal, AddTransactionModal,
         },
 
         /*
@@ -28,7 +28,8 @@
                     { text: this.$t("Average"), value: 'average', sortable: false },
                     { text: this.$t("Total Amount"), value: 'total_amount', sortable: false },
                     { text: this.$t("Average Amount"), value: 'average_amount', sortable: false },
-                    { text: this.$t("Gain"), value: 'gain', sortable: false }
+                    { text: this.$t("Gain"), value: 'gain', sortable: false },
+                    { text: this.$t("Transactions"), value: 'transactions', align: 'center', sortable: false }
                 ],
                 state: portfolioStore.state,
             }
@@ -86,14 +87,26 @@
             },
 
             /**
-             * Change updated symbol on portfolios.
+             * Change updated share on portfolios.
              */
-            updateSymbol(symbol) {
-                let portfolioIndex = _.findIndex(this.state.portfolios, ['id', symbol.portfolio_id]);
-                let index = _.findIndex(this.state.portfolios[portfolioIndex].symbols, ['id', symbol.id]);
-                this.state.portfolios[portfolioIndex].symbols.splice(index, 1, symbol);
+            updateShare(share) {
+                let portfolioIndex = _.findIndex(this.state.portfolios, ['id', share.portfolio_id]);
+                let index = _.findIndex(this.state.portfolios[portfolioIndex].shares, ['id', share.id]);
+                this.state.portfolios[portfolioIndex].shares.splice(index, 1, share);
 
                 Bus.$off('transactionAdded', symbol);
+            },
+
+            /**
+             * Delete selected share
+             */
+            deleteShare(share) {
+                axios.delete('/share/' + share.id)
+                    .then(response => {
+                        let portfolioIndex = _.findIndex(this.state.portfolios, ['id', share.portfolio_id]);
+                        let index = _.findIndex(this.state.portfolios[portfolioIndex].shares, ['id', share.id]);
+                        this.state.portfolios[portfolioIndex].shares.splice(index, 1);
+                    })
             },
 
             /**
@@ -104,10 +117,10 @@
             },
             
             /**
-             * Open the modal for adding a new symbol.
+             * Open the modal for adding a new share.
              */
-            showAddSymbolModal(portfolioId) {
-                this.$refs.addSymbolModal.open(portfolioId);
+            showAddShareModal(portfolioId) {
+                this.$refs.addShareModal.open(portfolioId);
             },
 
             /**
@@ -130,10 +143,10 @@
                             <div class="subheading">{{ portfolio.name }}</div>
                             <v-spacer></v-spacer>
                             <v-btn icon small @click="showEditPortfolioModal(portfolio)">
-                                <v-icon>edit</v-icon>
+                                <v-icon color="blue darken-2">edit</v-icon>
                             </v-btn>
-                            <v-btn icon small @click="showAddSymbolModal(portfolio.id)">
-                                <v-icon>add</v-icon>
+                            <v-btn icon small @click="showAddShareModal(portfolio.id)">
+                                <v-icon color="green darken-2">add</v-icon>
                             </v-btn>
                         </v-card-title>
                         <v-divider></v-divider>
@@ -144,7 +157,6 @@
                                 item-key="id"
                                 hide-actions
                                 :no-data-text="$t('You have not created any symbol.')"
-                                class="elevation-1"
                             >
                                 <template slot="items" slot-scope="props">
                                     <td>{{ props.item.symbol.code }}</td>
@@ -158,9 +170,12 @@
                                     <td class="text-xs-right">{{ $n(props.item.average_amount, 'currency') }}</td>
                                     <td class="text-xs-right" :class="{ 'red--text darken-1': props.item.gain < 0, 'green--text darken-1': props.item.gain > 0 }">
                                         {{ $n(props.item.gain, 'currency') }}</td>
-                                    <td>
-                                        <v-btn icon @click="showAddTransactionModal(props.item.id)">
-                                            <v-icon>add_circle_outline</v-icon>
+                                    <td class="text-xs-right">
+                                        <v-btn v-if="props.item.lot == 0" icon small @click="deleteShare(props.item)">
+                                            <v-icon color="red darken-2">delete</v-icon>
+                                        </v-btn>
+                                        <v-btn icon small @click="showAddTransactionModal(props.item.id)">
+                                            <v-icon color="green darken-2">add_circle_outline</v-icon>
                                         </v-btn>
                                     </td>
                                 </template>
@@ -175,7 +190,7 @@
         </v-flex>
 
         <edit-portfolio-modal ref="editPortfolioModal" />
-        <add-symbol-modal ref="addSymbolModal" />
+        <add-share-modal ref="addShareModal" />
         <add-transaction-modal ref="addTransactionModal" />
 
     </v-layout>

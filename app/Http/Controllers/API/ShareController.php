@@ -3,22 +3,21 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Share;
+use App\Http\Requests\API\ShareRequest;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class ShareController extends Controller
 {
     /**
      * Create a new share instance for auth user after a valid request.
      *
-     * @param  Request     $request
+     * @param  ShareRequest     $request
      * @return App\Models\Portfolio $portfolio
      */
-    public function store(Request $request)
+    public function store(ShareRequest $request)
     {
         $data = $request->all();
-        $data['lot'] = 0;
-        $data['average'] = 0;
+        $data['lot'] = $data['average'] = $data['average_amount'] = $data['total_amount'] = $data['gain'] = 0;
 
         $share = Share::create($data);
         $share->load('symbol');
@@ -39,13 +38,15 @@ class ShareController extends Controller
     }
 
     /**
-     * Delete a portfolio.
+     * Delete a share.
      *
-     * @param Portfolio $portfolio
+     * @param Share $share
      * @return JsonResponse
      */
-    public function destroy()
-    { 
+    public function destroy(Share $share)
+    {
+        $share->delete();
         
+        return response()->json();   
     }
 }
