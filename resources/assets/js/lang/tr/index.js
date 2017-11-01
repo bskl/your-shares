@@ -40,6 +40,7 @@ export default {
     'Total Amount' : 'Toplam Tutar',
     'Average Amount' : 'Ortalama Tutar',
     'Gain' : 'Kazanç',
+    'Transactions' : 'İşlemler',
     'Privacy Policy' : 'Gizlilik Sözleşmesi',
     'Terms of Use' : 'Kullanım Koşulları',
     'E-mail is required' : 'E-Posta adresi girin',

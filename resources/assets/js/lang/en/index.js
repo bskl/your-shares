@@ -40,6 +40,7 @@ export default {
     'Total Amount' : 'Total Amount',
     'Average Amount' : 'Average Amount',
     'Gain' : 'Gain',
+    'Transactions' : 'Transactions',
     'Privacy Policy' : 'Privacy Policy',
     'Terms of Use' : 'Terms of Use',
     'E-mail is required' : 'E-mail is required',

@@ -88,36 +88,4 @@ class Share extends BaseModel
     {
         $this->gain = $this->total_amount->subtract($this->average_amount);
     }
-
-    /**
-     * Get the last_price attribute with decimal formatted.
-     *
-    *public function getAverageAttribute()
-    *{
-    *    return $this->convertMoneyToDecimal(
-    *            $this->getMoneyAttribute('average')
-    *        );
-    *}
-
-    *public function getAverageAmountAttribute()
-    *{
-    *    return $this->convertMoneyToDecimal(
-    *            $this->getMoneyAttribute('average_amount')
-    *        );
-    *}
-
-    *public function getTotalAmountAttribute()
-    *{
-    *    return $this->convertMoneyToDecimal(
-    *            $this->getMoneyAttribute('total_amount')
-    *        );
-    *}
-
-    *public function getGainAttribute()
-    *{
-    *    return $this->convertMoneyToDecimal(
-    *            $this->getMoneyAttribute('gain')
-    *        );
-    *}
-    */
 }

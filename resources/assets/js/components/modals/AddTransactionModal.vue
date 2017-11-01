@@ -87,7 +87,7 @@
                     this.form.post('/transaction')
                         .then(response => {
                             Bus.$emit('transactionAdded', {
-                                symbol: response.data
+                                share: response.data
                             });
 
                             this.close();

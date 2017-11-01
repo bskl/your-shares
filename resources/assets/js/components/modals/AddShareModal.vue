@@ -1,5 +1,4 @@
 <script type="text/ecmascript-6">
-    import _ from 'lodash';
     import Modal from '../modals/modal/Modal.vue';
     import ModalHeading from '../modals/modal/ModalHeading.vue';
     import ModalBody from '../modals/modal/ModalBody.vue';
@@ -10,7 +9,7 @@
         /*
          * The component's name.
          */
-        name: 'AddSymbolModal',
+        name: 'AddShareModal',
 
         components: {
             Modal, ModalHeading, ModalBody, ModalFooter, FormErrors,
@@ -80,7 +79,6 @@
             /**
              * Search symbols.
              */
-
             searchSymbol(val) {
                 this.loading = true
 
@@ -97,9 +95,9 @@
             },
 
             /**
-             * Save the symbol and hide the modal.
+             * Save the share and hide the modal.
              */
-            saveSymbol() {
+            saveShare() {
                 if (this.$refs.form.validate()) {
                     this.saving = true;
 
@@ -141,8 +139,6 @@
                         :items="symbols"
                         item-text="code"
                         item-value="id"
-                        return-object
-                        :hint="`${$n(form.symbol_id.last_price, 'currency')}`"
                         :rules="symbolRules"
                         :search-input.sync="search"
                         v-model="form.symbol_id"
@@ -153,7 +149,7 @@
         <modal-footer>
             <v-spacer></v-spacer>
             <v-btn color="grey darken-1" flat @click="close">{{ $t("Close") }}</v-btn>
-            <v-btn color="blue darken-1" flat @click="saveSymbol">{{ $t("Create") }}</v-btn>
+            <v-btn color="blue darken-1" flat @click="saveShare">{{ $t("Create") }}</v-btn>
         </modal-footer>
     </modal>
 </template>
