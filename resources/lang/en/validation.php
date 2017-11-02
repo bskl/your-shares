@@ -118,6 +118,8 @@ return [
 
     'attributes' => [
         'email' => 'E-Mail Address',
-        'password' => 'Password',],
+        'password' => 'Password',
+        'symbol_id' => 'Share',
+    ],
 
 ];
