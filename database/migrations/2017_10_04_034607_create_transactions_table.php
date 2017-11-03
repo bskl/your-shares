@@ -15,17 +15,23 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned();
             $table->integer('share_id')->unsigned();
             $table->integer('type');
             $table->timestamp('date');
             $table->integer('lot');
             $table->integer('price');
-            $table->integer('amount')->default(0);
+            $table->integer('amount')->nullable()->default(0);
             $table->decimal('commission', 5, 4);
-            $table->integer('commission_price')->default(0);
-            $table->integer('average')->default(0);
-            $table->integer('sale_gain')->default(0);
+            $table->integer('commission_price')->nullable()->default(0);
+            $table->integer('average')->nullable()->default(0);
+            $table->integer('sale_gain')->nullable()->default(0);
             $table->timestamps();
+            
+            $table->foreign('user_id')
+                  ->references('id')->on('users')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
 
             $table->foreign('share_id')
                   ->references('id')->on('shares')

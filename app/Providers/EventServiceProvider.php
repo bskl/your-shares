@@ -13,12 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\BuyingTransactionCreated' => [
-            'App\Listeners\CalculateSymbolAverageAmount',
-        ],
-
-        'App\Events\SymbolUpdated' => [
-            'App\Listeners\CalculateShareAmounts',
+        \App\Events\SymbolUpdated::class => [
+            \App\Listeners\CalculateShareAmounts::class,
         ],
     ];
 
@@ -28,8 +24,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
      protected $subscribe = [
-        'App\Listeners\UserEventSubscriber',
-        'App\Listeners\CalculateTransactions',
+        \App\Listeners\UserEventSubscriber::class,
+        \App\Listeners\TransactionEventSubscriber::class,
     ];
 
     /**

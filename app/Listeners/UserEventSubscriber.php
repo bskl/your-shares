@@ -43,17 +43,17 @@ class UserEventSubscriber
      */
     public function subscribe($events) {
         $events->listen(
-                'Illuminate\Auth\Events\Registered',
-                    'App\Listeners\UserEventSubscriber@onUserRegister'
+            'Illuminate\Auth\Events\Registered',
+            'App\Listeners\UserEventSubscriber@onUserRegister'
         );
         $events->listen(
-                'Illuminate\Auth\Events\Login',
-                    'App\Listeners\UserEventSubscriber@onUserLogin'
+            'Illuminate\Auth\Events\Login',
+            'App\Listeners\UserEventSubscriber@onUserLogin'
         );
 
         $events->listen(
-                'Illuminate\Auth\Events\Logout',
-                    'App\Listeners\UserEventSubscriber@onUserLogout'
+            'Illuminate\Auth\Events\Logout',
+            'App\Listeners\UserEventSubscriber@onUserLogout'
         );
     }
 

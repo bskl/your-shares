@@ -2,30 +2,27 @@
 
 namespace App\Listeners;
 
-class CalculateTransactions
+class TransactionEventSubscriber
 {    
     /**
      * Handle user register events.
      */
-    public function buyingShare($event)
+    public function onSharePurchased($event)
     {
         $transaction = $event->transaction;
-        
-        $share = $event->transaction->share;
+        $share = $transaction->share;
 
         $transaction->amount = $transaction->price->multiply($transaction->lot);
+        $transaction->commission_price = $transaction->amount->multiply($transaction->commission)
+                                                             ->divide(100);
 
-        $transaction->commission_price = $transaction->amount->multiply($transaction->commission)->divide(100);
-
-        $share->lot = $share->lot + $transaction->lot;
-
+        $share->lot += $transaction->lot;
         $share->average_amount = $share->average_amount->add($transaction->amount);
-
         $share->average = $share->average_amount->divide($share->lot);
-
         $share->calculateGain();
 
         $share->save();
+        $transaction->save();
     }
 
     /**
@@ -42,8 +39,8 @@ class CalculateTransactions
      */
     public function subscribe($events) {
         $events->listen(
-                'App\Events\BuyingTransaction',
-                    'App\Listeners\CalculateTransactions@buyingShare'
+            'App\Events\BuyingTransactionCreated',
+            'App\Listeners\TransactionEventSubscriber@onSharePurchased'
         );
     }
 

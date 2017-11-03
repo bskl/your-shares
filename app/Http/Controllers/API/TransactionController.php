@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Models\Transaction;
 use App\Enums\TransactionTypes;
 use App\Http\Requests\API\TransactionRequest;
-use App\Events\BuyingTransaction;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Event;
 
@@ -15,20 +14,17 @@ class TransactionController extends Controller
      * Create a new transaction instance for auth user after a valid request.
      *
      * @param  TransactionRequest     $request
-     * @return App\Models\Portfolio $portfolio
+     * @return App\Models\Transaction $transaction
      */
     public function store(TransactionRequest $request)
     {
         $data = $request->all();
-        $data['amount'] = $data['commission_price'] = $data['average'] = $data['sale_gain'] = '0';
-
+        $data['user_id'] = auth()->user()->id;
         $transaction = Transaction::create($data);
+        $transaction->refresh()->load('share');
 
-        $eventType = TransactionTypes::getTypeName($transaction->type);
-
-        $event = $eventType . "Transaction";
-
-        Event::fire($event, array($transaction));
+        $event = 'App\\Events\\' . TransactionTypes::getTypeName($transaction->type) . 'TransactionCreated';
+        event(new $event($transaction));
 
         return response()->json($transaction->share);
     }

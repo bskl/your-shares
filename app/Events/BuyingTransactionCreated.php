@@ -5,7 +5,7 @@ namespace App\Events;
 use App\Models\Transaction;
 use Illuminate\Queue\SerializesModels;
 
-class BuyingTransaction
+class BuyingTransactionCreated
 {
     use SerializesModels;
 

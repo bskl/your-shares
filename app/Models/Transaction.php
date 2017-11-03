@@ -14,7 +14,7 @@ class Transaction extends BaseModel
      * @var array
      */
     protected $guarded = [
-        'id',
+        'id'
     ];
 
     /**
@@ -23,7 +23,7 @@ class Transaction extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'share_id', 'type', 'date', 'lot', 'price', 'amount', 'commission', 'commission_price', 'average', 'sale_gain',
+        'user_id', 'share_id', 'type', 'date', 'lot', 'price', 'amount', 'commission', 'commission_price', 'average', 'sale_gain',
     ];
 
     /**

@@ -16,7 +16,7 @@ class DataController extends Controller
     public function getData()
     {
         return [
-            'user' => Auth()->user(),
+            'user' => auth()->user(),
             'portfolios' => Portfolio::byCurrentUser()->get(),
         ];
     }

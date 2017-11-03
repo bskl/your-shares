@@ -19,10 +19,9 @@ class ShareController extends Controller
         $this->authorize(Share::class);
 
         $data = $request->all();
-        $data['lot'] = $data['average'] = $data['average_amount'] = $data['total_amount'] = $data['gain'] = 0;
 
         $share = Share::create($data);
-        $share->load('symbol');
+        $share->refresh()->load('symbol');
 
         return response()->json($share);
     }
