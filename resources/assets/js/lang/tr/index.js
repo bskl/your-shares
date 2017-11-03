@@ -52,4 +52,9 @@ export default {
     'Currency is required' : 'Para Birimini seçin',
     'Symbol is required' : 'Hisse kodunu seçin',
     'No data available' : 'Veri mevcut değil',
+    'Transaction is required' : 'İşlem alanı seçin',
+    'Date is required' : 'Tarih alanı girin',
+    'Lot is required' : 'Lot alanı girin',
+    'Price is required' : 'Fiyat alanı girin',
+    'Commission is required' : 'Komisyon alanı girin',
 }

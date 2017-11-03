@@ -36,6 +36,21 @@
                     { id: 1, label: this.$t("Buying") },
                     { id: 2, label: this.$t("Sale") },
                 ],
+                transactionRules: [
+                    (v) => !!v || this.$t("Transaction is required"),
+                ],
+                dateRules: [
+                    (v) => !!v || this.$t("Date is required"),
+                ],
+                lotRules: [
+                    (v) => !!v || this.$t("Lot is required"),
+                ],
+                priceRules: [
+                    (v) => !!v || this.$t("Price is required"),
+                ],
+                commissionRules: [
+                    (v) => !!v || this.$t("Commission is required"),
+                ],
                 saving: false,
             };
         },
@@ -118,8 +133,10 @@
                         item-value="id"
                         v-model="form.type"
                         :label="$t('Select Transaction')"
+                        :rules="transactionRules"
                         single-line
                         bottom
+                        required
                     ></v-select>
 
                     <v-menu
@@ -135,10 +152,12 @@
                     >
                         <v-text-field
                             slot="activator"
-                            :label="$t('Select Date')"
                             v-model="form.date"
+                            :label="$t('Select Date')"
+                            :rules="dateRules"
                             prepend-icon="event"
                             readonly
+                            required
                         ></v-text-field>
                         <v-date-picker v-model="form.date" no-title scrollable actions>
                         <template slot-scope="{ save, cancel }">
@@ -154,16 +173,22 @@
                     <v-text-field name="lot" id="lot" type="number"
                         v-model="form.lot"
                         :label="$t('Enter Share Amount')"
+                        :rules="lotRules"
+                        required
                     ></v-text-field>
 
                     <v-text-field name="price" id="price" type="number" step="0.01"
                         v-model="form.price"
                         :label="$t('Enter Share Price')"
+                        :rules="priceRules"
+                        required
                     ></v-text-field>
 
-                    <v-text-field name="commission" id="commission" type="number" step="0.001"
+                    <v-text-field name="commission" id="commission" type="number" step="0.0001"
                         v-model="form.commission"
                         :label="$t('Enter Commission Rate')"
+                        :rules="commissionRules"
+                        required
                     ></v-text-field>
                 </v-form>
             </template>
