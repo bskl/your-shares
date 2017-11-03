@@ -119,6 +119,7 @@ return [
     'attributes' => [
         'email' => 'E-Posta Adresi',
         'password' => 'Şifre',
+        'symbol_id' => 'Hisse',
     ],
 
 ];

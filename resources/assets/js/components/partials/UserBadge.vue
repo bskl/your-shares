@@ -54,6 +54,7 @@
                         {{ $t("Add Portfolio") }}
                     </v-list-tile-title>
                 </v-list-tile>
+                <v-divider inset></v-divider>
                 <v-list-tile @click="logout()">
                     <v-icon class="pr-2">exit_to_app</v-icon>
                     <v-list-tile-title>
