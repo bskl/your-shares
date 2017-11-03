@@ -16,6 +16,8 @@ class ShareController extends Controller
      */
     public function store(ShareRequest $request)
     {
+        $this->authorize(Share::class);
+
         $data = $request->all();
         $data['lot'] = $data['average'] = $data['average_amount'] = $data['total_amount'] = $data['gain'] = 0;
 
@@ -45,6 +47,8 @@ class ShareController extends Controller
      */
     public function destroy(Share $share)
     {
+        $this->authorize($share);
+
         $share->delete();
         
         return response()->json();   

@@ -33,8 +33,8 @@
                     commission: '',
                 }),
                 transactions: [
-                    { id: 1, label: 'Buying' },
-                    { id: 2, label: 'Sale' },
+                    { id: 1, label: this.$t("Buying") },
+                    { id: 2, label: this.$t("Sale") },
                 ],
                 saving: false,
             };
