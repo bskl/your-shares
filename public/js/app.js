@@ -50122,7 +50122,7 @@ var render = function() {
   return _c(
     "v-alert",
     {
-      staticClass: "mb-20",
+      staticClass: "mb-4",
       attrs: { color: "error", dismissible: "", value: _vm.errors.any() }
     },
     [
@@ -50341,6 +50341,8 @@ var render = function() {
                     ],
                     1
                   ),
+                  _vm._v(" "),
+                  _c("v-divider", { attrs: { inset: "" } }),
                   _vm._v(" "),
                   _c(
                     "v-list-tile",
@@ -50681,7 +50683,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return _this.pushShare(payload.share);
         });
         Bus.$on('transactionAdded', function (payload) {
-            return _this.updateSymbol(payload.symbol);
+            return _this.updateShare(payload.symbol);
         });
     },
     created: function created() {},
@@ -51520,7 +51522,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 price: '',
                 commission: ''
             }),
-            transactions: [{ id: 1, label: 'Buying' }, { id: 2, label: 'Sale' }],
+            transactions: [{ id: 1, label: this.$t("Buying") }, { id: 2, label: this.$t("Sale") }],
             saving: false
         };
     },
@@ -51754,9 +51756,8 @@ var render = function() {
                       attrs: {
                         name: "lot",
                         id: "lot",
-                        type: "text",
-                        label: _vm.$t("Enter Share Amount"),
-                        mask: "########"
+                        type: "number",
+                        label: _vm.$t("Enter Share Amount")
                       },
                       model: {
                         value: _vm.form.lot,
@@ -51771,9 +51772,9 @@ var render = function() {
                       attrs: {
                         name: "price",
                         id: "price",
-                        type: "text",
-                        label: _vm.$t("Enter Share Price"),
-                        mask: "###.###.###.###,##"
+                        type: "number",
+                        step: "0.01",
+                        label: _vm.$t("Enter Share Price")
                       },
                       model: {
                         value: _vm.form.price,
@@ -51788,9 +51789,9 @@ var render = function() {
                       attrs: {
                         name: "commission",
                         id: "commission",
-                        type: "text",
-                        label: _vm.$t("Enter Commission Rate"),
-                        mask: "#,####"
+                        type: "number",
+                        step: "0.001",
+                        label: _vm.$t("Enter Commission Rate")
                       },
                       model: {
                         value: _vm.form.commission,

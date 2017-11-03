@@ -33,6 +33,8 @@ class CreateSharesTable extends Migration
                   ->references('id')->on('symbols')
                   ->onUpdate('cascade')
                   ->onDelete('cascade');
+
+            $table->unique(['portfolio_id', 'symbol_id']);
         });
     }
 

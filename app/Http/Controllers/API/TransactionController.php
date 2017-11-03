@@ -2,29 +2,13 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Contracts\TransactionRepository;
+use App\Models\Transaction;
 use App\Http\Requests\API\TransactionRequest;
 use App\Events\BuyingTransactionCreated;
 use App\Http\Controllers\Controller;
 
 class TransactionController extends Controller
 {
-    /**
-     * The transactions instance.
-     */
-    protected $transactions;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @param  App\Contracts\TransactionRepository  $transactions
-     * @return void
-     */
-    public function __construct(TransactionRepository $transactions)
-    {
-        $this->transactions = $transactions;
-    }
-
     /**
      * Create a new transaction instance for auth user after a valid request.
      *
@@ -34,13 +18,13 @@ class TransactionController extends Controller
     public function store(TransactionRequest $request)
     {
         $data = $request->all();
-        $data['type'] = $data['type']['id'];
+        $data['amount'] = $data['commission_price'] = $data['average'] = $data['sale_gain'] = 0;
 
-        $transaction = $this->transactions->create($data);
+        $transaction = Transaction::create($data);
 
         event(new BuyingTransactionCreated($transaction));
 
-        return response()->json($transaction->portfolioSymbol);
+        return response()->json($transaction->share);
     }
 
     /**

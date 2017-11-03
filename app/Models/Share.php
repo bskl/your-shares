@@ -74,14 +74,6 @@ class Share extends BaseModel
     }
 
     /**
-     * Calculate the average price attribute with money object.
-     */
-    public function calculateAverageAmount()
-    {
-        $this->average_amount = $this->average->multiply($this->lot);
-    }
-
-    /**
      * Calculate the gain attribute with money object.
      */
     public function calculateGain()

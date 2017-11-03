@@ -9,9 +9,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class CalculateShareAmount
 {
     /**
-     * Handle the event.
+     * calculate shares money attributes with symbol's last_price.
      *
-     * @param  BuyingTransactionCreated  $event
+     * @param  SymbolUpdated  $event
      * @return void
      */
     public function handle(SymbolUpdated $event)

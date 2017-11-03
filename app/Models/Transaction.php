@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Money\Money;
-use Money\Currency;
 use Carbon\Carbon;
 
 class Transaction extends BaseModel
@@ -24,6 +22,15 @@ class Transaction extends BaseModel
      */
     protected $fillable = [
         'share_id', 'type', 'date', 'lot', 'price', 'amount', 'commission', 'commission_price', 'average', 'sale_gain',
+    ];
+
+    /**
+     * The attributes that are money object.
+     *
+     * @var array
+     */
+    protected $money = [
+        'price', 'amount', 'commission_price', 'average', 'sale_gain',
     ];
 
     /**
@@ -49,7 +56,7 @@ class Transaction extends BaseModel
     public function setDateAttribute($date)
     {
         if ($date) {
-            $this->attributes['date'] = Carbon::createFromFormat('d.m.Y', $date)->format('Y-m-d');
+            $this->attributes['date'] = Carbon::createFromFormat('Y-m-d', $date)->format('Y-m-d');
         }
     }
 }

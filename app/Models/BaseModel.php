@@ -80,6 +80,8 @@ abstract class BaseModel extends Model
         }
 
         $this->attributes[$key] = $money->getAmount();
+
+        return $this;
     }
 
     /**
@@ -110,12 +112,11 @@ abstract class BaseModel extends Model
      */
     public function __set($key, $value)
     {
-        if (! $key) {
-            return;
-        }
-
-        if (in_array($key, $this->money)) {
+        if ($value && in_array($key, $this->money)) {
+            dd(key);
             return $this->setMoneyAttribute($key, $value);
         }
+
+        return parent::__set($key, $value);
     }
 }

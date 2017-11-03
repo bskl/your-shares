@@ -20,11 +20,11 @@ class CreateTransactionsTable extends Migration
             $table->timestamp('date');
             $table->integer('lot');
             $table->integer('price');
-            $table->integer('amount');
+            $table->integer('amount')->default(0);
             $table->decimal('commission', 5, 4);
-            $table->integer('commission_price');
-            $table->integer('average');
-            $table->integer('sale_gain');
+            $table->integer('commission_price')->default(0);
+            $table->integer('average')->default(0);
+            $table->integer('sale_gain')->default(0);
             $table->timestamps();
 
             $table->foreign('share_id')

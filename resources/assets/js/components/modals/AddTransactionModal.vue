@@ -151,22 +151,19 @@
                         </v-date-picker>
                     </v-menu>
 
-                    <v-text-field name="lot" id="lot" type="text"
+                    <v-text-field name="lot" id="lot" type="number"
                         v-model="form.lot"
                         :label="$t('Enter Share Amount')"
-                        mask="########"
                     ></v-text-field>
 
-                    <v-text-field name="price" id="price" type="text"
+                    <v-text-field name="price" id="price" type="number" step="0.01"
                         v-model="form.price"
                         :label="$t('Enter Share Price')"
-                        mask="###.###.###.###,##"
                     ></v-text-field>
 
-                    <v-text-field name="commission" id="commission" type="text"
+                    <v-text-field name="commission" id="commission" type="number" step="0.001"
                         v-model="form.commission"
                         :label="$t('Enter Commission Rate')"
-                        mask="#,####"
                     ></v-text-field>
                 </v-form>
             </template>

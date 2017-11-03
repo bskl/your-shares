@@ -43,7 +43,7 @@
             Bus.$on('portfolioUpdated', payload => this.updatePortfolio(payload.portfolio));
             Bus.$on('portfolioDeleted', payload => this.deletePortfolio(payload.portfolioId));
             Bus.$on('shareAdded', payload => this.pushShare(payload.share));
-            Bus.$on('transactionAdded', payload => this.updateSymbol(payload.symbol));
+            Bus.$on('transactionAdded', payload => this.updateShare(payload.symbol));
         },
 
         created() {

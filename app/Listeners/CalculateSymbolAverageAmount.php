@@ -2,29 +2,12 @@
 
 namespace App\Listeners;
 
-use App\Contracts\PortfolioSymbolRepository;
 use App\Events\BuyingTransactionCreated;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CalculateSymbolAverageAmount
 {
-    /**
-     * The portfolioSymbols instance.
-     */
-    protected $portfolioSymbols;
-
-    /**
-     * Create the event listener.
-     *
-     * @param  App\Contracts\PortfolioSymbolRepository  $portfolioSymbols
-     * @return void
-     */
-    public function __construct(PortfolioSymbolRepository $portfolioSymbols)
-    {
-        $this->portfolioSymbols = $portfolioSymbols;
-    }
-
     /**
      * Handle the event.
      *
@@ -33,14 +16,22 @@ class CalculateSymbolAverageAmount
      */
     public function handle(BuyingTransactionCreated $event)
     {
-        $portfolioSymbol = $event->transaction->portfolioSymbol;
+        $transaction = $event->transaction;
 
-        $portfolioSymbol->AddShare($event->transaction->share);
+        $share = $event->transaction->share;
 
-        $totalAmount = $portfolioSymbol->totalAverage->add($event->transaction->totalPrice);
+        $transaction->amount = $transaction->price->multiply($transaction->lot);
 
-        $data['average'] = $totalAmount->divide($data['share'])->getAmount();
+        $transaction->commission_price = $transaction->amount->multiply($transaction->commission)->divide(100);
 
-        $portfolioSymbol->update();
+        $share->lot = $share->lot + $transaction->lot;
+
+        $share->average_amount = $share->average_amount->add($transaction->amount);
+
+        $share->average = $share->average_amount->divide($share->lot);
+
+        $share->calculateGain();
+
+        $share->update();
     }
 }
