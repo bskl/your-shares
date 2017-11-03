@@ -52,4 +52,9 @@ export default {
     'Currency is required' : 'Currency is required',
     'Symbol is required' : 'Symbol is required',
     'No data available' : 'No data available',
+    'Transaction is required' : 'Transaction is required',
+    'Date is required' : 'Date is required',
+    'Lot is required' : 'Lot is required',
+    'Price is required' : 'Price is required',
+    'Commission is required' : 'Commission is required',
 }

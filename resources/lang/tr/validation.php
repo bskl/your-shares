@@ -120,6 +120,12 @@ return [
         'email' => 'E-Posta Adresi',
         'password' => 'Şifre',
         'symbol_id' => 'Hisse',
+        'share_id' => 'Hisse',
+        'type' => 'İşlem',
+        'date' => 'Tarih',
+        'lot' => 'Lot',
+        'price' => 'Fiyat',
+        'commission' => 'Komisyon',
     ],
 
 ];

@@ -51510,6 +51510,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      * The component's data.
      */
     data: function data() {
+        var _this = this;
+
         return {
             showModal: false,
             valid: true,
@@ -51523,6 +51525,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 commission: ''
             }),
             transactions: [{ id: 1, label: this.$t("Buying") }, { id: 2, label: this.$t("Sale") }],
+            transactionRules: [function (v) {
+                return !!v || _this.$t("Transaction is required");
+            }],
+            dateRules: [function (v) {
+                return !!v || _this.$t("Date is required");
+            }],
+            lotRules: [function (v) {
+                return !!v || _this.$t("Lot is required");
+            }],
+            priceRules: [function (v) {
+                return !!v || _this.$t("Price is required");
+            }],
+            commissionRules: [function (v) {
+                return !!v || _this.$t("Commission is required");
+            }],
             saving: false
         };
     },
@@ -51532,11 +51549,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      * Prepare the component.
      */
     mounted: function mounted() {
-        var _this = this;
+        var _this2 = this;
 
         document.addEventListener("keydown", function (e) {
             if (e.keyCode == 27) {
-                _this.close();
+                _this2.close();
             }
         });
     },
@@ -51574,7 +51591,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
          * Save the transaction and hide the modal.
          */
         saveTransaction: function saveTransaction() {
-            var _this2 = this;
+            var _this3 = this;
 
             if (this.$refs.form.validate()) {
                 this.saving = true;
@@ -51584,9 +51601,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         share: response.data
                     });
 
-                    _this2.close();
+                    _this3.close();
                 }, function (error) {
-                    _this2.saving = false;
+                    _this3.saving = false;
                 });
             }
         }
@@ -51647,8 +51664,10 @@ var render = function() {
                         "item-text": "label",
                         "item-value": "id",
                         label: _vm.$t("Select Transaction"),
+                        rules: _vm.transactionRules,
                         "single-line": "",
-                        bottom: ""
+                        bottom: "",
+                        required: ""
                       },
                       model: {
                         value: _vm.form.type,
@@ -51685,8 +51704,10 @@ var render = function() {
                           attrs: {
                             slot: "activator",
                             label: _vm.$t("Select Date"),
+                            rules: _vm.dateRules,
                             "prepend-icon": "event",
-                            readonly: ""
+                            readonly: "",
+                            required: ""
                           },
                           slot: "activator",
                           model: {
@@ -51757,7 +51778,9 @@ var render = function() {
                         name: "lot",
                         id: "lot",
                         type: "number",
-                        label: _vm.$t("Enter Share Amount")
+                        label: _vm.$t("Enter Share Amount"),
+                        rules: _vm.lotRules,
+                        required: ""
                       },
                       model: {
                         value: _vm.form.lot,
@@ -51774,7 +51797,9 @@ var render = function() {
                         id: "price",
                         type: "number",
                         step: "0.01",
-                        label: _vm.$t("Enter Share Price")
+                        label: _vm.$t("Enter Share Price"),
+                        rules: _vm.priceRules,
+                        required: ""
                       },
                       model: {
                         value: _vm.form.price,
@@ -51790,8 +51815,10 @@ var render = function() {
                         name: "commission",
                         id: "commission",
                         type: "number",
-                        step: "0.001",
-                        label: _vm.$t("Enter Commission Rate")
+                        step: "0.0001",
+                        label: _vm.$t("Enter Commission Rate"),
+                        rules: _vm.commissionRules,
+                        required: ""
                       },
                       model: {
                         value: _vm.form.commission,
@@ -54705,7 +54732,12 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Name is required': 'Name is required',
     'Currency is required': 'Currency is required',
     'Symbol is required': 'Symbol is required',
-    'No data available': 'No data available'
+    'No data available': 'No data available',
+    'Transaction is required': 'Transaction is required',
+    'Date is required': 'Date is required',
+    'Lot is required': 'Lot is required',
+    'Price is required': 'Price is required',
+    'Commission is required': 'Commission is required'
 });
 
 /***/ }),
@@ -54766,7 +54798,12 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Name is required': 'İsim alanını doldurun',
     'Currency is required': 'Para Birimini seçin',
     'Symbol is required': 'Hisse kodunu seçin',
-    'No data available': 'Veri mevcut değil'
+    'No data available': 'Veri mevcut değil',
+    'Transaction is required': 'İşlem alanı seçin',
+    'Date is required': 'Tarih alanı girin',
+    'Lot is required': 'Lot alanı girin',
+    'Price is required': 'Fiyat alanı girin',
+    'Commission is required': 'Komisyon alanı girin'
 });
 
 /***/ }),
