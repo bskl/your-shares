@@ -113,7 +113,6 @@ abstract class BaseModel extends Model
     public function __set($key, $value)
     {
         if ($value && in_array($key, $this->money)) {
-            dd(key);
             return $this->setMoneyAttribute($key, $value);
         }
 

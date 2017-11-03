@@ -2,22 +2,15 @@
 
 namespace App\Listeners;
 
-use App\Events\BuyingTransactionCreated;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-
-class CalculateSymbolAverageAmount
-{
+class CalculateTransactions
+{    
     /**
-     * Handle the event.
-     *
-     * @param  BuyingTransactionCreated  $event
-     * @return void
+     * Handle user register events.
      */
-    public function handle(BuyingTransactionCreated $event)
+    public function buyingShare($event)
     {
         $transaction = $event->transaction;
-
+        
         $share = $event->transaction->share;
 
         $transaction->amount = $transaction->price->multiply($transaction->lot);
@@ -32,6 +25,26 @@ class CalculateSymbolAverageAmount
 
         $share->calculateGain();
 
-        $share->update();
+        $share->save();
     }
+
+    /**
+     * Handle user login events.
+     */
+    public function saleShare($event) {
+        
+    }
+
+    /**
+     * Register the listeners for the subscriber.
+     *
+     * @param  Dispatcher  $events
+     */
+    public function subscribe($events) {
+        $events->listen(
+                'App\Events\BuyingTransaction',
+                    'App\Listeners\CalculateTransactions@buyingShare'
+        );
+    }
+
 }

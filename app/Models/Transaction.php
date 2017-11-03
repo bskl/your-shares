@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Money\Currencies\ISOCurrencies;
+use Money\Parser\DecimalMoneyParser;
 use Carbon\Carbon;
 
 class Transaction extends BaseModel
@@ -58,5 +60,35 @@ class Transaction extends BaseModel
         if ($date) {
             $this->attributes['date'] = Carbon::createFromFormat('Y-m-d', $date)->format('Y-m-d');
         }
+    }
+
+    public function setAmountAttribute($value)
+    {
+        if ($value instanceof Money) {
+            $money = $value;
+        } else {
+            $currencies = new ISOCurrencies();
+            
+            $moneyParser = new DecimalMoneyParser($currencies);
+    
+            $money = $moneyParser->parse($value, 'TRY');
+        }
+
+        $this->attributes['amount'] = $money->getAmount();
+    }
+
+    public function setPriceAttribute($value)
+    {
+        if ($value instanceof Money) {
+            $money = $value;
+        } else {
+            $currencies = new ISOCurrencies();
+            
+            $moneyParser = new DecimalMoneyParser($currencies);
+    
+            $money = $moneyParser->parse($value, 'TRY');
+        }
+
+        $this->attributes['price'] = $money->getAmount();
     }
 }

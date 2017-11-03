@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Transaction;
+use App\Enums\TransactionTypes;
 use App\Http\Requests\API\TransactionRequest;
-use App\Events\BuyingTransactionCreated;
+use App\Events\BuyingTransaction;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Event;
 
 class TransactionController extends Controller
 {
@@ -18,11 +20,15 @@ class TransactionController extends Controller
     public function store(TransactionRequest $request)
     {
         $data = $request->all();
-        $data['amount'] = $data['commission_price'] = $data['average'] = $data['sale_gain'] = 0;
+        $data['amount'] = $data['commission_price'] = $data['average'] = $data['sale_gain'] = '0';
 
         $transaction = Transaction::create($data);
 
-        event(new BuyingTransactionCreated($transaction));
+        $eventType = TransactionTypes::getTypeName($transaction->type);
+
+        $event = $eventType . "Transaction";
+
+        Event::fire($event, array($transaction));
 
         return response()->json($transaction->share);
     }

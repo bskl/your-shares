@@ -29,6 +29,7 @@ class EventServiceProvider extends ServiceProvider
      */
      protected $subscribe = [
         'App\Listeners\UserEventSubscriber',
+        'App\Listeners\CalculateTransactions',
     ];
 
     /**
