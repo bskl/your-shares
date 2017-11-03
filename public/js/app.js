@@ -50683,7 +50683,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return _this.pushShare(payload.share);
         });
         Bus.$on('transactionAdded', function (payload) {
-            return _this.updateShare(payload.symbol);
+            return _this.updateShare(payload.share);
         });
     },
     created: function created() {},
@@ -50723,8 +50723,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
          * Push added share to given portfolio.
          */
         pushShare: function pushShare(share) {
-            var index = _.findIndex(this.state.portfolios, ['id', share.portfolio_id]);
-            this.state.portfolios[index].shares.push(share);
+            var portfolioIndex = _.findIndex(this.state.portfolios, ['id', share.portfolio_id]);
+            this.state.portfolios[portfolioIndex].shares.push(share);
             Bus.$off('shareAdded', share);
         },
 
@@ -50737,7 +50737,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var index = _.findIndex(this.state.portfolios[portfolioIndex].shares, ['id', share.id]);
             this.state.portfolios[portfolioIndex].shares.splice(index, 1, share);
 
-            Bus.$off('transactionAdded', symbol);
+            Bus.$off('transactionAdded', share);
         },
 
 

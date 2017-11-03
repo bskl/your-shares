@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Models\Share;
 use App\Events\SymbolUpdated;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -18,7 +19,7 @@ class CalculateShareAmount
     {
         $symbol = $event->symbol;
 
-        $shares = Share::where('code', $symbol->code)->get();
+        $shares = Share::where('symbol_id', $symbol->id)->get();
 
         $shares->map(function ($share) use ($symbol) {
             $share->calculateTotalAmount($symbol->last_price);

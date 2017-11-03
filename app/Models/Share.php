@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Money\Money;
+
 class Share extends BaseModel
 {
     /**
@@ -19,7 +21,7 @@ class Share extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'portfolio_id', 'symbol_id', 'lot', 'average', 'average_amount', 'total_amount', 'gain',
+        'user_id', 'portfolio_id', 'symbol_id', 'lot', 'average', 'average_amount', 'total_amount', 'gain',
     ];
 
     /**

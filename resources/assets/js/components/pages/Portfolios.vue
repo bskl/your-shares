@@ -43,7 +43,7 @@
             Bus.$on('portfolioUpdated', payload => this.updatePortfolio(payload.portfolio));
             Bus.$on('portfolioDeleted', payload => this.deletePortfolio(payload.portfolioId));
             Bus.$on('shareAdded', payload => this.pushShare(payload.share));
-            Bus.$on('transactionAdded', payload => this.updateShare(payload.symbol));
+            Bus.$on('transactionAdded', payload => this.updateShare(payload.share));
         },
 
         created() {
@@ -81,8 +81,8 @@
              * Push added share to given portfolio.
              */
             pushShare(share) {
-                let index = _.findIndex(this.state.portfolios, ['id', share.portfolio_id]);
-                this.state.portfolios[index].shares.push(share);
+                let portfolioIndex = _.findIndex(this.state.portfolios, ['id', share.portfolio_id]);
+                this.state.portfolios[portfolioIndex].shares.push(share);
                 Bus.$off('shareAdded', share);
             },
 
@@ -94,7 +94,7 @@
                 let index = _.findIndex(this.state.portfolios[portfolioIndex].shares, ['id', share.id]);
                 this.state.portfolios[portfolioIndex].shares.splice(index, 1, share);
 
-                Bus.$off('transactionAdded', symbol);
+                Bus.$off('transactionAdded', share);
             },
 
             /**

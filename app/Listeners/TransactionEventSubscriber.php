@@ -19,6 +19,8 @@ class TransactionEventSubscriber
         $share->lot += $transaction->lot;
         $share->average_amount = $share->average_amount->add($transaction->amount);
         $share->average = $share->average_amount->divide($share->lot);
+
+        $share->calculateTotalAmount($share->symbol->last_price);
         $share->calculateGain();
 
         $share->save();

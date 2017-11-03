@@ -15,6 +15,7 @@ class CreateSharesTable extends Migration
     {
         Schema::create('shares', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned();
             $table->integer('portfolio_id')->unsigned();
             $table->integer('symbol_id')->unsigned();
             $table->integer('lot')->default(0);
@@ -23,6 +24,11 @@ class CreateSharesTable extends Migration
             $table->integer('total_amount')->default(0);
             $table->integer('gain')->default(0);
             $table->timestamps();
+
+            $table->foreign('user_id')
+                  ->references('id')->on('users')
+                  ->onUpdate('cascade')
+                  ->onDelete('cascade');
 
             $table->foreign('portfolio_id')
                   ->references('id')->on('portfolios')

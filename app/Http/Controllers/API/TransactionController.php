@@ -6,7 +6,6 @@ use App\Models\Transaction;
 use App\Enums\TransactionTypes;
 use App\Http\Requests\API\TransactionRequest;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Event;
 
 class TransactionController extends Controller
 {
