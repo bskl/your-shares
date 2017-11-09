@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
+import { ls } from '../services/ls.js';
 
 import en from './en/';
 import tr from './tr/';
@@ -26,7 +27,7 @@ const numberFormats = {
 
 // Create VueI18n instance with options
 export default new VueI18n({
-    locale: window.navigator.userLanguage || window.navigator.language,
+    locale: ls.get('language') || window.navigator.userLanguage || window.navigator.language,
     fallbackLocale: 'tr',
     messages,
     numberFormats,
