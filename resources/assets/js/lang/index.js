@@ -13,7 +13,7 @@ const messages = {
 }
 
 const numberFormats = {
-    'en-US': {
+    'en': {
         currency: {
             style: 'currency', currency: 'USD', currencyDisplay: 'symbol', minimumFractionDigits: 2,
         }

@@ -484,54 +484,6 @@ module.exports = {
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(0)
-/* script */
-var __vue_script__ = __webpack_require__(68)
-/* template */
-var __vue_template__ = __webpack_require__(69)
-/* template functional */
-  var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\partials\\FormErrors.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-040b2121", Component.options)
-  } else {
-    hotAPI.reload("data-v-040b2121", Component.options)
-' + '  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -623,6 +575,54 @@ var userStore = {
         });
     }
 };
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(68)
+/* template */
+var __vue_template__ = __webpack_require__(69)
+/* template functional */
+  var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\partials\\FormErrors.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-040b2121", Component.options)
+  } else {
+    hotAPI.reload("data-v-040b2121", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
 
 /***/ }),
 /* 4 */
@@ -49406,7 +49406,7 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_ls_js__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__stores_sharedStore_js__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__stores_userStore_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__stores_userStore_js__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__layout_MainLayout_vue__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__layout_MainLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__layout_MainLayout_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Portfolios_vue__ = __webpack_require__(77);
@@ -49460,7 +49460,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             try {
                 __WEBPACK_IMPORTED_MODULE_1__stores_sharedStore_js__["a" /* sharedStore */].getData().then(function (response) {
-                    _this2.loading = false;
+                    setTimeout(function () {
+                        _this2.loading = false;
+                    }, 200);
                 });
             } catch (err) {
                 this.$router.push('/login');
@@ -49626,7 +49628,7 @@ module.exports = {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return sharedStore; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_http_js__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__userStore_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__userStore_js__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__portfolioStore_js__ = __webpack_require__(22);
 
 
@@ -49815,7 +49817,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modals_AddPortfolioModal_vue__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modals_AddPortfolioModal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__modals_AddPortfolioModal_vue__);
 
@@ -49872,7 +49874,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modals_modal_ModalBody_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__modals_modal_ModalBody_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalFooter_vue__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalFooter_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalFooter_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__partials_FormErrors_vue__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__partials_FormErrors_vue__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__partials_FormErrors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__partials_FormErrors_vue__);
 
 
@@ -50481,6 +50483,8 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_ls_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__ = __webpack_require__(2);
+
 
 
 
@@ -50494,7 +50498,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      * The component's data.
      */
     data: function data() {
-        return {};
+        return {
+            lang: __WEBPACK_IMPORTED_MODULE_0__services_ls_js__["a" /* ls */].get('language'),
+            languages: [{ value: "tr", label: "Türkçe" }, { value: "en", label: "English" }]
+        };
+    },
+    mounted: function mounted() {
+        if (__WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].isAuthenticated()) {
+            console.log(__WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale);
+            this.lang = __WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale;
+        }
     },
 
 
@@ -50502,9 +50515,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         /**
          * Change the language.
          */
-        setLanguage: function setLanguage(lang) {
-            this.$i18n.locale = lang;
-            __WEBPACK_IMPORTED_MODULE_0__services_ls_js__["a" /* ls */].set('language', lang);
+        setLanguage: function setLanguage() {
+            var _this = this;
+
+            setTimeout(function () {
+                _this.$i18n.locale = _this.lang;
+                __WEBPACK_IMPORTED_MODULE_0__services_ls_js__["a" /* ls */].set('language', _this.lang);
+
+                if (__WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].isAuthenticated()) {
+                    return new Promise(function (resolve, reject) {
+                        http.get('/locale/' + _this.lang, function (response) {
+                            resolve(response);
+                        }, function (error) {
+                            reject(error.response.data);
+                        });
+                    });
+                }
+            }, 500);
         }
     }
 });
@@ -50522,29 +50549,35 @@ var render = function() {
     { staticClass: "pa-3", attrs: { app: "" } },
     [
       _c(
-        "v-btn",
-        {
-          attrs: { flat: "", small: "" },
-          on: {
-            click: function($event) {
-              _vm.setLanguage("tr")
+        "v-flex",
+        { attrs: { xs1: "" } },
+        [
+          _c("v-select", {
+            staticClass: "pt-0",
+            attrs: {
+              items: _vm.languages,
+              "item-text": "label",
+              "item-value": "value",
+              label: _vm.$t("Language"),
+              "single-line": "",
+              auto: "",
+              "hide-details": ""
+            },
+            on: {
+              change: function($event) {
+                _vm.setLanguage()
+              }
+            },
+            model: {
+              value: _vm.lang,
+              callback: function($$v) {
+                _vm.lang = $$v
+              },
+              expression: "lang"
             }
-          }
-        },
-        [_vm._v("Türkçe")]
-      ),
-      _vm._v(" "),
-      _c(
-        "v-btn",
-        {
-          attrs: { flat: "", small: "" },
-          on: {
-            click: function($event) {
-              _vm.setLanguage("en")
-            }
-          }
-        },
-        [_vm._v("English")]
+          })
+        ],
+        1
       ),
       _vm._v(" "),
       _c("v-spacer"),
@@ -50698,7 +50731,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      */
     data: function data() {
         return {
-            headers: [{ text: this.$t("Symbol"), value: 'symbol', align: 'left', sortable: false }, { text: this.$t("Last Price"), value: 'last_price', sortable: false }, { text: this.$t("Change"), value: 'change', sortable: false }, { text: this.$t("Lots"), value: 'lots', sortable: false }, { text: this.$t("Average"), value: 'average', sortable: false }, { text: this.$t("Total Amount"), value: 'total_amount', sortable: false }, { text: this.$t("Average Amount"), value: 'average_amount', sortable: false }, { text: this.$t("Gain"), value: 'gain', sortable: false }, { text: this.$t("Transactions"), value: 'transactions', align: 'center', sortable: false }],
             state: __WEBPACK_IMPORTED_MODULE_0__stores_portfolioStore_js__["a" /* portfolioStore */].state
         };
     },
@@ -50882,7 +50914,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modals_modal_ModalBody_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__modals_modal_ModalBody_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalFooter_vue__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalFooter_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalFooter_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__partials_FormErrors_vue__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__partials_FormErrors_vue__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__partials_FormErrors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__partials_FormErrors_vue__);
 
 
@@ -51208,7 +51240,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modals_modal_ModalBody_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__modals_modal_ModalBody_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalFooter_vue__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalFooter_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalFooter_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__partials_FormErrors_vue__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__partials_FormErrors_vue__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__partials_FormErrors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__partials_FormErrors_vue__);
 
 
@@ -51526,7 +51558,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalBody_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__modals_modal_ModalBody_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modals_modal_ModalFooter_vue__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modals_modal_ModalFooter_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__modals_modal_ModalFooter_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__partials_FormErrors_vue__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__partials_FormErrors_vue__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__partials_FormErrors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__partials_FormErrors_vue__);
 
 
@@ -52002,7 +52034,55 @@ var render = function() {
                           _c("v-data-table", {
                             attrs: {
                               items: portfolio.shares,
-                              headers: _vm.headers,
+                              headers: [
+                                {
+                                  text: _vm.$t("Symbol"),
+                                  value: "symbol",
+                                  align: "left",
+                                  sortable: false
+                                },
+                                {
+                                  text: _vm.$t("Last Price"),
+                                  value: "last_price",
+                                  sortable: false
+                                },
+                                {
+                                  text: _vm.$t("Change"),
+                                  value: "change",
+                                  sortable: false
+                                },
+                                {
+                                  text: _vm.$t("Lots"),
+                                  value: "lots",
+                                  sortable: false
+                                },
+                                {
+                                  text: _vm.$t("Average"),
+                                  value: "average",
+                                  sortable: false
+                                },
+                                {
+                                  text: _vm.$t("Total Amount"),
+                                  value: "total_amount",
+                                  sortable: false
+                                },
+                                {
+                                  text: _vm.$t("Average Amount"),
+                                  value: "average_amount",
+                                  sortable: false
+                                },
+                                {
+                                  text: _vm.$t("Gain"),
+                                  value: "gain",
+                                  sortable: false
+                                },
+                                {
+                                  text: _vm.$t("Transactions"),
+                                  value: "transactions",
+                                  align: "center",
+                                  sortable: false
+                                }
+                              ],
                               "item-key": "id",
                               "hide-actions": "",
                               "no-data-text": _vm.$t(
@@ -52300,10 +52380,10 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__);
 
 
@@ -52622,10 +52702,10 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__);
 
 
@@ -52921,10 +53001,10 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__);
 
 
@@ -53183,7 +53263,7 @@ var messages = {
 };
 
 var numberFormats = {
-    'en-US': {
+    'en': {
         currency: {
             style: 'currency', currency: 'USD', currencyDisplay: 'symbol', minimumFractionDigits: 2
         }
@@ -54739,6 +54819,7 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Delete': 'Delete',
     'Edit': 'Edit',
     'Close': 'Close',
+    'Language': 'Language',
     'You have not created any symbol.': 'You have not created any symbol.',
     'Portfolio Name': 'Portfolio Name',
     'Currency': 'Currency',
@@ -54805,6 +54886,7 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Delete': 'Sil',
     'Edit': 'Düzenle',
     'Close': 'Kapat',
+    'Language': 'Dil',
     'You have not created any symbol.': 'Oluşturulmuş hisse senediniz bulunmamaktadır.',
     'Portfolio Name': 'Portföy Adı',
     'Currency': 'Para Birimi',

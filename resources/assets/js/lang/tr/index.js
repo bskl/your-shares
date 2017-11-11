@@ -16,6 +16,7 @@ export default {
     'Delete' : 'Sil',
     'Edit' : 'Düzenle',
     'Close' : 'Kapat',
+    'Language' : 'Dil',
     'You have not created any symbol.' : 'Oluşturulmuş hisse senediniz bulunmamaktadır.',
     'Portfolio Name' : 'Portföy Adı',
     'Currency': 'Para Birimi',

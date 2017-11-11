@@ -8,9 +8,14 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-
+    /**
+     * Set user language for auth user.
+     *
+     * @string $locale
+     */
     public function setLocale(string $locale)
     {
-
+        Auth::user()->locale = $locale;
+        Auth::user()->update();
     }
 }

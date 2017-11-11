@@ -16,6 +16,7 @@ export default {
     'Delete' : 'Delete',
     'Edit' : 'Edit',
     'Close' : 'Close',
+    'Language' : 'Language',
     'You have not created any symbol.' : 'You have not created any symbol.',
     'Portfolio Name' : 'Portfolio Name',
     'Currency': 'Currency',

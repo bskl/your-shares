@@ -47,7 +47,9 @@
                 try {
                     sharedStore.getData()
                         .then(response => {
-                            this.loading = false;
+                            setTimeout(() => {
+                                this.loading = false;
+                            }, 200)
                         });
                 } catch (err) {
                     this.$router.push('/login');

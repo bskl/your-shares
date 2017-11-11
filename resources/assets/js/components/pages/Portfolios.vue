@@ -20,17 +20,6 @@
          */
         data() {
             return {
-                headers: [
-                    { text: this.$t("Symbol"), value: 'symbol', align: 'left', sortable: false },
-                    { text: this.$t("Last Price"), value: 'last_price', sortable: false },
-                    { text: this.$t("Change"), value: 'change', sortable: false },
-                    { text: this.$t("Lots"), value: 'lots', sortable: false },
-                    { text: this.$t("Average"), value: 'average', sortable: false },
-                    { text: this.$t("Total Amount"), value: 'total_amount', sortable: false },
-                    { text: this.$t("Average Amount"), value: 'average_amount', sortable: false },
-                    { text: this.$t("Gain"), value: 'gain', sortable: false },
-                    { text: this.$t("Transactions"), value: 'transactions', align: 'center', sortable: false }
-                ],
                 state: portfolioStore.state,
             }
         },
@@ -153,7 +142,17 @@
                         <v-card-text>
                             <v-data-table
                                 :items="portfolio.shares"
-                                :headers="headers"
+                                :headers="[
+                                    { text: $t('Symbol'), value: 'symbol', align: 'left', sortable: false },
+                                    { text: $t('Last Price'), value: 'last_price', sortable: false },
+                                    { text: $t('Change'), value: 'change', sortable: false },
+                                    { text: $t('Lots'), value: 'lots', sortable: false },
+                                    { text: $t('Average'), value: 'average', sortable: false },
+                                    { text: $t('Total Amount'), value: 'total_amount', sortable: false },
+                                    { text: $t('Average Amount'), value: 'average_amount', sortable: false },
+                                    { text: $t('Gain'), value: 'gain', sortable: false },
+                                    { text: $t('Transactions'), value: 'transactions', align: 'center', sortable: false }
+                                ]"
                                 item-key="id"
                                 hide-actions
                                 :no-data-text="$t('You have not created any symbol.')"
