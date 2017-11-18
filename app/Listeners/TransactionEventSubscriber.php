@@ -46,7 +46,7 @@ class TransactionEventSubscriber
         $items = $share->getBuyingTransactionsByNotSold();
 
         $items->map(function ($item) use ($transaction, $share) {
-            if($item->remaining < $transaction->lot) {
+            if ($item->remaining < $transaction->lot) {
                 $soldLot = $item->remaining;
                 $item->remaining = 0;
                 $item->sale_average_amount = $item->sale_average_amount->add($transaction->price->multiply($soldLot));
@@ -65,7 +65,7 @@ class TransactionEventSubscriber
                 $transaction->lot -= $soldLot;
             }
 
-            if($item->remaining >= $transaction->lot) {
+            if ($item->remaining >= $transaction->lot) {
                 $item->remaining -= $transaction->lot;
                 $item->sale_average_amount = $item->sale_average_amount->add($transaction->price->multiply($transaction->lot));
                 $soldLot = $item->lot - $item->remaining;
@@ -74,7 +74,7 @@ class TransactionEventSubscriber
                 $item->save();
 
                 $share->lot -= $transaction->lot;
-                if($share->lot == 0) {
+                if ($share->lot == 0) {
                     $share->average_amount = $share->average = $share->total_amount = $share->gain = '0';
                 } else {
                     $buyingAmount = $item->price->multiply($transaction->lot);
