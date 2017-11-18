@@ -58,6 +58,7 @@ export default {
     'Transaction is required' : 'Transaction is required',
     'Date is required' : 'Date is required',
     'Lot is required' : 'Lot is required',
+    'Lot must be more than 0' : 'Lot must be more than 0',
     'Price is required' : 'Price is required',
     'Commission is required' : 'Commission is required',
     'Dividend Net Price is required' : 'Dividend Net Price is required',

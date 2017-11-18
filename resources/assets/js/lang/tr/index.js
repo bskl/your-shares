@@ -58,6 +58,7 @@ export default {
     'Transaction is required' : 'İşlem alanı seçin',
     'Date is required' : 'Tarih alanı girin',
     'Lot is required' : 'Lot alanı girin',
+    'Lot must be more than 0' : 'Lot 0\'dan fazla olmalıdır.',
     'Price is required' : 'Fiyat alanı girin',
     'Commission is required' : 'Komisyon alanı girin',
     'Dividend Net Price is required' : 'Temettü Net Fiyatını girin',

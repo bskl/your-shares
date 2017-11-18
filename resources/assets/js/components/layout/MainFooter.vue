@@ -13,7 +13,7 @@
          */
         data() {
             return {
-                lang: ls.get('language'),
+                locale: this.$i18n.locale,
                 languages: [
                     { value: "tr", label: "Türkçe" },
                     { value: "en", label: "English" },
@@ -23,7 +23,8 @@
 
         mounted() {
             if (userStore.isAuthenticated()) {
-                this.lang = userStore.state.user.locale;
+                this.locale = userStore.state.user.locale;
+                ls.set('language', userStore.state.user.locale);
             }
         },
 
@@ -33,12 +34,12 @@
              */
             setLanguage() {
                 setTimeout(() => {
-                    this.$i18n.locale = this.lang;
-                    ls.set('language', this.lang);
+                    this.$i18n.locale = this.locale;
+                    ls.set('language', this.locale);
 
                     if (userStore.isAuthenticated()) {
                         return new Promise((resolve, reject) => {
-                            http.get('/locale/' + this.lang, response => {
+                            http.get('/locale/' + this.locale, response => {
                                 resolve(response);
                             }, error => {
                                 reject(error.response.data);
@@ -58,7 +59,7 @@
                 :items="languages"
                 item-text="label"
                 item-value="value"
-                v-model="lang"
+                v-model="locale"
                 :label="$t('Language')"
                 single-line
                 auto

@@ -8,6 +8,7 @@ export const userStore = {
             id: 0,
             name: '',
             email: '',
+            locale: '',
         }
     },
 
