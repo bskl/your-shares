@@ -40,6 +40,7 @@ class TransactionRequest extends Request
             'lot' => 'required|numeric|regex:/^[1-9]\d*$/' . $addRule,
             'price' => 'required|numeric|min:0|regex:/^\d*(\.\d{2})?$/',
             'commission' => 'required|numeric|min:0',
+            'dividend' => 'sometimes|required'
         ];
     }
 }
