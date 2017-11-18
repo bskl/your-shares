@@ -31,8 +31,10 @@ export default {
     'Enter Share Amount' : 'Enter Share Amount',
     'Enter Share Price' : 'Enter Share Price',
     'Enter Commission Rate' : 'Enter Commission Rate',
+    'Enter Dividend Net Price Per Lot' : 'Enter Dividend Net Price Per Lot',
     'Buying' : 'Buying',
     'Sale' : 'Sale',
+    'Dividend' : 'Dividend',
     'Symbol' : 'Symbol',
     'Last Price' : 'Last Price',
     'Change' : 'Change',
@@ -58,4 +60,5 @@ export default {
     'Lot is required' : 'Lot is required',
     'Price is required' : 'Price is required',
     'Commission is required' : 'Commission is required',
+    'Dividend Net Price is required' : 'Dividend Net Price is required',
 }

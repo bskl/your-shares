@@ -122,7 +122,7 @@ return [
         'symbol_id' => 'Hisse',
         'share_id' => 'Hisse',
         'type' => 'İşlem',
-        'date' => 'Tarih',
+        'date_at' => 'Tarih',
         'lot' => 'Lot',
         'price' => 'Fiyat',
         'commission' => 'Komisyon',

@@ -23,7 +23,6 @@
 
         mounted() {
             if (userStore.isAuthenticated()) {
-                console.log(userStore.state.user.locale);
                 this.lang = userStore.state.user.locale;
             }
         },

@@ -24,32 +24,40 @@
                 showModal: false,
                 valid: true,
                 menu: false,
+                showCommission: true,
+                showDividend: false,
                 form: new Form({
-                    share_id: '',
-                    type: '',
-                    date: null,
-                    lot: '',
-                    price: '',
-                    commission: '',
+                    share_id: null,
+                    type: null,
+                    date_at: null,
+                    lot: null,
+                    price: null,
+                    commission: null,
+                    dividend: null,
                 }),
                 transactions: [
                     { id: 1, label: this.$t("Buying") },
                     { id: 2, label: this.$t("Sale") },
+                    { id: 3, label: this.$t("Dividend") },
                 ],
                 transactionRules: [
                     (v) => !!v || this.$t("Transaction is required"),
                 ],
-                dateRules: [
+                dateAtRules: [
                     (v) => !!v || this.$t("Date is required"),
                 ],
                 lotRules: [
                     (v) => !!v || this.$t("Lot is required"),
+                    (v) => v>0 || this.$t("Lot must be more than 0")
                 ],
                 priceRules: [
                     (v) => !!v || this.$t("Price is required"),
                 ],
                 commissionRules: [
                     (v) => !!v || this.$t("Commission is required"),
+                ],
+                dividendRules: [
+                    (v) => !!v || this.$t("Dividend Net Price is required"),
                 ],
                 saving: false,
             };
@@ -73,11 +81,12 @@
             open(shareId) {
                 this.form = new Form({
                     share_id: shareId,
-                    type: '',
-                    date: null,
-                    lot: '',
-                    price: '',
-                    commission: '',
+                    type: null,
+                    date_at: null,
+                    lot: null,
+                    price: null,
+                    commission: null,
+                    dividend: null,
                 });
                 this.showModal = true;
             },
@@ -90,6 +99,21 @@
                 this.saving = false;
                 this.valid = true;
                 this.form.reset();
+            },
+
+            changeInput() {
+                setTimeout(() => {
+                    if (this.form.type == 1 || this.form.type == 2) {
+                        this.showCommission = true;
+                        this.showDividend = false;
+                        this.form.dividend = '0';
+                    }
+                    if (this.form.type == 3) {
+                        this.showDividend = true;
+                        this.showCommission = false;
+                        this.form.commission = '0';
+                    }
+                }, 500)
             },
 
             /**
@@ -137,6 +161,7 @@
                         single-line
                         bottom
                         required
+                        @change="changeInput()"
                     ></v-select>
 
                     <v-menu
@@ -152,14 +177,14 @@
                     >
                         <v-text-field
                             slot="activator"
-                            v-model="form.date"
+                            v-model="form.date_at"
                             :label="$t('Select Date')"
-                            :rules="dateRules"
+                            :rules="dateAtRules"
                             prepend-icon="event"
                             readonly
                             required
                         ></v-text-field>
-                        <v-date-picker v-model="form.date" no-title scrollable actions>
+                        <v-date-picker v-model="form.date_at" no-title scrollable actions>
                         <template slot-scope="{ save, cancel }">
                             <v-card-actions>
                             <v-spacer></v-spacer>
@@ -184,10 +209,17 @@
                         required
                     ></v-text-field>
 
-                    <v-text-field name="commission" id="commission" type="number" step="0.0001"
+                    <v-text-field v-show="showCommission" name="commission" id="commission" type="number" step="0.0001"
                         v-model="form.commission"
                         :label="$t('Enter Commission Rate')"
                         :rules="commissionRules"
+                        required
+                    ></v-text-field>
+
+                    <v-text-field v-show="showDividend" name="dividend" id="dividend" type="number" step="0.0001"
+                        v-model="form.dividend"
+                        :label="$t('Enter Dividend Net Price Per Lot')"
+                        :rules="dividendRules"
                         required
                     ></v-text-field>
                 </v-form>

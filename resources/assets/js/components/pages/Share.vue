@@ -2,16 +2,17 @@
     import { sharedStore } from '../../stores/sharedStore.js';
     import { userStore } from '../../stores/userStore.js';
     import MainLayout from '../layout/MainLayout.vue';
-    import Portfolios from './Portfolios.vue';
 
     export default {
+        props: ['id'],
+
         /*
          * The component's name.
          */
-        name: 'Home',
+        name: 'Share',
 
         components: {
-            MainLayout, Portfolios,
+            MainLayout,
         },
 
         /*
@@ -20,13 +21,13 @@
         data() {
             return {
                 loading: true,
+                transactions: null,
             }
         },
 
         mounted() {
             if (!userStore.isAuthenticated()) {
                 this.$router.push('/login');
-                this.loading = false;
             } else {
                 this.init();
             }
@@ -44,17 +45,18 @@
 
         methods: {
             init() {
-                try {
-                    sharedStore.getData()
-                        .then(response => {
-                            setTimeout(() => {
-                                this.loading = false;
-                            }, 200)
-                        });
-                } catch (err) {
-                    this.$router.push('/login');
-                    this.loading = false;
-                }
+                NProgress.start();
+
+                return new Promise((resolve, reject) => {
+                    http.get('/share/' + this.id + '/transactions', ({ data }) => {
+                        _.assign(this.transactions, data)
+
+                        resolve(this.transactions)
+                        setTimeout(() => {
+                            this.loading = false;
+                        }, 200)
+                    }, error => reject(error))
+                })
             },
         },
     }
@@ -62,10 +64,5 @@
 
 
 <template>
-    <main-layout :loading="loading">
-
-        <router-view></router-view>
-
-    </main-layout>
 </template>
 

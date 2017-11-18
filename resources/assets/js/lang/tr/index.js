@@ -31,8 +31,10 @@ export default {
     'Enter Share Amount' : 'Hisse Miktarını Giriniz',
     'Enter Share Price' : 'Hisse Fiyatını Giriniz',
     'Enter Commission Rate' : 'Komisyon Oranını Giriniz',
+    'Enter Dividend Net Price Per Lot' : 'Lot Başına Temettü Net Fiyatını Giriniz',
     'Buying' : 'Alım',
     'Sale' : 'Satım',
+    'Dividend' : 'Temettü',
     'Symbol' : 'Hisse',
     'Last Price' : 'Son Fiyat',
     'Change' : 'Değişim',
@@ -58,4 +60,5 @@ export default {
     'Lot is required' : 'Lot alanı girin',
     'Price is required' : 'Fiyat alanı girin',
     'Commission is required' : 'Komisyon alanı girin',
+    'Dividend Net Price is required' : 'Temettü Net Fiyatını girin',
 }

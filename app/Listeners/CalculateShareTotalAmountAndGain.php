@@ -7,7 +7,7 @@ use App\Events\SymbolUpdated;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class CalculateShareAmount
+class CalculateShareTotalAmountAndGain
 {
     /**
      * calculate shares money attributes with symbol's last_price.

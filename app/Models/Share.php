@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Money\Money;
+use App\Enums\TransactionTypes;
 
 class Share extends BaseModel
 {
@@ -52,6 +53,14 @@ class Share extends BaseModel
     ];
 
     /**
+     * Get the user that owns the share.
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
+    /**
      * Get the portfolio.
      */
     public function portfolio()
@@ -65,6 +74,30 @@ class Share extends BaseModel
     public function symbol()
     {
         return $this->belongsTo('App\Models\Symbol');
+    }
+
+    /**
+     * Get the share's transactions.
+     */
+    public function transactions()
+    {
+        return $this->hasMany('App\Models\Transaction')->oldest('date_at');
+    }
+
+    /**
+     * Get the share's transactions by type.
+     */
+    public function getTransactionsByType($type)
+    {
+        return $this->transactions->where('type', $type);
+    }
+
+    /**
+     * Get the share's buying transactions by remaining.
+     */
+    public function getBuyingTransactionsByNotSold()
+    {
+        return $this->getTransactionsByType(TransactionTypes::BUYING)->where('remaining', '!=', 0);
     }
 
     /**

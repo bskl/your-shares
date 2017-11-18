@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Transaction;
+use App\Models\Share;
 use App\Enums\TransactionTypes;
 use App\Http\Requests\API\TransactionRequest;
 use App\Http\Controllers\Controller;
@@ -17,6 +18,9 @@ class TransactionController extends Controller
      */
     public function store(TransactionRequest $request)
     {
+        $share = Share::findOrFail($request->share_id);
+        $this->authorize('create', $share);
+
         $data = $request->all();
         $data['user_id'] = auth()->user()->id;
         $transaction = Transaction::create($data);

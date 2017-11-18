@@ -1,4 +1,5 @@
 <script type="text/ecmascript-6">
+    import Home from './pages/Home.vue';
 
     export default {
         /*
@@ -6,10 +7,14 @@
          */
         name: 'App',
 
+        components: {
+            Home
+        },
+
     }
 </script>
 
 
 <template>
-    <router-view></router-view>
+    <home />
 </template>

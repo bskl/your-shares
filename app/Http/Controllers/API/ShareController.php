@@ -28,11 +28,11 @@ class ShareController extends Controller
     }
 
     /**
-     * Update given portfolio instance after a valid request.
+     * Update given share instance after a valid request.
      *
-     * @param  PortfolioRequest     $request
-     * @param  App\Models\Portfolio $portfolio
-     * @return App\Models\Portfolio $portfolio
+     * @param  ShareRequest     $request
+     * @param  App\Models\Sahre $portfolio
+     * @return App\Models\Share $portfolio
      */
     public function update()
     {
@@ -52,5 +52,18 @@ class ShareController extends Controller
         $share->delete();
         
         return response()->json();   
+    }
+
+    /**
+     * Get share's all transactions.
+     *
+     * @param Share $share
+     * @return JsonResponse
+     */
+    public function getShareTransactions(Share $share)
+    {
+        $share = $share->refresh()->load('transactions');
+
+        return response()->json($share);
     }
 }

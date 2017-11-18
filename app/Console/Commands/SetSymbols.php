@@ -107,8 +107,6 @@ class SetSymbols extends Command
                 'rate_of_change' => $this->convertToInt($value[4]),
                 'session_time' => Carbon::parse($value[10]),
             ]);
-
-
         }
     }
 }

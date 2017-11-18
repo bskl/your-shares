@@ -23,7 +23,7 @@ class Transaction extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'user_id', 'share_id', 'type', 'date', 'lot', 'price', 'amount', 'commission', 'commission_price', 'average', 'sale_gain',
+        'user_id', 'share_id', 'type', 'date_at', 'lot', 'remaining', 'price', 'amount', 'commission', 'commission_price', 'sale_average', 'sale_average_amount', 'sale_gain', 'dividend', 'dividend_gain',
     ];
 
     /**
@@ -32,8 +32,15 @@ class Transaction extends BaseModel
      * @var array
      */
     protected $money = [
-        'price', 'amount', 'commission_price', 'average', 'sale_gain',
+        'price', 'amount', 'commission_price', 'sale_average', 'sale_average_amount', 'sale_gain', 'dividend_gain',
     ];
+
+    /**
+	 * The attributes that should be mutated to dates.
+	 *
+	 * @var array
+	 */
+	protected $dates = ['date_at', 'created_at', 'updated_at'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -50,16 +57,6 @@ class Transaction extends BaseModel
     public function share()
     {
         return $this->belongsTo('App\Models\Share');
-    }
-
-    /**
-     * Set the date attribute.
-     */
-    public function setDateAttribute($date)
-    {
-        if ($date) {
-            $this->attributes['date'] = Carbon::createFromFormat('Y-m-d', $date)->format('Y-m-d');
-        }
     }
 
     public function setAmountAttribute($value)
@@ -90,5 +87,20 @@ class Transaction extends BaseModel
         }
 
         $this->attributes['price'] = $money->getAmount();
+    }
+
+    public function setDividendGainAttribute($value)
+    {
+        if ($value instanceof Money) {
+            $money = $value;
+        } else {
+            $currencies = new ISOCurrencies();
+            
+            $moneyParser = new DecimalMoneyParser($currencies);
+    
+            $money = $moneyParser->parse($value, 'TRY');
+        }
+
+        $this->attributes['dividend_gain'] = $money->getAmount();
     }
 }

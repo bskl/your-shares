@@ -18,14 +18,18 @@ class CreateTransactionsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('share_id')->unsigned();
             $table->integer('type');
-            $table->timestamp('date');
+            $table->timestamp('date_at');
             $table->integer('lot');
+            $table->integer('remaining')->nullable()->default(0);
             $table->integer('price');
             $table->integer('amount')->nullable()->default(0);
-            $table->decimal('commission', 5, 4);
+            $table->decimal('commission', 5, 4)->nullable()->default(0);
             $table->integer('commission_price')->nullable()->default(0);
-            $table->integer('average')->nullable()->default(0);
+            $table->integer('sale_average')->nullable()->default(0);
+            $table->integer('sale_average_amount')->nullable()->default(0);
             $table->integer('sale_gain')->nullable()->default(0);
+            $table->decimal('dividend', 5,4)->nullable()->default(0);
+            $table->integer('dividend_gain')->nullable()->default(0);
             $table->timestamps();
             
             $table->foreign('user_id')

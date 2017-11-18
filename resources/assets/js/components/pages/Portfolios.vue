@@ -170,8 +170,11 @@
                                     <td class="text-xs-right" :class="{ 'red--text darken-1': props.item.gain < 0, 'green--text darken-1': props.item.gain > 0 }">
                                         {{ $n(props.item.gain, 'currency') }}</td>
                                     <td class="text-xs-right">
-                                        <v-btn v-if="props.item.lot == 0" icon small @click="deleteShare(props.item)">
+                                        <v-btn v-if="props.item.average == 0" icon small @click="deleteShare(props.item)">
                                             <v-icon color="red darken-2">delete</v-icon>
+                                        </v-btn>
+                                        <v-btn v-if="props.item.average != 0" icon small :to="/transaction/ + props.item.id">
+                                            <v-icon color="blue darken-2">line_weight</v-icon>
                                         </v-btn>
                                         <v-btn icon small @click="showAddTransactionModal(props.item.id)">
                                             <v-icon color="green darken-2">add_circle_outline</v-icon>

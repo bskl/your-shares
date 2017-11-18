@@ -49,8 +49,7 @@
                     this.form.post('/register')
                         .then(response => {
                             if (response.status === 200) {
-                                Bus.$emit('userLoggedIn');
-                                this.$router.push('/');
+                                this.$router.go('/')
                             }
                         })
                 }
@@ -60,50 +59,48 @@
 </script>
 
 <template>
-    <main-layout>
-        <v-layout row wrap justify-center>
-            <v-flex xs12 sm6 md4>
-                <v-layout row wrap>
-                    <v-flex xs12>
-                        <v-card>
-                            <v-card-title>
-                                <div>
-                                    <h3 class="headline mb-0">{{ $t("Register") }}</h3>
-                                </div>
-                            </v-card-title>
-                            <v-form v-model="valid" ref="form">
-                                <v-card-text>
-                                    <form-errors :errors="form.errors" />
-                                    <v-text-field name="email" id="email" type="email"
-                                        v-model="form.email"
-                                        :label="$t('E-Mail Address')"
-                                        :rules="emailRules"
-                                        required
-                                    ></v-text-field>
-                                    <v-text-field name="password" id="password" type="password"
-                                        v-model="form.password"
-                                        :label="$t('Password')"
-                                        :rules="passwordRules"
-                                        required
-                                    ></v-text-field>
-                                </v-card-text>
-                            </v-form>
-                            <v-card-actions>
-                                <v-spacer></v-spacer>
-                                <v-btn color="primary" @click="register">{{ $t("Register") }}</v-btn>
-                            </v-card-actions>
-                        </v-card>
-                    </v-flex>
-                    <v-flex xs12>
-                        <v-card>
+    <v-layout row wrap justify-center>
+        <v-flex xs12 sm6 md4>
+            <v-layout row wrap>
+                <v-flex xs12>
+                    <v-card>
+                        <v-card-title>
+                            <div>
+                                <h3 class="headline mb-0">{{ $t("Register") }}</h3>
+                            </div>
+                        </v-card-title>
+                        <v-form v-model="valid" ref="form">
                             <v-card-text>
-                                <span>{{ $t("Already have an account?") }}</span>
-                                <router-link to="/login">{{ $t("Sign In") }}</router-link>
+                                <form-errors :errors="form.errors" />
+                                <v-text-field name="email" id="email" type="email"
+                                    v-model="form.email"
+                                    :label="$t('E-Mail Address')"
+                                    :rules="emailRules"
+                                    required
+                                ></v-text-field>
+                                <v-text-field name="password" id="password" type="password"
+                                    v-model="form.password"
+                                    :label="$t('Password')"
+                                    :rules="passwordRules"
+                                    required
+                                ></v-text-field>
                             </v-card-text>
-                        </v-card>
-                    </v-flex>
-                </v-layout>
-            </v-flex>
-        </v-layout>
-    </main-layout>
+                        </v-form>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="primary" @click="register">{{ $t("Register") }}</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-flex>
+                <v-flex xs12>
+                    <v-card>
+                        <v-card-text>
+                            <span>{{ $t("Already have an account?") }}</span>
+                            <router-link to="/login">{{ $t("Sign In") }}</router-link>
+                        </v-card-text>
+                    </v-card>
+                </v-flex>
+            </v-layout>
+        </v-flex>
+    </v-layout>
 </template>
