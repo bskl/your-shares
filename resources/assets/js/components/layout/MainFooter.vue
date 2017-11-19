@@ -55,7 +55,7 @@
 <template>
     <v-footer app class="pa-3">
         <v-flex xs1>
-            <v-select class="pt-0"
+            <v-select
                 :items="languages"
                 item-text="label"
                 item-value="value"
