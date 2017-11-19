@@ -29,7 +29,7 @@
                 ],
                 passwordRules: [
                     (v) => !!v || this.$t("Password is required"),
-                    (v) => v.length >= 6 || this.$t("Password must be more than 6 characters")
+                    (v) => !!v || v.length >= 6 || this.$t("Password must be more than 6 characters")
                 ],
             }
         },

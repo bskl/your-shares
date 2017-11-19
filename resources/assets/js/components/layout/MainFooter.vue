@@ -14,17 +14,10 @@
         data() {
             return {
                 locale: this.$i18n.locale,
-                languages: [
+                locales: [
                     { value: "tr", label: "Türkçe" },
                     { value: "en", label: "English" },
                 ],
-            }
-        },
-
-        mounted() {
-            if (userStore.isAuthenticated()) {
-                this.locale = userStore.state.user.locale;
-                ls.set('language', userStore.state.user.locale);
             }
         },
 
@@ -32,10 +25,10 @@
             /**
              * Change the language.
              */
-            setLanguage() {
+            setLocale() {
                 setTimeout(() => {
                     this.$i18n.locale = this.locale;
-                    ls.set('language', this.locale);
+                    ls.set('locale', this.locale);
 
                     if (userStore.isAuthenticated()) {
                         return new Promise((resolve, reject) => {
@@ -46,7 +39,9 @@
                             });
                         });
                     }
-                }, 500)
+
+                    this.$i18n.locale = this.locale;
+                }, 500);
             },
         }
     }
@@ -56,7 +51,7 @@
     <v-footer app class="pa-3">
         <v-flex xs1>
             <v-select
-                :items="languages"
+                :items="locales"
                 item-text="label"
                 item-value="value"
                 v-model="locale"
@@ -64,7 +59,7 @@
                 single-line
                 auto
                 hide-details
-                @change="setLanguage()"
+                @change="setLocale()"
             ></v-select>
         </v-flex>
         <v-spacer></v-spacer>

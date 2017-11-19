@@ -52257,14 +52257,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             locale: this.$i18n.locale,
-            languages: [{ value: "tr", label: "Türkçe" }, { value: "en", label: "English" }]
+            locales: [{ value: "tr", label: "Türkçe" }, { value: "en", label: "English" }]
         };
-    },
-    mounted: function mounted() {
-        if (__WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].isAuthenticated()) {
-            this.locale = __WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale;
-            __WEBPACK_IMPORTED_MODULE_0__services_ls_js__["a" /* ls */].set('language', __WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale);
-        }
     },
 
 
@@ -52272,12 +52266,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         /**
          * Change the language.
          */
-        setLanguage: function setLanguage() {
+        setLocale: function setLocale() {
             var _this = this;
 
             setTimeout(function () {
                 _this.$i18n.locale = _this.locale;
-                __WEBPACK_IMPORTED_MODULE_0__services_ls_js__["a" /* ls */].set('language', _this.locale);
+                __WEBPACK_IMPORTED_MODULE_0__services_ls_js__["a" /* ls */].set('locale', _this.locale);
 
                 if (__WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].isAuthenticated()) {
                     return new Promise(function (resolve, reject) {
@@ -52288,6 +52282,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         });
                     });
                 }
+
+                _this.$i18n.locale = _this.locale;
             }, 500);
         }
     }
@@ -52311,7 +52307,7 @@ var render = function() {
         [
           _c("v-select", {
             attrs: {
-              items: _vm.languages,
+              items: _vm.locales,
               "item-text": "label",
               "item-value": "value",
               label: _vm.$t("Language"),
@@ -52321,7 +52317,7 @@ var render = function() {
             },
             on: {
               change: function($event) {
-                _vm.setLanguage()
+                _vm.setLocale()
               }
             },
             model: {
@@ -52538,7 +52534,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.$refs.form.validate()) {
                 this.form.post('/login').then(function (response) {
                     if (response.status === 200) {
-                        _this2.$refs.form.reset();
                         _this2.$router.go('/');
                     }
                 });
@@ -52826,7 +52821,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             passwordRules: [function (v) {
                 return !!v || _this.$t("Password is required");
             }, function (v) {
-                return v.length >= 6 || _this.$t("Password must be more than 6 characters");
+                return !!v || v.length >= 6 || _this.$t("Password must be more than 6 characters");
             }]
         };
     },
@@ -53308,8 +53303,10 @@ if (false) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_i18n__ = __webpack_require__(100);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_ls_js__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__en___ = __webpack_require__(101);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tr___ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__stores_userStore__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__en___ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tr___ = __webpack_require__(102);
+
 
 
 
@@ -53320,8 +53317,8 @@ if (false) {
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_i18n__["a" /* default */]);
 
 var messages = {
-    en: __WEBPACK_IMPORTED_MODULE_3__en___["a" /* default */],
-    tr: __WEBPACK_IMPORTED_MODULE_4__tr___["a" /* default */]
+    en: __WEBPACK_IMPORTED_MODULE_4__en___["a" /* default */],
+    tr: __WEBPACK_IMPORTED_MODULE_5__tr___["a" /* default */]
 };
 
 var numberFormats = {
@@ -53335,11 +53332,43 @@ var numberFormats = {
             style: 'currency', currency: 'TRY', currencyDisplay: 'symbol', minimumFractionDigits: 2
         }
     }
+};
 
-    // Create VueI18n instance with options
-};/* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vue_i18n__["a" /* default */]({
-    locale: __WEBPACK_IMPORTED_MODULE_2__services_ls_js__["a" /* ls */].get('language') || window.navigator.userLanguage || window.navigator.language,
-    fallbackLocale: 'tr',
+var fallbackLocale = 'tr';
+
+var getNavigatorLocale = function getNavigatorLocale() {
+    var locale = window.navigator.userLanguage || window.navigator.language;
+
+    if (locale.includes('-') || locale.includes('_')) {
+        locale = locale.substring(0, 2);
+    }
+
+    return locale;
+};
+
+var getLocale = function getLocale() {
+    var locale = getNavigatorLocale();
+
+    if (__WEBPACK_IMPORTED_MODULE_2__services_ls_js__["a" /* ls */].get('locale')) {
+        locale = __WEBPACK_IMPORTED_MODULE_2__services_ls_js__["a" /* ls */].get('locale');
+    }
+    if (__WEBPACK_IMPORTED_MODULE_3__stores_userStore__["a" /* userStore */].isAuthenticated()) {
+        locale = __WEBPACK_IMPORTED_MODULE_3__stores_userStore__["a" /* userStore */].state.user.locale;
+    }
+
+    if (!locale) {
+        locale = fallbackLocale;
+    }
+
+    __WEBPACK_IMPORTED_MODULE_2__services_ls_js__["a" /* ls */].set('locale', locale);
+
+    return locale;
+};
+
+// Create VueI18n instance with options
+/* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vue_i18n__["a" /* default */]({
+    locale: getLocale(),
+    fallbackLocale: fallbackLocale,
     messages: messages,
     numberFormats: numberFormats
 }));
