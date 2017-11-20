@@ -17,8 +17,13 @@
          */
         data() {
             return {
+                isLogged: userStore.isAuthenticated(),
                 state: userStore.state
             }
+        },
+
+        mounted() {
+            Bus.$on('userLoggedIn', event => this.isLogged = userStore.isAuthenticated());
         },
 
         methods: {
@@ -32,17 +37,13 @@
             logout () {
                 userStore.logout()
             },
-
-            isAuthenticated() {
-                return userStore.isAuthenticated()
-            }
         }
     }
 </script>
 
 <template>
     <v-toolbar-items class="hidden-sm-and-down">
-        <v-menu offset-y v-if="isAuthenticated()">
+        <v-menu offset-y v-if="isLogged">
             <v-btn flat small slot="activator">
                 <span class="pr-2">{{ state.user.email }}</span>
                 <v-icon dark>more_vert</v-icon>
@@ -63,7 +64,7 @@
                 </v-list-tile>
             </v-list>
         </v-menu>
-        <v-btn flat to="/register" v-else>{{ $t("Register") }}</v-btn>
+        <v-btn flat to="/register" v-if="!isLogged">{{ $t("Register") }}</v-btn>
 
         <add-portfolio-modal ref="addPortfolioModal" />
     </v-toolbar-items>

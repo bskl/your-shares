@@ -1,13 +1,12 @@
 export const portfolioStore = {
     state: {
-        portfolios: {
+        portfolios: [{
             id: 0,
             name: '',
             order: '',
-            shares: {
-
-            }
-        }
+            currency: '',
+            shares: []
+        }]
     },
 
     /**

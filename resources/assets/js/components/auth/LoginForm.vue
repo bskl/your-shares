@@ -49,7 +49,8 @@
                     this.form.post('/login')
                         .then(response => {
                              if (response.status === 200) {
-                                this.$router.go('/');
+                                Bus.$emit('userLoggedIn');
+                                this.$router.push('/');
                             }
                         });
                 }

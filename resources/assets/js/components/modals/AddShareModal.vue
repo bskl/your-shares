@@ -72,8 +72,8 @@
                 this.showModal = false;
                 this.saving = false;
                 this.symbols = [];
-                this.valid = true;
                 this.form.reset();
+                this.$refs.form.reset()
             },
 
             /**

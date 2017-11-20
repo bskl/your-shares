@@ -4,12 +4,12 @@ import router from '../router/';
 
 export const userStore = {
     state: {
-        user: {
+        user: [{
             id: 0,
             name: '',
             email: '',
             locale: '',
-        }
+        }]
     },
 
     /**

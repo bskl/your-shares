@@ -1,6 +1,7 @@
 <script type="text/ecmascript-6">
     import { sharedStore } from '../../stores/sharedStore.js';
     import { userStore } from '../../stores/userStore.js';
+    import { ls } from '../../services/ls.js';
     import MainLayout from '../layout/MainLayout.vue';
     import Portfolios from './Portfolios.vue';
 
@@ -30,6 +31,7 @@
             } else {
                 this.init();
             }
+            Bus.$on('userLoggedIn', event => this.init());
 
             document.addEventListener("keydown", (e) => {
                 if ((e.ctrlKey && e.keyCode == 82) || e.keyCode == 116) {
@@ -47,9 +49,11 @@
                 try {
                     sharedStore.getData()
                         .then(response => {
+                            this.$i18n.locale = response;
+                            ls.set('locale', response);
                             setTimeout(() => {
                                 this.loading = false;
-                            }, 200)
+                            }, 500)
                         });
                 } catch (err) {
                     this.$router.push('/login');

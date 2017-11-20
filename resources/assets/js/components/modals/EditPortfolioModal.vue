@@ -65,8 +65,8 @@
             close() {
                 this.showModal = false;
                 this.saving = false;
-                this.valid = true;
                 this.form.reset();
+                this.$refs.form.reset()
             },
 
             /**

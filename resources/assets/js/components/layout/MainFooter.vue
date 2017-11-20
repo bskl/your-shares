@@ -21,14 +21,22 @@
             }
         },
 
+        mounted() {
+            Bus.$on('userLoggedIn', event => {
+                setTimeout(() => {
+                    this.locale = userStore.state.user.locale;
+                }, 500)
+            });
+        },
+
         methods: {
             /**
              * Change the language.
              */
             setLocale() {
                 setTimeout(() => {
-                    this.$i18n.locale = this.locale;
                     ls.set('locale', this.locale);
+                    this.$i18n.locale = this.locale;
 
                     if (userStore.isAuthenticated()) {
                         return new Promise((resolve, reject) => {
@@ -39,8 +47,6 @@
                             });
                         });
                     }
-
-                    this.$i18n.locale = this.locale;
                 }, 500);
             },
         }
