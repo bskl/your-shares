@@ -23,7 +23,7 @@ export const sharedStore = {
                 userStore.init(this.state.user)
                 portfolioStore.init(this.state.portfolios)
 
-                resolve(this.state.user.locale)
+                resolve(this.state)
             }, error => reject(error))
         })
     }

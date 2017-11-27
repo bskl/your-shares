@@ -29548,7 +29548,7 @@ var sharedStore = {
                 __WEBPACK_IMPORTED_MODULE_1__userStore_js__["a" /* userStore */].init(_this.state.user);
                 __WEBPACK_IMPORTED_MODULE_2__portfolioStore_js__["a" /* portfolioStore */].init(_this.state.portfolios);
 
-                resolve(_this.state.user.locale);
+                resolve(_this.state);
             }, function (error) {
                 return reject(error);
             });
@@ -52388,8 +52388,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         Bus.$on('userLoggedIn', function (event) {
             setTimeout(function () {
                 console.log(__WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale);
+                _this.$i18n.locale = __WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale;
                 _this.locale = __WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale;
-            }, 500);
+                __WEBPACK_IMPORTED_MODULE_0__services_ls_js__["a" /* ls */].set('locale', _this.locale);
+            }, 750);
         });
     },
 
@@ -56088,8 +56090,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             try {
                 __WEBPACK_IMPORTED_MODULE_0__stores_sharedStore_js__["a" /* sharedStore */].getData().then(function (response) {
-                    _this2.$i18n.locale = response;
-                    __WEBPACK_IMPORTED_MODULE_2__services_ls_js__["a" /* ls */].set('locale', response);
                     setTimeout(function () {
                         _this2.loading = false;
                     }, 500);
