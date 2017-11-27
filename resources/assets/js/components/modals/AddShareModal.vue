@@ -73,7 +73,7 @@
                 this.saving = false;
                 this.symbols = [];
                 this.form.reset();
-                this.$refs.form.reset()
+                this.$refs.shareForm.reset();
             },
 
             /**
@@ -98,7 +98,7 @@
              * Save the share and hide the modal.
              */
             saveShare() {
-                if (this.$refs.form.validate()) {
+                if (this.$refs.shareForm.validate()) {
                     this.saving = true;
 
                     this.form.post('/share')
@@ -127,7 +127,7 @@
                 <v-progress-circular indeterminate color="primary"></v-progress-circular>
             </div>
             <template v-else>
-                <v-form v-model="valid" ref="form">
+                <v-form v-model="valid" ref="shareForm">
                     <form-errors :errors="form.errors" />
                     <v-select
                         :label="$t('Search Symbol')"

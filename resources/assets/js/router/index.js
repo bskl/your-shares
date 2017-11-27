@@ -11,7 +11,7 @@ export default new Router({
             component: require('../components/pages/Portfolios.vue'),
         },
         {
-            path: 'share/:shareId(\\d+)/transactions',
+            path: '/share/:shareId(\\d+)/transactions',
             component: require('../components/pages/Share.vue'),
             props: true
         },

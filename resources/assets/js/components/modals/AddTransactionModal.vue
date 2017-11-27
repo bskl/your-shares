@@ -97,8 +97,7 @@
             close() {
                 this.showModal = false;
                 this.saving = false;
-                this.form.reset();
-                this.$refs.form.reset()
+                this.$refs.transactionForm.reset();
             },
 
             changeInput() {
@@ -120,7 +119,7 @@
              * Save the transaction and hide the modal.
              */
             saveTransaction() {
-                if (this.$refs.form.validate()) {
+                if (this.$refs.transactionForm.validate()) {
                     this.saving = true;
 
                     this.form.post('/transaction')
@@ -149,7 +148,7 @@
                 <v-progress-circular indeterminate color="primary"></v-progress-circular>
             </div>
             <template v-else>
-                <v-form v-model="valid" ref="form">
+                <v-form v-model="valid" ref="transactionForm">
                     <form-errors :errors="form.errors" />
                     <v-select
                         :items="transactions"

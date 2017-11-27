@@ -66,14 +66,14 @@
                 this.showModal = false;
                 this.saving = false;
                 this.form.reset();
-                this.$refs.form.reset()
+                this.$refs.portfolioForm.reset()
             },
 
             /**
              * Save the portfolio and hide the modal.
              */
             updatePortfolio() {
-                if (this.$refs.form.validate()) {
+                if (this.$refs.portfolioForm.validate()) {
                     this.saving = true;
 
                     this.form.put('/portfolio/' + this.form.id)
@@ -120,7 +120,7 @@
                 <v-progress-circular indeterminate color="primary"></v-progress-circular>
             </div>
             <template v-else>
-                <v-form v-model="valid" ref="form">
+                <v-form v-model="valid" ref="portfolioForm">
                     <form-errors :errors="form.errors" />
                     <v-text-field name="name" id="name" type="text"
                         v-model="form.name"

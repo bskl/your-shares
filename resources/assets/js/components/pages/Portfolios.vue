@@ -173,7 +173,7 @@
                                         <v-btn v-if="props.item.average == 0" icon small @click="deleteShare(props.item)">
                                             <v-icon color="red darken-2">delete</v-icon>
                                         </v-btn>
-                                        <v-btn v-if="props.item.average != 0" icon small :to="/transaction/ + props.item.id">
+                                        <v-btn v-if="props.item.average != 0" icon small :to="'/share/' + props.item.id + '/transactions'">
                                             <v-icon color="blue darken-2">line_weight</v-icon>
                                         </v-btn>
                                         <v-btn icon small @click="showAddTransactionModal(props.item.id)">
