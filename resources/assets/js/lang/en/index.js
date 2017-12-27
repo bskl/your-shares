@@ -31,7 +31,7 @@ export default {
     'Enter Share Amount' : 'Enter Share Amount',
     'Enter Share Price' : 'Enter Share Price',
     'Enter Commission Rate' : 'Enter Commission Rate',
-    'Enter Dividend Net Price Per Lot' : 'Enter Dividend Net Price Per Lot',
+    'Enter Dividend Gain Price' : 'Enter Dividend Gain Price',
     'Buying' : 'Buying',
     'Sale' : 'Sale',
     'Dividend' : 'Dividend',
@@ -40,7 +40,7 @@ export default {
     'Change' : 'Change',
     'Lots' : 'Lots',
     'Average' : 'Average',
-    'Total Amount' : 'Total Amount',
+    'Amount' : 'Amount',
     'Average Amount' : 'Average Amount',
     'Gain' : 'Gain',
     'Transaction Date' : 'Transaction Date',
@@ -67,5 +67,7 @@ export default {
     'Lot must be more than 0' : 'Lot must be more than 0',
     'Price is required' : 'Price is required',
     'Commission is required' : 'Commission is required',
-    'Dividend Net Price is required' : 'Dividend Net Price is required',
+    'Dividend Gain Price is required' : 'Dividend Net Price is required',
+
+    'transactions' : 'Buying | Sale | Dividend',
 }

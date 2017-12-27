@@ -23,8 +23,11 @@ class TransactionEventSubscriber
         $share->average_amount = $share->average_amount->add($transaction->amount);
         $share->average = $share->average_amount->divide($share->lot);
 
-        $share->calculateTotalAmount($share->symbol->last_price);
+        $share->calculateAmount($share->symbol->last_price);
         $share->calculateGain();
+        $share->total_amount = $share->total_amount->add($transaction->amount);
+        $share->total_commission_amount = $share->total_commission_amount->add($transaction->commission_price);
+        $share->total_gain = $share->total_gain->subtract($transaction->commission_price);
 
         $share->save();
         $transaction->save();
@@ -43,6 +46,10 @@ class TransactionEventSubscriber
                                                              ->divide(100);
         $transaction->save();
 
+        $share->total_commission_amount = $share->total_commission_amount->add($transaction->commission_price);
+        $share->total_gain = $share->total_gain->subtract($transaction->commission_price);
+        $share->save();
+
         $items = $share->getBuyingTransactionsByNotSold();
 
         $items->map(function ($item) use ($transaction, $share) {
@@ -56,10 +63,12 @@ class TransactionEventSubscriber
 
                 $share->lot -= $soldLot;
                 $buyingAmount = $item->price->multiply($soldLot);
+                $soldAmount = $transaction->price->multiply($soldLot);
                 $share->average_amount = $share->average_amount->subtract($buyingAmount);
                 $share->average = $share->average_amount->divide($share->lot);
-                $share->calculateTotalAmount($share->symbol->last_price);
+                $share->calculateAmount($share->symbol->last_price);
                 $share->calculateGain();
+                $share->total_gain = $share->total_gain->add($soldAmount->subtract($buyingAmount));
                 $share->save();
                 
                 $transaction->lot -= $soldLot;
@@ -75,13 +84,15 @@ class TransactionEventSubscriber
 
                 $share->lot -= $transaction->lot;
                 if ($share->lot == 0) {
-                    $share->average_amount = $share->average = $share->total_amount = $share->gain = '0';
+                    $share->average_amount = $share->average = $share->amount = $share->gain = '0';
                 } else {
                     $buyingAmount = $item->price->multiply($transaction->lot);
+                    $soldAmount = $transaction->price->multiply($soldLot);
                     $share->average_amount = $share->average_amount->subtract($buyingAmount);
                     $share->average = $share->average_amount->divide($share->lot);
-                    $share->calculateTotalAmount($share->symbol->last_price);
+                    $share->calculateAmount($share->symbol->last_price);
                     $share->calculateGain();
+                    $share->total_gain = $share->total_gain->add($soldAmount->subtract($buyingAmount));
                 }
                 $share->save();
 
@@ -97,9 +108,13 @@ class TransactionEventSubscriber
     public function onShareDividendPaid($event)
     {
         $transaction = $event->transaction;
-        $dividendGain = $transaction->dividend * $transaction->lot;
-        $transaction->dividend_gain = (string) $dividendGain;
+        $share = $transaction->share;
+        $transaction->dividend = $transaction->dividend_gain->divide($transaction->lot);
         $transaction->save();
+
+        $share->total_dividend_gain = $share->total_dividend_gain->add($transaction->dividend_gain);
+        $share->total_gain = $share->total_gain->add($transaction->dividend_gain);
+        $share->save();
     }
 
     /**

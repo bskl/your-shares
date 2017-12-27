@@ -7,7 +7,7 @@ use App\Events\SymbolUpdated;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class CalculateShareTotalAmountAndGain
+class CalculateShareAmountAndGain
 {
     /**
      * calculate shares money attributes with symbol's last_price.
@@ -22,7 +22,7 @@ class CalculateShareTotalAmountAndGain
         $shares = Share::where('symbol_id', $symbol->id)->get();
 
         $shares->map(function ($share) use ($symbol) {
-            $share->calculateTotalAmount($symbol->last_price);
+            $share->calculateAmount($symbol->last_price);
             $share->calculateGain();
             $share->update();
         });

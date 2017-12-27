@@ -22,7 +22,7 @@ class Share extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'user_id', 'portfolio_id', 'symbol_id', 'lot', 'average', 'average_amount', 'total_amount', 'gain',
+        'user_id', 'portfolio_id', 'symbol_id', 'lot', 'average', 'average_amount', 'amount', 'gain', 'total_amount', 'total_commission_amount', 'total_dividend_gain', 'total_gain',
     ];
 
     /**
@@ -31,7 +31,7 @@ class Share extends BaseModel
      * @var array
      */
     protected $money = [
-        'average', 'average_amount', 'total_amount', 'gain',
+        'average', 'average_amount', 'amount', 'gain', 'total_amount', 'total_commission_amount', 'total_dividend_gain', 'total_gain',
     ];
 
     /**
@@ -103,9 +103,9 @@ class Share extends BaseModel
     /**
      * Calculate the total amount price attribute with money object.
      */
-    public function calculateTotalAmount(Money $lastPrice)
+    public function calculateAmount(Money $lastPrice)
     {
-        $this->total_amount = $lastPrice->multiply($this->lot);
+        $this->amount = $lastPrice->multiply($this->lot);
     }
 
     /**
@@ -113,6 +113,6 @@ class Share extends BaseModel
      */
     public function calculateGain()
     {
-        $this->gain = $this->total_amount->subtract($this->average_amount);
+        $this->gain = $this->amount->subtract($this->average_amount);
     }
 }

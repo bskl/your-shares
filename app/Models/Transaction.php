@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Money\Money;
 use Money\Currencies\ISOCurrencies;
 use Money\Parser\DecimalMoneyParser;
 use Carbon\Carbon;
@@ -32,7 +33,7 @@ class Transaction extends BaseModel
      * @var array
      */
     protected $money = [
-        'price', 'amount', 'commission_price', 'sale_average', 'sale_average_amount', 'sale_gain', 'dividend_gain',
+        'price', 'amount', 'commission_price', 'sale_average', 'sale_average_amount', 'sale_gain', 'dividend', 'dividend_gain',
     ];
 
     /**
@@ -87,6 +88,21 @@ class Transaction extends BaseModel
         }
 
         $this->attributes['price'] = $money->getAmount();
+    }
+
+    public function setDividendAttribute($value)
+    {
+        if ($value instanceof Money) {
+            $money = $value;
+        } else {
+            $currencies = new ISOCurrencies();
+            
+            $moneyParser = new DecimalMoneyParser($currencies);
+    
+            $money = $moneyParser->parse($value, 'TRY');
+        }
+
+        $this->attributes['dividend'] = $money->getAmount();
     }
 
     public function setDividendGainAttribute($value)

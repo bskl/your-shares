@@ -34,13 +34,13 @@ class TransactionRequest extends Request
             'share_id' => 'required|integer|exists:shares,id,user_id,' . auth()->user()->id,
             'type' => [
                 'required', 'integer',
-                Rule::in([1, 2, 3, 4]),
+                Rule::in([0, 1, 2, 3]),
             ],
             'date_at' => 'required|date|before_or_equal:' . Carbon::today()->toDateString(),
             'lot' => 'required|numeric|regex:/^[1-9]\d*$/' . $addRule,
             'price' => 'required|numeric|min:0|regex:/^\d*(\.\d{2})?$/',
             'commission' => 'required|numeric|min:0',
-            'dividend' => 'sometimes|required'
+            'dividend_gain' => 'sometimes|required'
         ];
     }
 }

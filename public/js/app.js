@@ -603,7 +603,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\partials\\FormErrors.vue"
+Component.options.__file = "resources/assets/js/components/partials/FormErrors.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -613,9 +613,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2b2a6972", Component.options)
+    hotAPI.createRecord("data-v-951d9d76", Component.options)
   } else {
-    hotAPI.reload("data-v-2b2a6972", Component.options)
+    hotAPI.reload("data-v-951d9d76", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -702,7 +702,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\layout\\MainLayout.vue"
+Component.options.__file = "resources/assets/js/components/layout/MainLayout.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -712,9 +712,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-edb9f4e4", Component.options)
+    hotAPI.createRecord("data-v-3d861d61", Component.options)
   } else {
-    hotAPI.reload("data-v-edb9f4e4", Component.options)
+    hotAPI.reload("data-v-3d861d61", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -750,7 +750,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\modals\\modal\\Modal.vue"
+Component.options.__file = "resources/assets/js/components/modals/modal/Modal.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -760,9 +760,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-c6a23682", Component.options)
+    hotAPI.createRecord("data-v-f874364e", Component.options)
   } else {
-    hotAPI.reload("data-v-c6a23682", Component.options)
+    hotAPI.reload("data-v-f874364e", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -798,7 +798,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\modals\\modal\\ModalHeading.vue"
+Component.options.__file = "resources/assets/js/components/modals/modal/ModalHeading.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -808,9 +808,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-64e3291a", Component.options)
+    hotAPI.createRecord("data-v-c9140bce", Component.options)
   } else {
-    hotAPI.reload("data-v-64e3291a", Component.options)
+    hotAPI.reload("data-v-c9140bce", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -846,7 +846,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\modals\\modal\\ModalBody.vue"
+Component.options.__file = "resources/assets/js/components/modals/modal/ModalBody.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -856,9 +856,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-86cb13fe", Component.options)
+    hotAPI.createRecord("data-v-419fd91b", Component.options)
   } else {
-    hotAPI.reload("data-v-86cb13fe", Component.options)
+    hotAPI.reload("data-v-419fd91b", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -894,7 +894,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\modals\\modal\\ModalFooter.vue"
+Component.options.__file = "resources/assets/js/components/modals/modal/ModalFooter.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -904,9 +904,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-c6aa908c", Component.options)
+    hotAPI.createRecord("data-v-14388758", Component.options)
   } else {
-    hotAPI.reload("data-v-c6aa908c", Component.options)
+    hotAPI.reload("data-v-14388758", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -29394,7 +29394,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\pages\\Portfolios.vue"
+Component.options.__file = "resources/assets/js/components/pages/Portfolios.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -29404,9 +29404,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-c021758c", Component.options)
+    hotAPI.createRecord("data-v-4c1b2a8d", Component.options)
   } else {
-    hotAPI.reload("data-v-c021758c", Component.options)
+    hotAPI.reload("data-v-4c1b2a8d", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -29488,7 +29488,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\modals\\AddPortfolioModal.vue"
+Component.options.__file = "resources/assets/js/components/modals/AddPortfolioModal.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -29498,9 +29498,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-739a1687", Component.options)
+    hotAPI.createRecord("data-v-73771b54", Component.options)
   } else {
-    hotAPI.reload("data-v-739a1687", Component.options)
+    hotAPI.reload("data-v-73771b54", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -49608,7 +49608,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
          */
         deletePortfolio: function deletePortfolio(portfolioId) {
             var index = _.findIndex(this.state.portfolios, ['id', portfolioId]);
-            this.state.portfolios.splice(index);
+            this.state.portfolios.splice(index, 1);
             Bus.$off('portfolioDeleted', portfolioId);
         },
 
@@ -49630,7 +49630,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var portfolioIndex = _.findIndex(this.state.portfolios, ['id', share.portfolio_id]);
             var index = _.findIndex(this.state.portfolios[portfolioIndex].shares, ['id', share.id]);
             this.state.portfolios[portfolioIndex].shares.splice(index, 1, share);
-
             Bus.$off('transactionAdded', share);
         },
 
@@ -49845,7 +49844,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-c6a23682", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-f874364e", module.exports)
   }
 }
 
@@ -49865,7 +49864,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-64e3291a", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-c9140bce", module.exports)
   }
 }
 
@@ -49885,7 +49884,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-86cb13fe", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-419fd91b", module.exports)
   }
 }
 
@@ -49905,7 +49904,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-c6aa908c", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-14388758", module.exports)
   }
 }
 
@@ -49963,7 +49962,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-2b2a6972", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-951d9d76", module.exports)
   }
 }
 
@@ -49986,33 +49985,33 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c(
-        "modal-body",
+        "v-form",
+        {
+          ref: "portfolioForm",
+          model: {
+            value: _vm.valid,
+            callback: function($$v) {
+              _vm.valid = $$v
+            },
+            expression: "valid"
+          }
+        },
         [
-          _vm.saving
-            ? _c(
-                "div",
-                { staticClass: "text-xs-center" },
-                [
-                  _c("v-progress-circular", {
-                    attrs: { indeterminate: "", color: "primary" }
-                  })
-                ],
-                1
-              )
-            : [
-                _c(
-                  "v-form",
-                  {
-                    ref: "portfolioForm",
-                    model: {
-                      value: _vm.valid,
-                      callback: function($$v) {
-                        _vm.valid = $$v
-                      },
-                      expression: "valid"
-                    }
-                  },
-                  [
+          _c(
+            "modal-body",
+            [
+              _vm.saving
+                ? _c(
+                    "div",
+                    { staticClass: "text-xs-center" },
+                    [
+                      _c("v-progress-circular", {
+                        attrs: { indeterminate: "", color: "primary" }
+                      })
+                    ],
+                    1
+                  )
+                : [
                     _c("form-errors", { attrs: { errors: _vm.form.errors } }),
                     _vm._v(" "),
                     _c("v-text-field", {
@@ -50051,35 +50050,35 @@ var render = function() {
                         expression: "form.currency"
                       }
                     })
-                  ],
-                  1
-                )
-              ]
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _c(
-        "modal-footer",
-        [
-          _c("v-spacer"),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            {
-              attrs: { color: "grey darken-1", flat: "" },
-              on: { click: _vm.close }
-            },
-            [_vm._v(_vm._s(_vm.$t("Close")))]
+                  ]
+            ],
+            2
           ),
           _vm._v(" "),
           _c(
-            "v-btn",
-            {
-              attrs: { color: "blue darken-1", flat: "" },
-              on: { click: _vm.savePortfolio }
-            },
-            [_vm._v(_vm._s(_vm.$t("Create")))]
+            "modal-footer",
+            [
+              _c("v-spacer"),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  attrs: { color: "grey darken-1", flat: "" },
+                  on: { click: _vm.close }
+                },
+                [_vm._v(_vm._s(_vm.$t("Close")))]
+              ),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  attrs: { color: "blue darken-1", flat: "" },
+                  on: { click: _vm.savePortfolio }
+                },
+                [_vm._v(_vm._s(_vm.$t("Create")))]
+              )
+            ],
+            1
           )
         ],
         1
@@ -50094,7 +50093,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-739a1687", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-73771b54", module.exports)
   }
 }
 
@@ -50124,7 +50123,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\modals\\EditPortfolioModal.vue"
+Component.options.__file = "resources/assets/js/components/modals/EditPortfolioModal.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -50134,9 +50133,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2e15fd7e", Component.options)
+    hotAPI.createRecord("data-v-29d99251", Component.options)
   } else {
-    hotAPI.reload("data-v-2e15fd7e", Component.options)
+    hotAPI.reload("data-v-29d99251", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -50303,33 +50302,33 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c(
-        "modal-body",
+        "v-form",
+        {
+          ref: "portfolioForm",
+          model: {
+            value: _vm.valid,
+            callback: function($$v) {
+              _vm.valid = $$v
+            },
+            expression: "valid"
+          }
+        },
         [
-          _vm.saving
-            ? _c(
-                "div",
-                { staticClass: "text-xs-center" },
-                [
-                  _c("v-progress-circular", {
-                    attrs: { indeterminate: "", color: "primary" }
-                  })
-                ],
-                1
-              )
-            : [
-                _c(
-                  "v-form",
-                  {
-                    ref: "portfolioForm",
-                    model: {
-                      value: _vm.valid,
-                      callback: function($$v) {
-                        _vm.valid = $$v
-                      },
-                      expression: "valid"
-                    }
-                  },
-                  [
+          _c(
+            "modal-body",
+            [
+              _vm.saving
+                ? _c(
+                    "div",
+                    { staticClass: "text-xs-center" },
+                    [
+                      _c("v-progress-circular", {
+                        attrs: { indeterminate: "", color: "primary" }
+                      })
+                    ],
+                    1
+                  )
+                : [
                     _c("form-errors", { attrs: { errors: _vm.form.errors } }),
                     _vm._v(" "),
                     _c("v-text-field", {
@@ -50368,44 +50367,44 @@ var render = function() {
                         expression: "form.currency"
                       }
                     })
-                  ],
-                  1
-                )
-              ]
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _c(
-        "modal-footer",
-        [
-          _c(
-            "v-btn",
-            {
-              attrs: { color: "red darken-1", flat: "" },
-              on: { click: _vm.destroyPortfolio }
-            },
-            [_vm._v(_vm._s(_vm.$t("Delete Portfolio")))]
-          ),
-          _vm._v(" "),
-          _c("v-spacer"),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            {
-              attrs: { color: "grey darken-1", flat: "" },
-              on: { click: _vm.close }
-            },
-            [_vm._v(_vm._s(_vm.$t("Close")))]
+                  ]
+            ],
+            2
           ),
           _vm._v(" "),
           _c(
-            "v-btn",
-            {
-              attrs: { color: "blue darken-1", flat: "" },
-              on: { click: _vm.updatePortfolio }
-            },
-            [_vm._v(_vm._s(_vm.$t("Update")))]
+            "modal-footer",
+            [
+              _c(
+                "v-btn",
+                {
+                  attrs: { color: "red darken-1", flat: "" },
+                  on: { click: _vm.destroyPortfolio }
+                },
+                [_vm._v(_vm._s(_vm.$t("Delete Portfolio")))]
+              ),
+              _vm._v(" "),
+              _c("v-spacer"),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  attrs: { color: "grey darken-1", flat: "" },
+                  on: { click: _vm.close }
+                },
+                [_vm._v(_vm._s(_vm.$t("Close")))]
+              ),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  attrs: { color: "blue darken-1", flat: "" },
+                  on: { click: _vm.updatePortfolio }
+                },
+                [_vm._v(_vm._s(_vm.$t("Update")))]
+              )
+            ],
+            1
           )
         ],
         1
@@ -50420,7 +50419,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-2e15fd7e", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-29d99251", module.exports)
   }
 }
 
@@ -50450,7 +50449,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\modals\\AddShareModal.vue"
+Component.options.__file = "resources/assets/js/components/modals/AddShareModal.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -50460,9 +50459,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-94412a60", Component.options)
+    hotAPI.createRecord("data-v-e51e43c6", Component.options)
   } else {
-    hotAPI.reload("data-v-94412a60", Component.options)
+    hotAPI.reload("data-v-e51e43c6", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -50637,33 +50636,33 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c(
-        "modal-body",
+        "v-form",
+        {
+          ref: "shareForm",
+          model: {
+            value: _vm.valid,
+            callback: function($$v) {
+              _vm.valid = $$v
+            },
+            expression: "valid"
+          }
+        },
         [
-          _vm.saving
-            ? _c(
-                "div",
-                { staticClass: "text-xs-center" },
-                [
-                  _c("v-progress-circular", {
-                    attrs: { indeterminate: "", color: "primary" }
-                  })
-                ],
-                1
-              )
-            : [
-                _c(
-                  "v-form",
-                  {
-                    ref: "shareForm",
-                    model: {
-                      value: _vm.valid,
-                      callback: function($$v) {
-                        _vm.valid = $$v
-                      },
-                      expression: "valid"
-                    }
-                  },
-                  [
+          _c(
+            "modal-body",
+            [
+              _vm.saving
+                ? _c(
+                    "div",
+                    { staticClass: "text-xs-center" },
+                    [
+                      _c("v-progress-circular", {
+                        attrs: { indeterminate: "", color: "primary" }
+                      })
+                    ],
+                    1
+                  )
+                : [
                     _c("form-errors", { attrs: { errors: _vm.form.errors } }),
                     _vm._v(" "),
                     _c("v-select", {
@@ -50693,35 +50692,35 @@ var render = function() {
                         expression: "form.symbol_id"
                       }
                     })
-                  ],
-                  1
-                )
-              ]
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _c(
-        "modal-footer",
-        [
-          _c("v-spacer"),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            {
-              attrs: { color: "grey darken-1", flat: "" },
-              on: { click: _vm.close }
-            },
-            [_vm._v(_vm._s(_vm.$t("Close")))]
+                  ]
+            ],
+            2
           ),
           _vm._v(" "),
           _c(
-            "v-btn",
-            {
-              attrs: { color: "blue darken-1", flat: "" },
-              on: { click: _vm.saveShare }
-            },
-            [_vm._v(_vm._s(_vm.$t("Create")))]
+            "modal-footer",
+            [
+              _c("v-spacer"),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  attrs: { color: "grey darken-1", flat: "" },
+                  on: { click: _vm.close }
+                },
+                [_vm._v(_vm._s(_vm.$t("Close")))]
+              ),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  attrs: { color: "blue darken-1", flat: "" },
+                  on: { click: _vm.saveShare }
+                },
+                [_vm._v(_vm._s(_vm.$t("Create")))]
+              )
+            ],
+            1
           )
         ],
         1
@@ -50736,7 +50735,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-94412a60", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-e51e43c6", module.exports)
   }
 }
 
@@ -50766,7 +50765,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\modals\\AddTransactionModal.vue"
+Component.options.__file = "resources/assets/js/components/modals/AddTransactionModal.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -50776,9 +50775,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-d872619e", Component.options)
+    hotAPI.createRecord("data-v-1075d4be", Component.options)
   } else {
-    hotAPI.reload("data-v-d872619e", Component.options)
+    hotAPI.reload("data-v-1075d4be", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -50843,9 +50842,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 lot: null,
                 price: null,
                 commission: null,
-                dividend: null
+                dividend_gain: null
             }),
-            transactions: [{ id: 1, label: this.$t("Buying") }, { id: 2, label: this.$t("Sale") }, { id: 3, label: this.$t("Dividend") }],
+            transactions: [{ id: 0, label: this.$t("Buying") }, { id: 1, label: this.$t("Sale") }, { id: 2, label: this.$t("Dividend") }],
             transactionRules: [function (v) {
                 return !!v || _this.$t("Transaction is required");
             }],
@@ -50863,8 +50862,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             commissionRules: [function (v) {
                 return !!v || _this.$t("Commission is required");
             }],
-            dividendRules: [function (v) {
-                return !!v || _this.$t("Dividend Net Price is required");
+            dividendGainRules: [function (v) {
+                return !!v || _this.$t("Dividend Gain Price is required");
             }],
             saving: false
         };
@@ -50897,7 +50896,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 lot: null,
                 price: null,
                 commission: null,
-                dividend: null
+                dividend_gain: null
             });
             this.showModal = true;
         },
@@ -50909,18 +50908,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         close: function close() {
             this.showModal = false;
             this.saving = false;
+            this.form.reset();
             this.$refs.transactionForm.reset();
         },
         changeInput: function changeInput() {
             var _this3 = this;
 
             setTimeout(function () {
-                if (_this3.form.type == 1 || _this3.form.type == 2) {
+                if (_this3.form.type == 0 || _this3.form.type == 1) {
                     _this3.showCommission = true;
                     _this3.showDividend = false;
-                    _this3.form.dividend = '0';
+                    _this3.form.dividend_gain = '0';
                 }
-                if (_this3.form.type == 3) {
+                if (_this3.form.type == 2) {
                     _this3.showDividend = true;
                     _this3.showCommission = false;
                     _this3.form.commission = '0';
@@ -50939,6 +50939,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.saving = true;
 
                 this.form.post('/transaction').then(function (response) {
+                    console.log(response.data);
                     Bus.$emit('transactionAdded', {
                         share: response.data
                     });
@@ -50971,33 +50972,33 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c(
-        "modal-body",
+        "v-form",
+        {
+          ref: "transactionForm",
+          model: {
+            value: _vm.valid,
+            callback: function($$v) {
+              _vm.valid = $$v
+            },
+            expression: "valid"
+          }
+        },
         [
-          _vm.saving
-            ? _c(
-                "div",
-                { staticClass: "text-xs-center" },
-                [
-                  _c("v-progress-circular", {
-                    attrs: { indeterminate: "", color: "primary" }
-                  })
-                ],
-                1
-              )
-            : [
-                _c(
-                  "v-form",
-                  {
-                    ref: "transactionForm",
-                    model: {
-                      value: _vm.valid,
-                      callback: function($$v) {
-                        _vm.valid = $$v
-                      },
-                      expression: "valid"
-                    }
-                  },
-                  [
+          _c(
+            "modal-body",
+            [
+              _vm.saving
+                ? _c(
+                    "div",
+                    { staticClass: "text-xs-center" },
+                    [
+                      _c("v-progress-circular", {
+                        attrs: { indeterminate: "", color: "primary" }
+                      })
+                    ],
+                    1
+                  )
+                : [
                     _c("form-errors", { attrs: { errors: _vm.form.errors } }),
                     _vm._v(" "),
                     _c("v-select", {
@@ -51006,7 +51007,6 @@ var render = function() {
                         "item-text": "label",
                         "item-value": "id",
                         label: _vm.$t("Select Transaction"),
-                        rules: _vm.transactionRules,
                         "single-line": "",
                         bottom: "",
                         required: ""
@@ -51194,51 +51194,51 @@ var render = function() {
                         }
                       ],
                       attrs: {
-                        name: "dividend",
-                        id: "dividend",
+                        name: "dividend_gain",
+                        id: "dividend_gain",
                         type: "number",
                         step: "0.0001",
-                        label: _vm.$t("Enter Dividend Net Price Per Lot"),
-                        rules: _vm.dividendRules,
+                        label: _vm.$t("Enter Dividend Gain Price"),
+                        rules: _vm.dividendGainRules,
                         required: ""
                       },
                       model: {
-                        value: _vm.form.dividend,
+                        value: _vm.form.dividend_gain,
                         callback: function($$v) {
-                          _vm.$set(_vm.form, "dividend", $$v)
+                          _vm.$set(_vm.form, "dividend_gain", $$v)
                         },
-                        expression: "form.dividend"
+                        expression: "form.dividend_gain"
                       }
                     })
-                  ],
-                  1
-                )
-              ]
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _c(
-        "modal-footer",
-        [
-          _c("v-spacer"),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            {
-              attrs: { color: "grey darken-1", flat: "" },
-              on: { click: _vm.close }
-            },
-            [_vm._v(_vm._s(_vm.$t("Close")))]
+                  ]
+            ],
+            2
           ),
           _vm._v(" "),
           _c(
-            "v-btn",
-            {
-              attrs: { color: "blue darken-1", flat: "" },
-              on: { click: _vm.saveTransaction }
-            },
-            [_vm._v(_vm._s(_vm.$t("Create")))]
+            "modal-footer",
+            [
+              _c("v-spacer"),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  attrs: { color: "grey darken-1", flat: "" },
+                  on: { click: _vm.close }
+                },
+                [_vm._v(_vm._s(_vm.$t("Close")))]
+              ),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  attrs: { color: "blue darken-1", flat: "" },
+                  on: { click: _vm.saveTransaction }
+                },
+                [_vm._v(_vm._s(_vm.$t("Create")))]
+              )
+            ],
+            1
           )
         ],
         1
@@ -51253,7 +51253,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-d872619e", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-1075d4be", module.exports)
   }
 }
 
@@ -51267,7 +51267,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-layout",
-    { attrs: { row: "", wrap: "", "justify-center": "" } },
+    { attrs: { row: "", wrap: "" } },
     [
       _c(
         "v-flex",
@@ -51372,8 +51372,8 @@ var render = function() {
                                   sortable: false
                                 },
                                 {
-                                  text: _vm.$t("Total Amount"),
-                                  value: "total_amount",
+                                  text: _vm.$t("Amount"),
+                                  value: "amount",
                                   sortable: false
                                 },
                                 {
@@ -51469,10 +51469,7 @@ var render = function() {
                                     _c("td", { staticClass: "text-xs-right" }, [
                                       _vm._v(
                                         _vm._s(
-                                          _vm.$n(
-                                            props.item.total_amount,
-                                            "currency"
-                                          )
+                                          _vm.$n(props.item.amount, "currency")
                                         )
                                       )
                                     ]),
@@ -51635,7 +51632,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-c021758c", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-4c1b2a8d", module.exports)
   }
 }
 
@@ -51665,7 +51662,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\pages\\Share.vue"
+Component.options.__file = "resources/assets/js/components/pages/Share.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -51675,9 +51672,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-8067bec0", Component.options)
+    hotAPI.createRecord("data-v-fbb61926", Component.options)
   } else {
-    hotAPI.reload("data-v-8067bec0", Component.options)
+    hotAPI.reload("data-v-fbb61926", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -51746,6 +51743,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     return reject(error);
                 });
             });
+        },
+        calculateGain: function calculateGain() {
+            return +this.share.gain + +this.share.total_gain;
         }
     }
 });
@@ -51952,7 +51952,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\layout\\MainHeader.vue"
+Component.options.__file = "resources/assets/js/components/layout/MainHeader.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -51962,9 +51962,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2ab6f91e", Component.options)
+    hotAPI.createRecord("data-v-c1f0c978", Component.options)
   } else {
-    hotAPI.reload("data-v-2ab6f91e", Component.options)
+    hotAPI.reload("data-v-c1f0c978", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -52022,7 +52022,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\partials\\UserBadge.vue"
+Component.options.__file = "resources/assets/js/components/partials/UserBadge.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -52032,9 +52032,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5eff0ec5", Component.options)
+    hotAPI.createRecord("data-v-29a68092", Component.options)
   } else {
-    hotAPI.reload("data-v-5eff0ec5", Component.options)
+    hotAPI.reload("data-v-29a68092", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -52209,7 +52209,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-5eff0ec5", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-29a68092", module.exports)
   }
 }
 
@@ -52242,7 +52242,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-2ab6f91e", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-c1f0c978", module.exports)
   }
 }
 
@@ -52272,7 +52272,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\layout\\MainFooter.vue"
+Component.options.__file = "resources/assets/js/components/layout/MainFooter.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -52282,9 +52282,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6d1bc102", Component.options)
+    hotAPI.createRecord("data-v-7dd53752", Component.options)
   } else {
-    hotAPI.reload("data-v-6d1bc102", Component.options)
+    hotAPI.reload("data-v-7dd53752", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -52326,9 +52326,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         Bus.$on('userLoggedIn', function (event) {
             setTimeout(function () {
-                _this.$i18n.locale = __WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale;
-                _this.locale = __WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale;
-                __WEBPACK_IMPORTED_MODULE_0__services_ls_js__["a" /* ls */].set('locale', _this.locale);
+                if (__WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale) {
+                    _this.$i18n.locale = __WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale;
+                    _this.locale = __WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale;
+                    __WEBPACK_IMPORTED_MODULE_0__services_ls_js__["a" /* ls */].set('locale', _this.locale);
+                }
             }, 750);
         });
     },
@@ -52415,7 +52417,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-6d1bc102", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-7dd53752", module.exports)
   }
 }
 
@@ -52464,7 +52466,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-edb9f4e4", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-3d861d61", module.exports)
   }
 }
 
@@ -52479,7 +52481,7 @@ var render = function() {
   return !_vm.loading
     ? _c(
         "v-layout",
-        { attrs: { row: "", wrap: "", "justify-center": "" } },
+        { attrs: { row: "", wrap: "" } },
         [
           _c(
             "v-flex",
@@ -52549,7 +52551,6 @@ var render = function() {
                                     }
                                   ],
                                   "item-key": "id",
-                                  "hide-actions": "",
                                   "no-data-text": _vm.$t(
                                     "You have not any transaction."
                                   )
@@ -52560,13 +52561,29 @@ var render = function() {
                                     fn: function(props) {
                                       return [
                                         _c("td", [
-                                          _vm._v(_vm._s(props.item.date_at))
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.$d(
+                                                new Date(props.item.date_at),
+                                                "short"
+                                              )
+                                            )
+                                          )
                                         ]),
                                         _vm._v(" "),
                                         _c(
                                           "td",
                                           { staticClass: "text-xs-right" },
-                                          [_vm._v(_vm._s(props.item.type))]
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.$tc(
+                                                  "transactions",
+                                                  props.item.type
+                                                )
+                                              )
+                                            )
+                                          ]
                                         ),
                                         _vm._v(" "),
                                         _c(
@@ -52590,40 +52607,20 @@ var render = function() {
                                           ]
                                         ),
                                         _vm._v(" "),
-                                        props.item.type == 1 ||
-                                        props.item.type == 2
-                                          ? _c(
-                                              "td",
-                                              { staticClass: "text-xs-right" },
-                                              [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm.$n(
-                                                      props.item.amount,
-                                                      "currency"
-                                                    )
-                                                  )
+                                        _c(
+                                          "td",
+                                          { staticClass: "text-xs-right" },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.$n(
+                                                  props.item.amount,
+                                                  "currency"
                                                 )
-                                              ]
+                                              )
                                             )
-                                          : _vm._e(),
-                                        _vm._v(" "),
-                                        props.item.type == 3
-                                          ? _c(
-                                              "td",
-                                              { staticClass: "text-xs-right" },
-                                              [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm.$n(
-                                                      props.item.dividend_gain,
-                                                      "currency"
-                                                    )
-                                                  )
-                                                )
-                                              ]
-                                            )
-                                          : _vm._e(),
+                                          ]
+                                        ),
                                         _vm._v(" "),
                                         _c(
                                           "td",
@@ -52640,20 +52637,51 @@ var render = function() {
                                           ]
                                         ),
                                         _vm._v(" "),
-                                        _c(
-                                          "td",
-                                          { staticClass: "text-xs-right" },
-                                          [
-                                            _vm._v(
-                                              _vm._s(
-                                                _vm.$n(
-                                                  props.item.sale_gain,
-                                                  "currency"
+                                        props.item.type == 0 ||
+                                        props.item.type == 1
+                                          ? _c(
+                                              "td",
+                                              {
+                                                staticClass: "text-xs-right",
+                                                class: {
+                                                  "red--text darken-1":
+                                                    props.item.sale_gain < 0,
+                                                  "green--text darken-1":
+                                                    props.item.sale_gain > 0
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.$n(
+                                                      props.item.sale_gain,
+                                                      "currency"
+                                                    )
+                                                  )
                                                 )
-                                              )
+                                              ]
                                             )
-                                          ]
-                                        )
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        props.item.type == 2
+                                          ? _c(
+                                              "td",
+                                              {
+                                                staticClass:
+                                                  "text-xs-right green--text darken-1"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.$n(
+                                                      props.item.dividend_gain,
+                                                      "currency"
+                                                    )
+                                                  )
+                                                )
+                                              ]
+                                            )
+                                          : _vm._e()
                                       ]
                                     }
                                   }
@@ -52663,7 +52691,175 @@ var render = function() {
                             1
                           ),
                           _vm._v(" "),
-                          _c("v-card-actions", [_c("v-spacer")], 1)
+                          _c(
+                            "v-card-actions",
+                            [
+                              _c(
+                                "v-flex",
+                                {
+                                  attrs: {
+                                    xs5: "",
+                                    "offset-xs0": "",
+                                    "offset-md4": "",
+                                    "offset-lg7": ""
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "v-list",
+                                    { attrs: { dense: "" } },
+                                    [
+                                      _c(
+                                        "v-list-tile",
+                                        { attrs: { dense: "" } },
+                                        [
+                                          _c(
+                                            "v-list-tile-content",
+                                            [
+                                              _c("v-list-tile-title", [
+                                                _vm._v("Toplam Maliyet")
+                                              ])
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c("v-list-tile-action", [
+                                            _vm._v(
+                                              "\n                                        " +
+                                                _vm._s(
+                                                  _vm.$n(
+                                                    _vm.share.total_amount,
+                                                    "currency"
+                                                  )
+                                                ) +
+                                                "\n                                    "
+                                            )
+                                          ])
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-divider"),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-tile",
+                                        { attrs: { dense: "" } },
+                                        [
+                                          _c(
+                                            "v-list-tile-content",
+                                            [
+                                              _c("v-list-tile-title", [
+                                                _vm._v(
+                                                  "Toplam Komisyon Maliyeti"
+                                                )
+                                              ])
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c("v-list-tile-action", [
+                                            _vm._v(
+                                              "\n                                        " +
+                                                _vm._s(
+                                                  _vm.$n(
+                                                    _vm.share
+                                                      .total_commission_amount,
+                                                    "currency"
+                                                  )
+                                                ) +
+                                                "\n                                    "
+                                            )
+                                          ])
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-divider"),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-tile",
+                                        { attrs: { dense: "" } },
+                                        [
+                                          _c(
+                                            "v-list-tile-content",
+                                            [
+                                              _c("v-list-tile-title", [
+                                                _vm._v("Toplam Temettü Kazancı")
+                                              ])
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c("v-list-tile-action", [
+                                            _vm._v(
+                                              "\n                                        " +
+                                                _vm._s(
+                                                  _vm.$n(
+                                                    _vm.share
+                                                      .total_dividend_gain,
+                                                    "currency"
+                                                  )
+                                                ) +
+                                                "\n                                    "
+                                            )
+                                          ])
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-divider"),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-tile",
+                                        { attrs: { dense: "" } },
+                                        [
+                                          _c(
+                                            "v-list-tile-content",
+                                            [
+                                              _c("v-list-tile-title", [
+                                                _vm._v("Toplam Kazanç")
+                                              ])
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-list-tile-action",
+                                            {
+                                              class: {
+                                                "red--text darken-1":
+                                                  _vm.calculateGain() < 0,
+                                                "green--text darken-1":
+                                                  _vm.calculateGain() > 0
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                                        " +
+                                                  _vm._s(
+                                                    _vm.$n(
+                                                      _vm.calculateGain(),
+                                                      "currency"
+                                                    )
+                                                  ) +
+                                                  "\n                                    "
+                                              )
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-divider")
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
                         ],
                         1
                       )
@@ -52687,7 +52883,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-8067bec0", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-fbb61926", module.exports)
   }
 }
 
@@ -52717,7 +52913,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\auth\\LoginForm.vue"
+Component.options.__file = "resources/assets/js/components/auth/LoginForm.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -52727,9 +52923,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-29b72910", Component.options)
+    hotAPI.createRecord("data-v-7d840a46", Component.options)
   } else {
-    hotAPI.reload("data-v-29b72910", Component.options)
+    hotAPI.reload("data-v-7d840a46", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -52996,7 +53192,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-29b72910", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-7d840a46", module.exports)
   }
 }
 
@@ -53026,7 +53222,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\auth\\RegisterForm.vue"
+Component.options.__file = "resources/assets/js/components/auth/RegisterForm.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -53036,9 +53232,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-30ea5814", Component.options)
+    hotAPI.createRecord("data-v-f9f9d1b2", Component.options)
   } else {
-    hotAPI.reload("data-v-30ea5814", Component.options)
+    hotAPI.reload("data-v-f9f9d1b2", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -53287,7 +53483,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-30ea5814", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-f9f9d1b2", module.exports)
   }
 }
 
@@ -53317,7 +53513,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\auth\\EmailForm.vue"
+Component.options.__file = "resources/assets/js/components/auth/EmailForm.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -53327,9 +53523,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-224cbb7a", Component.options)
+    hotAPI.createRecord("data-v-f33f17e0", Component.options)
   } else {
-    hotAPI.reload("data-v-224cbb7a", Component.options)
+    hotAPI.reload("data-v-f33f17e0", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -53565,7 +53761,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-224cbb7a", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-f33f17e0", module.exports)
   }
 }
 
@@ -53609,6 +53805,27 @@ var numberFormats = {
     }
 };
 
+var dateTimeFormats = {
+    'en': {
+        short: {
+            year: 'numeric', month: 'short', day: 'numeric'
+        },
+        long: {
+            year: 'numeric', month: 'short', day: 'numeric',
+            weekday: 'short', hour: 'numeric', minute: 'numeric'
+        }
+    },
+    'tr': {
+        short: {
+            day: 'numeric', month: 'short', year: 'numeric'
+        },
+        long: {
+            year: 'numeric', month: 'short', day: 'numeric',
+            weekday: 'short', hour: 'numeric', minute: 'numeric', hour12: true
+        }
+    }
+};
+
 var fallbackLocale = 'tr';
 
 var getNavigatorLocale = function getNavigatorLocale() {
@@ -53645,7 +53862,8 @@ var getLocale = function getLocale() {
     locale: getLocale(),
     fallbackLocale: fallbackLocale,
     messages: messages,
-    numberFormats: numberFormats
+    numberFormats: numberFormats,
+    dateTimeFormats: dateTimeFormats
 }));
 
 /***/ }),
@@ -55200,7 +55418,7 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Enter Share Amount': 'Enter Share Amount',
     'Enter Share Price': 'Enter Share Price',
     'Enter Commission Rate': 'Enter Commission Rate',
-    'Enter Dividend Net Price Per Lot': 'Enter Dividend Net Price Per Lot',
+    'Enter Dividend Gain Price': 'Enter Dividend Gain Price',
     'Buying': 'Buying',
     'Sale': 'Sale',
     'Dividend': 'Dividend',
@@ -55209,7 +55427,7 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Change': 'Change',
     'Lots': 'Lots',
     'Average': 'Average',
-    'Total Amount': 'Total Amount',
+    'Amount': 'Amount',
     'Average Amount': 'Average Amount',
     'Gain': 'Gain',
     'Transaction Date': 'Transaction Date',
@@ -55236,7 +55454,9 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Lot must be more than 0': 'Lot must be more than 0',
     'Price is required': 'Price is required',
     'Commission is required': 'Commission is required',
-    'Dividend Net Price is required': 'Dividend Net Price is required'
+    'Dividend Gain Price is required': 'Dividend Net Price is required',
+
+    'transactions': 'Buying | Sale | Dividend'
 });
 
 /***/ }),
@@ -55277,7 +55497,7 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Enter Share Amount': 'Hisse Miktarını Giriniz',
     'Enter Share Price': 'Hisse Fiyatını Giriniz',
     'Enter Commission Rate': 'Komisyon Oranını Giriniz',
-    'Enter Dividend Net Price Per Lot': 'Lot Başına Temettü Net Fiyatını Giriniz',
+    'Enter Dividend Gain Price': 'Temettü Net Getiri Fiyatını Giriniz',
     'Buying': 'Alım',
     'Sale': 'Satım',
     'Dividend': 'Temettü',
@@ -55286,7 +55506,7 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Change': 'Değişim',
     'Lots': 'Adet',
     'Average': 'Ortalama',
-    'Total Amount': 'Toplam Tutar',
+    'Amount': 'Tutar',
     'Average Amount': 'Ortalama Tutar',
     'Gain': 'Kazanç',
     'Transaction Date': 'İşlem Tarihi',
@@ -55313,7 +55533,9 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Lot must be more than 0': 'Lot 0\'dan fazla olmalıdır.',
     'Price is required': 'Fiyat alanı girin',
     'Commission is required': 'Komisyon alanı girin',
-    'Dividend Net Price is required': 'Temettü Net Fiyatını girin'
+    'Dividend Gain Price is required': 'Temettü Net Fiyatını girin',
+
+    'transactions': 'Alım | Satım | Temettü'
 });
 
 /***/ }),
@@ -56084,7 +56306,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\App.vue"
+Component.options.__file = "resources/assets/js/components/App.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -56094,9 +56316,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-117390fa", Component.options)
+    hotAPI.createRecord("data-v-8142f38c", Component.options)
   } else {
-    hotAPI.reload("data-v-117390fa", Component.options)
+    hotAPI.reload("data-v-8142f38c", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -56155,7 +56377,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\pages\\Home.vue"
+Component.options.__file = "resources/assets/js/components/pages/Home.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -56165,9 +56387,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-48a9bda4", Component.options)
+    hotAPI.createRecord("data-v-0a937e7e", Component.options)
   } else {
-    hotAPI.reload("data-v-48a9bda4", Component.options)
+    hotAPI.reload("data-v-0a937e7e", Component.options)
 ' + '  }
   module.hot.dispose(function (data) {
     disposed = true
@@ -56322,7 +56544,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-48a9bda4", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-0a937e7e", module.exports)
   }
 }
 
@@ -56342,7 +56564,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-117390fa", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-8142f38c", module.exports)
   }
 }
 

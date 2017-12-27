@@ -14,7 +14,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         \App\Events\SymbolUpdated::class => [
-            \App\Listeners\CalculateShareTotalAmountAndGain::class,
+            \App\Listeners\CalculateShareAmountAndGain::class,
         ],
     ];
 

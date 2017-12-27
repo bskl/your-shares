@@ -46,13 +46,16 @@
                     }, error => reject(error))
                 })
             },
+
+            calculateGain() {
+                return (+this.share.gain) + (+this.share.total_gain)
+            }
         },
     }
 </script>
 
-
 <template>
-    <v-layout row wrap justify-center v-if="!loading">
+    <v-layout row wrap v-if="!loading">
         <v-flex xs12 sm12 md10 offset-md1>
             <v-layout row wrap>
                 <v-flex xs12>
@@ -74,23 +77,62 @@
                                     { text: $t('Gain'), value: 'gain', sortable: false },
                                 ]"
                                 item-key="id"
-                                hide-actions
+                                
                                 :no-data-text="$t('You have not any transaction.')"
                             >
                                 <template slot="items" slot-scope="props">
-                                    <td>{{ props.item.date_at }}</td>
-                                    <td class="text-xs-right">{{ props.item.type }}</td>
+                                    <td>{{ $d(new Date(props.item.date_at), 'short') }}</td>
+                                    <td class="text-xs-right">{{ $tc('transactions', props.item.type) }}</td>
                                     <td class="text-xs-right">{{ props.item.lot }}</td>
                                     <td class="text-xs-right">{{ $n(props.item.price, 'currency') }}</td>
-                                    <td class="text-xs-right" v-if="props.item.type == 1 || props.item.type == 2">{{ $n(props.item.amount, 'currency') }}</td>
-                                    <td class="text-xs-right" v-if="props.item.type == 3">{{ $n(props.item.dividend_gain, 'currency') }}</td>
+                                    <td class="text-xs-right">{{ $n(props.item.amount, 'currency') }}</td>
                                     <td class="text-xs-right">{{ $n(props.item.commission_price, 'currency') }}</td>
-                                    <td class="text-xs-right">{{ $n(props.item.sale_gain, 'currency') }}</td>
+                                    <td class="text-xs-right" :class="{ 'red--text darken-1': props.item.sale_gain < 0, 'green--text darken-1': props.item.sale_gain > 0 }" v-if="props.item.type == 0 || props.item.type == 1">{{ $n(props.item.sale_gain, 'currency') }}</td>
+                                    <td class="text-xs-right green--text darken-1" v-if="props.item.type == 2">{{ $n(props.item.dividend_gain, 'currency') }}</td>
                                 </template>
                             </v-data-table>
                         </v-card-text>
                         <v-card-actions>
-                            <v-spacer></v-spacer>
+                            <v-flex xs5 offset-xs0 offset-md4 offset-lg7>
+                                <v-list dense>
+                                    <v-list-tile dense>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>Toplam Maliyet</v-list-tile-title>
+                                        </v-list-tile-content>
+                                        <v-list-tile-action>
+                                            {{ $n(share.total_amount, 'currency') }}
+                                        </v-list-tile-action>
+                                    </v-list-tile>
+                                    <v-divider></v-divider>
+                                    <v-list-tile dense>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>Toplam Komisyon Maliyeti</v-list-tile-title>
+                                        </v-list-tile-content>
+                                        <v-list-tile-action>
+                                            {{ $n(share.total_commission_amount, 'currency') }}
+                                        </v-list-tile-action>
+                                    </v-list-tile>
+                                    <v-divider></v-divider>
+                                    <v-list-tile dense>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>Toplam Temettü Kazancı</v-list-tile-title>
+                                        </v-list-tile-content>
+                                        <v-list-tile-action>
+                                            {{ $n(share.total_dividend_gain, 'currency') }}
+                                        </v-list-tile-action>
+                                    </v-list-tile>
+                                    <v-divider></v-divider>
+                                    <v-list-tile dense>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>Toplam Kazanç</v-list-tile-title>
+                                        </v-list-tile-content>
+                                        <v-list-tile-action :class="{ 'red--text darken-1': calculateGain() < 0, 'green--text darken-1': calculateGain() > 0 }">
+                                            {{ $n(calculateGain(), 'currency') }}
+                                        </v-list-tile-action>
+                                    </v-list-tile>
+                                    <v-divider></v-divider>
+                                </v-list>
+                            </v-flex>
                         </v-card-actions>
                     </v-card>
                 </v-flex>

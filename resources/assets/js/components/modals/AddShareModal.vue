@@ -122,34 +122,34 @@
         <modal-heading>
             <span class="headline">{{ $t("Add Symbol") }}</span>
         </modal-heading>
-        <modal-body>
-            <div class="text-xs-center" v-if="saving">
-                <v-progress-circular indeterminate color="primary"></v-progress-circular>
-            </div>
-            <template v-else>
-                <v-form v-model="valid" ref="shareForm">
-                    <form-errors :errors="form.errors" />
-                    <v-select
-                        :label="$t('Search Symbol')"
-                        :no-data-text = "$t('No data available')"
-                        autocomplete
-                        clearable
-                        :loading="loading"
-                        required
-                        :items="symbols"
-                        item-text="code"
-                        item-value="id"
-                        :rules="symbolRules"
-                        :search-input.sync="search"
-                        v-model="form.symbol_id"
-                    ></v-select>
-                </v-form>
-            </template>
-        </modal-body>
-        <modal-footer>
-            <v-spacer></v-spacer>
-            <v-btn color="grey darken-1" flat @click="close">{{ $t("Close") }}</v-btn>
-            <v-btn color="blue darken-1" flat @click="saveShare">{{ $t("Create") }}</v-btn>
-        </modal-footer>
+        <v-form v-model="valid" ref="shareForm">
+            <modal-body>
+                <div class="text-xs-center" v-if="saving">
+                    <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                </div>
+                <template v-else>
+                        <form-errors :errors="form.errors" />
+                        <v-select
+                            :label="$t('Search Symbol')"
+                            :no-data-text = "$t('No data available')"
+                            autocomplete
+                            clearable
+                            :loading="loading"
+                            required
+                            :items="symbols"
+                            item-text="code"
+                            item-value="id"
+                            :rules="symbolRules"
+                            :search-input.sync="search"
+                            v-model="form.symbol_id"
+                        ></v-select>
+                </template>
+            </modal-body>
+            <modal-footer>
+                <v-spacer></v-spacer>
+                <v-btn color="grey darken-1" flat @click="close">{{ $t("Close") }}</v-btn>
+                <v-btn color="blue darken-1" flat @click="saveShare">{{ $t("Create") }}</v-btn>
+            </modal-footer>
+        </v-form>
     </modal>
 </template>

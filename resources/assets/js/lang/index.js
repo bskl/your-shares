@@ -26,6 +26,27 @@ const numberFormats = {
     }
 }
 
+const dateTimeFormats = {
+    'en': {
+        short: {
+            year: 'numeric', month: 'short', day: 'numeric'
+        },
+        long: {
+            year: 'numeric', month: 'short', day: 'numeric',
+            weekday: 'short', hour: 'numeric', minute: 'numeric'
+        }
+    },
+    'tr': {
+        short: {
+            day: 'numeric', month: 'short', year: 'numeric'
+        },
+        long: {
+            year: 'numeric', month: 'short', day: 'numeric',
+            weekday: 'short', hour: 'numeric', minute: 'numeric', hour12: true
+        }
+    }
+  }
+
 const fallbackLocale = 'tr';
 
 const getNavigatorLocale = function() {
@@ -63,4 +84,5 @@ export default new VueI18n({
     fallbackLocale: fallbackLocale,
     messages,
     numberFormats,
+    dateTimeFormats,
 });
