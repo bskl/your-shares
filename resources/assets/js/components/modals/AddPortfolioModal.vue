@@ -62,7 +62,7 @@
                 this.showModal = false;
                 this.saving = false;
                 this.form.reset();
-                this.$refs.portfolioForm.reset()
+                this.$refs.portfolioForm.reset();
             },
 
             /**
@@ -93,33 +93,34 @@
         <modal-heading>
             <span class="headline">{{ $t("Add Portfolio") }}</span>
         </modal-heading>
-        <modal-body>
-            <div class="text-xs-center" v-if="saving">
-                <v-progress-circular indeterminate color="primary"></v-progress-circular>
-            </div>
-            <template v-else>
-                <v-form v-model="valid" ref="portfolioForm">
-                    <form-errors :errors="form.errors" />
-                    <v-text-field name="name" id="name" type="text"
-                        v-model="form.name"
-                        :label="$t('Portfolio Name')"
-                        :rules="nameRules"
-                        required
-                    ></v-text-field>
-                    <v-select name="currency" id="currency" type="select"
-                        v-model="form.currency"
-                        :items="['TRY']"
-                        :label="$t('Currency')"
-                        :rules="currencyRules"
-                        required
-                    ></v-select>
-                </v-form>
-            </template>
-        </modal-body>
-        <modal-footer>
-            <v-spacer></v-spacer>
-            <v-btn color="grey darken-1" flat @click="close">{{ $t("Close") }}</v-btn>
-            <v-btn color="blue darken-1" flat @click="savePortfolio">{{ $t("Create") }}</v-btn>
-        </modal-footer>
+        <v-form v-model="valid" ref="portfolioForm">
+            <modal-body>
+                <div class="text-xs-center" v-if="saving">
+                    <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                </div>
+                <template v-else>
+                    
+                        <form-errors :errors="form.errors" />
+                        <v-text-field name="name" id="name" type="text"
+                            v-model="form.name"
+                            :label="$t('Portfolio Name')"
+                            :rules="nameRules"
+                            required
+                        ></v-text-field>
+                        <v-select name="currency" id="currency" type="select"
+                            v-model="form.currency"
+                            :items="['TRY']"
+                            :label="$t('Currency')"
+                            :rules="currencyRules"
+                            required
+                        ></v-select>
+                </template>
+            </modal-body>
+            <modal-footer>
+                <v-spacer></v-spacer>
+                <v-btn color="grey darken-1" flat @click="close">{{ $t("Close") }}</v-btn>
+                <v-btn color="blue darken-1" flat @click="savePortfolio">{{ $t("Create") }}</v-btn>
+            </modal-footer>
+        </v-form>
     </modal>
 </template>

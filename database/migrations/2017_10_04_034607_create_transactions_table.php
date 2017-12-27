@@ -23,12 +23,12 @@ class CreateTransactionsTable extends Migration
             $table->integer('remaining')->nullable()->default(0);
             $table->integer('price');
             $table->integer('amount')->nullable()->default(0);
-            $table->decimal('commission', 5, 4)->nullable()->default(0);
+            $table->decimal('commission', 5, 5)->nullable()->default(0);
             $table->integer('commission_price')->nullable()->default(0);
             $table->integer('sale_average')->nullable()->default(0);
             $table->integer('sale_average_amount')->nullable()->default(0);
             $table->integer('sale_gain')->nullable()->default(0);
-            $table->decimal('dividend', 5,4)->nullable()->default(0);
+            $table->integer('dividend')->nullable()->default(0);
             $table->integer('dividend_gain')->nullable()->default(0);
             $table->timestamps();
             

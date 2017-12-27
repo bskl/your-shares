@@ -33,12 +33,12 @@
                     lot: null,
                     price: null,
                     commission: null,
-                    dividend: null,
+                    dividend_gain: null,
                 }),
                 transactions: [
-                    { id: 1, label: this.$t("Buying") },
-                    { id: 2, label: this.$t("Sale") },
-                    { id: 3, label: this.$t("Dividend") },
+                    { id: 0, label: this.$t("Buying") },
+                    { id: 1, label: this.$t("Sale") },
+                    { id: 2, label: this.$t("Dividend") },
                 ],
                 transactionRules: [
                     (v) => !!v || this.$t("Transaction is required"),
@@ -56,8 +56,8 @@
                 commissionRules: [
                     (v) => !!v || this.$t("Commission is required"),
                 ],
-                dividendRules: [
-                    (v) => !!v || this.$t("Dividend Net Price is required"),
+                dividendGainRules: [
+                    (v) => !!v || this.$t("Dividend Gain Price is required"),
                 ],
                 saving: false,
             };
@@ -86,7 +86,7 @@
                     lot: null,
                     price: null,
                     commission: null,
-                    dividend: null,
+                    dividend_gain: null,
                 });
                 this.showModal = true;
             },
@@ -97,17 +97,18 @@
             close() {
                 this.showModal = false;
                 this.saving = false;
+                this.form.reset();
                 this.$refs.transactionForm.reset();
             },
 
             changeInput() {
                 setTimeout(() => {
-                    if (this.form.type == 1 || this.form.type == 2) {
+                    if (this.form.type == 0 || this.form.type == 1) {
                         this.showCommission = true;
                         this.showDividend = false;
-                        this.form.dividend = '0';
+                        this.form.dividend_gain = '0';
                     }
-                    if (this.form.type == 3) {
+                    if (this.form.type == 2) {
                         this.showDividend = true;
                         this.showCommission = false;
                         this.form.commission = '0';
@@ -143,91 +144,91 @@
         <modal-heading>
             <span class="headline">{{ $t("Add Transaction") }}</span>
         </modal-heading>
-        <modal-body>
-            <div class="text-xs-center" v-if="saving">
-                <v-progress-circular indeterminate color="primary"></v-progress-circular>
-            </div>
-            <template v-else>
-                <v-form v-model="valid" ref="transactionForm">
-                    <form-errors :errors="form.errors" />
-                    <v-select
-                        :items="transactions"
-                        item-text="label"
-                        item-value="id"
-                        v-model="form.type"
-                        :label="$t('Select Transaction')"
-                        :rules="transactionRules"
-                        single-line
-                        bottom
-                        required
-                        @change="changeInput()"
-                    ></v-select>
+        <v-form v-model="valid" ref="transactionForm">
+            <modal-body>
+                <div class="text-xs-center" v-if="saving">
+                    <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                </div>
+                <template v-else>
+                        <form-errors :errors="form.errors" />
+                        <v-select
+                            :items="transactions"
+                            item-text="label"
+                            item-value="id"
+                            v-model="form.type"
+                            :label="$t('Select Transaction')"
+                            
+                            single-line
+                            bottom
+                            required
+                            @change="changeInput()"
+                        ></v-select>
 
-                    <v-menu
-                        lazy
-                        :close-on-content-click="false"
-                        v-model="menu"
-                        transition="scale-transition"
-                        offset-y
-                        full-width
-                        :nudge-right="40"
-                        max-width="290px"
-                        min-width="290px"
-                    >
-                        <v-text-field
-                            slot="activator"
-                            v-model="form.date_at"
-                            :label="$t('Select Date')"
-                            :rules="dateAtRules"
-                            prepend-icon="event"
-                            readonly
+                        <v-menu
+                            lazy
+                            :close-on-content-click="false"
+                            v-model="menu"
+                            transition="scale-transition"
+                            offset-y
+                            full-width
+                            :nudge-right="40"
+                            max-width="290px"
+                            min-width="290px"
+                        >
+                            <v-text-field
+                                slot="activator"
+                                v-model="form.date_at"
+                                :label="$t('Select Date')"
+                                :rules="dateAtRules"
+                                prepend-icon="event"
+                                readonly
+                                required
+                            ></v-text-field>
+                            <v-date-picker v-model="form.date_at" no-title scrollable actions>
+                            <template slot-scope="{ save, cancel }">
+                                <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn flat color="primary" @click="cancel">Cancel</v-btn>
+                                <v-btn flat color="primary" @click="save">OK</v-btn>
+                                </v-card-actions>
+                            </template>
+                            </v-date-picker>
+                        </v-menu>
+
+                        <v-text-field name="lot" id="lot" type="number"
+                            v-model="form.lot"
+                            :label="$t('Enter Share Amount')"
+                            :rules="lotRules"
                             required
                         ></v-text-field>
-                        <v-date-picker v-model="form.date_at" no-title scrollable actions>
-                        <template slot-scope="{ save, cancel }">
-                            <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn flat color="primary" @click="cancel">Cancel</v-btn>
-                            <v-btn flat color="primary" @click="save">OK</v-btn>
-                            </v-card-actions>
-                        </template>
-                        </v-date-picker>
-                    </v-menu>
 
-                    <v-text-field name="lot" id="lot" type="number"
-                        v-model="form.lot"
-                        :label="$t('Enter Share Amount')"
-                        :rules="lotRules"
-                        required
-                    ></v-text-field>
+                        <v-text-field name="price" id="price" type="number" step="0.01"
+                            v-model="form.price"
+                            :label="$t('Enter Share Price')"
+                            :rules="priceRules"
+                            required
+                        ></v-text-field>
 
-                    <v-text-field name="price" id="price" type="number" step="0.01"
-                        v-model="form.price"
-                        :label="$t('Enter Share Price')"
-                        :rules="priceRules"
-                        required
-                    ></v-text-field>
+                        <v-text-field v-show="showCommission" name="commission" id="commission" type="number" step="0.0001"
+                            v-model="form.commission"
+                            :label="$t('Enter Commission Rate')"
+                            :rules="commissionRules"
+                            required
+                        ></v-text-field>
 
-                    <v-text-field v-show="showCommission" name="commission" id="commission" type="number" step="0.0001"
-                        v-model="form.commission"
-                        :label="$t('Enter Commission Rate')"
-                        :rules="commissionRules"
-                        required
-                    ></v-text-field>
-
-                    <v-text-field v-show="showDividend" name="dividend" id="dividend" type="number" step="0.0001"
-                        v-model="form.dividend"
-                        :label="$t('Enter Dividend Net Price Per Lot')"
-                        :rules="dividendRules"
-                        required
-                    ></v-text-field>
-                </v-form>
-            </template>
-        </modal-body>
-        <modal-footer>
-            <v-spacer></v-spacer>
-            <v-btn color="grey darken-1" flat @click="close">{{ $t("Close") }}</v-btn>
-            <v-btn color="blue darken-1" flat @click="saveTransaction">{{ $t("Create") }}</v-btn>
-        </modal-footer>
+                        <v-text-field v-show="showDividend" name="dividend_gain" id="dividend_gain" type="number" step="0.0001"
+                            v-model="form.dividend_gain"
+                            :label="$t('Enter Dividend Gain Price')"
+                            :rules="dividendGainRules"
+                            required
+                        ></v-text-field>
+                </template>
+            </modal-body>
+            <modal-footer>
+                <v-spacer></v-spacer>
+                <v-btn color="grey darken-1" flat @click="close">{{ $t("Close") }}</v-btn>
+                <v-btn color="blue darken-1" flat @click="saveTransaction">{{ $t("Create") }}</v-btn>
+            </modal-footer>
+        </v-form>
     </modal>
 </template>

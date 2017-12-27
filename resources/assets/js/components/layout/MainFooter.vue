@@ -24,9 +24,11 @@
         mounted() {
             Bus.$on('userLoggedIn', event => {
                 setTimeout(() => {
-                    this.$i18n.locale = userStore.state.user.locale;
-                    this.locale = userStore.state.user.locale;
-                    ls.set('locale', this.locale);
+                    if (userStore.state.user.locale) {
+                        this.$i18n.locale = userStore.state.user.locale;
+                        this.locale = userStore.state.user.locale;
+                        ls.set('locale', this.locale);
+                    }
                 }, 750)
             });
         },

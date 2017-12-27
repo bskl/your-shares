@@ -31,7 +31,7 @@ export default {
     'Enter Share Amount' : 'Hisse Miktarını Giriniz',
     'Enter Share Price' : 'Hisse Fiyatını Giriniz',
     'Enter Commission Rate' : 'Komisyon Oranını Giriniz',
-    'Enter Dividend Net Price Per Lot' : 'Lot Başına Temettü Net Fiyatını Giriniz',
+    'Enter Dividend Gain Price' : 'Temettü Net Getiri Fiyatını Giriniz',
     'Buying' : 'Alım',
     'Sale' : 'Satım',
     'Dividend' : 'Temettü',
@@ -40,7 +40,7 @@ export default {
     'Change' : 'Değişim',
     'Lots' : 'Adet',
     'Average' : 'Ortalama',
-    'Total Amount' : 'Toplam Tutar',
+    'Amount' : 'Tutar',
     'Average Amount' : 'Ortalama Tutar',
     'Gain' : 'Kazanç',
     'Transaction Date' : 'İşlem Tarihi',
@@ -67,5 +67,7 @@ export default {
     'Lot must be more than 0' : 'Lot 0\'dan fazla olmalıdır.',
     'Price is required' : 'Fiyat alanı girin',
     'Commission is required' : 'Komisyon alanı girin',
-    'Dividend Net Price is required' : 'Temettü Net Fiyatını girin',
+    'Dividend Gain Price is required' : 'Temettü Net Fiyatını girin',
+
+    'transactions' : 'Alım | Satım | Temettü',
 }

@@ -62,7 +62,7 @@
              */
             deletePortfolio(portfolioId) {
                 let index = _.findIndex(this.state.portfolios, ['id', portfolioId]);
-                this.state.portfolios.splice(index);
+                this.state.portfolios.splice(index, 1);
                 Bus.$off('portfolioDeleted', portfolioId);
             },
 
@@ -82,7 +82,6 @@
                 let portfolioIndex = _.findIndex(this.state.portfolios, ['id', share.portfolio_id]);
                 let index = _.findIndex(this.state.portfolios[portfolioIndex].shares, ['id', share.id]);
                 this.state.portfolios[portfolioIndex].shares.splice(index, 1, share);
-
                 Bus.$off('transactionAdded', share);
             },
 
@@ -123,7 +122,7 @@
 </script>
 
 <template>
-    <v-layout row wrap justify-center>
+    <v-layout row wrap>
         <v-flex xs12 sm12 md10 offset-md1>
             <v-layout row wrap>
                 <v-flex xs12 v-for="portfolio in state.portfolios" :key="portfolio.id">
@@ -148,7 +147,7 @@
                                     { text: $t('Change'), value: 'change', sortable: false },
                                     { text: $t('Lots'), value: 'lots', sortable: false },
                                     { text: $t('Average'), value: 'average', sortable: false },
-                                    { text: $t('Total Amount'), value: 'total_amount', sortable: false },
+                                    { text: $t('Amount'), value: 'amount', sortable: false },
                                     { text: $t('Average Amount'), value: 'average_amount', sortable: false },
                                     { text: $t('Gain'), value: 'gain', sortable: false },
                                     { text: $t('Transactions'), value: 'transactions', align: 'center', sortable: false }
@@ -165,7 +164,7 @@
                                         {{ props.item.symbol.rate_of_change }}%</td>
                                     <td class="text-xs-right">{{ props.item.lot }}</td>
                                     <td class="text-xs-right">{{ $n(props.item.average, 'currency') }}</td>
-                                    <td class="text-xs-right">{{ $n(props.item.total_amount, 'currency') }}</td>
+                                    <td class="text-xs-right">{{ $n(props.item.amount, 'currency') }}</td>
                                     <td class="text-xs-right">{{ $n(props.item.average_amount, 'currency') }}</td>
                                     <td class="text-xs-right" :class="{ 'red--text darken-1': props.item.gain < 0, 'green--text darken-1': props.item.gain > 0 }">
                                         {{ $n(props.item.gain, 'currency') }}</td>
