@@ -14,6 +14,7 @@
         data() {
             return {
                 locale: this.$i18n.locale,
+                state: userStore.state,
                 locales: [
                     { value: "tr", label: "Türkçe" },
                     { value: "en", label: "English" },
@@ -24,9 +25,9 @@
         mounted() {
             Bus.$on('userLoggedIn', event => {
                 setTimeout(() => {
-                    if (userStore.state.user.locale) {
-                        this.$i18n.locale = userStore.state.user.locale;
-                        this.locale = userStore.state.user.locale;
+                    if (this.state.user.locale) {
+                        this.$i18n.locale = this.state.user.locale;
+                        this.locale = this.state.user.locale;
                         ls.set('locale', this.locale);
                     }
                 }, 750)
@@ -47,7 +48,7 @@
                             http.get('/locale/' + this.locale, response => {
                                 resolve(response);
                             }, error => {
-                                reject(error.response.data);
+                                reject(error);
                             });
                         });
                     }

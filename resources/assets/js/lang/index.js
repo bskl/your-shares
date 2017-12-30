@@ -17,11 +17,17 @@ const numberFormats = {
     'en': {
         currency: {
             style: 'currency', currency: 'USD', currencyDisplay: 'symbol', minimumFractionDigits: 2,
+        },
+        percent: {
+            style: 'percent', minimumFractionDigits: 2,
         }
     },
     'tr': {
         currency: {
             style: 'currency', currency: 'TRY', currencyDisplay: 'symbol', minimumFractionDigits: 2,
+        },
+        percent: {
+            style: 'percent', minimumFractionDigits: 2,
         }
     }
 }
@@ -64,9 +70,6 @@ const getLocale = function() {
 
     if (ls.get('locale')) {
         locale = ls.get('locale');
-    }
-    if (userStore.isAuthenticated()) {
-        locale = userStore.state.user.locale;
     }
 
     if (!locale) {
