@@ -26,6 +26,7 @@
                 menu: false,
                 showCommission: true,
                 showDividend: false,
+                showBonusIssue: false,
                 form: new Form({
                     share_id: null,
                     type: null,
@@ -34,11 +35,13 @@
                     price: null,
                     commission: null,
                     dividend_gain: null,
+                    bonus_issue: null,
                 }),
                 transactions: [
                     { id: 0, label: this.$t("Buying") },
                     { id: 1, label: this.$t("Sale") },
                     { id: 2, label: this.$t("Dividend") },
+                    { id: 3, label: this.$t("Bonus Issue") },
                 ],
                 transactionRules: [
                     (v) => !!v || this.$t("Transaction is required"),
@@ -58,6 +61,9 @@
                 ],
                 dividendGainRules: [
                     (v) => !!v || this.$t("Dividend Gain Price is required"),
+                ],
+                bonusIssueRules: [
+                    (v) => !!v || this.$t("Percentage of Bonus Issue is required"),
                 ],
                 saving: false,
             };
@@ -87,6 +93,7 @@
                     price: null,
                     commission: null,
                     dividend_gain: null,
+                    bonus_issue: null,
                 });
                 this.showModal = true;
             },
@@ -106,12 +113,23 @@
                     if (this.form.type == 0 || this.form.type == 1) {
                         this.showCommission = true;
                         this.showDividend = false;
+                        this.showBonusIssue = false;
                         this.form.dividend_gain = '0';
+                        this.form.bonus_issue = '0';
                     }
                     if (this.form.type == 2) {
                         this.showDividend = true;
                         this.showCommission = false;
+                        this.showBonusIssue = false;
                         this.form.commission = '0';
+                        this.form.bonus_issue = '0';
+                    }
+                    if (this.form.type == 3) {
+                        this.showBonusIssue = true;
+                        this.showDividend = false;
+                        this.showCommission = false;
+                        this.form.commission = '0';
+                        this.form.dividend_gain = '0';
                     }
                 }, 500)
             },
@@ -220,6 +238,13 @@
                             v-model="form.dividend_gain"
                             :label="$t('Enter Dividend Gain Price')"
                             :rules="dividendGainRules"
+                            required
+                        ></v-text-field>
+
+                        <v-text-field v-show="showBonusIssue" name="bonus_issue" id="bonus_issue" type="number" step="00.01"
+                            v-model="form.bonus_issue"
+                            :label="$t('Enter Percentage of Bonus Issue')"
+                            :rules="bonusIssueRules"
                             required
                         ></v-text-field>
                 </template>

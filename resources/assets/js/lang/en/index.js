@@ -32,9 +32,11 @@ export default {
     'Enter Share Price' : 'Enter Share Price',
     'Enter Commission Rate' : 'Enter Commission Rate',
     'Enter Dividend Gain Price' : 'Enter Dividend Gain Price',
+    'Enter Percentage of Bonus Issue' : 'Enter Percentage of Bonus Issue',
     'Buying' : 'Buying',
     'Sale' : 'Sale',
     'Dividend' : 'Dividend',
+    'Bonus Issue' : 'Bonus Issue',
     'Symbol' : 'Symbol',
     'Last Price' : 'Last Price',
     'Change' : 'Change',
@@ -68,6 +70,9 @@ export default {
     'Price is required' : 'Price is required',
     'Commission is required' : 'Commission is required',
     'Dividend Gain Price is required' : 'Dividend Net Price is required',
+    'Percentage of Bonus Issue is required' : 'Percentage of Bonus Issue is required',
 
-    'transactions' : 'Buying | Sale | Dividend',
+    transactions: [
+        'Buying', 'Sale', 'Dividend', 'Bonus Issue',
+    ],
 }

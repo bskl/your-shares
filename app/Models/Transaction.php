@@ -24,7 +24,7 @@ class Transaction extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'user_id', 'share_id', 'type', 'date_at', 'lot', 'remaining', 'price', 'amount', 'commission', 'commission_price', 'sale_average', 'sale_average_amount', 'sale_gain', 'dividend', 'dividend_gain',
+        'user_id', 'share_id', 'type', 'date_at', 'lot', 'remaining', 'price', 'amount', 'commission', 'commission_price', 'sale_average', 'sale_average_amount', 'sale_gain', 'dividend', 'dividend_gain', 'bonus_issue',
     ];
 
     /**
@@ -119,4 +119,13 @@ class Transaction extends BaseModel
 
         $this->attributes['dividend_gain'] = $money->getAmount();
     }
+
+    /**
+     * Set the bonus_issue attribute with divided 100.
+     */
+    public function setBonusIssueAttribute()
+    {
+        return (float) ($this->attributes['bonus_issue'] / 100);
+    }
+
 }

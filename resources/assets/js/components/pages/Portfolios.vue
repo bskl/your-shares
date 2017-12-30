@@ -161,7 +161,7 @@
                                     <td class="text-xs-right" :class="{ 'red--text darken-1': props.item.symbol.trend == -1, 'green--text darken-1': props.item.symbol.trend == 1 }">
                                         {{ $n(props.item.symbol.last_price, 'currency') }}</td>
                                     <td class="text-xs-right" :class="{ 'red--text darken-1': props.item.symbol.trend == -1, 'green--text darken-1': props.item.symbol.trend == 1 }">
-                                        {{ props.item.symbol.rate_of_change }}%</td>
+                                        {{ $n(props.item.symbol.rate_of_change, 'percent') }}</td>
                                     <td class="text-xs-right">{{ props.item.lot }}</td>
                                     <td class="text-xs-right">{{ $n(props.item.average, 'currency') }}</td>
                                     <td class="text-xs-right">{{ $n(props.item.amount, 'currency') }}</td>
