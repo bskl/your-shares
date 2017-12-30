@@ -84,15 +84,15 @@ class SetSymbols extends Command
     protected function convertToInt($val)
     {
         if(is_numeric($val)) {
-            return (int)$val = $val * 100;
+            return (float)$val = $val / 100;
         }
 
         if(preg_match('#^\d*[\.,]\d$#', $val)) { 
-            return (int)$val = str_replace(',', '', $val);
+            return (float)$val = str_replace(',', '', $val);
         }
 
         if(preg_match('#\d*([.,\/]?\d+)#', $val)) {
-            return (int)$val = str_replace([',', '.'], '', $val);
+            return (float)$val = str_replace([',', '.'], '', $val);
         }
 
         throw new \InvalidArgumentException("Not a valid currency amount");

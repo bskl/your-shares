@@ -50835,6 +50835,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             menu: false,
             showCommission: true,
             showDividend: false,
+            showBonusIssue: false,
             form: new Form({
                 share_id: null,
                 type: null,
@@ -50842,9 +50843,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 lot: null,
                 price: null,
                 commission: null,
-                dividend_gain: null
+                dividend_gain: null,
+                bonus_issue: null
             }),
-            transactions: [{ id: 0, label: this.$t("Buying") }, { id: 1, label: this.$t("Sale") }, { id: 2, label: this.$t("Dividend") }],
+            transactions: [{ id: 0, label: this.$t("Buying") }, { id: 1, label: this.$t("Sale") }, { id: 2, label: this.$t("Dividend") }, { id: 3, label: this.$t("Bonus Issue") }],
             transactionRules: [function (v) {
                 return !!v || _this.$t("Transaction is required");
             }],
@@ -50864,6 +50866,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }],
             dividendGainRules: [function (v) {
                 return !!v || _this.$t("Dividend Gain Price is required");
+            }],
+            bonusIssueRules: [function (v) {
+                return !!v || _this.$t("Percentage of Bonus Issue is required");
             }],
             saving: false
         };
@@ -50896,7 +50901,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 lot: null,
                 price: null,
                 commission: null,
-                dividend_gain: null
+                dividend_gain: null,
+                bonus_issue: null
             });
             this.showModal = true;
         },
@@ -50918,12 +50924,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (_this3.form.type == 0 || _this3.form.type == 1) {
                     _this3.showCommission = true;
                     _this3.showDividend = false;
+                    _this3.showBonusIssue = false;
                     _this3.form.dividend_gain = '0';
+                    _this3.form.bonus_issue = '0';
                 }
                 if (_this3.form.type == 2) {
                     _this3.showDividend = true;
                     _this3.showCommission = false;
+                    _this3.showBonusIssue = false;
                     _this3.form.commission = '0';
+                    _this3.form.bonus_issue = '0';
+                }
+                if (_this3.form.type == 3) {
+                    _this3.showBonusIssue = true;
+                    _this3.showDividend = false;
+                    _this3.showCommission = false;
+                    _this3.form.commission = '0';
+                    _this3.form.dividend_gain = '0';
                 }
             }, 500);
         },
@@ -50939,7 +50956,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.saving = true;
 
                 this.form.post('/transaction').then(function (response) {
-                    console.log(response.data);
                     Bus.$emit('transactionAdded', {
                         share: response.data
                     });
@@ -51209,6 +51225,33 @@ var render = function() {
                         },
                         expression: "form.dividend_gain"
                       }
+                    }),
+                    _vm._v(" "),
+                    _c("v-text-field", {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.showBonusIssue,
+                          expression: "showBonusIssue"
+                        }
+                      ],
+                      attrs: {
+                        name: "bonus_issue",
+                        id: "bonus_issue",
+                        type: "number",
+                        step: "00.01",
+                        label: _vm.$t("Enter Percentage of Bonus Issue"),
+                        rules: _vm.bonusIssueRules,
+                        required: ""
+                      },
+                      model: {
+                        value: _vm.form.bonus_issue,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form, "bonus_issue", $$v)
+                        },
+                        expression: "form.bonus_issue"
+                      }
                     })
                   ]
             ],
@@ -51447,9 +51490,12 @@ var render = function() {
                                         _vm._v(
                                           "\n                                    " +
                                             _vm._s(
-                                              props.item.symbol.rate_of_change
-                                            ) +
-                                            "%"
+                                              _vm.$n(
+                                                props.item.symbol
+                                                  .rate_of_change,
+                                                "percent"
+                                              )
+                                            )
                                         )
                                       ]
                                     ),
@@ -52318,6 +52364,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             locale: this.$i18n.locale,
+            state: __WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state,
             locales: [{ value: "tr", label: "Türkçe" }, { value: "en", label: "English" }]
         };
     },
@@ -52326,9 +52373,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         Bus.$on('userLoggedIn', function (event) {
             setTimeout(function () {
-                if (__WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale) {
-                    _this.$i18n.locale = __WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale;
-                    _this.locale = __WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale;
+                if (_this.state.user.locale) {
+                    _this.$i18n.locale = _this.state.user.locale;
+                    _this.locale = _this.state.user.locale;
                     __WEBPACK_IMPORTED_MODULE_0__services_ls_js__["a" /* ls */].set('locale', _this.locale);
                 }
             }, 750);
@@ -52352,7 +52399,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         http.get('/locale/' + _this2.locale, function (response) {
                             resolve(response);
                         }, function (error) {
-                            reject(error.response.data);
+                            reject(error);
                         });
                     });
                 }
@@ -52577,9 +52624,10 @@ var render = function() {
                                           [
                                             _vm._v(
                                               _vm._s(
-                                                _vm.$tc(
-                                                  "transactions",
-                                                  props.item.type
+                                                _vm.$t(
+                                                  "transactions[" +
+                                                    props.item.type +
+                                                    "]"
                                                 )
                                               )
                                             )
@@ -52676,6 +52724,26 @@ var render = function() {
                                                     _vm.$n(
                                                       props.item.dividend_gain,
                                                       "currency"
+                                                    )
+                                                  )
+                                                )
+                                              ]
+                                            )
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        props.item.type == 3
+                                          ? _c(
+                                              "td",
+                                              {
+                                                staticClass:
+                                                  "text-xs-right green--text darken-1"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.$n(
+                                                      props.item.bonus_issue,
+                                                      "percent"
                                                     )
                                                   )
                                                 )
@@ -52799,6 +52867,38 @@ var render = function() {
                                                       .total_dividend_gain,
                                                     "currency"
                                                   )
+                                                ) +
+                                                "\n                                    "
+                                            )
+                                          ])
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-divider"),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-tile",
+                                        { attrs: { dense: "" } },
+                                        [
+                                          _c(
+                                            "v-list-tile-content",
+                                            [
+                                              _c("v-list-tile-title", [
+                                                _vm._v(
+                                                  "Toplam Bedelsiz Kazancı"
+                                                )
+                                              ])
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c("v-list-tile-action", [
+                                            _vm._v(
+                                              "\n                                        " +
+                                                _vm._s(
+                                                  _vm.share
+                                                    .total_bonus_issue_share
                                                 ) +
                                                 "\n                                    "
                                             )
@@ -53796,11 +53896,17 @@ var numberFormats = {
     'en': {
         currency: {
             style: 'currency', currency: 'USD', currencyDisplay: 'symbol', minimumFractionDigits: 2
+        },
+        percent: {
+            style: 'percent', minimumFractionDigits: 2
         }
     },
     'tr': {
         currency: {
             style: 'currency', currency: 'TRY', currencyDisplay: 'symbol', minimumFractionDigits: 2
+        },
+        percent: {
+            style: 'percent', minimumFractionDigits: 2
         }
     }
 };
@@ -53843,9 +53949,6 @@ var getLocale = function getLocale() {
 
     if (__WEBPACK_IMPORTED_MODULE_2__services_ls_js__["a" /* ls */].get('locale')) {
         locale = __WEBPACK_IMPORTED_MODULE_2__services_ls_js__["a" /* ls */].get('locale');
-    }
-    if (__WEBPACK_IMPORTED_MODULE_3__stores_userStore__["a" /* userStore */].isAuthenticated()) {
-        locale = __WEBPACK_IMPORTED_MODULE_3__stores_userStore__["a" /* userStore */].state.user.locale;
     }
 
     if (!locale) {
@@ -55419,9 +55522,11 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Enter Share Price': 'Enter Share Price',
     'Enter Commission Rate': 'Enter Commission Rate',
     'Enter Dividend Gain Price': 'Enter Dividend Gain Price',
+    'Enter Percentage of Bonus Issue': 'Enter Percentage of Bonus Issue',
     'Buying': 'Buying',
     'Sale': 'Sale',
     'Dividend': 'Dividend',
+    'Bonus Issue': 'Bonus Issue',
     'Symbol': 'Symbol',
     'Last Price': 'Last Price',
     'Change': 'Change',
@@ -55455,8 +55560,9 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Price is required': 'Price is required',
     'Commission is required': 'Commission is required',
     'Dividend Gain Price is required': 'Dividend Net Price is required',
+    'Percentage of Bonus Issue is required': 'Percentage of Bonus Issue is required',
 
-    'transactions': 'Buying | Sale | Dividend'
+    transactions: ['Buying', 'Sale', 'Dividend', 'Bonus Issue']
 });
 
 /***/ }),
@@ -55498,9 +55604,11 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Enter Share Price': 'Hisse Fiyatını Giriniz',
     'Enter Commission Rate': 'Komisyon Oranını Giriniz',
     'Enter Dividend Gain Price': 'Temettü Net Getiri Fiyatını Giriniz',
+    'Enter Percentage of Bonus Issue': 'Bedelsiz Oranını Giriniz',
     'Buying': 'Alım',
     'Sale': 'Satım',
     'Dividend': 'Temettü',
+    'Bonus Issue': 'Bedelsiz',
     'Symbol': 'Hisse',
     'Last Price': 'Son Fiyat',
     'Change': 'Değişim',
@@ -55534,8 +55642,9 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Price is required': 'Fiyat alanı girin',
     'Commission is required': 'Komisyon alanı girin',
     'Dividend Gain Price is required': 'Temettü Net Fiyatını girin',
+    'Percentage of Bonus Issue is required': 'Bedelsiz Oranını girin',
 
-    'transactions': 'Alım | Satım | Temettü'
+    transactions: ['Alım', 'Satım', 'Temettü', 'Bedelsiz']
 });
 
 /***/ }),

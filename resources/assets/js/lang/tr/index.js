@@ -32,9 +32,11 @@ export default {
     'Enter Share Price' : 'Hisse Fiyatını Giriniz',
     'Enter Commission Rate' : 'Komisyon Oranını Giriniz',
     'Enter Dividend Gain Price' : 'Temettü Net Getiri Fiyatını Giriniz',
+    'Enter Percentage of Bonus Issue' : 'Bedelsiz Oranını Giriniz',
     'Buying' : 'Alım',
     'Sale' : 'Satım',
     'Dividend' : 'Temettü',
+    'Bonus Issue' : 'Bedelsiz',
     'Symbol' : 'Hisse',
     'Last Price' : 'Son Fiyat',
     'Change' : 'Değişim',
@@ -68,6 +70,9 @@ export default {
     'Price is required' : 'Fiyat alanı girin',
     'Commission is required' : 'Komisyon alanı girin',
     'Dividend Gain Price is required' : 'Temettü Net Fiyatını girin',
+    'Percentage of Bonus Issue is required' : 'Bedelsiz Oranını girin',
 
-    'transactions' : 'Alım | Satım | Temettü',
+    transactions: [
+        'Alım', 'Satım', 'Temettü', 'Bedelsiz',
+    ],
 }

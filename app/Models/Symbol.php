@@ -66,11 +66,4 @@ class Symbol extends BaseModel
         'updated' => SymbolUpdated::class,
     ];
 
-    /**
-     * Get the rate_of_change attribute with divided 100.
-     */
-    public function getRateOfChangeAttribute()
-    {
-        return (float) ($this->attributes['rate_of_change'] / 100);
-    }
 }

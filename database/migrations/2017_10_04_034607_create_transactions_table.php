@@ -30,6 +30,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('sale_gain')->nullable()->default(0);
             $table->integer('dividend')->nullable()->default(0);
             $table->integer('dividend_gain')->nullable()->default(0);
+            $table->float('bonus_issue', 5, 4)->nullable()->default(0);
             $table->timestamps();
             
             $table->foreign('user_id')

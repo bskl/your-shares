@@ -118,6 +118,23 @@ class TransactionEventSubscriber
     }
 
     /**
+     * Handle user's share for giving bonus issue.
+     */
+    public function onShareBonusIssue($event)
+    {
+        $transaction = $event->transaction;
+        $share = $transaction->share;
+
+        $bonusIssue = ($share->lot * $transaction->bonus_issue) / 100;
+        $share->lot += $bonusIssue;
+        $share->calculateAmount($share->symbol->last_price);
+        $share->calculateGain();
+        $share->average = $share->average_amount->divide($share->lot);
+        $share->total_bonus_issue += $bonusIssue;
+        $share->save();
+    }
+
+    /**
      * Register the listeners for the subscriber.
      *
      * @param  Dispatcher  $events
@@ -136,6 +153,11 @@ class TransactionEventSubscriber
         $events->listen(
             'App\Events\DividendTransactionCreated',
             'App\Listeners\TransactionEventSubscriber@onShareDividendPaid'
+        );
+
+        $events->listen(
+            'App\Events\BonusIssueTransactionCreated',
+            'App\Listeners\TransactionEventSubscriber@onShareBonusIssue'
         );
     }
 

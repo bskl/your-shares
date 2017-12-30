@@ -77,18 +77,18 @@
                                     { text: $t('Gain'), value: 'gain', sortable: false },
                                 ]"
                                 item-key="id"
-                                
                                 :no-data-text="$t('You have not any transaction.')"
                             >
                                 <template slot="items" slot-scope="props">
                                     <td>{{ $d(new Date(props.item.date_at), 'short') }}</td>
-                                    <td class="text-xs-right">{{ $tc('transactions', props.item.type) }}</td>
+                                    <td class="text-xs-right">{{ $t('transactions[' + props.item.type + ']') }}</td>
                                     <td class="text-xs-right">{{ props.item.lot }}</td>
                                     <td class="text-xs-right">{{ $n(props.item.price, 'currency') }}</td>
                                     <td class="text-xs-right">{{ $n(props.item.amount, 'currency') }}</td>
                                     <td class="text-xs-right">{{ $n(props.item.commission_price, 'currency') }}</td>
                                     <td class="text-xs-right" :class="{ 'red--text darken-1': props.item.sale_gain < 0, 'green--text darken-1': props.item.sale_gain > 0 }" v-if="props.item.type == 0 || props.item.type == 1">{{ $n(props.item.sale_gain, 'currency') }}</td>
                                     <td class="text-xs-right green--text darken-1" v-if="props.item.type == 2">{{ $n(props.item.dividend_gain, 'currency') }}</td>
+                                    <td class="text-xs-right green--text darken-1" v-if="props.item.type == 3">{{ $n(props.item.bonus_issue, 'percent') }}</td>
                                 </template>
                             </v-data-table>
                         </v-card-text>
@@ -124,6 +124,15 @@
                                     <v-divider></v-divider>
                                     <v-list-tile dense>
                                         <v-list-tile-content>
+                                            <v-list-tile-title>Toplam Bedelsiz Kazancı</v-list-tile-title>
+                                        </v-list-tile-content>
+                                        <v-list-tile-action>
+                                            {{ share.total_bonus_issue_share }}
+                                        </v-list-tile-action>
+                                    </v-list-tile>
+                                    <v-divider></v-divider>
+                                    <v-list-tile dense>
+                                        <v-list-tile-content>
                                             <v-list-tile-title>Toplam Kazanç</v-list-tile-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action :class="{ 'red--text darken-1': calculateGain() < 0, 'green--text darken-1': calculateGain() > 0 }">
@@ -140,4 +149,3 @@
         </v-flex>
     </v-layout>
 </template>
-
