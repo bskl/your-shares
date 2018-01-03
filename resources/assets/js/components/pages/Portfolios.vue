@@ -127,15 +127,20 @@
             <v-layout row wrap>
                 <v-flex xs12 v-for="portfolio in state.portfolios" :key="portfolio.id">
                     <v-card>
-                        <v-card-title>
-                            <div class="subheading">{{ portfolio.name }}</div>
-                            <v-spacer></v-spacer>
-                            <v-btn icon small @click="showEditPortfolioModal(portfolio)">
-                                <v-icon color="blue darken-2">edit</v-icon>
-                            </v-btn>
-                            <v-btn icon small @click="showAddShareModal(portfolio.id)">
-                                <v-icon color="green darken-2">add</v-icon>
-                            </v-btn>
+                        <v-card-title class="pt-0 pb-0">
+                            <v-toolbar color="white" flat>
+                                <v-btn icon light disabled>
+                                    <v-icon color="grey darken-2">home</v-icon>
+                                </v-btn>
+                                <v-toolbar-title class="grey--text text--darken-4">{{ portfolio.name }}</v-toolbar-title>
+                                <v-spacer></v-spacer>
+                                <v-btn icon small @click="showEditPortfolioModal(portfolio)">
+                                    <v-icon color="blue darken-2">edit</v-icon>
+                                </v-btn>
+                                <v-btn icon small @click="showAddShareModal(portfolio.id)">
+                                    <v-icon color="green darken-2">add</v-icon>
+                                </v-btn>
+                            </v-toolbar>
                         </v-card-title>
                         <v-divider></v-divider>
                         <v-card-text>
