@@ -51329,48 +51329,73 @@ var render = function() {
                     [
                       _c(
                         "v-card-title",
+                        { staticClass: "pt-0 pb-0" },
                         [
-                          _c("div", { staticClass: "subheading" }, [
-                            _vm._v(_vm._s(portfolio.name))
-                          ]),
-                          _vm._v(" "),
-                          _c("v-spacer"),
-                          _vm._v(" "),
                           _c(
-                            "v-btn",
-                            {
-                              attrs: { icon: "", small: "" },
-                              on: {
-                                click: function($event) {
-                                  _vm.showEditPortfolioModal(portfolio)
-                                }
-                              }
-                            },
+                            "v-toolbar",
+                            { attrs: { color: "white", flat: "" } },
                             [
                               _c(
-                                "v-icon",
-                                { attrs: { color: "blue darken-2" } },
-                                [_vm._v("edit")]
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-btn",
-                            {
-                              attrs: { icon: "", small: "" },
-                              on: {
-                                click: function($event) {
-                                  _vm.showAddShareModal(portfolio.id)
-                                }
-                              }
-                            },
-                            [
+                                "v-btn",
+                                {
+                                  attrs: { icon: "", light: "", disabled: "" }
+                                },
+                                [
+                                  _c(
+                                    "v-icon",
+                                    { attrs: { color: "grey darken-2" } },
+                                    [_vm._v("home")]
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
                               _c(
-                                "v-icon",
-                                { attrs: { color: "green darken-2" } },
-                                [_vm._v("add")]
+                                "v-toolbar-title",
+                                { staticClass: "grey--text text--darken-4" },
+                                [_vm._v(_vm._s(portfolio.name))]
+                              ),
+                              _vm._v(" "),
+                              _c("v-spacer"),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { icon: "", small: "" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.showEditPortfolioModal(portfolio)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "v-icon",
+                                    { attrs: { color: "blue darken-2" } },
+                                    [_vm._v("edit")]
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { icon: "", small: "" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.showAddShareModal(portfolio.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "v-icon",
+                                    { attrs: { color: "green darken-2" } },
+                                    [_vm._v("add")]
+                                  )
+                                ],
+                                1
                               )
                             ],
                             1
@@ -52545,11 +52570,139 @@ var render = function() {
                       _c(
                         "v-card",
                         [
-                          _c("v-card-title", [
-                            _c("div", { staticClass: "subheading" }, [
-                              _vm._v(_vm._s(_vm.share.symbol.code))
-                            ])
-                          ]),
+                          _c(
+                            "v-card-title",
+                            { staticClass: "pt-0 pb-0" },
+                            [
+                              _c(
+                                "v-toolbar",
+                                { attrs: { color: "white", flat: "" } },
+                                [
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        icon: "",
+                                        light: "",
+                                        to: "/",
+                                        exact: ""
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "v-icon",
+                                        { attrs: { color: "grey darken-2" } },
+                                        [_vm._v("arrow_back")]
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-toolbar-title",
+                                    {
+                                      staticClass: "grey--text text--darken-4"
+                                    },
+                                    [_vm._v(_vm._s(_vm.share.symbol.code))]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-icon",
+                                    {
+                                      attrs: { slot: "divider" },
+                                      slot: "divider"
+                                    },
+                                    [_vm._v("chevron_right")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-subheader",
+                                    {
+                                      class: {
+                                        "red--text darken-1":
+                                          _vm.share.symbol.trend == -1,
+                                        "green--text darken-1":
+                                          _vm.share.symbol.trend == 1
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "i",
+                                        {
+                                          directives: [
+                                            {
+                                              name: "show",
+                                              rawName: "v-show",
+                                              value:
+                                                _vm.share.symbol.trend == 1,
+                                              expression:
+                                                "share.symbol.trend == 1"
+                                            }
+                                          ],
+                                          staticClass: "material-icons"
+                                        },
+                                        [_vm._v("arrow_drop_up")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "i",
+                                        {
+                                          directives: [
+                                            {
+                                              name: "show",
+                                              rawName: "v-show",
+                                              value:
+                                                _vm.share.symbol.trend == -1,
+                                              expression:
+                                                "share.symbol.trend == -1"
+                                            }
+                                          ],
+                                          staticClass: "material-icons"
+                                        },
+                                        [_vm._v("arrow_drop_down")]
+                                      ),
+                                      _vm._v(
+                                        "\n                                " +
+                                          _vm._s(
+                                            _vm.$n(
+                                              _vm.share.symbol.last_price,
+                                              "currency"
+                                            )
+                                          ) +
+                                          "\n                            "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-subheader",
+                                    {
+                                      class: {
+                                        "red--text darken-1":
+                                          _vm.share.symbol.trend == -1,
+                                        "green--text darken-1":
+                                          _vm.share.symbol.trend == 1
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                " +
+                                          _vm._s(
+                                            _vm.$n(
+                                              _vm.share.symbol.rate_of_change,
+                                              "percent"
+                                            )
+                                          ) +
+                                          "\n                            "
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
                           _vm._v(" "),
                           _c("v-divider"),
                           _vm._v(" "),
@@ -52779,146 +52932,289 @@ var render = function() {
                                     [
                                       _c(
                                         "v-list-tile",
-                                        { attrs: { dense: "" } },
-                                        [
-                                          _c(
-                                            "v-list-tile-content",
-                                            [
-                                              _c("v-list-tile-title", [
-                                                _vm._v("Toplam Maliyet")
-                                              ])
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c("v-list-tile-action", [
-                                            _vm._v(
-                                              "\n                                        " +
-                                                _vm._s(
-                                                  _vm.$n(
-                                                    _vm.share.total_amount,
-                                                    "currency"
-                                                  )
-                                                ) +
-                                                "\n                                    "
-                                            )
-                                          ])
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c("v-divider"),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-list-tile",
-                                        { attrs: { dense: "" } },
                                         [
                                           _c(
                                             "v-list-tile-content",
                                             [
                                               _c("v-list-tile-title", [
                                                 _vm._v(
-                                                  "Toplam Komisyon Maliyeti"
+                                                  _vm._s(_vm.$t("Total Amount"))
                                                 )
-                                              ])
+                                              ]),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-list-tile-sub-title",
+                                                { staticClass: "caption" },
+                                                [
+                                                  _vm._v(
+                                                    "İlgili hissenin ilk alım işleminden itibaren ödenen işlem tutarlarının toplamı"
+                                                  )
+                                                ]
+                                              )
                                             ],
                                             1
                                           ),
                                           _vm._v(" "),
-                                          _c("v-list-tile-action", [
-                                            _vm._v(
-                                              "\n                                        " +
-                                                _vm._s(
-                                                  _vm.$n(
-                                                    _vm.share
-                                                      .total_commission_amount,
-                                                    "currency"
-                                                  )
-                                                ) +
-                                                "\n                                    "
-                                            )
-                                          ])
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c("v-divider"),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-list-tile",
-                                        { attrs: { dense: "" } },
-                                        [
                                           _c(
-                                            "v-list-tile-content",
+                                            "v-list-tile-action",
+                                            {
+                                              staticClass: "red--text darken-1"
+                                            },
                                             [
-                                              _c("v-list-tile-title", [
-                                                _vm._v("Toplam Temettü Kazancı")
-                                              ])
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c("v-list-tile-action", [
-                                            _vm._v(
-                                              "\n                                        " +
-                                                _vm._s(
-                                                  _vm.$n(
-                                                    _vm.share
-                                                      .total_dividend_gain,
-                                                    "currency"
-                                                  )
-                                                ) +
-                                                "\n                                    "
-                                            )
-                                          ])
+                                              _vm._v(
+                                                "\n                                        " +
+                                                  _vm._s(
+                                                    _vm.$n(
+                                                      _vm.share.total_amount,
+                                                      "currency"
+                                                    )
+                                                  ) +
+                                                  "\n                                    "
+                                              )
+                                            ]
+                                          )
                                         ],
                                         1
                                       ),
                                       _vm._v(" "),
-                                      _c("v-divider"),
+                                      _c("v-divider", { staticClass: "mt-1" }),
                                       _vm._v(" "),
                                       _c(
                                         "v-list-tile",
-                                        { attrs: { dense: "" } },
                                         [
                                           _c(
                                             "v-list-tile-content",
                                             [
                                               _c("v-list-tile-title", [
                                                 _vm._v(
-                                                  "Toplam Bedelsiz Kazancı"
+                                                  _vm._s(
+                                                    _vm.$t(
+                                                      "Total Comission Amount"
+                                                    )
+                                                  )
                                                 )
-                                              ])
+                                              ]),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-list-tile-sub-title",
+                                                { staticClass: "caption" },
+                                                [
+                                                  _vm._v(
+                                                    "Tüm alım/satım işlemlerinde ödenen komisyon tutarlarının toplamı"
+                                                  )
+                                                ]
+                                              )
                                             ],
                                             1
                                           ),
                                           _vm._v(" "),
-                                          _c("v-list-tile-action", [
-                                            _vm._v(
-                                              "\n                                        " +
-                                                _vm._s(
-                                                  _vm.share
-                                                    .total_bonus_issue_share
-                                                ) +
-                                                "\n                                    "
-                                            )
-                                          ])
+                                          _c(
+                                            "v-list-tile-action",
+                                            {
+                                              staticClass: "red--text darken-1"
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                                        " +
+                                                  _vm._s(
+                                                    _vm.$n(
+                                                      _vm.share
+                                                        .total_commission_amount,
+                                                      "currency"
+                                                    )
+                                                  ) +
+                                                  "\n                                    "
+                                              )
+                                            ]
+                                          )
                                         ],
                                         1
                                       ),
                                       _vm._v(" "),
-                                      _c("v-divider"),
+                                      _c("v-divider", { staticClass: "mt-1" }),
                                       _vm._v(" "),
                                       _c(
                                         "v-list-tile",
-                                        { attrs: { dense: "" } },
                                         [
                                           _c(
                                             "v-list-tile-content",
                                             [
                                               _c("v-list-tile-title", [
-                                                _vm._v("Toplam Kazanç")
-                                              ])
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.$t(
+                                                      "Total Dividend Gain"
+                                                    )
+                                                  )
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-list-tile-sub-title",
+                                                { staticClass: "caption" },
+                                                [
+                                                  _vm._v(
+                                                    "Kazanılan tüm temettü tutarlarının toplamı"
+                                                  )
+                                                ]
+                                              )
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-list-tile-action",
+                                            {
+                                              staticClass:
+                                                "green--text darken-1"
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                                        " +
+                                                  _vm._s(
+                                                    _vm.$n(
+                                                      _vm.share
+                                                        .total_dividend_gain,
+                                                      "currency"
+                                                    )
+                                                  ) +
+                                                  "\n                                    "
+                                              )
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-divider", { staticClass: "mt-1" }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-tile",
+                                        [
+                                          _c(
+                                            "v-list-tile-content",
+                                            [
+                                              _c("v-list-tile-title", [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.$t(
+                                                      "Total Bonus Issue Share Gain"
+                                                    )
+                                                  )
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-list-tile-sub-title",
+                                                { staticClass: "caption" },
+                                                [
+                                                  _vm._v(
+                                                    "Kazanılan tüm bedelsiz hisse miktarlarının toplamı"
+                                                  )
+                                                ]
+                                              )
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-list-tile-action",
+                                            {
+                                              staticClass:
+                                                "green--text darken-1"
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                                        " +
+                                                  _vm._s(
+                                                    _vm.share
+                                                      .total_bonus_issue_share
+                                                  ) +
+                                                  "\n                                    "
+                                              )
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-divider", { staticClass: "mt-1" }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-tile",
+                                        [
+                                          _c(
+                                            "v-list-tile-content",
+                                            [
+                                              _c("v-list-tile-title", [
+                                                _vm._v(
+                                                  _vm._s(_vm.$t("Total Gain"))
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-list-tile-sub-title",
+                                                { staticClass: "caption" },
+                                                [
+                                                  _vm._v(
+                                                    "(satış karı+temettü kazancı)-(toplam tutar+komisyon tutarı) ile hesaplanan tutar"
+                                                  )
+                                                ]
+                                              )
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-list-tile-action",
+                                            {
+                                              class: {
+                                                "red--text darken-1":
+                                                  _vm.share.total_gain < 0,
+                                                "green--text darken-1":
+                                                  _vm.share.total_gain > 0
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                                        " +
+                                                  _vm._s(
+                                                    _vm.$n(
+                                                      _vm.share.total_gain,
+                                                      "currency"
+                                                    )
+                                                  ) +
+                                                  "\n                                    "
+                                              )
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-divider", { staticClass: "mt-1" }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-tile",
+                                        [
+                                          _c(
+                                            "v-list-tile-content",
+                                            [
+                                              _c("v-list-tile-title", [
+                                                _vm._v(
+                                                  _vm._s(_vm.$t("Total Gain"))
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-list-tile-sub-title",
+                                                { staticClass: "caption" },
+                                                [
+                                                  _vm._v(
+                                                    "Anlık hiise fiyatı ile kazanılacak kazanç ile hesaplanan tutar"
+                                                  )
+                                                ]
+                                              )
                                             ],
                                             1
                                           ),
@@ -52948,9 +53244,7 @@ var render = function() {
                                           )
                                         ],
                                         1
-                                      ),
-                                      _vm._v(" "),
-                                      _c("v-divider")
+                                      )
                                     ],
                                     1
                                   )
@@ -55561,6 +55855,11 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Commission is required': 'Commission is required',
     'Dividend Gain Price is required': 'Dividend Net Price is required',
     'Percentage of Bonus Issue is required': 'Percentage of Bonus Issue is required',
+    'Total Amount': 'Total Amount',
+    'Total Comission Amount': 'Total Comission Amount',
+    'Total Dividend Gain': 'Total Dividend Gain',
+    'Total Bonus Issue Share Gain': 'Total Bonus Issue Share Gain',
+    'Total Gain': 'Total Gain',
 
     transactions: ['Buying', 'Sale', 'Dividend', 'Bonus Issue']
 });
@@ -55643,6 +55942,11 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Commission is required': 'Komisyon alanı girin',
     'Dividend Gain Price is required': 'Temettü Net Fiyatını girin',
     'Percentage of Bonus Issue is required': 'Bedelsiz Oranını girin',
+    'Total Amount': 'Toplam Tutar',
+    'Total Comission Amount': 'Toplam Komisyon Tutarı',
+    'Total Dividend Gain': 'Toplam Temettü Kazancı',
+    'Total Bonus Issue Share Gain': 'Toplam Bedelsiz Hisse Kazancı',
+    'Total Gain': 'Toplam Kazanç',
 
     transactions: ['Alım', 'Satım', 'Temettü', 'Bedelsiz']
 });

@@ -60,8 +60,22 @@
             <v-layout row wrap>
                 <v-flex xs12>
                     <v-card>
-                        <v-card-title>
-                            <div class="subheading">{{ share.symbol.code }}</div>
+                        <v-card-title class="pt-0 pb-0">
+                            <v-toolbar color="white" flat>
+                                <v-btn icon light to="/" exact>
+                                    <v-icon color="grey darken-2">arrow_back</v-icon>
+                                </v-btn>
+                                <v-toolbar-title class="grey--text text--darken-4">{{ share.symbol.code }}</v-toolbar-title>
+                                <v-icon slot="divider">chevron_right</v-icon>
+                                <v-subheader :class="{ 'red--text darken-1': share.symbol.trend == -1, 'green--text darken-1': share.symbol.trend == 1 }">
+                                    <i class="material-icons" v-show="share.symbol.trend == 1">arrow_drop_up</i>
+                                    <i class="material-icons" v-show="share.symbol.trend == -1">arrow_drop_down</i>
+                                    {{ $n(share.symbol.last_price, 'currency') }}
+                                </v-subheader>
+                                <v-subheader :class="{ 'red--text darken-1': share.symbol.trend == -1, 'green--text darken-1': share.symbol.trend == 1 }">
+                                    {{ $n(share.symbol.rate_of_change, 'percent') }}
+                                </v-subheader>
+                            </v-toolbar>
                         </v-card-title>
                         <v-divider></v-divider>
                         <v-card-text>
@@ -95,51 +109,65 @@
                         <v-card-actions>
                             <v-flex xs5 offset-xs0 offset-md4 offset-lg7>
                                 <v-list dense>
-                                    <v-list-tile dense>
+                                    <v-list-tile>
                                         <v-list-tile-content>
-                                            <v-list-tile-title>Toplam Maliyet</v-list-tile-title>
+                                            <v-list-tile-title>{{ $t('Total Amount') }}</v-list-tile-title>
+                                            <v-list-tile-sub-title class="caption">İlgili hissenin ilk alım işleminden itibaren ödenen işlem tutarlarının toplamı</v-list-tile-sub-title>
                                         </v-list-tile-content>
-                                        <v-list-tile-action>
+                                        <v-list-tile-action class="red--text darken-1">
                                             {{ $n(share.total_amount, 'currency') }}
                                         </v-list-tile-action>
                                     </v-list-tile>
-                                    <v-divider></v-divider>
-                                    <v-list-tile dense>
+                                    <v-divider class="mt-1"></v-divider>
+                                    <v-list-tile>
                                         <v-list-tile-content>
-                                            <v-list-tile-title>Toplam Komisyon Maliyeti</v-list-tile-title>
+                                            <v-list-tile-title>{{ $t('Total Comission Amount') }}</v-list-tile-title>
+                                            <v-list-tile-sub-title class="caption">Tüm alım/satım işlemlerinde ödenen komisyon tutarlarının toplamı</v-list-tile-sub-title>
                                         </v-list-tile-content>
-                                        <v-list-tile-action>
+                                        <v-list-tile-action class="red--text darken-1">
                                             {{ $n(share.total_commission_amount, 'currency') }}
                                         </v-list-tile-action>
                                     </v-list-tile>
-                                    <v-divider></v-divider>
-                                    <v-list-tile dense>
+                                    <v-divider class="mt-1"></v-divider>
+                                    <v-list-tile>
                                         <v-list-tile-content>
-                                            <v-list-tile-title>Toplam Temettü Kazancı</v-list-tile-title>
+                                            <v-list-tile-title>{{ $t('Total Dividend Gain') }}</v-list-tile-title>
+                                            <v-list-tile-sub-title class="caption">Kazanılan tüm temettü tutarlarının toplamı</v-list-tile-sub-title>
                                         </v-list-tile-content>
-                                        <v-list-tile-action>
+                                        <v-list-tile-action class="green--text darken-1">
                                             {{ $n(share.total_dividend_gain, 'currency') }}
                                         </v-list-tile-action>
                                     </v-list-tile>
-                                    <v-divider></v-divider>
-                                    <v-list-tile dense>
+                                    <v-divider class="mt-1"></v-divider>
+                                    <v-list-tile>
                                         <v-list-tile-content>
-                                            <v-list-tile-title>Toplam Bedelsiz Kazancı</v-list-tile-title>
+                                            <v-list-tile-title>{{ $t('Total Bonus Issue Share Gain') }}</v-list-tile-title>
+                                            <v-list-tile-sub-title class="caption">Kazanılan tüm bedelsiz hisse miktarlarının toplamı</v-list-tile-sub-title>
                                         </v-list-tile-content>
-                                        <v-list-tile-action>
+                                        <v-list-tile-action class="green--text darken-1">
                                             {{ share.total_bonus_issue_share }}
                                         </v-list-tile-action>
                                     </v-list-tile>
-                                    <v-divider></v-divider>
-                                    <v-list-tile dense>
+                                    <v-divider class="mt-1"></v-divider>
+                                    <v-list-tile>
                                         <v-list-tile-content>
-                                            <v-list-tile-title>Toplam Kazanç</v-list-tile-title>
+                                            <v-list-tile-title>{{ $t('Total Gain') }}</v-list-tile-title>
+                                            <v-list-tile-sub-title class="caption">(satış karı+temettü kazancı)-(toplam tutar+komisyon tutarı) ile hesaplanan tutar</v-list-tile-sub-title>
+                                        </v-list-tile-content>
+                                        <v-list-tile-action :class="{ 'red--text darken-1': share.total_gain < 0, 'green--text darken-1': share.total_gain > 0 }">
+                                            {{ $n(share.total_gain, 'currency') }}
+                                        </v-list-tile-action>
+                                    </v-list-tile>
+                                    <v-divider class="mt-1"></v-divider>
+                                    <v-list-tile>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>{{ $t('Instant Total Gain') }}</v-list-tile-title>
+                                            <v-list-tile-sub-title class="caption">Anlık hiise fiyatı ile kazanılacak kazanç ile hesaplanan tutar</v-list-tile-sub-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action :class="{ 'red--text darken-1': calculateGain() < 0, 'green--text darken-1': calculateGain() > 0 }">
                                             {{ $n(calculateGain(), 'currency') }}
                                         </v-list-tile-action>
                                     </v-list-tile>
-                                    <v-divider></v-divider>
                                 </v-list>
                             </v-flex>
                         </v-card-actions>

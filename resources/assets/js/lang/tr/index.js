@@ -71,6 +71,12 @@ export default {
     'Commission is required' : 'Komisyon alanı girin',
     'Dividend Gain Price is required' : 'Temettü Net Fiyatını girin',
     'Percentage of Bonus Issue is required' : 'Bedelsiz Oranını girin',
+    'Total Amount' : 'Toplam Tutar',
+    'Total Comission Amount' : 'Toplam Komisyon Tutarı',
+    'Total Dividend Gain' : 'Toplam Temettü Kazancı',
+    'Total Bonus Issue Share Gain' : 'Toplam Bedelsiz Hisse Kazancı',
+    'Total Gain' : 'Toplam Kazanç',
+    'Instant Total Gain' : 'Anlık Toplam Kazanç',
 
     transactions: [
         'Alım', 'Satım', 'Temettü', 'Bedelsiz',
