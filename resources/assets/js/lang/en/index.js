@@ -71,6 +71,12 @@ export default {
     'Commission is required' : 'Commission is required',
     'Dividend Gain Price is required' : 'Dividend Net Price is required',
     'Percentage of Bonus Issue is required' : 'Percentage of Bonus Issue is required',
+    'Total Amount' : 'Total Amount',
+    'Total Comission Amount' : 'Total Comission Amount',
+    'Total Dividend Gain' : 'Total Dividend Gain',
+    'Total Bonus Issue Share Gain' :'Total Bonus Issue Share Gain',
+    'Total Gain' : 'Total Gain',
+    'Instant Total Gain' : 'Instant Total Gain',
 
     transactions: [
         'Buying', 'Sale', 'Dividend', 'Bonus Issue',
