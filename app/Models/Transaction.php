@@ -123,9 +123,11 @@ class Transaction extends BaseModel
     /**
      * Set the bonus_issue attribute with divided 100.
      */
-    public function setBonusIssueAttribute()
+    public function setBonusIssueAttribute($value)
     {
-        return (float) ($this->attributes['bonus_issue'] / 100);
+        if ($value) {
+            return (float) $this->attributes['bonus_issue'] = ($value / 100);
+        }
     }
 
 }
