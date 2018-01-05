@@ -3,6 +3,8 @@
 namespace App\Listeners;
 
 use App\Models\Share;
+use App\Enums\TransactionTypes;
+use Money\Money;
 
 class TransactionEventSubscriber
 {    
@@ -68,7 +70,8 @@ class TransactionEventSubscriber
                 $share->average = $share->average_amount->divide($share->lot);
                 $share->calculateAmount($share->symbol->last_price);
                 $share->calculateGain();
-                $share->total_gain = $share->total_gain->add($soldAmount->subtract($buyingAmount));
+                $transactionGain = $soldAmount->subtract($buyingAmount);
+                $share->total_gain = $share->total_gain->add($transactionGain);
                 $share->save();
                 
                 $transaction->lot -= $soldLot;
@@ -87,6 +90,9 @@ class TransactionEventSubscriber
                     $share->average_amount = $share->average = $share->amount = $share->gain = '0';
                 } else {
                     $buyingAmount = $item->price->multiply($transaction->lot);
+                    if ($item->type == TransactionTypes::BONUSISSUE) {
+                        $buyingAmount = Money::TRY(0);
+                    }
                     $soldAmount = $transaction->price->multiply($soldLot);
                     $share->average_amount = $share->average_amount->subtract($buyingAmount);
                     $share->average = $share->average_amount->divide($share->lot);
@@ -125,12 +131,15 @@ class TransactionEventSubscriber
         $transaction = $event->transaction;
         $share = $transaction->share;
 
-        $bonusIssue = ($share->lot * $transaction->bonus_issue) / 100;
-        $share->lot += $bonusIssue;
+        $transaction->lot = $share->lot * $transaction->bonus_issue;
+        $transaction->remaining = $transaction->lot;
+        $transaction->save();
+
+        $share->lot += $transaction->lot;
         $share->calculateAmount($share->symbol->last_price);
         $share->calculateGain();
         $share->average = $share->average_amount->divide($share->lot);
-        $share->total_bonus_issue += $bonusIssue;
+        $share->total_bonus_issue_share += $transaction->lot;
         $share->save();
     }
 

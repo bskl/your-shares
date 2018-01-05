@@ -79,6 +79,6 @@ export default {
     'Instant Total Gain' : 'Anlık Toplam Kazanç',
 
     transactions: [
-        'Alım', 'Satım', 'Temettü', 'Bedelsiz',
+        'Alım', 'Satım', 'Temettü', 'Bedelsiz Dağıtım',
     ],
 }
