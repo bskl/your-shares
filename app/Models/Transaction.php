@@ -129,5 +129,4 @@ class Transaction extends BaseModel
             return (float) $this->attributes['bonus_issue'] = ($value / 100);
         }
     }
-
 }
