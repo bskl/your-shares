@@ -75,6 +75,9 @@
                                 <v-subheader :class="{ 'red--text darken-1': share.symbol.trend == -1, 'green--text darken-1': share.symbol.trend == 1 }">
                                     {{ $n(share.symbol.rate_of_change, 'percent') }}
                                 </v-subheader>
+                                <v-subheader>
+                                    {{ share.symbol.session_time }}
+                                </v-subheader>
                             </v-toolbar>
                         </v-card-title>
                         <v-divider></v-divider>
@@ -96,7 +99,7 @@
                                 <template slot="items" slot-scope="props">
                                     <td>{{ $d(new Date(props.item.date_at), 'short') }}</td>
                                     <td class="text-xs-right">{{ $t('transactions[' + props.item.type + ']') }}</td>
-                                    <td class="text-xs-right">{{ props.item.lot }}</td>
+                                    <td class="text-xs-right">{{ $n(props.item.lot, 'decimal') }}</td>
                                     <td class="text-xs-right">{{ $n(props.item.price, 'currency') }}</td>
                                     <td class="text-xs-right">{{ $n(props.item.amount, 'currency') }}</td>
                                     <td class="text-xs-right">{{ $n(props.item.commission_price, 'currency') }}</td>
@@ -145,7 +148,7 @@
                                             <v-list-tile-sub-title class="caption">Kazanılan tüm bedelsiz hisse miktarlarının toplamı</v-list-tile-sub-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action class="green--text darken-1">
-                                            {{ share.total_bonus_issue_share }}
+                                            {{ $n(share.total_bonus_issue_share, 'decimal') }}
                                         </v-list-tile-action>
                                     </v-list-tile>
                                     <v-divider class="mt-1"></v-divider>
