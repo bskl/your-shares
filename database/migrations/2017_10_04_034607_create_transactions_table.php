@@ -19,7 +19,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('share_id')->unsigned();
             $table->integer('type');
             $table->timestamp('date_at');
-            $table->integer('lot');
+            $table->decimal('lot', 11, 3);
             $table->integer('remaining')->nullable()->default(0);
             $table->integer('price');
             $table->integer('amount')->nullable()->default(0);

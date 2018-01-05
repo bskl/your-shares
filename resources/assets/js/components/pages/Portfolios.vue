@@ -167,17 +167,17 @@
                                         {{ $n(props.item.symbol.last_price, 'currency') }}</td>
                                     <td class="text-xs-right" :class="{ 'red--text darken-1': props.item.symbol.trend == -1, 'green--text darken-1': props.item.symbol.trend == 1 }">
                                         {{ $n(props.item.symbol.rate_of_change, 'percent') }}</td>
-                                    <td class="text-xs-right">{{ props.item.lot }}</td>
+                                    <td class="text-xs-right">{{ $n(props.item.lot, 'decimal') }}</td>
                                     <td class="text-xs-right">{{ $n(props.item.average, 'currency') }}</td>
                                     <td class="text-xs-right">{{ $n(props.item.amount, 'currency') }}</td>
                                     <td class="text-xs-right">{{ $n(props.item.average_amount, 'currency') }}</td>
                                     <td class="text-xs-right" :class="{ 'red--text darken-1': props.item.gain < 0, 'green--text darken-1': props.item.gain > 0 }">
                                         {{ $n(props.item.gain, 'currency') }}</td>
                                     <td class="text-xs-right">
-                                        <v-btn v-if="props.item.average == 0" icon small @click="deleteShare(props.item)">
+                                        <v-btn v-if="props.item.total_amount == 0" icon small @click="deleteShare(props.item)">
                                             <v-icon color="red darken-2">delete</v-icon>
                                         </v-btn>
-                                        <v-btn v-if="props.item.average != 0" icon small :to="'/share/' + props.item.id + '/transactions'">
+                                        <v-btn v-if="props.item.total_amount != 0" icon small :to="'/share/' + props.item.id + '/transactions'">
                                             <v-icon color="blue darken-2">line_weight</v-icon>
                                         </v-btn>
                                         <v-btn icon small @click="showAddTransactionModal(props.item.id)">

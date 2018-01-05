@@ -18,7 +18,7 @@ class CreateSharesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('portfolio_id')->unsigned();
             $table->integer('symbol_id')->unsigned();
-            $table->integer('lot')->default(0);
+            $table->decimal('lot', 11, 3)->default(0);
             $table->integer('average')->default(0);
             $table->integer('average_amount')->default(0);
             $table->integer('amount')->default(0);

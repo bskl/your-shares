@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Events\SymbolUpdated;
+use Carbon\Carbon;
 
 class Symbol extends BaseModel
 {
@@ -46,7 +47,7 @@ class Symbol extends BaseModel
      * @var array
      */
     protected $hidden = [
-        'session_time', 'created_at', 'updated_at',
+        'created_at', 'updated_at',
     ];
 
     /**
@@ -66,4 +67,11 @@ class Symbol extends BaseModel
         'updated' => SymbolUpdated::class,
     ];
 
+    /**
+     * Get the updated at attribute with convert to human readable timestamp.
+     */
+    public function getSessionTimeAttribute()
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->attributes['session_time'])->diffForHumans(Carbon::now());
+    }
 }

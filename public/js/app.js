@@ -51526,7 +51526,11 @@ var render = function() {
                                     ),
                                     _vm._v(" "),
                                     _c("td", { staticClass: "text-xs-right" }, [
-                                      _vm._v(_vm._s(props.item.lot))
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.$n(props.item.lot, "decimal")
+                                        )
+                                      )
                                     ]),
                                     _vm._v(" "),
                                     _c("td", { staticClass: "text-xs-right" }, [
@@ -51584,7 +51588,7 @@ var render = function() {
                                       "td",
                                       { staticClass: "text-xs-right" },
                                       [
-                                        props.item.average == 0
+                                        props.item.total_amount == 0
                                           ? _c(
                                               "v-btn",
                                               {
@@ -51610,7 +51614,7 @@ var render = function() {
                                             )
                                           : _vm._e(),
                                         _vm._v(" "),
-                                        props.item.average != 0
+                                        props.item.total_amount != 0
                                           ? _c(
                                               "v-btn",
                                               {
@@ -52696,7 +52700,15 @@ var render = function() {
                                           "\n                            "
                                       )
                                     ]
-                                  )
+                                  ),
+                                  _vm._v(" "),
+                                  _c("v-subheader", [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(_vm.share.symbol.session_time) +
+                                        "\n                            "
+                                    )
+                                  ])
                                 ],
                                 1
                               )
@@ -52790,7 +52802,16 @@ var render = function() {
                                         _c(
                                           "td",
                                           { staticClass: "text-xs-right" },
-                                          [_vm._v(_vm._s(props.item.lot))]
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.$n(
+                                                  props.item.lot,
+                                                  "decimal"
+                                                )
+                                              )
+                                            )
+                                          ]
                                         ),
                                         _vm._v(" "),
                                         _c(
@@ -53127,8 +53148,11 @@ var render = function() {
                                               _vm._v(
                                                 "\n                                        " +
                                                   _vm._s(
-                                                    _vm.share
-                                                      .total_bonus_issue_share
+                                                    _vm.$n(
+                                                      _vm.share
+                                                        .total_bonus_issue_share,
+                                                      "decimal"
+                                                    )
                                                   ) +
                                                   "\n                                    "
                                               )
@@ -53202,7 +53226,9 @@ var render = function() {
                                             [
                                               _c("v-list-tile-title", [
                                                 _vm._v(
-                                                  _vm._s(_vm.$t("Total Gain"))
+                                                  _vm._s(
+                                                    _vm.$t("Instant Total Gain")
+                                                  )
                                                 )
                                               ]),
                                               _vm._v(" "),
@@ -54193,6 +54219,9 @@ var numberFormats = {
         },
         percent: {
             style: 'percent', minimumFractionDigits: 2
+        },
+        decimal: {
+            style: 'decimal', minimumFractionDigits: 3, maximumFractionDigits: 3
         }
     },
     'tr': {
@@ -54201,6 +54230,9 @@ var numberFormats = {
         },
         percent: {
             style: 'percent', minimumFractionDigits: 2
+        },
+        decimal: {
+            style: 'decimal', minimumFractionDigits: 3, maximumFractionDigits: 3
         }
     }
 };
@@ -55860,6 +55892,7 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Total Dividend Gain': 'Total Dividend Gain',
     'Total Bonus Issue Share Gain': 'Total Bonus Issue Share Gain',
     'Total Gain': 'Total Gain',
+    'Instant Total Gain': 'Instant Total Gain',
 
     transactions: ['Buying', 'Sale', 'Dividend', 'Bonus Issue']
 });
@@ -55947,8 +55980,9 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Total Dividend Gain': 'Toplam Temettü Kazancı',
     'Total Bonus Issue Share Gain': 'Toplam Bedelsiz Hisse Kazancı',
     'Total Gain': 'Toplam Kazanç',
+    'Instant Total Gain': 'Anlık Toplam Kazanç',
 
-    transactions: ['Alım', 'Satım', 'Temettü', 'Bedelsiz']
+    transactions: ['Alım', 'Satım', 'Temettü', 'Bedelsiz Dağıtım']
 });
 
 /***/ }),

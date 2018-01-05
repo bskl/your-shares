@@ -20,7 +20,10 @@ const numberFormats = {
         },
         percent: {
             style: 'percent', minimumFractionDigits: 2,
-        }
+        },
+        decimal: {
+            style: 'decimal', minimumFractionDigits: 3, maximumFractionDigits: 3,
+        },
     },
     'tr': {
         currency: {
@@ -28,7 +31,10 @@ const numberFormats = {
         },
         percent: {
             style: 'percent', minimumFractionDigits: 2,
-        }
+        },
+        decimal: {
+            style: 'decimal', minimumFractionDigits: 3, maximumFractionDigits: 3,
+        },
     }
 }
 
