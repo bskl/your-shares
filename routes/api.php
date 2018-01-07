@@ -15,22 +15,6 @@ use Illuminate\Http\Request;
 
 Route::namespace('API')->group(function () {
 
-    Route::get('/transaction', function() {
-        $data['user_id'] = 1;
-        $data['commission'] = '0.0188';
-        $data['date'] = '2017-11-14';
-        $data['lot'] = 4;
-        $data['price'] = '42.53';
-        $data['share_id'] = 2;
-        $data['type'] = 2;
-        $transaction = App\Models\Transaction::create($data);
-        $transaction->refresh()->load('share');
-
-        $event = 'App\\Events\\' . App\Enums\TransactionTypes::getTypeName($transaction->type) . 'TransactionCreated';
-        event(new $event($transaction));
-
-    });
-
     Route::post('/register', 'Auth\RegisterController@store');
     Route::post('/login', 'Auth\LoginController@login');
     //Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail');
