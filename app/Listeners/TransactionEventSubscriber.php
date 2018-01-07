@@ -103,7 +103,7 @@ class TransactionEventSubscriber
                 $share->save();
 
                 $transaction->lot = 0;
-                exit;
+                return false;
             }
         });
     }
