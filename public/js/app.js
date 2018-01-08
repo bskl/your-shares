@@ -50835,7 +50835,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             menu: false,
             showCommission: true,
             showDividend: false,
-            showBonusIssue: false,
             form: new Form({
                 share_id: null,
                 type: null,
@@ -50843,8 +50842,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 lot: null,
                 price: null,
                 commission: null,
-                dividend_gain: null,
-                bonus_issue: null
+                dividend_gain: null
             }),
             transactions: [{ id: 0, label: this.$t("Buying") }, { id: 1, label: this.$t("Sale") }, { id: 2, label: this.$t("Dividend") }, { id: 3, label: this.$t("Bonus Issue") }],
             transactionRules: [function (v) {
@@ -50866,9 +50864,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }],
             dividendGainRules: [function (v) {
                 return !!v || _this.$t("Dividend Gain Price is required");
-            }],
-            bonusIssueRules: [function (v) {
-                return !!v || _this.$t("Percentage of Bonus Issue is required");
             }],
             saving: false
         };
@@ -50901,8 +50896,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 lot: null,
                 price: null,
                 commission: null,
-                dividend_gain: null,
-                bonus_issue: null
+                dividend_gain: null
             });
             this.showModal = true;
         },
@@ -50924,19 +50918,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (_this3.form.type == 0 || _this3.form.type == 1) {
                     _this3.showCommission = true;
                     _this3.showDividend = false;
-                    _this3.showBonusIssue = false;
                     _this3.form.dividend_gain = '0';
-                    _this3.form.bonus_issue = '0';
                 }
                 if (_this3.form.type == 2) {
                     _this3.showDividend = true;
                     _this3.showCommission = false;
-                    _this3.showBonusIssue = false;
                     _this3.form.commission = '0';
-                    _this3.form.bonus_issue = '0';
                 }
                 if (_this3.form.type == 3) {
-                    _this3.showBonusIssue = true;
                     _this3.showDividend = false;
                     _this3.showCommission = false;
                     _this3.form.commission = '0';
@@ -51141,6 +51130,7 @@ var render = function() {
                         name: "lot",
                         id: "lot",
                         type: "number",
+                        step: "1",
                         label: _vm.$t("Enter Share Amount"),
                         rules: _vm.lotRules,
                         required: ""
@@ -51224,33 +51214,6 @@ var render = function() {
                           _vm.$set(_vm.form, "dividend_gain", $$v)
                         },
                         expression: "form.dividend_gain"
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("v-text-field", {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.showBonusIssue,
-                          expression: "showBonusIssue"
-                        }
-                      ],
-                      attrs: {
-                        name: "bonus_issue",
-                        id: "bonus_issue",
-                        type: "number",
-                        step: "00.01",
-                        label: _vm.$t("Enter Percentage of Bonus Issue"),
-                        rules: _vm.bonusIssueRules,
-                        required: ""
-                      },
-                      model: {
-                        value: _vm.form.bonus_issue,
-                        callback: function($$v) {
-                          _vm.$set(_vm.form, "bonus_issue", $$v)
-                        },
-                        expression: "form.bonus_issue"
                       }
                     })
                   ]
@@ -55848,7 +55811,6 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Enter Share Price': 'Enter Share Price',
     'Enter Commission Rate': 'Enter Commission Rate',
     'Enter Dividend Gain Price': 'Enter Dividend Gain Price',
-    'Enter Percentage of Bonus Issue': 'Enter Percentage of Bonus Issue',
     'Buying': 'Buying',
     'Sale': 'Sale',
     'Dividend': 'Dividend',
@@ -55886,7 +55848,6 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Price is required': 'Price is required',
     'Commission is required': 'Commission is required',
     'Dividend Gain Price is required': 'Dividend Net Price is required',
-    'Percentage of Bonus Issue is required': 'Percentage of Bonus Issue is required',
     'Total Amount': 'Total Amount',
     'Total Comission Amount': 'Total Comission Amount',
     'Total Dividend Gain': 'Total Dividend Gain',
@@ -55936,7 +55897,6 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Enter Share Price': 'Hisse Fiyatını Giriniz',
     'Enter Commission Rate': 'Komisyon Oranını Giriniz',
     'Enter Dividend Gain Price': 'Temettü Net Getiri Fiyatını Giriniz',
-    'Enter Percentage of Bonus Issue': 'Bedelsiz Oranını Giriniz',
     'Buying': 'Alım',
     'Sale': 'Satım',
     'Dividend': 'Temettü',
@@ -55974,7 +55934,6 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Price is required': 'Fiyat alanı girin',
     'Commission is required': 'Komisyon alanı girin',
     'Dividend Gain Price is required': 'Temettü Net Fiyatını girin',
-    'Percentage of Bonus Issue is required': 'Bedelsiz Oranını girin',
     'Total Amount': 'Toplam Tutar',
     'Total Comission Amount': 'Toplam Komisyon Tutarı',
     'Total Dividend Gain': 'Toplam Temettü Kazancı',

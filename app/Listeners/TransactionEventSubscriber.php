@@ -131,7 +131,7 @@ class TransactionEventSubscriber
         $transaction = $event->transaction;
         $share = $transaction->share;
 
-        $transaction->lot = $share->lot * $transaction->bonus_issue;
+        $transaction->bonus_issue = ($transaction->lot * 100) / $share->lot;
         $transaction->remaining = $transaction->lot;
         $transaction->save();
 
