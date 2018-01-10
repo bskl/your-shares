@@ -110,7 +110,7 @@
                             </v-data-table>
                         </v-card-text>
                         <v-card-actions>
-                            <v-flex xs5 offset-xs0 offset-md4 offset-lg7>
+                            <v-flex xs12>
                                 <v-list dense>
                                     <v-list-tile>
                                         <v-list-tile-content>
@@ -118,7 +118,7 @@
                                             <v-list-tile-sub-title class="caption">İlgili hissenin ilk alım işleminden itibaren ödenen işlem tutarlarının toplamı</v-list-tile-sub-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action class="red--text darken-1">
-                                            {{ $n(share.total_amount, 'currency') }}
+                                            <strong>{{ $n(share.total_amount, 'currency') }}</strong>
                                         </v-list-tile-action>
                                     </v-list-tile>
                                     <v-divider class="mt-1"></v-divider>
@@ -128,7 +128,7 @@
                                             <v-list-tile-sub-title class="caption">Tüm alım/satım işlemlerinde ödenen komisyon tutarlarının toplamı</v-list-tile-sub-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action class="red--text darken-1">
-                                            {{ $n(share.total_commission_amount, 'currency') }}
+                                            <strong>{{ $n(share.total_commission_amount, 'currency') }}</strong>
                                         </v-list-tile-action>
                                     </v-list-tile>
                                     <v-divider class="mt-1"></v-divider>
@@ -138,7 +138,7 @@
                                             <v-list-tile-sub-title class="caption">Kazanılan tüm temettü tutarlarının toplamı</v-list-tile-sub-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action class="green--text darken-1">
-                                            {{ $n(share.total_dividend_gain, 'currency') }}
+                                            <strong>{{ $n(share.total_dividend_gain, 'currency') }}</strong>
                                         </v-list-tile-action>
                                     </v-list-tile>
                                     <v-divider class="mt-1"></v-divider>
@@ -148,7 +148,7 @@
                                             <v-list-tile-sub-title class="caption">Kazanılan tüm bedelsiz hisse miktarlarının toplamı</v-list-tile-sub-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action class="green--text darken-1">
-                                            {{ $n(share.total_bonus_issue_share, 'decimal') }}
+                                            <strong>{{ $n(share.total_bonus_issue_share, 'decimal') }}</strong>
                                         </v-list-tile-action>
                                     </v-list-tile>
                                     <v-divider class="mt-1"></v-divider>
@@ -158,7 +158,7 @@
                                             <v-list-tile-sub-title class="caption">(satış karı+temettü kazancı)-(toplam tutar+komisyon tutarı) ile hesaplanan tutar</v-list-tile-sub-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action :class="{ 'red--text darken-1': share.total_gain < 0, 'green--text darken-1': share.total_gain > 0 }">
-                                            {{ $n(share.total_gain, 'currency') }}
+                                            <strong>{{ $n(share.total_gain, 'currency') }}</strong>
                                         </v-list-tile-action>
                                     </v-list-tile>
                                     <v-divider class="mt-1"></v-divider>
@@ -168,7 +168,7 @@
                                             <v-list-tile-sub-title class="caption">Anlık hiise fiyatı ile kazanılacak kazanç ile hesaplanan tutar</v-list-tile-sub-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action :class="{ 'red--text darken-1': calculateGain() < 0, 'green--text darken-1': calculateGain() > 0 }">
-                                            {{ $n(calculateGain(), 'currency') }}
+                                            <strong>{{ $n(calculateGain(), 'currency') }}</strong>
                                         </v-list-tile-action>
                                     </v-list-tile>
                                 </v-list>

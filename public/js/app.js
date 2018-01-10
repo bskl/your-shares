@@ -53060,14 +53060,7 @@ var render = function() {
                             [
                               _c(
                                 "v-flex",
-                                {
-                                  attrs: {
-                                    xs5: "",
-                                    "offset-xs0": "",
-                                    "offset-md4": "",
-                                    "offset-lg7": ""
-                                  }
-                                },
+                                { attrs: { xs12: "" } },
                                 [
                                   _c(
                                     "v-list",
@@ -53104,16 +53097,16 @@ var render = function() {
                                               staticClass: "red--text darken-1"
                                             },
                                             [
-                                              _vm._v(
-                                                "\n                                        " +
+                                              _c("strong", [
+                                                _vm._v(
                                                   _vm._s(
                                                     _vm.$n(
                                                       _vm.share.total_amount,
                                                       "currency"
                                                     )
-                                                  ) +
-                                                  "\n                                    "
-                                              )
+                                                  )
+                                                )
+                                              ])
                                             ]
                                           )
                                         ],
@@ -53157,17 +53150,17 @@ var render = function() {
                                               staticClass: "red--text darken-1"
                                             },
                                             [
-                                              _vm._v(
-                                                "\n                                        " +
+                                              _c("strong", [
+                                                _vm._v(
                                                   _vm._s(
                                                     _vm.$n(
                                                       _vm.share
                                                         .total_commission_amount,
                                                       "currency"
                                                     )
-                                                  ) +
-                                                  "\n                                    "
-                                              )
+                                                  )
+                                                )
+                                              ])
                                             ]
                                           )
                                         ],
@@ -53212,17 +53205,17 @@ var render = function() {
                                                 "green--text darken-1"
                                             },
                                             [
-                                              _vm._v(
-                                                "\n                                        " +
+                                              _c("strong", [
+                                                _vm._v(
                                                   _vm._s(
                                                     _vm.$n(
                                                       _vm.share
                                                         .total_dividend_gain,
                                                       "currency"
                                                     )
-                                                  ) +
-                                                  "\n                                    "
-                                              )
+                                                  )
+                                                )
+                                              ])
                                             ]
                                           )
                                         ],
@@ -53267,17 +53260,17 @@ var render = function() {
                                                 "green--text darken-1"
                                             },
                                             [
-                                              _vm._v(
-                                                "\n                                        " +
+                                              _c("strong", [
+                                                _vm._v(
                                                   _vm._s(
                                                     _vm.$n(
                                                       _vm.share
                                                         .total_bonus_issue_share,
                                                       "decimal"
                                                     )
-                                                  ) +
-                                                  "\n                                    "
-                                              )
+                                                  )
+                                                )
+                                              ])
                                             ]
                                           )
                                         ],
@@ -53322,16 +53315,16 @@ var render = function() {
                                               }
                                             },
                                             [
-                                              _vm._v(
-                                                "\n                                        " +
+                                              _c("strong", [
+                                                _vm._v(
                                                   _vm._s(
                                                     _vm.$n(
                                                       _vm.share.total_gain,
                                                       "currency"
                                                     )
-                                                  ) +
-                                                  "\n                                    "
-                                              )
+                                                  )
+                                                )
+                                              ])
                                             ]
                                           )
                                         ],
@@ -53378,16 +53371,16 @@ var render = function() {
                                               }
                                             },
                                             [
-                                              _vm._v(
-                                                "\n                                        " +
+                                              _c("strong", [
+                                                _vm._v(
                                                   _vm._s(
                                                     _vm.$n(
                                                       _vm.calculateGain(),
                                                       "currency"
                                                     )
-                                                  ) +
-                                                  "\n                                    "
-                                              )
+                                                  )
+                                                )
+                                              ])
                                             ]
                                           )
                                         ],

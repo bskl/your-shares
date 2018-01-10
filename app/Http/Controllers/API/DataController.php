@@ -18,7 +18,7 @@ class DataController extends Controller
     {
         $portfolios = Portfolio::byCurrentUser()->get();
 
-        $portfolios = $portfolios->map(function ($portfolio) {
+        $portfolios->map(function ($portfolio) {
             $totalAmount = $totalAverageAmount = $totalGain = Money::TRY(0);
 
             $portfolio->shares->map(function ($share) use (&$totalAmount, &$totalAverageAmount, &$totalGain) {
@@ -30,8 +30,6 @@ class DataController extends Controller
             $portfolio->total_amount = $totalAmount;
             $portfolio->total_average_amount = $totalAverageAmount;
             $portfolio->total_gain = $totalGain;
-
-            return $portfolio;
         });
 
         return [
