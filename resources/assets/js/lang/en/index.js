@@ -70,6 +70,7 @@ export default {
     'Commission is required' : 'Commission is required',
     'Dividend Gain Price is required' : 'Dividend Net Price is required',
     'Total Amount' : 'Total Amount',
+    'Total Average Amount' : 'Total Average Amount',
     'Total Comission Amount' : 'Total Comission Amount',
     'Total Dividend Gain' : 'Total Dividend Gain',
     'Total Bonus Issue Share Gain' :'Total Bonus Issue Share Gain',

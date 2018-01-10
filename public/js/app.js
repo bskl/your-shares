@@ -29429,7 +29429,10 @@ var portfolioStore = {
             name: '',
             order: '',
             currency: '',
-            shares: []
+            shares: [],
+            total_amount: '',
+            total_average_amount: '',
+            total_gain: ''
         }]
     },
 
@@ -51642,7 +51645,163 @@ var render = function() {
                         1
                       ),
                       _vm._v(" "),
-                      _c("v-card-actions", [_c("v-spacer")], 1)
+                      _c(
+                        "v-card-actions",
+                        [
+                          _c(
+                            "v-flex",
+                            { attrs: { xs12: "" } },
+                            [
+                              _c(
+                                "v-list",
+                                { attrs: { dense: "" } },
+                                [
+                                  _c(
+                                    "v-list-tile",
+                                    [
+                                      _c(
+                                        "v-list-tile-content",
+                                        [
+                                          _c("v-list-tile-title", [
+                                            _vm._v(
+                                              _vm._s(_vm.$t("Total Amount"))
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-list-tile-sub-title",
+                                            { staticClass: "caption" },
+                                            [
+                                              _vm._v(
+                                                "Portföydeki hisselerin toplam tutarı"
+                                              )
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-list-tile-action", [
+                                        _c("strong", [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.$n(
+                                                portfolio.total_amount,
+                                                "currency"
+                                              )
+                                            )
+                                          )
+                                        ])
+                                      ])
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c("v-divider", { staticClass: "mt-1" }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-list-tile",
+                                    [
+                                      _c(
+                                        "v-list-tile-content",
+                                        [
+                                          _c("v-list-tile-title", [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.$t("Total Average Amount")
+                                              )
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-list-tile-sub-title",
+                                            { staticClass: "caption" },
+                                            [
+                                              _vm._v(
+                                                "Portföydeki hisselerin toplam maliyeti"
+                                              )
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-list-tile-action", [
+                                        _c("strong", [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.$n(
+                                                portfolio.total_average_amount,
+                                                "currency"
+                                              )
+                                            )
+                                          )
+                                        ])
+                                      ])
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c("v-divider", { staticClass: "mt-1" }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-list-tile",
+                                    [
+                                      _c(
+                                        "v-list-tile-content",
+                                        [
+                                          _c("v-list-tile-title", [
+                                            _vm._v(_vm._s(_vm.$t("Total Gain")))
+                                          ]),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-list-tile-sub-title",
+                                            { staticClass: "caption" },
+                                            [
+                                              _vm._v(
+                                                "Portföydeki hisselerin toplam kar/zarar tutarı"
+                                              )
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-tile-action",
+                                        {
+                                          class: {
+                                            "red--text darken-1":
+                                              portfolio.total_gain < 0,
+                                            "green--text darken-1":
+                                              portfolio.total_gain > 0
+                                          }
+                                        },
+                                        [
+                                          _c("strong", [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.$n(
+                                                  portfolio.total_gain,
+                                                  "currency"
+                                                )
+                                              )
+                                            )
+                                          ])
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
                     ],
                     1
                   )
@@ -55849,6 +56008,7 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Commission is required': 'Commission is required',
     'Dividend Gain Price is required': 'Dividend Net Price is required',
     'Total Amount': 'Total Amount',
+    'Total Average Amount': 'Total Average Amount',
     'Total Comission Amount': 'Total Comission Amount',
     'Total Dividend Gain': 'Total Dividend Gain',
     'Total Bonus Issue Share Gain': 'Total Bonus Issue Share Gain',
@@ -55935,6 +56095,7 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Commission is required': 'Komisyon alanı girin',
     'Dividend Gain Price is required': 'Temettü Net Fiyatını girin',
     'Total Amount': 'Toplam Tutar',
+    'Total Average Amount': 'Toplam Ortalama Tutar',
     'Total Comission Amount': 'Toplam Komisyon Tutarı',
     'Total Dividend Gain': 'Toplam Temettü Kazancı',
     'Total Bonus Issue Share Gain': 'Toplam Bedelsiz Hisse Kazancı',

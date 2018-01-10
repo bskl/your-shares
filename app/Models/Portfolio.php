@@ -27,6 +27,15 @@ class Portfolio extends BaseModel
     ];
 
     /**
+     * The attributes that are money object.
+     *
+     * @var array
+     */
+    protected $money = [
+        'total_amount', 'total_average_amount', 'total_gain',
+    ];
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
