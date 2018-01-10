@@ -5,7 +5,10 @@ export const portfolioStore = {
             name: '',
             order: '',
             currency: '',
-            shares: []
+            shares: [],
+            total_amount: '',
+            total_average_amount: '',
+            total_gain: '',
         }]
     },
 
