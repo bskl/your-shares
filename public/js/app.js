@@ -51664,19 +51664,23 @@ var render = function() {
                                         [
                                           _c("v-list-tile-title", [
                                             _vm._v(
-                                              _vm._s(_vm.$t("Total Amount"))
+                                              "\n                                            " +
+                                                _vm._s(_vm.$t("Total Amount")) +
+                                                "\n                                            "
+                                            ),
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "grey--text text--lighten-1"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  " - Portföydeki hisselerin toplam tutarı"
+                                                )
+                                              ]
                                             )
-                                          ]),
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-list-tile-sub-title",
-                                            { staticClass: "caption" },
-                                            [
-                                              _vm._v(
-                                                "Portföydeki hisselerin toplam tutarı"
-                                              )
-                                            ]
-                                          )
+                                          ])
                                         ],
                                         1
                                       ),
@@ -51697,7 +51701,7 @@ var render = function() {
                                     1
                                   ),
                                   _vm._v(" "),
-                                  _c("v-divider", { staticClass: "mt-1" }),
+                                  _c("v-divider"),
                                   _vm._v(" "),
                                   _c(
                                     "v-list-tile",
@@ -51707,21 +51711,25 @@ var render = function() {
                                         [
                                           _c("v-list-tile-title", [
                                             _vm._v(
-                                              _vm._s(
-                                                _vm.$t("Total Average Amount")
-                                              )
+                                              "\n                                            " +
+                                                _vm._s(
+                                                  _vm.$t("Total Average Amount")
+                                                ) +
+                                                "\n                                            "
+                                            ),
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "grey--text text--lighten-1"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  " - Portföydeki hisselerin toplam maliyeti"
+                                                )
+                                              ]
                                             )
-                                          ]),
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-list-tile-sub-title",
-                                            { staticClass: "caption" },
-                                            [
-                                              _vm._v(
-                                                "Portföydeki hisselerin toplam maliyeti"
-                                              )
-                                            ]
-                                          )
+                                          ])
                                         ],
                                         1
                                       ),
@@ -51742,7 +51750,7 @@ var render = function() {
                                     1
                                   ),
                                   _vm._v(" "),
-                                  _c("v-divider", { staticClass: "mt-1" }),
+                                  _c("v-divider"),
                                   _vm._v(" "),
                                   _c(
                                     "v-list-tile",
@@ -51751,18 +51759,24 @@ var render = function() {
                                         "v-list-tile-content",
                                         [
                                           _c("v-list-tile-title", [
-                                            _vm._v(_vm._s(_vm.$t("Total Gain")))
-                                          ]),
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-list-tile-sub-title",
-                                            { staticClass: "caption" },
-                                            [
-                                              _vm._v(
-                                                "Portföydeki hisselerin toplam kar/zarar tutarı"
-                                              )
-                                            ]
-                                          )
+                                            _vm._v(
+                                              "\n                                            " +
+                                                _vm._s(_vm.$t("Total Gain")) +
+                                                "\n                                            "
+                                            ),
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "grey--text text--lighten-1"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  " - Portföydeki hisselerin toplam kar/zarar tutarı"
+                                                )
+                                              ]
+                                            )
+                                          ])
                                         ],
                                         1
                                       ),
@@ -52420,7 +52434,6 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-toolbar",
-    { attrs: { dense: "" } },
     [
       _c("v-toolbar-title", [_vm._v("Your Shares")]),
       _vm._v(" "),
@@ -53074,19 +53087,25 @@ var render = function() {
                                             [
                                               _c("v-list-tile-title", [
                                                 _vm._v(
-                                                  _vm._s(_vm.$t("Total Amount"))
+                                                  "\n                                            " +
+                                                    _vm._s(
+                                                      _vm.$t("Total Amount")
+                                                    ) +
+                                                    "\n                                            "
+                                                ),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "grey--text text--lighten-1"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      " - İlgili hissenin ilk alım işleminden itibaren ödenen işlem tutarlarının toplamı"
+                                                    )
+                                                  ]
                                                 )
-                                              ]),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-list-tile-sub-title",
-                                                { staticClass: "caption" },
-                                                [
-                                                  _vm._v(
-                                                    "İlgili hissenin ilk alım işleminden itibaren ödenen işlem tutarlarının toplamı"
-                                                  )
-                                                ]
-                                              )
+                                              ])
                                             ],
                                             1
                                           ),
@@ -53113,7 +53132,7 @@ var render = function() {
                                         1
                                       ),
                                       _vm._v(" "),
-                                      _c("v-divider", { staticClass: "mt-1" }),
+                                      _c("v-divider"),
                                       _vm._v(" "),
                                       _c(
                                         "v-list-tile",
@@ -53123,23 +53142,27 @@ var render = function() {
                                             [
                                               _c("v-list-tile-title", [
                                                 _vm._v(
-                                                  _vm._s(
-                                                    _vm.$t(
-                                                      "Total Comission Amount"
+                                                  "\n                                            " +
+                                                    _vm._s(
+                                                      _vm.$t(
+                                                        "Total Comission Amount"
+                                                      )
+                                                    ) +
+                                                    "\n                                            "
+                                                ),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "grey--text text--lighten-1"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      " - Tüm alım/satım işlemlerinde ödenen komisyon tutarlarının toplamı"
                                                     )
-                                                  )
+                                                  ]
                                                 )
-                                              ]),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-list-tile-sub-title",
-                                                { staticClass: "caption" },
-                                                [
-                                                  _vm._v(
-                                                    "Tüm alım/satım işlemlerinde ödenen komisyon tutarlarının toplamı"
-                                                  )
-                                                ]
-                                              )
+                                              ])
                                             ],
                                             1
                                           ),
@@ -53167,7 +53190,7 @@ var render = function() {
                                         1
                                       ),
                                       _vm._v(" "),
-                                      _c("v-divider", { staticClass: "mt-1" }),
+                                      _c("v-divider"),
                                       _vm._v(" "),
                                       _c(
                                         "v-list-tile",
@@ -53177,23 +53200,27 @@ var render = function() {
                                             [
                                               _c("v-list-tile-title", [
                                                 _vm._v(
-                                                  _vm._s(
-                                                    _vm.$t(
-                                                      "Total Dividend Gain"
+                                                  "\n                                            " +
+                                                    _vm._s(
+                                                      _vm.$t(
+                                                        "Total Dividend Gain"
+                                                      )
+                                                    ) +
+                                                    "\n                                            "
+                                                ),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "grey--text text--lighten-1"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      " - Kazanılan tüm temettü tutarlarının toplamı"
                                                     )
-                                                  )
+                                                  ]
                                                 )
-                                              ]),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-list-tile-sub-title",
-                                                { staticClass: "caption" },
-                                                [
-                                                  _vm._v(
-                                                    "Kazanılan tüm temettü tutarlarının toplamı"
-                                                  )
-                                                ]
-                                              )
+                                              ])
                                             ],
                                             1
                                           ),
@@ -53222,7 +53249,7 @@ var render = function() {
                                         1
                                       ),
                                       _vm._v(" "),
-                                      _c("v-divider", { staticClass: "mt-1" }),
+                                      _c("v-divider"),
                                       _vm._v(" "),
                                       _c(
                                         "v-list-tile",
@@ -53232,23 +53259,27 @@ var render = function() {
                                             [
                                               _c("v-list-tile-title", [
                                                 _vm._v(
-                                                  _vm._s(
-                                                    _vm.$t(
-                                                      "Total Bonus Issue Share Gain"
+                                                  "\n                                            " +
+                                                    _vm._s(
+                                                      _vm.$t(
+                                                        "Total Bonus Issue Share Gain"
+                                                      )
+                                                    ) +
+                                                    "\n                                            "
+                                                ),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "grey--text text--lighten-1"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      " - Kazanılan tüm bedelsiz hisse miktarlarının toplamı"
                                                     )
-                                                  )
+                                                  ]
                                                 )
-                                              ]),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-list-tile-sub-title",
-                                                { staticClass: "caption" },
-                                                [
-                                                  _vm._v(
-                                                    "Kazanılan tüm bedelsiz hisse miktarlarının toplamı"
-                                                  )
-                                                ]
-                                              )
+                                              ])
                                             ],
                                             1
                                           ),
@@ -53277,7 +53308,7 @@ var render = function() {
                                         1
                                       ),
                                       _vm._v(" "),
-                                      _c("v-divider", { staticClass: "mt-1" }),
+                                      _c("v-divider"),
                                       _vm._v(" "),
                                       _c(
                                         "v-list-tile",
@@ -53287,19 +53318,25 @@ var render = function() {
                                             [
                                               _c("v-list-tile-title", [
                                                 _vm._v(
-                                                  _vm._s(_vm.$t("Total Gain"))
+                                                  "\n                                            " +
+                                                    _vm._s(
+                                                      _vm.$t("Total Gain")
+                                                    ) +
+                                                    "\n                                            "
+                                                ),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "grey--text text--lighten-1"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      " - (satış karı+temettü kazancı)-(toplam tutar+komisyon tutarı) ile hesaplanan tutar"
+                                                    )
+                                                  ]
                                                 )
-                                              ]),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-list-tile-sub-title",
-                                                { staticClass: "caption" },
-                                                [
-                                                  _vm._v(
-                                                    "(satış karı+temettü kazancı)-(toplam tutar+komisyon tutarı) ile hesaplanan tutar"
-                                                  )
-                                                ]
-                                              )
+                                              ])
                                             ],
                                             1
                                           ),
@@ -53331,7 +53368,7 @@ var render = function() {
                                         1
                                       ),
                                       _vm._v(" "),
-                                      _c("v-divider", { staticClass: "mt-1" }),
+                                      _c("v-divider"),
                                       _vm._v(" "),
                                       _c(
                                         "v-list-tile",
@@ -53341,21 +53378,27 @@ var render = function() {
                                             [
                                               _c("v-list-tile-title", [
                                                 _vm._v(
-                                                  _vm._s(
-                                                    _vm.$t("Instant Total Gain")
-                                                  )
+                                                  "\n                                            " +
+                                                    _vm._s(
+                                                      _vm.$t(
+                                                        "Instant Total Gain"
+                                                      )
+                                                    ) +
+                                                    "\n                                            "
+                                                ),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "grey--text text--lighten-1"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      " - Anlık hiise fiyatı ile kazanılacak kazanç ile hesaplanan tutar"
+                                                    )
+                                                  ]
                                                 )
-                                              ]),
-                                              _vm._v(" "),
-                                              _c(
-                                                "v-list-tile-sub-title",
-                                                { staticClass: "caption" },
-                                                [
-                                                  _vm._v(
-                                                    "Anlık hiise fiyatı ile kazanılacak kazanç ile hesaplanan tutar"
-                                                  )
-                                                ]
-                                              )
+                                              ])
                                             ],
                                             1
                                           ),

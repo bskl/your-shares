@@ -192,28 +192,34 @@
                                 <v-list dense>
                                     <v-list-tile>
                                         <v-list-tile-content>
-                                            <v-list-tile-title>{{ $t('Total Amount') }}</v-list-tile-title>
-                                            <v-list-tile-sub-title class="caption">Portföydeki hisselerin toplam tutarı</v-list-tile-sub-title>
+                                            <v-list-tile-title>
+                                                {{ $t('Total Amount') }}
+                                                <span class="grey--text text--lighten-1"> - Portföydeki hisselerin toplam tutarı</span>
+                                            </v-list-tile-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action>
                                             <strong>{{ $n(portfolio.total_amount, 'currency') }}</strong>
                                         </v-list-tile-action>
                                     </v-list-tile>
-                                    <v-divider class="mt-1"></v-divider>
+                                    <v-divider></v-divider>
                                     <v-list-tile>
                                         <v-list-tile-content>
-                                            <v-list-tile-title>{{ $t('Total Average Amount') }}</v-list-tile-title>
-                                            <v-list-tile-sub-title class="caption">Portföydeki hisselerin toplam maliyeti</v-list-tile-sub-title>
+                                            <v-list-tile-title>
+                                                {{ $t('Total Average Amount') }}
+                                                <span class="grey--text text--lighten-1"> - Portföydeki hisselerin toplam maliyeti</span>
+                                            </v-list-tile-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action>
                                             <strong>{{ $n(portfolio.total_average_amount, 'currency') }}</strong>
                                         </v-list-tile-action>
                                     </v-list-tile>
-                                    <v-divider class="mt-1"></v-divider>
+                                    <v-divider></v-divider>
                                     <v-list-tile>
                                         <v-list-tile-content>
-                                            <v-list-tile-title>{{ $t('Total Gain') }}</v-list-tile-title>
-                                            <v-list-tile-sub-title class="caption">Portföydeki hisselerin toplam kar/zarar tutarı</v-list-tile-sub-title>
+                                            <v-list-tile-title>
+                                                {{ $t('Total Gain') }}
+                                                <span class="grey--text text--lighten-1"> - Portföydeki hisselerin toplam kar/zarar tutarı</span>
+                                            </v-list-tile-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action :class="{ 'red--text darken-1': portfolio.total_gain < 0, 'green--text darken-1': portfolio.total_gain > 0 }">
                                             <strong>{{ $n(portfolio.total_gain, 'currency') }}</strong>
