@@ -60,66 +60,6 @@ class Transaction extends BaseModel
         return $this->belongsTo('App\Models\Share');
     }
 
-    public function setAmountAttribute($value)
-    {
-        if ($value instanceof Money) {
-            $money = $value;
-        } else {
-            $currencies = new ISOCurrencies();
-            
-            $moneyParser = new DecimalMoneyParser($currencies);
-    
-            $money = $moneyParser->parse($value, 'TRY');
-        }
-
-        $this->attributes['amount'] = $money->getAmount();
-    }
-
-    public function setPriceAttribute($value)
-    {
-        if ($value instanceof Money) {
-            $money = $value;
-        } else {
-            $currencies = new ISOCurrencies();
-            
-            $moneyParser = new DecimalMoneyParser($currencies);
-    
-            $money = $moneyParser->parse($value, 'TRY');
-        }
-
-        $this->attributes['price'] = $money->getAmount();
-    }
-
-    public function setDividendAttribute($value)
-    {
-        if ($value instanceof Money) {
-            $money = $value;
-        } else {
-            $currencies = new ISOCurrencies();
-            
-            $moneyParser = new DecimalMoneyParser($currencies);
-    
-            $money = $moneyParser->parse($value, 'TRY');
-        }
-
-        $this->attributes['dividend'] = $money->getAmount();
-    }
-
-    public function setDividendGainAttribute($value)
-    {
-        if ($value instanceof Money) {
-            $money = $value;
-        } else {
-            $currencies = new ISOCurrencies();
-            
-            $moneyParser = new DecimalMoneyParser($currencies);
-    
-            $money = $moneyParser->parse($value, 'TRY');
-        }
-
-        $this->attributes['dividend_gain'] = $money->getAmount();
-    }
-
     /**
      * Set the bonus_issue attribute with divided 100.
      */
