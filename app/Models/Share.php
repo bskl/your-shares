@@ -22,7 +22,7 @@ class Share extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'user_id', 'portfolio_id', 'symbol_id', 'lot', 'average', 'average_amount', 'amount', 'gain', 'total_amount', 'total_commission_amount', 'total_dividend_gain', 'total_bonus_issue_share', 'total_gain',
+        'user_id', 'portfolio_id', 'symbol_id', 'lot', 'total_bonus_issue_share',
     ];
 
     /**

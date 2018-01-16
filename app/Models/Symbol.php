@@ -39,7 +39,9 @@ class Symbol extends BaseModel
 	 *
 	 * @var array
 	 */
-	protected $dates = ['session_time', 'created_at', 'updated_at'];
+	protected $dates = [
+        'session_time', 'created_at', 'updated_at',
+    ];
 
     /**
      * The attributes that should be hidden for arrays.
