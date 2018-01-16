@@ -25,6 +25,7 @@ class PortfolioController extends Controller
         $data['order'] = ++$order;
 
         $portfolio = Portfolio::create($data);
+        $portfolio->total_amount = $portfolio->total_average_amount = $portfolio->total_gain = '0';
         $portfolio->load('shares');
 
         return response()->json($portfolio);
