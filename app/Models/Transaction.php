@@ -24,7 +24,7 @@ class Transaction extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'user_id', 'share_id', 'type', 'date_at', 'lot', 'remaining', 'price', 'amount', 'commission', 'commission_price', 'sale_average', 'sale_average_amount', 'sale_gain', 'dividend', 'dividend_gain', 'bonus_issue',
+        'user_id', 'share_id', 'type', 'date_at', 'lot', 'remaining', 'commission', 'bonus_issue',
     ];
 
     /**
@@ -41,7 +41,9 @@ class Transaction extends BaseModel
 	 *
 	 * @var array
 	 */
-	protected $dates = ['date_at', 'created_at', 'updated_at'];
+	protected $dates = [
+        'date_at', 'created_at', 'updated_at',
+    ];
 
     /**
      * The attributes that should be hidden for arrays.
