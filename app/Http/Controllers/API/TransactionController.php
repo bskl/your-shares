@@ -23,7 +23,13 @@ class TransactionController extends Controller
 
         $data = $request->all();
         $data['user_id'] = auth()->user()->id;
-        $transaction = Transaction::create($data);
+        $transaction = new Transaction();
+        $transaction->fill($data);
+
+        $transaction->price = $data['price'];
+        $transaction->dividend_gain = $data['dividend_gain'];
+        
+        $transaction->save();
         $transaction->refresh()->load('share');
 
         $event = 'App\\Events\\' . TransactionTypes::getTypeName($transaction->type) . 'TransactionCreated';
@@ -33,11 +39,11 @@ class TransactionController extends Controller
     }
 
     /**
-     * Update given portfolio instance after a valid request.
+     * Update given transaction instance after a valid request.
      *
      * @param  TransactionRequest     $request
-     * @param  App\Models\Portfolio $portfolio
-     * @return App\Models\Portfolio $portfolio
+     * @param  App\Models\Transaction $transaction
+     * @return App\Models\Transaction $transaction
      */
     public function update()
     {
@@ -47,7 +53,7 @@ class TransactionController extends Controller
     /**
      * Delete a portfolio.
      *
-     * @param Portfolio $portfolio
+     * @param Transaction $transaction
      * @return JsonResponse
      */
     public function destroy()
