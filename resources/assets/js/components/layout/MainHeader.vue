@@ -14,7 +14,8 @@
 </script>
 
 <template>
-    <v-toolbar>
+    <v-toolbar fixed app>
+        <v-icon medium class="ml-3">account_balance</v-icon>
         <v-toolbar-title>Your Shares</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-side-icon class="hidden-md-and-up"></v-toolbar-side-icon>
