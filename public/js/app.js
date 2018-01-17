@@ -51295,7 +51295,7 @@ var render = function() {
                     [
                       _c(
                         "v-card-title",
-                        { staticClass: "pt-0 pb-0" },
+                        { staticClass: "pt-0 pb-0 elevation-2" },
                         [
                           _c(
                             "v-toolbar",
@@ -52434,7 +52434,12 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-toolbar",
+    { attrs: { fixed: "", app: "" } },
     [
+      _c("v-icon", { staticClass: "ml-3", attrs: { medium: "" } }, [
+        _vm._v("account_balance")
+      ]),
+      _vm._v(" "),
       _c("v-toolbar-title", [_vm._v("Your Shares")]),
       _vm._v(" "),
       _c("v-spacer"),
@@ -52711,7 +52716,7 @@ var render = function() {
                         [
                           _c(
                             "v-card-title",
-                            { staticClass: "pt-0 pb-0" },
+                            { staticClass: "pt-0 pb-0 elevation-2" },
                             [
                               _c(
                                 "v-toolbar",

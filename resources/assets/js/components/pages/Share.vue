@@ -60,7 +60,7 @@
             <v-layout row wrap>
                 <v-flex xs12>
                     <v-card>
-                        <v-card-title class="pt-0 pb-0">
+                        <v-card-title class="pt-0 pb-0 elevation-2">
                             <v-toolbar color="white" flat>
                                 <v-btn icon light to="/" exact>
                                     <v-icon color="grey darken-2">arrow_back</v-icon>
