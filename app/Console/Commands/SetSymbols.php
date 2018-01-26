@@ -64,7 +64,7 @@ class SetSymbols extends Command
     protected function getStocks($data)
     {
         if($data['session'] === "error") {
-            exit("Dosyası açılamadı");
+            $this->handle();
         } else {
             return $data['stocks'];
         }
