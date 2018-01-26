@@ -51295,7 +51295,7 @@ var render = function() {
                     [
                       _c(
                         "v-card-title",
-                        { staticClass: "pt-0 pb-0 elevation-2" },
+                        { staticClass: "pt-0 pb-0 elevation-4" },
                         [
                           _c(
                             "v-toolbar",
@@ -51337,7 +51337,7 @@ var render = function() {
                                 [
                                   _c(
                                     "v-icon",
-                                    { attrs: { color: "blue darken-2" } },
+                                    { attrs: { color: "green darken-2" } },
                                     [_vm._v("edit")]
                                   )
                                 ],
@@ -51357,7 +51357,7 @@ var render = function() {
                                 [
                                   _c(
                                     "v-icon",
-                                    { attrs: { color: "green darken-2" } },
+                                    { attrs: { color: "blue darken-2" } },
                                     [_vm._v("add")]
                                   )
                                 ],
@@ -52318,8 +52318,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-toolbar-items",
-    { staticClass: "hidden-sm-and-down" },
+    "div",
     [
       _vm.isLogged
         ? _c(
@@ -52327,13 +52326,10 @@ var render = function() {
             { attrs: { "offset-y": "" } },
             [
               _c(
-                "v-btn",
-                {
-                  attrs: { slot: "activator", flat: "", small: "" },
-                  slot: "activator"
-                },
+                "v-toolbar-title",
+                { attrs: { slot: "activator" }, slot: "activator" },
                 [
-                  _c("span", { staticClass: "pr-2" }, [
+                  _c("span", { staticClass: "subheading" }, [
                     _vm._v(_vm._s(_vm.state.user.email))
                   ]),
                   _vm._v(" "),
@@ -52401,13 +52397,9 @@ var render = function() {
             ],
             1
           )
-        : _vm._e(),
-      _vm._v(" "),
-      !_vm.isLogged
-        ? _c("v-btn", { attrs: { flat: "", to: "/register" } }, [
+        : _c("v-btn", { attrs: { flat: "", to: "/register" } }, [
             _vm._v(_vm._s(_vm.$t("Register")))
-          ])
-        : _vm._e(),
+          ]),
       _vm._v(" "),
       _c("add-portfolio-modal", { ref: "addPortfolioModal" })
     ],
@@ -52434,12 +52426,8 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-toolbar",
-    { attrs: { fixed: "", app: "" } },
+    { attrs: { app: "", dark: "", fixed: "", color: "blue-grey darken-1" } },
     [
-      _c("v-icon", { staticClass: "ml-3", attrs: { medium: "" } }, [
-        _vm._v("account_balance")
-      ]),
-      _vm._v(" "),
       _c("v-toolbar-title", [_vm._v("Your Shares")]),
       _vm._v(" "),
       _c("v-spacer"),
@@ -52716,7 +52704,7 @@ var render = function() {
                         [
                           _c(
                             "v-card-title",
-                            { staticClass: "pt-0 pb-0 elevation-2" },
+                            { staticClass: "pt-0 pb-0 elevation-4" },
                             [
                               _c(
                                 "v-toolbar",

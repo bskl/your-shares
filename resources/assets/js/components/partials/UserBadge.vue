@@ -42,12 +42,12 @@
 </script>
 
 <template>
-    <v-toolbar-items class="hidden-sm-and-down">
+    <div>
         <v-menu offset-y v-if="isLogged">
-            <v-btn flat small slot="activator">
-                <span class="pr-2">{{ state.user.email }}</span>
+            <v-toolbar-title slot="activator">
+                <span class="subheading">{{ state.user.email }}</span>
                 <v-icon dark>more_vert</v-icon>
-            </v-btn>
+            </v-toolbar-title>
             <v-list dense>
                 <v-list-tile @click="showAddPortfolioModal()">
                     <v-icon class="pr-2">add</v-icon>
@@ -64,8 +64,8 @@
                 </v-list-tile>
             </v-list>
         </v-menu>
-        <v-btn flat to="/register" v-if="!isLogged">{{ $t("Register") }}</v-btn>
+        <v-btn flat to="/register" v-else>{{ $t("Register") }}</v-btn>
 
         <add-portfolio-modal ref="addPortfolioModal" />
-    </v-toolbar-items>
+    </div>
 </template>
