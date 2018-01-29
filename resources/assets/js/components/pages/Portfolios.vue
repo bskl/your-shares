@@ -82,6 +82,12 @@
                 let portfolioIndex = _.findIndex(this.state.portfolios, ['id', share.portfolio_id]);
                 let index = _.findIndex(this.state.portfolios[portfolioIndex].shares, ['id', share.id]);
                 this.state.portfolios[portfolioIndex].shares.splice(index, 1, share);
+                this.state.portfolios[portfolioIndex].total_amount = share.portfolio.total_amount;
+                this.state.portfolios[portfolioIndex].total_average_amount = share.portfolio.total_average_amount;
+                this.state.portfolios[portfolioIndex].total_commission_amount = share.portfolio.total_commission_amount;
+                this.state.portfolios[portfolioIndex].total_dividend_gain = share.portfolio.total_dividend_gain;
+                this.state.portfolios[portfolioIndex].total_bonus_issue_share = share.portfolio.total_bonus_issue_share;
+                this.state.portfolios[portfolioIndex].total_gain = share.portfolio.total_gain;
                 Bus.$off('transactionAdded', share);
             },
 
@@ -116,6 +122,16 @@
              */
             showAddTransactionModal(shareId) {
                 this.$refs.addTransactionModal.open(shareId);
+            },
+
+            calculateGain(portfolio) {
+                let shareGain = 0;
+
+                _.forEach(portfolio.shares, function(share) {
+                    shareGain += (+share.gain)
+                })
+
+                return (+shareGain) + (+portfolio.total_gain)
             }
         },
     }
@@ -187,14 +203,15 @@
                                 </template>
                             </v-data-table>
                         </v-card-text>
+
                         <v-card-actions>
                             <v-flex xs12>
                                 <v-list dense>
                                     <v-list-tile>
                                         <v-list-tile-content>
                                             <v-list-tile-title>
-                                                {{ $t('Total Amount') }}
-                                                <span class="grey--text text--lighten-1"> - Portföydeki hisselerin toplam tutarı</span>
+                                                {{ $t('Total Amount') }}
+                                                <span class="grey--text text--lighten-1"> - İlgili portföydeki hisselerin tutarların toplamı</span>
                                             </v-list-tile-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action>
@@ -206,10 +223,10 @@
                                         <v-list-tile-content>
                                             <v-list-tile-title>
                                                 {{ $t('Total Average Amount') }}
-                                                <span class="grey--text text--lighten-1"> - Portföydeki hisselerin toplam maliyeti</span>
+                                                <span class="grey--text text--lighten-1"> - İlgili portföydeki hisselerin ilk alım işleminden itibaren ödenen işlem tutarlarının toplamı</span>
                                             </v-list-tile-title>
                                         </v-list-tile-content>
-                                        <v-list-tile-action>
+                                        <v-list-tile-action class="red--text darken-1">
                                             <strong>{{ $n(portfolio.total_average_amount, 'currency') }}</strong>
                                         </v-list-tile-action>
                                     </v-list-tile>
@@ -217,17 +234,64 @@
                                     <v-list-tile>
                                         <v-list-tile-content>
                                             <v-list-tile-title>
+                                                {{ $t('Total Comission Amount') }}
+                                                <span class="grey--text text--lighten-1"> - İlgili portföydeki hisselerin tüm alım/satım işlemlerinde ödenen komisyon tutarlarının toplamı</span>
+                                            </v-list-tile-title>
+                                        </v-list-tile-content>
+                                        <v-list-tile-action class="red--text darken-1">
+                                            <strong>{{ $n(portfolio.total_commission_amount, 'currency') }}</strong>
+                                        </v-list-tile-action>
+                                    </v-list-tile>
+                                    <v-divider></v-divider>
+                                    <v-list-tile>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>
+                                                {{ $t('Total Dividend Gain') }}
+                                                <span class="grey--text text--lighten-1"> - İlgili portföydeki hisselerden kazanılan tüm temettü tutarlarının toplamı</span>
+                                            </v-list-tile-title>
+                                        </v-list-tile-content>
+                                        <v-list-tile-action class="green--text darken-1">
+                                            <strong>{{ $n(portfolio.total_dividend_gain, 'currency') }}</strong>
+                                        </v-list-tile-action>
+                                    </v-list-tile>
+                                    <v-divider></v-divider>
+                                    <v-list-tile>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>
+                                                {{ $t('Total Bonus Issue Share Gain') }}
+                                                <span class="grey--text text--lighten-1"> - İlgili portföydeki hisselerden kazanılan tüm bedelsiz hisse miktarlarının toplamı</span>
+                                            </v-list-tile-title>
+                                        </v-list-tile-content>
+                                        <v-list-tile-action class="green--text darken-1">
+                                            <strong>{{ $n(portfolio.total_bonus_issue_share, 'decimal') }}</strong>
+                                        </v-list-tile-action>
+                                    </v-list-tile>
+                                    <v-divider></v-divider>
+                                    <v-list-tile>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>
                                                 {{ $t('Total Gain') }}
-                                                <span class="grey--text text--lighten-1"> - Portföydeki hisselerin toplam kar/zarar tutarı</span>
+                                                <span class="grey--text text--lighten-1"> - (satış karı+temettü kazancı)-(toplam tutar+komisyon tutarı) ile hesaplanan tutar</span>
                                             </v-list-tile-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action :class="{ 'red--text darken-1': portfolio.total_gain < 0, 'green--text darken-1': portfolio.total_gain > 0 }">
                                             <strong>{{ $n(portfolio.total_gain, 'currency') }}</strong>
                                         </v-list-tile-action>
                                     </v-list-tile>
+                                    <v-divider></v-divider>
+                                    <v-list-tile>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>
+                                                {{ $t('Instant Total Gain') }}
+                                                <span class="grey--text text--lighten-1"> - İlgili portföydeki hisselerin anlık hisse fiyatı ile kazanılacak kazanç ile hesaplanan tutar</span>
+                                            </v-list-tile-title>
+                                        </v-list-tile-content>
+                                        <v-list-tile-action :class="{ 'red--text darken-1': calculateGain(portfolio) < 0, 'green--text darken-1': calculateGain(portfolio) > 0 }">
+                                            <strong>{{ $n(calculateGain(portfolio), 'currency') }}</strong>
+                                        </v-list-tile-action>
+                                    </v-list-tile>
                                 </v-list>
                             </v-flex>
-
                         </v-card-actions>
                     </v-card>
                 </v-flex>

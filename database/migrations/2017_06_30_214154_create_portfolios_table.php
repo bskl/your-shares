@@ -19,6 +19,12 @@ class CreatePortfoliosTable extends Migration
             $table->string('name');
             $table->string('currency', 3)->default(App\Enums\SupportedCurrencies::DEFAULT);
             $table->integer('order');
+            $table->integer('total_amount')->default(0);
+            $table->integer('average_amount')->default(0);
+            $table->integer('total_commission_amount')->default(0);
+            $table->integer('total_dividend_gain')->default(0);
+            $table->float('total_bonus_issue_share', 8, 3)->default(0);
+            $table->integer('total_gain')->default(0);
             $table->timestamps();
 
             $table->foreign('user_id')

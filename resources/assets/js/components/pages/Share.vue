@@ -120,7 +120,7 @@
                                             </v-list-tile-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action class="red--text darken-1">
-                                            <strong>{{ $n(share.total_amount, 'currency') }}</strong>
+                                            <strong>{{ $n(share.total_average_amount, 'currency') }}</strong>
                                         </v-list-tile-action>
                                     </v-list-tile>
                                     <v-divider></v-divider>
@@ -176,7 +176,7 @@
                                         <v-list-tile-content>
                                             <v-list-tile-title>
                                                 {{ $t('Instant Total Gain') }}
-                                                <span class="grey--text text--lighten-1"> - Anlık hiise fiyatı ile kazanılacak kazanç ile hesaplanan tutar</span>
+                                                <span class="grey--text text--lighten-1"> - Anlık hisse fiyatı ile kazanılacak kazanç ile hesaplanan tutar</span>
                                             </v-list-tile-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action :class="{ 'red--text darken-1': calculateGain() < 0, 'green--text darken-1': calculateGain() > 0 }">

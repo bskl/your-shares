@@ -25,6 +25,7 @@ class CalculateShareAmountAndGain
             $share->calculateAmount($symbol->last_price);
             $share->calculateGain();
             $share->update();
+            $share->portfolio->calculateMoneyAttributes();
         });
     }
 }

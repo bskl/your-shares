@@ -27,12 +27,14 @@ class TransactionEventSubscriber
 
         $share->calculateAmount($share->symbol->last_price);
         $share->calculateGain();
-        $share->total_amount = $share->total_amount->add($transaction->amount);
+        $share->total_average_amount = $share->total_average_amount->add($transaction->amount);
         $share->total_commission_amount = $share->total_commission_amount->add($transaction->commission_price);
         $share->total_gain = $share->total_gain->subtract($transaction->commission_price);
 
         $share->save();
         $transaction->save();
+
+        $share->portfolio->calculateMoneyAttributes();
     }
 
     /**
@@ -106,6 +108,8 @@ class TransactionEventSubscriber
                 return false;
             }
         });
+
+        $share->portfolio->calculateMoneyAttributes();
     }
 
     /**
@@ -121,6 +125,8 @@ class TransactionEventSubscriber
         $share->total_dividend_gain = $share->total_dividend_gain->add($transaction->dividend_gain);
         $share->total_gain = $share->total_gain->add($transaction->dividend_gain);
         $share->save();
+
+        $share->portfolio->calculateMoneyAttributes();
     }
 
     /**
@@ -141,6 +147,8 @@ class TransactionEventSubscriber
         $share->average = $share->average_amount->divide($share->lot);
         $share->total_bonus_issue_share += $transaction->lot;
         $share->save();
+
+        $share->portfolio->calculateMoneyAttributes();
     }
 
     /**
