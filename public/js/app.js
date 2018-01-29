@@ -49633,6 +49633,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var portfolioIndex = _.findIndex(this.state.portfolios, ['id', share.portfolio_id]);
             var index = _.findIndex(this.state.portfolios[portfolioIndex].shares, ['id', share.id]);
             this.state.portfolios[portfolioIndex].shares.splice(index, 1, share);
+            this.state.portfolios[portfolioIndex].total_amount = share.portfolio.total_amount;
+            this.state.portfolios[portfolioIndex].total_average_amount = share.portfolio.total_average_amount;
+            this.state.portfolios[portfolioIndex].total_commission_amount = share.portfolio.total_commission_amount;
+            this.state.portfolios[portfolioIndex].total_dividend_gain = share.portfolio.total_dividend_gain;
+            this.state.portfolios[portfolioIndex].total_bonus_issue_share = share.portfolio.total_bonus_issue_share;
+            this.state.portfolios[portfolioIndex].total_gain = share.portfolio.total_gain;
             Bus.$off('transactionAdded', share);
         },
 
@@ -49672,6 +49678,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
          */
         showAddTransactionModal: function showAddTransactionModal(shareId) {
             this.$refs.addTransactionModal.open(shareId);
+        },
+        calculateGain: function calculateGain(portfolio) {
+            var shareGain = 0;
+
+            _.forEach(portfolio.shares, function (share) {
+                shareGain += +share.gain;
+            });
+
+            return +shareGain + +portfolio.total_gain;
         }
     }
 });
@@ -51676,7 +51691,7 @@ var render = function() {
                                               },
                                               [
                                                 _vm._v(
-                                                  " - Portföydeki hisselerin toplam tutarı"
+                                                  " - İlgili portföydeki hisselerin tutarların toplamı"
                                                 )
                                               ]
                                             )
@@ -51725,7 +51740,7 @@ var render = function() {
                                               },
                                               [
                                                 _vm._v(
-                                                  " - Portföydeki hisselerin toplam maliyeti"
+                                                  " - İlgili portföydeki hisselerin ilk alım işleminden itibaren ödenen işlem tutarlarının toplamı"
                                                 )
                                               ]
                                             )
@@ -51734,18 +51749,185 @@ var render = function() {
                                         1
                                       ),
                                       _vm._v(" "),
-                                      _c("v-list-tile-action", [
-                                        _c("strong", [
-                                          _vm._v(
-                                            _vm._s(
-                                              _vm.$n(
-                                                portfolio.total_average_amount,
-                                                "currency"
+                                      _c(
+                                        "v-list-tile-action",
+                                        { staticClass: "red--text darken-1" },
+                                        [
+                                          _c("strong", [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.$n(
+                                                  portfolio.total_average_amount,
+                                                  "currency"
+                                                )
                                               )
                                             )
-                                          )
-                                        ])
-                                      ])
+                                          ])
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c("v-divider"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-list-tile",
+                                    [
+                                      _c(
+                                        "v-list-tile-content",
+                                        [
+                                          _c("v-list-tile-title", [
+                                            _vm._v(
+                                              "\n                                            " +
+                                                _vm._s(
+                                                  _vm.$t(
+                                                    "Total Comission Amount"
+                                                  )
+                                                ) +
+                                                "\n                                            "
+                                            ),
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "grey--text text--lighten-1"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  " - İlgili portföydeki hisselerin tüm alım/satım işlemlerinde ödenen komisyon tutarlarının toplamı"
+                                                )
+                                              ]
+                                            )
+                                          ])
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-tile-action",
+                                        { staticClass: "red--text darken-1" },
+                                        [
+                                          _c("strong", [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.$n(
+                                                  portfolio.total_commission_amount,
+                                                  "currency"
+                                                )
+                                              )
+                                            )
+                                          ])
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c("v-divider"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-list-tile",
+                                    [
+                                      _c(
+                                        "v-list-tile-content",
+                                        [
+                                          _c("v-list-tile-title", [
+                                            _vm._v(
+                                              "\n                                            " +
+                                                _vm._s(
+                                                  _vm.$t("Total Dividend Gain")
+                                                ) +
+                                                "\n                                            "
+                                            ),
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "grey--text text--lighten-1"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  " - İlgili portföydeki hisselerden kazanılan tüm temettü tutarlarının toplamı"
+                                                )
+                                              ]
+                                            )
+                                          ])
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-tile-action",
+                                        { staticClass: "green--text darken-1" },
+                                        [
+                                          _c("strong", [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.$n(
+                                                  portfolio.total_dividend_gain,
+                                                  "currency"
+                                                )
+                                              )
+                                            )
+                                          ])
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c("v-divider"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-list-tile",
+                                    [
+                                      _c(
+                                        "v-list-tile-content",
+                                        [
+                                          _c("v-list-tile-title", [
+                                            _vm._v(
+                                              "\n                                            " +
+                                                _vm._s(
+                                                  _vm.$t(
+                                                    "Total Bonus Issue Share Gain"
+                                                  )
+                                                ) +
+                                                "\n                                            "
+                                            ),
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "grey--text text--lighten-1"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  " - İlgili portföydeki hisselerden kazanılan tüm bedelsiz hisse miktarlarının toplamı"
+                                                )
+                                              ]
+                                            )
+                                          ])
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-tile-action",
+                                        { staticClass: "green--text darken-1" },
+                                        [
+                                          _c("strong", [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.$n(
+                                                  portfolio.total_bonus_issue_share,
+                                                  "decimal"
+                                                )
+                                              )
+                                            )
+                                          ])
+                                        ]
+                                      )
                                     ],
                                     1
                                   ),
@@ -51772,7 +51954,7 @@ var render = function() {
                                               },
                                               [
                                                 _vm._v(
-                                                  " - Portföydeki hisselerin toplam kar/zarar tutarı"
+                                                  " - (satış karı+temettü kazancı)-(toplam tutar+komisyon tutarı) ile hesaplanan tutar"
                                                 )
                                               ]
                                             )
@@ -51797,6 +51979,66 @@ var render = function() {
                                               _vm._s(
                                                 _vm.$n(
                                                   portfolio.total_gain,
+                                                  "currency"
+                                                )
+                                              )
+                                            )
+                                          ])
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c("v-divider"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-list-tile",
+                                    [
+                                      _c(
+                                        "v-list-tile-content",
+                                        [
+                                          _c("v-list-tile-title", [
+                                            _vm._v(
+                                              "\n                                            " +
+                                                _vm._s(
+                                                  _vm.$t("Instant Total Gain")
+                                                ) +
+                                                "\n                                            "
+                                            ),
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "grey--text text--lighten-1"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  " - İlgili portföydeki hisselerin anlık hisse fiyatı ile kazanılacak kazanç ile hesaplanan tutar"
+                                                )
+                                              ]
+                                            )
+                                          ])
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-tile-action",
+                                        {
+                                          class: {
+                                            "red--text darken-1":
+                                              _vm.calculateGain(portfolio) < 0,
+                                            "green--text darken-1":
+                                              _vm.calculateGain(portfolio) > 0
+                                          }
+                                        },
+                                        [
+                                          _c("strong", [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.$n(
+                                                  _vm.calculateGain(portfolio),
                                                   "currency"
                                                 )
                                               )
@@ -53113,7 +53355,8 @@ var render = function() {
                                                 _vm._v(
                                                   _vm._s(
                                                     _vm.$n(
-                                                      _vm.share.total_amount,
+                                                      _vm.share
+                                                        .total_average_amount,
                                                       "currency"
                                                     )
                                                   )
@@ -53387,7 +53630,7 @@ var render = function() {
                                                   },
                                                   [
                                                     _vm._v(
-                                                      " - Anlık hiise fiyatı ile kazanılacak kazanç ile hesaplanan tutar"
+                                                      " - Anlık hisse fiyatı ile kazanılacak kazanç ile hesaplanan tutar"
                                                     )
                                                   ]
                                                 )

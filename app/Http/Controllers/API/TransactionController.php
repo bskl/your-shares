@@ -35,6 +35,8 @@ class TransactionController extends Controller
         $event = 'App\\Events\\' . TransactionTypes::getTypeName($transaction->type) . 'TransactionCreated';
         event(new $event($transaction));
 
+        $transaction->share->load('portfolio');
+
         return response()->json($transaction->share);
     }
 

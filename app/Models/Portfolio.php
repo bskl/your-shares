@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\CanFilterByUser;
+use Money\Money;
 
 class Portfolio extends BaseModel
 {
@@ -23,7 +24,7 @@ class Portfolio extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'user_id', 'name', 'currency', 'order',
+        'user_id', 'name', 'currency', 'order', 'total_bonus_issue_gain',
     ];
 
     /**
@@ -32,7 +33,7 @@ class Portfolio extends BaseModel
      * @var array
      */
     protected $money = [
-        'total_amount', 'total_average_amount', 'total_gain',
+        'total_amount', 'total_average_amount', 'total_commission_amount', 'total_dividend_gain', 'total_gain',
     ];
 
     /**
@@ -67,5 +68,31 @@ class Portfolio extends BaseModel
     public function shares()
     {
         return $this->hasMany('App\Models\Share');
+    }
+
+    /**
+     * Calculate the total amount price attribute with money object.
+     */
+    public function calculateMoneyAttributes()
+    {
+        $totalAmount = $totalAverageAmount = $totalGain = $totalCommission = $totalDividend = Money::TRY(0);
+        $totalBonusIssue = 0;
+
+        $this->shares->map(function ($share) use (&$totalAmount, &$totalAverageAmount, &$totalCommission, &$totalDividend, &$totalBonusIssue, &$totalGain) {
+            $totalAmount = $totalAmount->add($share->amount);
+            $totalAverageAmount = $totalAverageAmount->add($share->average_amount);
+            $totalCommission = $totalCommission->add($share->total_commission_amount);
+            $totalDividend = $totalDividend->add($share->total_dividend_gain);
+            $totalBonusIssue = $totalBonusIssue + $share->total_bonus_issue_share;
+            $totalGain = $totalGain->add($share->total_gain);
+        });
+
+        $this->total_amount = $totalAmount;
+        $this->total_average_amount = $totalAverageAmount;
+        $this->total_commission_amount = $totalCommission;
+        $this->total_dividend_gain = $totalDividend;
+        $this->total_bonus_issue_share = $totalBonusIssue;
+        $this->total_gain = $totalGain;
+        $this->save();
     }
 }
