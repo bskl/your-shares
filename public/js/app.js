@@ -29432,6 +29432,9 @@ var portfolioStore = {
             shares: [],
             total_amount: '',
             total_average_amount: '',
+            total_commission_amount: '',
+            total_dividend_gain: '',
+            total_bonus_issue_share: '',
             total_gain: ''
         }]
     },
@@ -49633,7 +49636,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var portfolioIndex = _.findIndex(this.state.portfolios, ['id', share.portfolio_id]);
             var index = _.findIndex(this.state.portfolios[portfolioIndex].shares, ['id', share.id]);
             this.state.portfolios[portfolioIndex].shares.splice(index, 1, share);
-            this.state.portfolios[portfolioIndex].total_amount = share.portfolio.total_amount;
+            this.state.portfolios[portfolioIndex].total_sale_amount = share.portfolio.total_sale_amount;
             this.state.portfolios[portfolioIndex].total_average_amount = share.portfolio.total_average_amount;
             this.state.portfolios[portfolioIndex].total_commission_amount = share.portfolio.total_commission_amount;
             this.state.portfolios[portfolioIndex].total_dividend_gain = share.portfolio.total_dividend_gain;
@@ -51680,7 +51683,9 @@ var render = function() {
                                           _c("v-list-tile-title", [
                                             _vm._v(
                                               "\n                                            " +
-                                                _vm._s(_vm.$t("Total Amount")) +
+                                                _vm._s(
+                                                  _vm.$t("Total Sale Amount")
+                                                ) +
                                                 "\n                                            "
                                             ),
                                             _c(
@@ -51691,7 +51696,7 @@ var render = function() {
                                               },
                                               [
                                                 _vm._v(
-                                                  " - İlgili portföydeki hisselerin tutarların toplamı"
+                                                  " - İlgili portföydeki hisselerin tüm satış tutarların toplamı"
                                                 )
                                               ]
                                             )
@@ -51705,7 +51710,7 @@ var render = function() {
                                           _vm._v(
                                             _vm._s(
                                               _vm.$n(
-                                                portfolio.total_amount,
+                                                portfolio.total_sale_amount,
                                                 "currency"
                                               )
                                             )
@@ -53314,6 +53319,57 @@ var render = function() {
                                     "v-list",
                                     { attrs: { dense: "" } },
                                     [
+                                      _c(
+                                        "v-list-tile",
+                                        [
+                                          _c(
+                                            "v-list-tile-content",
+                                            [
+                                              _c("v-list-tile-title", [
+                                                _vm._v(
+                                                  "\n                                            " +
+                                                    _vm._s(
+                                                      _vm.$t(
+                                                        "Total Sale Amount"
+                                                      )
+                                                    ) +
+                                                    "\n                                            "
+                                                ),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "grey--text text--lighten-1"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      " - İlgili hissenin tüm satım işlemin tutarlarının toplamı"
+                                                    )
+                                                  ]
+                                                )
+                                              ])
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c("v-list-tile-action", [
+                                            _c("strong", [
+                                              _vm._v(
+                                                _vm._s(
+                                                  _vm.$n(
+                                                    _vm.share.total_sale_amount,
+                                                    "currency"
+                                                  )
+                                                )
+                                              )
+                                            ])
+                                          ])
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-divider"),
+                                      _vm._v(" "),
                                       _c(
                                         "v-list-tile",
                                         [
@@ -56279,6 +56335,7 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Price is required': 'Price is required',
     'Commission is required': 'Commission is required',
     'Dividend Gain Price is required': 'Dividend Net Price is required',
+    'Total Sale Amount': 'Total Sale Amount',
     'Total Amount': 'Total Amount',
     'Total Average Amount': 'Total Average Amount',
     'Total Comission Amount': 'Total Comission Amount',
@@ -56366,6 +56423,7 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Price is required': 'Fiyat alanı girin',
     'Commission is required': 'Komisyon alanı girin',
     'Dividend Gain Price is required': 'Temettü Net Fiyatını girin',
+    'Total Sale Amount': 'Toplam Satış Tutarı',
     'Total Amount': 'Toplam Tutar',
     'Total Average Amount': 'Toplam Ortalama Tutar',
     'Total Comission Amount': 'Toplam Komisyon Tutarı',

@@ -31,7 +31,7 @@ class Share extends BaseModel
      * @var array
      */
     protected $money = [
-        'average', 'average_amount', 'amount', 'gain', 'total_average_amount', 'total_commission_amount', 'total_dividend_gain', 'total_gain',
+        'average', 'average_amount', 'amount', 'gain', 'total_sale_amount', 'total_average_amount', 'total_commission_amount', 'total_dividend_gain', 'total_gain',
     ];
 
     /**

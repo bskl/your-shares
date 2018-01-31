@@ -8,6 +8,9 @@ export const portfolioStore = {
             shares: [],
             total_amount: '',
             total_average_amount: '',
+            total_commission_amount: '',
+            total_dividend_gain: '',
+            total_bonus_issue_share: '',
             total_gain: '',
         }]
     },

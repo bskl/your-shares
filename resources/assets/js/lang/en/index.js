@@ -69,6 +69,7 @@ export default {
     'Price is required' : 'Price is required',
     'Commission is required' : 'Commission is required',
     'Dividend Gain Price is required' : 'Dividend Net Price is required',
+    'Total Sale Amount' : 'Total Sale Amount',
     'Total Amount' : 'Total Amount',
     'Total Average Amount' : 'Total Average Amount',
     'Total Comission Amount' : 'Total Comission Amount',

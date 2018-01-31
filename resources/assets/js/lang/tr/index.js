@@ -69,6 +69,7 @@ export default {
     'Price is required' : 'Fiyat alanı girin',
     'Commission is required' : 'Komisyon alanı girin',
     'Dividend Gain Price is required' : 'Temettü Net Fiyatını girin',
+    'Total Sale Amount' : 'Toplam Satış Tutarı',
     'Total Amount' : 'Toplam Tutar',
     'Total Average Amount' : 'Toplam Ortalama Tutar',
     'Total Comission Amount' : 'Toplam Komisyon Tutarı',
