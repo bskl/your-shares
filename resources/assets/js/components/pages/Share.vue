@@ -115,6 +115,18 @@
                                     <v-list-tile>
                                         <v-list-tile-content>
                                             <v-list-tile-title>
+                                                {{ $t('Total Sale Amount') }}
+                                                <span class="grey--text text--lighten-1"> - İlgili hissenin tüm satım işlemin tutarlarının toplamı</span>
+                                            </v-list-tile-title>
+                                        </v-list-tile-content>
+                                        <v-list-tile-action>
+                                            <strong>{{ $n(share.total_sale_amount, 'currency') }}</strong>
+                                        </v-list-tile-action>
+                                    </v-list-tile>
+                                    <v-divider></v-divider>
+                                    <v-list-tile>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>
                                                 {{ $t('Total Amount') }}
                                                 <span class="grey--text text--lighten-1"> - İlgili hissenin ilk alım işleminden itibaren ödenen işlem tutarlarının toplamı</span>
                                             </v-list-tile-title>

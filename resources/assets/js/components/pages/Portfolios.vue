@@ -82,7 +82,7 @@
                 let portfolioIndex = _.findIndex(this.state.portfolios, ['id', share.portfolio_id]);
                 let index = _.findIndex(this.state.portfolios[portfolioIndex].shares, ['id', share.id]);
                 this.state.portfolios[portfolioIndex].shares.splice(index, 1, share);
-                this.state.portfolios[portfolioIndex].total_amount = share.portfolio.total_amount;
+                this.state.portfolios[portfolioIndex].total_sale_amount = share.portfolio.total_sale_amount;
                 this.state.portfolios[portfolioIndex].total_average_amount = share.portfolio.total_average_amount;
                 this.state.portfolios[portfolioIndex].total_commission_amount = share.portfolio.total_commission_amount;
                 this.state.portfolios[portfolioIndex].total_dividend_gain = share.portfolio.total_dividend_gain;
@@ -210,12 +210,12 @@
                                     <v-list-tile>
                                         <v-list-tile-content>
                                             <v-list-tile-title>
-                                                {{ $t('Total Amount') }}
-                                                <span class="grey--text text--lighten-1"> - İlgili portföydeki hisselerin tutarların toplamı</span>
+                                                {{ $t('Total Sale Amount') }}
+                                                <span class="grey--text text--lighten-1"> - İlgili portföydeki hisselerin tüm satış tutarların toplamı</span>
                                             </v-list-tile-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action>
-                                            <strong>{{ $n(portfolio.total_amount, 'currency') }}</strong>
+                                            <strong>{{ $n(portfolio.total_sale_amount, 'currency') }}</strong>
                                         </v-list-tile-action>
                                     </v-list-tile>
                                     <v-divider></v-divider>

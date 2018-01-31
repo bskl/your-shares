@@ -33,7 +33,7 @@ class Portfolio extends BaseModel
      * @var array
      */
     protected $money = [
-        'total_amount', 'total_average_amount', 'total_commission_amount', 'total_dividend_gain', 'total_gain',
+        'total_sale_amount', 'total_average_amount', 'total_commission_amount', 'total_dividend_gain', 'total_gain',
     ];
 
     /**
@@ -75,20 +75,16 @@ class Portfolio extends BaseModel
      */
     public function calculateMoneyAttributes()
     {
-        $totalAmount = $totalAverageAmount = $totalGain = $totalCommission = $totalDividend = Money::TRY(0);
+        $totalGain = $totalCommission = $totalDividend = Money::TRY(0);
         $totalBonusIssue = 0;
 
-        $this->shares->map(function ($share) use (&$totalAmount, &$totalAverageAmount, &$totalCommission, &$totalDividend, &$totalBonusIssue, &$totalGain) {
-            $totalAmount = $totalAmount->add($share->amount);
-            $totalAverageAmount = $totalAverageAmount->add($share->average_amount);
+        $this->shares->map(function ($share) use (&$totalCommission, &$totalDividend, &$totalBonusIssue, &$totalGain) {
             $totalCommission = $totalCommission->add($share->total_commission_amount);
             $totalDividend = $totalDividend->add($share->total_dividend_gain);
             $totalBonusIssue = $totalBonusIssue + $share->total_bonus_issue_share;
             $totalGain = $totalGain->add($share->total_gain);
         });
 
-        $this->total_amount = $totalAmount;
-        $this->total_average_amount = $totalAverageAmount;
         $this->total_commission_amount = $totalCommission;
         $this->total_dividend_gain = $totalDividend;
         $this->total_bonus_issue_share = $totalBonusIssue;

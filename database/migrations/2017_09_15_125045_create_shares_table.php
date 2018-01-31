@@ -23,6 +23,7 @@ class CreateSharesTable extends Migration
             $table->integer('average_amount')->default(0);
             $table->integer('amount')->default(0);
             $table->integer('gain')->default(0);
+            $table->integer('total_sale_amount')->default(0);
             $table->integer('total_average_amount')->default(0);
             $table->integer('total_commission_amount')->default(0);
             $table->integer('total_dividend_gain')->default(0);
