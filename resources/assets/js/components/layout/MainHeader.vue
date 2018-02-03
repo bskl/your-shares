@@ -14,8 +14,8 @@
 </script>
 
 <template>
-    <v-toolbar app dark fixed color="blue-grey darken-1">
-        <v-toolbar-title>Your Shares</v-toolbar-title>
+    <v-toolbar app fixed dark class="elevation-0" style="background-color: #50514F;">
+        <v-toolbar-title style="letter-spacing: 0em;"><b>Your Shares</b></v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-side-icon class="hidden-md-and-up"></v-toolbar-side-icon>
 

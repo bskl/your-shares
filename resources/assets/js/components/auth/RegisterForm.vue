@@ -36,6 +36,7 @@
 
         mounted() {
             if (userStore.isAuthenticated()) {
+                Bus.$emit('userLoggedIn');
                 this.$router.push('/');
             }
         },

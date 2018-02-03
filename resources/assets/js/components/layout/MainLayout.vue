@@ -16,7 +16,7 @@
 </script>
 
 <template>
-    <v-app v-if="!loading">
+    <v-app light v-if="!loading">
 
         <main-header />
 
