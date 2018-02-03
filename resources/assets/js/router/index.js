@@ -13,7 +13,11 @@ export default new Router({
         {
             path: '/share/:shareId(\\d+)/transactions',
             component: require('../components/pages/Share.vue'),
-            props: true
+            props: true,
+        },
+        {
+            path: '/confirm/:confirmation_code',
+            component: require('../components/auth/Confirm.vue'),
         },
         {
             path: '/login',

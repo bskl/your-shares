@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 Route::namespace('API')->group(function () {
 
     Route::post('/register', 'Auth\RegisterController@store');
+    Route::get('/confirm/{token}', 'Auth\RegisterController@confirm');
     Route::post('/login', 'Auth\LoginController@login');
     //Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail');
     //Route::post('/password/reset', 'ResetPasswordController@reset');
