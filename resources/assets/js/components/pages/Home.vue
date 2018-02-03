@@ -25,7 +25,9 @@
         },
 
         mounted() {
-            if (!userStore.isAuthenticated()) {
+            if (this.$route.params.confirmation_code) {
+                this.loading = false;
+            } else if (! userStore.isAuthenticated()) {
                 this.$router.push('/login');
                 this.loading = false;
             } else {

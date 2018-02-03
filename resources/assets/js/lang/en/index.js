@@ -77,6 +77,8 @@ export default {
     'Total Bonus Issue Share Gain' :'Total Bonus Issue Share Gain',
     'Total Gain' : 'Total Gain',
     'Instant Total Gain' : 'Instant Total Gain',
+    'Your email account has been verified, now you can log in with your username and password.' : 'Your email account has been verified, now you can log in with your username and password.',
+    'Your activation code is invalid or your e-mail address verified before.' : 'Your activation code is invalid or your e-mail address verified before.',
 
     transactions: [
         'Buying', 'Sale', 'Dividend', 'Bonus Issue',

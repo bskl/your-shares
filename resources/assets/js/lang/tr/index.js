@@ -77,6 +77,8 @@ export default {
     'Total Bonus Issue Share Gain' : 'Toplam Bedelsiz Hisse Kazancı',
     'Total Gain' : 'Toplam Kazanç',
     'Instant Total Gain' : 'Anlık Toplam Kazanç',
+    'Your email account has been verified, now you can log in with your username and password.' : 'Eposta hesabınız doğrulanmıştır, şimdi kullanıcı adı ve şifreniz ile giriş yapabilirsiniz.',
+    'Your activation code is invalid or your e-mail address verified before.' : 'Aktivasyon kodunuz hatalı veya eposta hesabınız daha önce doğrulandı.',
 
     transactions: [
         'Alım', 'Satım', 'Temettü', 'Bedelsiz Dağıtım',
