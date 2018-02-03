@@ -17,7 +17,7 @@ export default new Router({
         },
         {
             path: '/confirm/:confirmation_code',
-            component: require('../components/auth/Confirm.vue'),
+            component: require('../components/auth/LoginForm.vue'),
         },
         {
             path: '/login',

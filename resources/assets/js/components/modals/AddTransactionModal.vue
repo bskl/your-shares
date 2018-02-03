@@ -164,7 +164,7 @@
                             item-value="id"
                             v-model="form.type"
                             :label="$t('Select Transaction')"
-                            
+                            autofocus
                             single-line
                             bottom
                             required

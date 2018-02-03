@@ -127,6 +127,7 @@
                             :label="$t('Portfolio Name')"
                             :rules="nameRules"
                             required
+                            autofocus
                         ></v-text-field>
                         <v-select name="currency" id="currency" type="select"
                             v-model="form.currency"

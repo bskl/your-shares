@@ -142,6 +142,7 @@
                             :rules="symbolRules"
                             :search-input.sync="search"
                             v-model="form.symbol_id"
+                            autofocus
                         ></v-select>
                 </template>
             </modal-body>
