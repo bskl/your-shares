@@ -52838,12 +52838,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         Bus.$on('userLoggedIn', function (event) {
             setTimeout(function () {
-                if (_this.state.user.locale) {
-                    _this.$i18n.locale = _this.state.user.locale;
-                    _this.locale = _this.state.user.locale;
+                if (__WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale) {
+                    console.log(__WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale);
+                    console.log(_this.$i18n.locale);
+                    _this.$i18n.locale = __WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale;
+                    _this.locale = __WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale;
                     __WEBPACK_IMPORTED_MODULE_0__services_ls_js__["a" /* ls */].set('locale', _this.locale);
                 }
-            }, 750);
+            }, 1000);
         });
     },
 
@@ -54750,6 +54752,7 @@ var getLocale = function getLocale() {
 
     __WEBPACK_IMPORTED_MODULE_2__services_ls_js__["a" /* ls */].set('locale', locale);
 
+    console.log(locale);
     return locale;
 };
 
