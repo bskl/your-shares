@@ -72,7 +72,7 @@ class SetSymbols extends Command
 
     protected function getSymbols($stocks)
     {
-        foreach($stocks as $key => $symbol) {
+        foreach ($stocks as $key => $symbol) {
             if($symbol[11] === 1) {
                 $symbols[$key] = $symbol;
             }
@@ -100,7 +100,7 @@ class SetSymbols extends Command
 
     protected function storeSymbols($symbols)
     {
-        foreach($symbols as $key => $value) {
+        foreach ($symbols as $key => $value) {
             Symbol::updateOrCreate(['code' => $key], [
                 'trend' => (int)$value[0],
                 'last_price' => $this->convertToInt($value[1]),
