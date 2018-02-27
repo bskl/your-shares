@@ -127,12 +127,35 @@
                                     <v-list-tile>
                                         <v-list-tile-content>
                                             <v-list-tile-title>
-                                                {{ $t('Total Amount') }}
+                                                {{ $t('Total Purchase Amount') }}
                                                 <span class="grey--text text--lighten-1"> - İlgili hissenin ilk alım işleminden itibaren ödenen işlem tutarlarının toplamı</span>
                                             </v-list-tile-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action class="red--text darken-1">
-                                            <strong>{{ $n(share.total_average_amount, 'currency') }}</strong>
+                                            <strong>{{ $n(share.total_purchase_amount, 'currency') }}</strong>
+                                        </v-list-tile-action>
+                                    </v-list-tile>
+                                    <v-divider></v-divider><v-list-tile>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>
+                                                {{ $t('Total Paid Amount') }}
+                                                <span class="grey--text text--lighten-1"> - İlgili hisse için cepten ödenen tutar</span>
+                                            </v-list-tile-title>
+                                        </v-list-tile-content>
+                                        <v-list-tile-action class="red--text darken-1">
+                                            <strong>{{ $n(share.total_paid_amount, 'currency') }}</strong>
+                                        </v-list-tile-action>
+                                    </v-list-tile>
+                                    <v-divider></v-divider>
+                                    <v-list-tile>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>
+                                                {{ $t('Gain/Loss') }}
+                                                <span class="grey--text text--lighten-1"> - Satış sonucu kar veya zarar toplamı</span>
+                                            </v-list-tile-title>
+                                        </v-list-tile-content>
+                                        <v-list-tile-action :class="{ 'red--text darken-1': share.gain_loss < 0, 'green--text darken-1': share.gain_loss > 0 }">
+                                            <strong>{{ $n(share.gain_loss, 'currency') }}</strong>
                                         </v-list-tile-action>
                                     </v-list-tile>
                                     <v-divider></v-divider>
@@ -176,7 +199,7 @@
                                         <v-list-tile-content>
                                             <v-list-tile-title>
                                                 {{ $t('Total Gain') }}
-                                                <span class="grey--text text--lighten-1"> - (satış karı+temettü kazancı)-(toplam tutar+komisyon tutarı) ile hesaplanan tutar</span>
+                                                <span class="grey--text text--lighten-1"> - (satış karı+temettü kazancı)-komisyon tutarı ile hesaplanan tutar</span>
                                             </v-list-tile-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action :class="{ 'red--text darken-1': share.total_gain < 0, 'green--text darken-1': share.total_gain > 0 }">

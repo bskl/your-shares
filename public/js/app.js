@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 26);
+/******/ 	return __webpack_require__(__webpack_require__.s = 27);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -180,7 +180,7 @@ module.exports = function normalizeComponent (
 
 
 var bind = __webpack_require__(15);
-var isBuffer = __webpack_require__(32);
+var isBuffer = __webpack_require__(33);
 
 /*global toString:true*/
 
@@ -584,9 +584,9 @@ var userStore = {
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(60)
+var __vue_script__ = __webpack_require__(61)
 /* template */
-var __vue_template__ = __webpack_require__(61)
+var __vue_template__ = __webpack_require__(62)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -658,7 +658,7 @@ module.exports = g;
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ls; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_local_storage__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_local_storage__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_local_storage___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_local_storage__);
 
 
@@ -683,9 +683,9 @@ var ls = {
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(78)
+var __vue_script__ = __webpack_require__(79)
 /* template */
-var __vue_template__ = __webpack_require__(88)
+var __vue_template__ = __webpack_require__(92)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -731,9 +731,9 @@ module.exports = Component.exports
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(55)
+var __vue_script__ = __webpack_require__(56)
 /* template */
-var __vue_template__ = __webpack_require__(56)
+var __vue_template__ = __webpack_require__(57)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -781,7 +781,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(57)
+var __vue_template__ = __webpack_require__(58)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -829,7 +829,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(58)
+var __vue_template__ = __webpack_require__(59)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -877,7 +877,7 @@ var normalizeComponent = __webpack_require__(0)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(59)
+var __vue_template__ = __webpack_require__(60)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -924,7 +924,7 @@ module.exports = Component.exports
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(1);
-var normalizeHeaderName = __webpack_require__(34);
+var normalizeHeaderName = __webpack_require__(35);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -11695,7 +11695,7 @@ Vue$3.compile = compileToFunctions;
 
 module.exports = Vue$3;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(49).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(50).setImmediate))
 
 /***/ }),
 /* 13 */
@@ -28874,7 +28874,7 @@ var http = {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(29)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(30)(module)))
 
 /***/ }),
 /* 15 */
@@ -29092,12 +29092,12 @@ process.umask = function() { return 0; };
 
 
 var utils = __webpack_require__(1);
-var settle = __webpack_require__(35);
-var buildURL = __webpack_require__(37);
-var parseHeaders = __webpack_require__(38);
-var isURLSameOrigin = __webpack_require__(39);
+var settle = __webpack_require__(36);
+var buildURL = __webpack_require__(38);
+var parseHeaders = __webpack_require__(39);
+var isURLSameOrigin = __webpack_require__(40);
 var createError = __webpack_require__(18);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(40);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(41);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -29194,7 +29194,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(41);
+      var cookies = __webpack_require__(42);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -29278,7 +29278,7 @@ module.exports = function xhrAdapter(config) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(36);
+var enhanceError = __webpack_require__(37);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -29341,7 +29341,7 @@ module.exports = Cancel;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(53);
 
 
 
@@ -29354,20 +29354,20 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
         component: __webpack_require__(22)
     }, {
         path: '/share/:shareId(\\d+)/transactions',
-        component: __webpack_require__(73),
+        component: __webpack_require__(74),
         props: true
     }, {
         path: '/confirm/:confirmation_code',
-        component: __webpack_require__(25)
+        component: __webpack_require__(26)
     }, {
         path: '/login',
-        component: __webpack_require__(25)
+        component: __webpack_require__(26)
     }, {
         path: '/register',
-        component: __webpack_require__(92)
+        component: __webpack_require__(96)
     }, {
         path: '/password/reset',
-        component: __webpack_require__(95)
+        component: __webpack_require__(99)
     }]
 }));
 
@@ -29378,9 +29378,9 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(53)
+var __vue_script__ = __webpack_require__(54)
 /* template */
-var __vue_template__ = __webpack_require__(72)
+var __vue_template__ = __webpack_require__(73)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -29434,7 +29434,7 @@ var portfolioStore = {
             currency: '',
             shares: [],
             total_amount: '',
-            total_average_amount: '',
+            total_purchase_amount: '',
             total_commission_amount: '',
             total_dividend_gain: '',
             total_bonus_issue_share: '',
@@ -29478,9 +29478,9 @@ var portfolioStore = {
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(54)
+var __vue_script__ = __webpack_require__(55)
 /* template */
-var __vue_template__ = __webpack_require__(62)
+var __vue_template__ = __webpack_require__(63)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -29521,14 +29521,124 @@ module.exports = Component.exports
 
 /***/ }),
 /* 25 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_i18n__ = __webpack_require__(88);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_ls_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__stores_userStore__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__en___ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tr___ = __webpack_require__(90);
+
+
+
+
+
+
+
+
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_i18n__["a" /* default */]);
+
+var messages = {
+    en: __WEBPACK_IMPORTED_MODULE_4__en___["a" /* default */],
+    tr: __WEBPACK_IMPORTED_MODULE_5__tr___["a" /* default */]
+};
+
+var numberFormats = {
+    'en': {
+        currency: {
+            style: 'currency', currency: 'USD', currencyDisplay: 'symbol', minimumFractionDigits: 2
+        },
+        percent: {
+            style: 'percent', minimumFractionDigits: 2
+        },
+        decimal: {
+            style: 'decimal', minimumFractionDigits: 3, maximumFractionDigits: 3
+        }
+    },
+    'tr': {
+        currency: {
+            style: 'currency', currency: 'TRY', currencyDisplay: 'symbol', minimumFractionDigits: 2
+        },
+        percent: {
+            style: 'percent', minimumFractionDigits: 2
+        },
+        decimal: {
+            style: 'decimal', minimumFractionDigits: 3, maximumFractionDigits: 3
+        }
+    }
+};
+
+var dateTimeFormats = {
+    'en': {
+        short: {
+            year: 'numeric', month: 'short', day: 'numeric'
+        },
+        long: {
+            year: 'numeric', month: 'short', day: 'numeric',
+            weekday: 'short', hour: 'numeric', minute: 'numeric'
+        }
+    },
+    'tr': {
+        short: {
+            day: 'numeric', month: 'short', year: 'numeric'
+        },
+        long: {
+            year: 'numeric', month: 'short', day: 'numeric',
+            weekday: 'short', hour: 'numeric', minute: 'numeric', hour12: true
+        }
+    }
+};
+
+var fallbackLocale = 'tr';
+
+var getNavigatorLocale = function getNavigatorLocale() {
+    var locale = window.navigator.userLanguage || window.navigator.language;
+
+    if (locale.includes('-') || locale.includes('_')) {
+        locale = locale.substring(0, 2);
+    }
+
+    return locale;
+};
+
+var getLocale = function getLocale() {
+    var locale = getNavigatorLocale();
+
+    if (__WEBPACK_IMPORTED_MODULE_2__services_ls_js__["a" /* ls */].get('locale')) {
+        locale = __WEBPACK_IMPORTED_MODULE_2__services_ls_js__["a" /* ls */].get('locale');
+    }
+
+    if (!locale) {
+        locale = fallbackLocale;
+    }
+
+    __WEBPACK_IMPORTED_MODULE_2__services_ls_js__["a" /* ls */].set('locale', locale);
+
+    return locale;
+};
+
+// Create VueI18n instance with options
+/* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vue_i18n__["a" /* default */]({
+    locale: getLocale(),
+    fallbackLocale: fallbackLocale,
+    messages: messages,
+    numberFormats: numberFormats,
+    dateTimeFormats: dateTimeFormats
+}));
+
+/***/ }),
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(90)
+var __vue_script__ = __webpack_require__(94)
 /* template */
-var __vue_template__ = __webpack_require__(91)
+var __vue_template__ = __webpack_require__(95)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -29568,25 +29678,25 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(27);
+__webpack_require__(28);
 module.exports = __webpack_require__(115);
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuetify__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuetify__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuetify___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vuetify__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__router___ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lang___ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lang___ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utilities_Form_js__ = __webpack_require__(102);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_http_js__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_nprogress__ = __webpack_require__(104);
@@ -29600,7 +29710,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(28);
+__webpack_require__(29);
 
 
 
@@ -29636,7 +29746,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
 });
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -29648,7 +29758,7 @@ window._ = __webpack_require__(14);
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(30);
+window.axios = __webpack_require__(31);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -29682,7 +29792,7 @@ if (token) {
 // });
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -29710,13 +29820,13 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(31);
+module.exports = __webpack_require__(32);
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29724,7 +29834,7 @@ module.exports = __webpack_require__(31);
 
 var utils = __webpack_require__(1);
 var bind = __webpack_require__(15);
-var Axios = __webpack_require__(33);
+var Axios = __webpack_require__(34);
 var defaults = __webpack_require__(11);
 
 /**
@@ -29759,14 +29869,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(20);
-axios.CancelToken = __webpack_require__(47);
+axios.CancelToken = __webpack_require__(48);
 axios.isCancel = __webpack_require__(19);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(48);
+axios.spread = __webpack_require__(49);
 
 module.exports = axios;
 
@@ -29775,7 +29885,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports) {
 
 /*!
@@ -29802,7 +29912,7 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29810,10 +29920,10 @@ function isSlowBuffer (obj) {
 
 var defaults = __webpack_require__(11);
 var utils = __webpack_require__(1);
-var InterceptorManager = __webpack_require__(42);
-var dispatchRequest = __webpack_require__(43);
-var isAbsoluteURL = __webpack_require__(45);
-var combineURLs = __webpack_require__(46);
+var InterceptorManager = __webpack_require__(43);
+var dispatchRequest = __webpack_require__(44);
+var isAbsoluteURL = __webpack_require__(46);
+var combineURLs = __webpack_require__(47);
 
 /**
  * Create a new instance of Axios
@@ -29895,7 +30005,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29914,7 +30024,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29947,7 +30057,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29975,7 +30085,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30050,7 +30160,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30094,7 +30204,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30169,7 +30279,7 @@ module.exports = (
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30212,7 +30322,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30272,7 +30382,7 @@ module.exports = (
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30331,14 +30441,14 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(1);
-var transformData = __webpack_require__(44);
+var transformData = __webpack_require__(45);
 var isCancel = __webpack_require__(19);
 var defaults = __webpack_require__(11);
 
@@ -30417,7 +30527,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30444,7 +30554,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30465,7 +30575,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30486,7 +30596,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30550,7 +30660,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30584,7 +30694,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -30637,13 +30747,13 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(50);
+__webpack_require__(51);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -30836,7 +30946,7 @@ exports.clearImmediate = clearImmediate;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(16)))
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -46944,7 +47054,7 @@ function unbind(el, binding) {
 //# sourceMappingURL=vuetify.js.map
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49574,7 +49684,7 @@ if (inBrowser && window.Vue) {
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49582,11 +49692,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_portfolioStore_js__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modals_AddPortfolioModal_vue__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modals_AddPortfolioModal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__modals_AddPortfolioModal_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modals_EditPortfolioModal_vue__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modals_EditPortfolioModal_vue__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modals_EditPortfolioModal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__modals_EditPortfolioModal_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modals_AddShareModal_vue__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modals_AddShareModal_vue__ = __webpack_require__(67);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modals_AddShareModal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__modals_AddShareModal_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modals_AddTransactionModal_vue__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modals_AddTransactionModal_vue__ = __webpack_require__(70);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modals_AddTransactionModal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__modals_AddTransactionModal_vue__);
 
 
@@ -49688,7 +49798,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var index = _.findIndex(this.state.portfolios[portfolioIndex].shares, ['id', share.id]);
             this.state.portfolios[portfolioIndex].shares.splice(index, 1, share);
             this.state.portfolios[portfolioIndex].total_sale_amount = share.portfolio.total_sale_amount;
-            this.state.portfolios[portfolioIndex].total_average_amount = share.portfolio.total_average_amount;
+            this.state.portfolios[portfolioIndex].total_purchase_amount = share.portfolio.total_purchase_amount;
+            this.state.portfolios[portfolioIndex].total_paid_amount = share.portfolio.total_paid_amount;
+            this.state.portfolios[portfolioIndex].gain_loss = share.portfolio.gain_loss;
             this.state.portfolios[portfolioIndex].total_commission_amount = share.portfolio.total_commission_amount;
             this.state.portfolios[portfolioIndex].total_dividend_gain = share.portfolio.total_dividend_gain;
             this.state.portfolios[portfolioIndex].total_bonus_issue_share = share.portfolio.total_bonus_issue_share;
@@ -49746,7 +49858,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49860,7 +49972,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49880,7 +49992,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -49921,7 +50033,7 @@ if (false) {
 }
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -49941,7 +50053,7 @@ if (false) {
 }
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -49961,7 +50073,7 @@ if (false) {
 }
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -49981,7 +50093,7 @@ if (false) {
 }
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49999,7 +50111,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -50039,7 +50151,7 @@ if (false) {
 }
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -50171,15 +50283,15 @@ if (false) {
 }
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(64)
+var __vue_script__ = __webpack_require__(65)
 /* template */
-var __vue_template__ = __webpack_require__(65)
+var __vue_template__ = __webpack_require__(66)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -50219,7 +50331,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50357,7 +50469,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -50498,15 +50610,15 @@ if (false) {
 }
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(67)
+var __vue_script__ = __webpack_require__(68)
 /* template */
-var __vue_template__ = __webpack_require__(68)
+var __vue_template__ = __webpack_require__(69)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -50546,7 +50658,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50692,7 +50804,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -50815,15 +50927,15 @@ if (false) {
 }
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(70)
+var __vue_script__ = __webpack_require__(71)
 /* template */
-var __vue_template__ = __webpack_require__(71)
+var __vue_template__ = __webpack_require__(72)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -50863,7 +50975,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -51034,7 +51146,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -51340,7 +51452,7 @@ if (false) {
 }
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -51788,7 +51900,9 @@ var render = function() {
                                             _vm._v(
                                               "\n                                            " +
                                                 _vm._s(
-                                                  _vm.$t("Total Average Amount")
+                                                  _vm.$t(
+                                                    "Total Purchase Amount"
+                                                  )
                                                 ) +
                                                 "\n                                            "
                                             ),
@@ -51817,7 +51931,117 @@ var render = function() {
                                             _vm._v(
                                               _vm._s(
                                                 _vm.$n(
-                                                  portfolio.total_average_amount,
+                                                  portfolio.total_purchase_amount,
+                                                  "currency"
+                                                )
+                                              )
+                                            )
+                                          ])
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c("v-divider"),
+                                  _c(
+                                    "v-list-tile",
+                                    [
+                                      _c(
+                                        "v-list-tile-content",
+                                        [
+                                          _c("v-list-tile-title", [
+                                            _vm._v(
+                                              "\n                                            " +
+                                                _vm._s(
+                                                  _vm.$t("Total Paid Amount")
+                                                ) +
+                                                "\n                                            "
+                                            ),
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "grey--text text--lighten-1"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  " - İlgili portföydeki hisselerin için ödenen tutarlarının toplamı"
+                                                )
+                                              ]
+                                            )
+                                          ])
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-tile-action",
+                                        { staticClass: "red--text darken-1" },
+                                        [
+                                          _c("strong", [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.$n(
+                                                  portfolio.total_paid_amount,
+                                                  "currency"
+                                                )
+                                              )
+                                            )
+                                          ])
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c("v-divider"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-list-tile",
+                                    [
+                                      _c(
+                                        "v-list-tile-content",
+                                        [
+                                          _c("v-list-tile-title", [
+                                            _vm._v(
+                                              "\n                                            " +
+                                                _vm._s(_vm.$t("Gain/Loss")) +
+                                                "\n                                            "
+                                            ),
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "grey--text text--lighten-1"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  " - Satış sonucu kar veya zarar toplamı"
+                                                )
+                                              ]
+                                            )
+                                          ])
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-tile-action",
+                                        {
+                                          class: {
+                                            "red--text darken-1":
+                                              portfolio.gain_loss < 0,
+                                            "green--text darken-1":
+                                              portfolio.gain_loss > 0
+                                          }
+                                        },
+                                        [
+                                          _c("strong", [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.$n(
+                                                  portfolio.gain_loss,
                                                   "currency"
                                                 )
                                               )
@@ -52014,7 +52238,7 @@ var render = function() {
                                               },
                                               [
                                                 _vm._v(
-                                                  " - (satış karı+temettü kazancı)-(toplam tutar+komisyon tutarı) ile hesaplanan tutar"
+                                                  " - (satış karı+temettü kazancı)-komisyon tutarı ile hesaplanan tutar"
                                                 )
                                               ]
                                             )
@@ -52150,15 +52374,15 @@ if (false) {
 }
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(74)
+var __vue_script__ = __webpack_require__(75)
 /* template */
-var __vue_template__ = __webpack_require__(89)
+var __vue_template__ = __webpack_require__(93)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -52198,7 +52422,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -52264,14 +52488,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 
-var stub = __webpack_require__(76);
-var tracking = __webpack_require__(77);
+var stub = __webpack_require__(77);
+var tracking = __webpack_require__(78);
 var ls = 'localStorage' in global && global.localStorage ? global.localStorage : stub;
 
 function accessor (key, value) {
@@ -52314,7 +52538,7 @@ module.exports = accessor;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52353,7 +52577,7 @@ module.exports = {
 
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52414,14 +52638,14 @@ module.exports = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MainHeader_vue__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MainHeader_vue__ = __webpack_require__(80);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__MainHeader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__MainHeader_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__MainFooter_vue__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__MainFooter_vue__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__MainFooter_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__MainFooter_vue__);
 
 
@@ -52440,15 +52664,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(80)
+var __vue_script__ = __webpack_require__(81)
 /* template */
-var __vue_template__ = __webpack_require__(84)
+var __vue_template__ = __webpack_require__(85)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -52488,12 +52712,12 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_UserBadge_vue__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_UserBadge_vue__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_UserBadge_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__partials_UserBadge_vue__);
 
 
@@ -52510,15 +52734,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(82)
+var __vue_script__ = __webpack_require__(83)
 /* template */
-var __vue_template__ = __webpack_require__(83)
+var __vue_template__ = __webpack_require__(84)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -52558,7 +52782,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -52612,7 +52836,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -52719,7 +52943,7 @@ if (false) {
 }
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -52758,15 +52982,15 @@ if (false) {
 }
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(86)
+var __vue_script__ = __webpack_require__(87)
 /* template */
-var __vue_template__ = __webpack_require__(87)
+var __vue_template__ = __webpack_require__(91)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -52806,13 +53030,15 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_ls_js__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lang___ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__stores_userStore_js__ = __webpack_require__(2);
+
 
 
 
@@ -52829,7 +53055,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             locale: this.$i18n.locale,
-            state: __WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state,
             locales: [{ value: "tr", label: "Türkçe" }, { value: "en", label: "English" }]
         };
     },
@@ -52838,12 +53063,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         Bus.$on('userLoggedIn', function (event) {
             setTimeout(function () {
-                if (__WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale) {
-                    console.log(__WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale);
-                    console.log(_this.$i18n.locale);
-                    _this.$i18n.locale = __WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale;
-                    _this.locale = __WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].state.user.locale;
+                if (__WEBPACK_IMPORTED_MODULE_2__stores_userStore_js__["a" /* userStore */].state.user.locale) {
+                    _this.locale = __WEBPACK_IMPORTED_MODULE_2__stores_userStore_js__["a" /* userStore */].state.user.locale;
                     __WEBPACK_IMPORTED_MODULE_0__services_ls_js__["a" /* ls */].set('locale', _this.locale);
+                    __WEBPACK_IMPORTED_MODULE_1__lang___["a" /* default */].locale = _this.locale;
                 }
             }, 1000);
         });
@@ -52861,7 +53084,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 __WEBPACK_IMPORTED_MODULE_0__services_ls_js__["a" /* ls */].set('locale', _this2.locale);
                 _this2.$i18n.locale = _this2.locale;
 
-                if (__WEBPACK_IMPORTED_MODULE_1__stores_userStore_js__["a" /* userStore */].isAuthenticated()) {
+                if (__WEBPACK_IMPORTED_MODULE_2__stores_userStore_js__["a" /* userStore */].isAuthenticated()) {
                     return new Promise(function (resolve, reject) {
                         http.get('/locale/' + _this2.locale, function (response) {
                             resolve(response);
@@ -52876,1897 +53099,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 87 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "v-footer",
-    { staticClass: "pa-3", attrs: { app: "" } },
-    [
-      _c(
-        "v-flex",
-        { attrs: { xs1: "" } },
-        [
-          _c("v-select", {
-            attrs: {
-              items: _vm.locales,
-              "item-text": "label",
-              "item-value": "value",
-              label: _vm.$t("Language"),
-              "single-line": "",
-              auto: "",
-              "hide-details": ""
-            },
-            on: {
-              change: function($event) {
-                _vm.setLocale()
-              }
-            },
-            model: {
-              value: _vm.locale,
-              callback: function($$v) {
-                _vm.locale = $$v
-              },
-              expression: "locale"
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c("v-spacer"),
-      _vm._v(" "),
-      _c("div", [_vm._v("© " + _vm._s(new Date().getFullYear()))])
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-7dd53752", module.exports)
-  }
-}
-
-/***/ }),
 /* 88 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return !_vm.loading
-    ? _c(
-        "v-app",
-        { attrs: { light: "" } },
-        [
-          _c("main-header"),
-          _vm._v(" "),
-          _c(
-            "main",
-            [
-              _c(
-                "v-content",
-                [
-                  _c(
-                    "v-container",
-                    { attrs: { fluid: "", "grid-list-xl": "" } },
-                    [_vm._t("default")],
-                    2
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("main-footer")
-        ],
-        1
-      )
-    : _vm._e()
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-3d861d61", module.exports)
-  }
-}
-
-/***/ }),
-/* 89 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return !_vm.loading
-    ? _c(
-        "v-layout",
-        { attrs: { row: "", wrap: "" } },
-        [
-          _c(
-            "v-flex",
-            { attrs: { xs12: "", sm12: "", md10: "", "offset-md1": "" } },
-            [
-              _c(
-                "v-layout",
-                { attrs: { row: "", wrap: "" } },
-                [
-                  _c(
-                    "v-flex",
-                    { attrs: { xs12: "" } },
-                    [
-                      _c(
-                        "v-card",
-                        [
-                          _c(
-                            "v-card-title",
-                            { staticClass: "pt-0 pb-0 elevation-4" },
-                            [
-                              _c(
-                                "v-toolbar",
-                                { attrs: { color: "white", flat: "" } },
-                                [
-                                  _c(
-                                    "v-btn",
-                                    {
-                                      attrs: {
-                                        icon: "",
-                                        light: "",
-                                        to: "/",
-                                        exact: ""
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "v-icon",
-                                        { attrs: { color: "grey darken-2" } },
-                                        [_vm._v("arrow_back")]
-                                      )
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-toolbar-title",
-                                    {
-                                      staticClass: "grey--text text--darken-4"
-                                    },
-                                    [_vm._v(_vm._s(_vm.share.symbol.code))]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-icon",
-                                    {
-                                      attrs: { slot: "divider" },
-                                      slot: "divider"
-                                    },
-                                    [_vm._v("chevron_right")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-subheader",
-                                    {
-                                      class: {
-                                        "red--text darken-1":
-                                          _vm.share.symbol.trend == -1,
-                                        "green--text darken-1":
-                                          _vm.share.symbol.trend == 1
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "i",
-                                        {
-                                          directives: [
-                                            {
-                                              name: "show",
-                                              rawName: "v-show",
-                                              value:
-                                                _vm.share.symbol.trend == 1,
-                                              expression:
-                                                "share.symbol.trend == 1"
-                                            }
-                                          ],
-                                          staticClass: "material-icons"
-                                        },
-                                        [_vm._v("arrow_drop_up")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "i",
-                                        {
-                                          directives: [
-                                            {
-                                              name: "show",
-                                              rawName: "v-show",
-                                              value:
-                                                _vm.share.symbol.trend == -1,
-                                              expression:
-                                                "share.symbol.trend == -1"
-                                            }
-                                          ],
-                                          staticClass: "material-icons"
-                                        },
-                                        [_vm._v("arrow_drop_down")]
-                                      ),
-                                      _vm._v(
-                                        "\n                                " +
-                                          _vm._s(
-                                            _vm.$n(
-                                              _vm.share.symbol.last_price,
-                                              "currency"
-                                            )
-                                          ) +
-                                          "\n                            "
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-subheader",
-                                    {
-                                      class: {
-                                        "red--text darken-1":
-                                          _vm.share.symbol.trend == -1,
-                                        "green--text darken-1":
-                                          _vm.share.symbol.trend == 1
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                " +
-                                          _vm._s(
-                                            _vm.$n(
-                                              _vm.share.symbol.rate_of_change,
-                                              "percent"
-                                            )
-                                          ) +
-                                          "\n                            "
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("v-subheader", [
-                                    _vm._v(
-                                      "\n                                " +
-                                        _vm._s(_vm.share.symbol.session_time) +
-                                        "\n                            "
-                                    )
-                                  ])
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("v-divider"),
-                          _vm._v(" "),
-                          _c(
-                            "v-card-text",
-                            [
-                              _c("v-data-table", {
-                                attrs: {
-                                  items: _vm.share.transactions,
-                                  headers: [
-                                    {
-                                      text: _vm.$t("Transaction Date"),
-                                      value: "transaction_date",
-                                      align: "left",
-                                      sortable: false
-                                    },
-                                    {
-                                      text: _vm.$t("Transaction"),
-                                      value: "transaction",
-                                      sortable: false
-                                    },
-                                    {
-                                      text: _vm.$t("Lots"),
-                                      value: "lots",
-                                      sortable: false
-                                    },
-                                    {
-                                      text: _vm.$t("Transaction Price"),
-                                      value: "transaction_price",
-                                      sortable: false
-                                    },
-                                    {
-                                      text: _vm.$t("Transaction Amount"),
-                                      value: "transaction_amount",
-                                      sortable: false
-                                    },
-                                    {
-                                      text: _vm.$t("Commission Price"),
-                                      value: "commission_price",
-                                      sortable: false
-                                    },
-                                    {
-                                      text: _vm.$t("Gain"),
-                                      value: "gain",
-                                      sortable: false
-                                    }
-                                  ],
-                                  "item-key": "id",
-                                  "no-data-text": _vm.$t(
-                                    "You have not any transaction."
-                                  )
-                                },
-                                scopedSlots: _vm._u([
-                                  {
-                                    key: "items",
-                                    fn: function(props) {
-                                      return [
-                                        _c("td", [
-                                          _vm._v(
-                                            _vm._s(
-                                              _vm.$d(
-                                                new Date(props.item.date_at),
-                                                "short"
-                                              )
-                                            )
-                                          )
-                                        ]),
-                                        _vm._v(" "),
-                                        _c(
-                                          "td",
-                                          { staticClass: "text-xs-right" },
-                                          [
-                                            _vm._v(
-                                              _vm._s(
-                                                _vm.$t(
-                                                  "transactions[" +
-                                                    props.item.type +
-                                                    "]"
-                                                )
-                                              )
-                                            )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "td",
-                                          { staticClass: "text-xs-right" },
-                                          [
-                                            _vm._v(
-                                              _vm._s(
-                                                _vm.$n(
-                                                  props.item.lot,
-                                                  "decimal"
-                                                )
-                                              )
-                                            )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "td",
-                                          { staticClass: "text-xs-right" },
-                                          [
-                                            _vm._v(
-                                              _vm._s(
-                                                _vm.$n(
-                                                  props.item.price,
-                                                  "currency"
-                                                )
-                                              )
-                                            )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "td",
-                                          { staticClass: "text-xs-right" },
-                                          [
-                                            _vm._v(
-                                              _vm._s(
-                                                _vm.$n(
-                                                  props.item.amount,
-                                                  "currency"
-                                                )
-                                              )
-                                            )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "td",
-                                          { staticClass: "text-xs-right" },
-                                          [
-                                            _vm._v(
-                                              _vm._s(
-                                                _vm.$n(
-                                                  props.item.commission_price,
-                                                  "currency"
-                                                )
-                                              )
-                                            )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        props.item.type == 0 ||
-                                        props.item.type == 1
-                                          ? _c(
-                                              "td",
-                                              {
-                                                staticClass: "text-xs-right",
-                                                class: {
-                                                  "red--text darken-1":
-                                                    props.item.sale_gain < 0,
-                                                  "green--text darken-1":
-                                                    props.item.sale_gain > 0
-                                                }
-                                              },
-                                              [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm.$n(
-                                                      props.item.sale_gain,
-                                                      "currency"
-                                                    )
-                                                  )
-                                                )
-                                              ]
-                                            )
-                                          : _vm._e(),
-                                        _vm._v(" "),
-                                        props.item.type == 2
-                                          ? _c(
-                                              "td",
-                                              {
-                                                staticClass:
-                                                  "text-xs-right green--text darken-1"
-                                              },
-                                              [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm.$n(
-                                                      props.item.dividend_gain,
-                                                      "currency"
-                                                    )
-                                                  )
-                                                )
-                                              ]
-                                            )
-                                          : _vm._e(),
-                                        _vm._v(" "),
-                                        props.item.type == 3
-                                          ? _c(
-                                              "td",
-                                              {
-                                                staticClass:
-                                                  "text-xs-right green--text darken-1"
-                                              },
-                                              [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm.$n(
-                                                      props.item.bonus_issue,
-                                                      "percent"
-                                                    )
-                                                  )
-                                                )
-                                              ]
-                                            )
-                                          : _vm._e()
-                                      ]
-                                    }
-                                  }
-                                ])
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-card-actions",
-                            [
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "" } },
-                                [
-                                  _c(
-                                    "v-list",
-                                    { attrs: { dense: "" } },
-                                    [
-                                      _c(
-                                        "v-list-tile",
-                                        [
-                                          _c(
-                                            "v-list-tile-content",
-                                            [
-                                              _c("v-list-tile-title", [
-                                                _vm._v(
-                                                  "\n                                            " +
-                                                    _vm._s(
-                                                      _vm.$t(
-                                                        "Total Sale Amount"
-                                                      )
-                                                    ) +
-                                                    "\n                                            "
-                                                ),
-                                                _c(
-                                                  "span",
-                                                  {
-                                                    staticClass:
-                                                      "grey--text text--lighten-1"
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      " - İlgili hissenin tüm satım işlemin tutarlarının toplamı"
-                                                    )
-                                                  ]
-                                                )
-                                              ])
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c("v-list-tile-action", [
-                                            _c("strong", [
-                                              _vm._v(
-                                                _vm._s(
-                                                  _vm.$n(
-                                                    _vm.share.total_sale_amount,
-                                                    "currency"
-                                                  )
-                                                )
-                                              )
-                                            ])
-                                          ])
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c("v-divider"),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-list-tile",
-                                        [
-                                          _c(
-                                            "v-list-tile-content",
-                                            [
-                                              _c("v-list-tile-title", [
-                                                _vm._v(
-                                                  "\n                                            " +
-                                                    _vm._s(
-                                                      _vm.$t("Total Amount")
-                                                    ) +
-                                                    "\n                                            "
-                                                ),
-                                                _c(
-                                                  "span",
-                                                  {
-                                                    staticClass:
-                                                      "grey--text text--lighten-1"
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      " - İlgili hissenin ilk alım işleminden itibaren ödenen işlem tutarlarının toplamı"
-                                                    )
-                                                  ]
-                                                )
-                                              ])
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-list-tile-action",
-                                            {
-                                              staticClass: "red--text darken-1"
-                                            },
-                                            [
-                                              _c("strong", [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm.$n(
-                                                      _vm.share
-                                                        .total_average_amount,
-                                                      "currency"
-                                                    )
-                                                  )
-                                                )
-                                              ])
-                                            ]
-                                          )
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c("v-divider"),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-list-tile",
-                                        [
-                                          _c(
-                                            "v-list-tile-content",
-                                            [
-                                              _c("v-list-tile-title", [
-                                                _vm._v(
-                                                  "\n                                            " +
-                                                    _vm._s(
-                                                      _vm.$t(
-                                                        "Total Comission Amount"
-                                                      )
-                                                    ) +
-                                                    "\n                                            "
-                                                ),
-                                                _c(
-                                                  "span",
-                                                  {
-                                                    staticClass:
-                                                      "grey--text text--lighten-1"
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      " - Tüm alım/satım işlemlerinde ödenen komisyon tutarlarının toplamı"
-                                                    )
-                                                  ]
-                                                )
-                                              ])
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-list-tile-action",
-                                            {
-                                              staticClass: "red--text darken-1"
-                                            },
-                                            [
-                                              _c("strong", [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm.$n(
-                                                      _vm.share
-                                                        .total_commission_amount,
-                                                      "currency"
-                                                    )
-                                                  )
-                                                )
-                                              ])
-                                            ]
-                                          )
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c("v-divider"),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-list-tile",
-                                        [
-                                          _c(
-                                            "v-list-tile-content",
-                                            [
-                                              _c("v-list-tile-title", [
-                                                _vm._v(
-                                                  "\n                                            " +
-                                                    _vm._s(
-                                                      _vm.$t(
-                                                        "Total Dividend Gain"
-                                                      )
-                                                    ) +
-                                                    "\n                                            "
-                                                ),
-                                                _c(
-                                                  "span",
-                                                  {
-                                                    staticClass:
-                                                      "grey--text text--lighten-1"
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      " - Kazanılan tüm temettü tutarlarının toplamı"
-                                                    )
-                                                  ]
-                                                )
-                                              ])
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-list-tile-action",
-                                            {
-                                              staticClass:
-                                                "green--text darken-1"
-                                            },
-                                            [
-                                              _c("strong", [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm.$n(
-                                                      _vm.share
-                                                        .total_dividend_gain,
-                                                      "currency"
-                                                    )
-                                                  )
-                                                )
-                                              ])
-                                            ]
-                                          )
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c("v-divider"),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-list-tile",
-                                        [
-                                          _c(
-                                            "v-list-tile-content",
-                                            [
-                                              _c("v-list-tile-title", [
-                                                _vm._v(
-                                                  "\n                                            " +
-                                                    _vm._s(
-                                                      _vm.$t(
-                                                        "Total Bonus Issue Share Gain"
-                                                      )
-                                                    ) +
-                                                    "\n                                            "
-                                                ),
-                                                _c(
-                                                  "span",
-                                                  {
-                                                    staticClass:
-                                                      "grey--text text--lighten-1"
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      " - Kazanılan tüm bedelsiz hisse miktarlarının toplamı"
-                                                    )
-                                                  ]
-                                                )
-                                              ])
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-list-tile-action",
-                                            {
-                                              staticClass:
-                                                "green--text darken-1"
-                                            },
-                                            [
-                                              _c("strong", [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm.$n(
-                                                      _vm.share
-                                                        .total_bonus_issue_share,
-                                                      "decimal"
-                                                    )
-                                                  )
-                                                )
-                                              ])
-                                            ]
-                                          )
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c("v-divider"),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-list-tile",
-                                        [
-                                          _c(
-                                            "v-list-tile-content",
-                                            [
-                                              _c("v-list-tile-title", [
-                                                _vm._v(
-                                                  "\n                                            " +
-                                                    _vm._s(
-                                                      _vm.$t("Total Gain")
-                                                    ) +
-                                                    "\n                                            "
-                                                ),
-                                                _c(
-                                                  "span",
-                                                  {
-                                                    staticClass:
-                                                      "grey--text text--lighten-1"
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      " - (satış karı+temettü kazancı)-(toplam tutar+komisyon tutarı) ile hesaplanan tutar"
-                                                    )
-                                                  ]
-                                                )
-                                              ])
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-list-tile-action",
-                                            {
-                                              class: {
-                                                "red--text darken-1":
-                                                  _vm.share.total_gain < 0,
-                                                "green--text darken-1":
-                                                  _vm.share.total_gain > 0
-                                              }
-                                            },
-                                            [
-                                              _c("strong", [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm.$n(
-                                                      _vm.share.total_gain,
-                                                      "currency"
-                                                    )
-                                                  )
-                                                )
-                                              ])
-                                            ]
-                                          )
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c("v-divider"),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-list-tile",
-                                        [
-                                          _c(
-                                            "v-list-tile-content",
-                                            [
-                                              _c("v-list-tile-title", [
-                                                _vm._v(
-                                                  "\n                                            " +
-                                                    _vm._s(
-                                                      _vm.$t(
-                                                        "Instant Total Gain"
-                                                      )
-                                                    ) +
-                                                    "\n                                            "
-                                                ),
-                                                _c(
-                                                  "span",
-                                                  {
-                                                    staticClass:
-                                                      "grey--text text--lighten-1"
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      " - Anlık hisse fiyatı ile kazanılacak kazanç ile hesaplanan tutar"
-                                                    )
-                                                  ]
-                                                )
-                                              ])
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-list-tile-action",
-                                            {
-                                              class: {
-                                                "red--text darken-1":
-                                                  _vm.calculateGain() < 0,
-                                                "green--text darken-1":
-                                                  _vm.calculateGain() > 0
-                                              }
-                                            },
-                                            [
-                                              _c("strong", [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    _vm.$n(
-                                                      _vm.calculateGain(),
-                                                      "currency"
-                                                    )
-                                                  )
-                                                )
-                                              ])
-                                            ]
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    : _vm._e()
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-fbb61926", module.exports)
-  }
-}
-
-/***/ }),
-/* 90 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__);
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    /*
-     * The component's name.
-     */
-    name: 'LoginForm',
-
-    components: {
-        MainLayout: __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue___default.a, FormErrors: __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue___default.a
-    },
-
-    /*
-     * The component's data.
-     */
-    data: function data() {
-        var _this = this;
-
-        return {
-            form: new Form({
-                email: '',
-                password: ''
-            }),
-            valid: true,
-            emailRules: [function (v) {
-                return !!v || _this.$t("E-mail is required");
-            }, function (v) {
-                return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || _this.$t("E-mail must be valid")
-                );
-            }],
-            passwordRules: [function (v) {
-                return !!v || _this.$t("Password is required");
-            }, function (v) {
-                return !!v || v.length >= 6 || _this.$t("Password must be more than 6 characters");
-            }]
-        };
-    },
-    mounted: function mounted() {
-        if (__WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__["a" /* userStore */].isAuthenticated()) {
-            Bus.$emit('userLoggedIn');
-            this.$router.push('/');
-        }
-    },
-
-
-    methods: {
-        /**
-         * Login User.
-         */
-        login: function login() {
-            var _this2 = this;
-
-            if (this.$refs.form.validate()) {
-                this.form.post('/login').then(function (response) {
-                    if (response.status === 200) {
-                        Bus.$emit('userLoggedIn');
-                        _this2.$router.push('/');
-                    }
-                });
-            }
-        }
-    }
-});
-
-/***/ }),
-/* 91 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "v-layout",
-    { attrs: { row: "", wrap: "", "justify-center": "" } },
-    [
-      _c(
-        "v-flex",
-        { attrs: { xs12: "", sm6: "", md4: "" } },
-        [
-          _c(
-            "v-layout",
-            { attrs: { row: "", wrap: "" } },
-            [
-              _c(
-                "v-flex",
-                { attrs: { xs12: "" } },
-                [
-                  _c(
-                    "v-card",
-                    [
-                      _c("v-card-title", [
-                        _c("div", { staticClass: "headline mb-0" }, [
-                          _vm._v(_vm._s(_vm.$t("Sign In")))
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "v-form",
-                        {
-                          ref: "form",
-                          model: {
-                            value: _vm.valid,
-                            callback: function($$v) {
-                              _vm.valid = $$v
-                            },
-                            expression: "valid"
-                          }
-                        },
-                        [
-                          _c(
-                            "v-card-text",
-                            [
-                              _c("form-errors", {
-                                attrs: { errors: _vm.form.errors }
-                              }),
-                              _vm._v(" "),
-                              _c("v-text-field", {
-                                attrs: {
-                                  name: "email",
-                                  id: "email",
-                                  type: "email",
-                                  label: _vm.$t("E-Mail Address"),
-                                  rules: _vm.emailRules,
-                                  required: ""
-                                },
-                                model: {
-                                  value: _vm.form.email,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.form, "email", $$v)
-                                  },
-                                  expression: "form.email"
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("v-text-field", {
-                                attrs: {
-                                  name: "password",
-                                  id: "password",
-                                  type: "password",
-                                  label: _vm.$t("Password"),
-                                  rules: _vm.passwordRules,
-                                  required: ""
-                                },
-                                model: {
-                                  value: _vm.form.password,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.form, "password", $$v)
-                                  },
-                                  expression: "form.password"
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "text-sm-right" },
-                                [
-                                  _c(
-                                    "v-btn",
-                                    {
-                                      staticClass: "ma-0",
-                                      attrs: {
-                                        flat: "",
-                                        small: "",
-                                        to: "/password/reset"
-                                      }
-                                    },
-                                    [_vm._v(_vm._s(_vm.$t("Forgot password?")))]
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-card-actions",
-                        [
-                          _c("v-spacer"),
-                          _vm._v(" "),
-                          _c(
-                            "v-btn",
-                            {
-                              attrs: { color: "primary" },
-                              on: { click: _vm.login }
-                            },
-                            [_vm._v(_vm._s(_vm.$t("Sign In")))]
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "" } },
-                [
-                  _c(
-                    "v-card",
-                    [
-                      _c(
-                        "v-card-text",
-                        [
-                          _c("span", [
-                            _vm._v(_vm._s(_vm.$t("You don't have an account?")))
-                          ]),
-                          _vm._v(" "),
-                          _c("router-link", { attrs: { to: "/register" } }, [
-                            _vm._v(_vm._s(_vm.$t("Register")))
-                          ])
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-7d840a46", module.exports)
-  }
-}
-
-/***/ }),
-/* 92 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(0)
-/* script */
-var __vue_script__ = __webpack_require__(93)
-/* template */
-var __vue_template__ = __webpack_require__(94)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/auth/RegisterForm.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-f9f9d1b2", Component.options)
-  } else {
-    hotAPI.reload("data-v-f9f9d1b2", Component.options)
-' + '  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 93 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__);
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    /*
-     * The component's name.
-     */
-    name: 'RegisterForm',
-
-    components: {
-        MainLayout: __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue___default.a, FormErrors: __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue___default.a
-    },
-
-    /*
-     * The component's data.
-     */
-    data: function data() {
-        var _this = this;
-
-        return {
-            form: new Form({
-                email: '',
-                password: ''
-            }),
-            valid: true,
-            emailRules: [function (v) {
-                return !!v || _this.$t("E-mail is required");
-            }, function (v) {
-                return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || _this.$t("E-mail must be valid")
-                );
-            }],
-            passwordRules: [function (v) {
-                return !!v || _this.$t("Password is required");
-            }, function (v) {
-                return !!v || v.length >= 6 || _this.$t("Password must be more than 6 characters");
-            }]
-        };
-    },
-    mounted: function mounted() {
-        if (__WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__["a" /* userStore */].isAuthenticated()) {
-            Bus.$emit('userLoggedIn');
-            this.$router.push('/');
-        }
-    },
-
-
-    methods: {
-        /**
-         * Create a new User.
-         */
-        register: function register() {
-            var _this2 = this;
-
-            if (this.$refs.form.validate()) {
-                this.form.post('/register').then(function (response) {
-                    if (response.status === 200) {
-                        Bus.$emit('userLoggedIn');
-                        _this2.$router.push('/');
-                    }
-                });
-            }
-        }
-    }
-});
-
-/***/ }),
-/* 94 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "v-layout",
-    { attrs: { row: "", wrap: "", "justify-center": "" } },
-    [
-      _c(
-        "v-flex",
-        { attrs: { xs12: "", sm6: "", md4: "" } },
-        [
-          _c(
-            "v-layout",
-            { attrs: { row: "", wrap: "" } },
-            [
-              _c(
-                "v-flex",
-                { attrs: { xs12: "" } },
-                [
-                  _c(
-                    "v-card",
-                    [
-                      _c("v-card-title", [
-                        _c("div", [
-                          _c("h3", { staticClass: "headline mb-0" }, [
-                            _vm._v(_vm._s(_vm.$t("Register")))
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "v-form",
-                        {
-                          ref: "form",
-                          model: {
-                            value: _vm.valid,
-                            callback: function($$v) {
-                              _vm.valid = $$v
-                            },
-                            expression: "valid"
-                          }
-                        },
-                        [
-                          _c(
-                            "v-card-text",
-                            [
-                              _c("form-errors", {
-                                attrs: { errors: _vm.form.errors }
-                              }),
-                              _vm._v(" "),
-                              _c("v-text-field", {
-                                attrs: {
-                                  name: "email",
-                                  id: "email",
-                                  type: "email",
-                                  label: _vm.$t("E-Mail Address"),
-                                  rules: _vm.emailRules,
-                                  required: ""
-                                },
-                                model: {
-                                  value: _vm.form.email,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.form, "email", $$v)
-                                  },
-                                  expression: "form.email"
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("v-text-field", {
-                                attrs: {
-                                  name: "password",
-                                  id: "password",
-                                  type: "password",
-                                  label: _vm.$t("Password"),
-                                  rules: _vm.passwordRules,
-                                  required: ""
-                                },
-                                model: {
-                                  value: _vm.form.password,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.form, "password", $$v)
-                                  },
-                                  expression: "form.password"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-card-actions",
-                        [
-                          _c("v-spacer"),
-                          _vm._v(" "),
-                          _c(
-                            "v-btn",
-                            {
-                              attrs: { color: "primary" },
-                              on: { click: _vm.register }
-                            },
-                            [_vm._v(_vm._s(_vm.$t("Register")))]
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "" } },
-                [
-                  _c(
-                    "v-card",
-                    [
-                      _c(
-                        "v-card-text",
-                        [
-                          _c("span", [
-                            _vm._v(_vm._s(_vm.$t("Already have an account?")))
-                          ]),
-                          _vm._v(" "),
-                          _c("router-link", { attrs: { to: "/login" } }, [
-                            _vm._v(_vm._s(_vm.$t("Sign In")))
-                          ])
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-f9f9d1b2", module.exports)
-  }
-}
-
-/***/ }),
-/* 95 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(0)
-/* script */
-var __vue_script__ = __webpack_require__(96)
-/* template */
-var __vue_template__ = __webpack_require__(97)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/auth/EmailForm.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-f33f17e0", Component.options)
-  } else {
-    hotAPI.reload("data-v-f33f17e0", Component.options)
-' + '  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 96 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__);
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    /*
-     * The component's name.
-     */
-    name: 'PasswordResetForm',
-
-    components: {
-        MainLayout: __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue___default.a, FormErrors: __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue___default.a
-    },
-
-    /*
-     * The component's data.
-     */
-    data: function data() {
-        var _this = this;
-
-        return {
-            form: new Form({
-                email: ''
-            }),
-            valid: true,
-            emailRules: [function (v) {
-                return !!v || _this.$t("E-mail is required");
-            }, function (v) {
-                return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || _this.$t("E-mail must be valid")
-                );
-            }]
-        };
-    },
-    mounted: function mounted() {
-        if (__WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__["a" /* userStore */].isAuthenticated()) {
-            Bus.$emit('userLoggedIn');
-            this.$router.push('/');
-        }
-    },
-
-
-    methods: {
-        /**
-         * Sends password reset email to user.
-         */
-        passwordResetEmail: function passwordResetEmail() {
-            var _this2 = this;
-
-            if (this.$refs.form.validate()) {
-                this.form.post('/password/email').then(function (response) {
-                    if (response.status === 200) {
-                        _this2.$router.push('/login');
-                    }
-                });
-            }
-        }
-    }
-});
-
-/***/ }),
-/* 97 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "v-layout",
-    { attrs: { row: "", wrap: "", "justify-center": "" } },
-    [
-      _c(
-        "v-flex",
-        { attrs: { xs12: "", sm6: "", md4: "" } },
-        [
-          _c(
-            "v-layout",
-            { attrs: { row: "", wrap: "" } },
-            [
-              _c(
-                "v-flex",
-                { attrs: { xs12: "" } },
-                [
-                  _c(
-                    "v-card",
-                    [
-                      _c("v-card-title", [
-                        _c("div", [
-                          _c("h3", { staticClass: "headline mb-0" }, [
-                            _vm._v(_vm._s(_vm.$t("Reset Password")))
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "v-form",
-                        {
-                          ref: "form",
-                          model: {
-                            value: _vm.valid,
-                            callback: function($$v) {
-                              _vm.valid = $$v
-                            },
-                            expression: "valid"
-                          }
-                        },
-                        [
-                          _c(
-                            "v-card-text",
-                            [
-                              _c("form-errors", {
-                                attrs: { errors: _vm.form.errors }
-                              }),
-                              _vm._v(" "),
-                              _c("v-text-field", {
-                                attrs: {
-                                  name: "email",
-                                  id: "email",
-                                  type: "email",
-                                  label: _vm.$t("E-Mail Address"),
-                                  rules: _vm.emailRules,
-                                  required: ""
-                                },
-                                model: {
-                                  value: _vm.form.email,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.form, "email", $$v)
-                                  },
-                                  expression: "form.email"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-card-actions",
-                            [
-                              _c("v-spacer"),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: { color: "primary" },
-                                  on: { click: _vm.passwordResetEmail }
-                                },
-                                [
-                                  _vm._v(
-                                    _vm._s(_vm.$t("Send Password Reset Link"))
-                                  )
-                                ]
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { xs12: "" } },
-                [
-                  _c(
-                    "v-card",
-                    [
-                      _c(
-                        "v-card-text",
-                        [
-                          _c("span", [
-                            _vm._v(_vm._s(_vm.$t("You don't have an account?")))
-                          ]),
-                          _vm._v(" "),
-                          _c("router-link", { attrs: { to: "/register" } }, [
-                            _vm._v(_vm._s(_vm.$t("Register")))
-                          ]),
-                          _vm._v(" "),
-                          _c("span", [
-                            _vm._v(" " + _vm._s(_vm.$t("or")) + " ")
-                          ]),
-                          _vm._v(" "),
-                          _c("router-link", { attrs: { to: "/login" } }, [
-                            _vm._v(_vm._s(_vm.$t("Sign In")))
-                          ])
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-f33f17e0", module.exports)
-  }
-}
-
-/***/ }),
-/* 98 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_i18n__ = __webpack_require__(99);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_ls_js__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__stores_userStore__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__en___ = __webpack_require__(100);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tr___ = __webpack_require__(101);
-
-
-
-
-
-
-
-
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_i18n__["a" /* default */]);
-
-var messages = {
-    en: __WEBPACK_IMPORTED_MODULE_4__en___["a" /* default */],
-    tr: __WEBPACK_IMPORTED_MODULE_5__tr___["a" /* default */]
-};
-
-var numberFormats = {
-    'en': {
-        currency: {
-            style: 'currency', currency: 'USD', currencyDisplay: 'symbol', minimumFractionDigits: 2
-        },
-        percent: {
-            style: 'percent', minimumFractionDigits: 2
-        },
-        decimal: {
-            style: 'decimal', minimumFractionDigits: 3, maximumFractionDigits: 3
-        }
-    },
-    'tr': {
-        currency: {
-            style: 'currency', currency: 'TRY', currencyDisplay: 'symbol', minimumFractionDigits: 2
-        },
-        percent: {
-            style: 'percent', minimumFractionDigits: 2
-        },
-        decimal: {
-            style: 'decimal', minimumFractionDigits: 3, maximumFractionDigits: 3
-        }
-    }
-};
-
-var dateTimeFormats = {
-    'en': {
-        short: {
-            year: 'numeric', month: 'short', day: 'numeric'
-        },
-        long: {
-            year: 'numeric', month: 'short', day: 'numeric',
-            weekday: 'short', hour: 'numeric', minute: 'numeric'
-        }
-    },
-    'tr': {
-        short: {
-            day: 'numeric', month: 'short', year: 'numeric'
-        },
-        long: {
-            year: 'numeric', month: 'short', day: 'numeric',
-            weekday: 'short', hour: 'numeric', minute: 'numeric', hour12: true
-        }
-    }
-};
-
-var fallbackLocale = 'tr';
-
-var getNavigatorLocale = function getNavigatorLocale() {
-    var locale = window.navigator.userLanguage || window.navigator.language;
-
-    if (locale.includes('-') || locale.includes('_')) {
-        locale = locale.substring(0, 2);
-    }
-
-    return locale;
-};
-
-var getLocale = function getLocale() {
-    var locale = getNavigatorLocale();
-
-    if (__WEBPACK_IMPORTED_MODULE_2__services_ls_js__["a" /* ls */].get('locale')) {
-        locale = __WEBPACK_IMPORTED_MODULE_2__services_ls_js__["a" /* ls */].get('locale');
-    }
-
-    if (!locale) {
-        locale = fallbackLocale;
-    }
-
-    __WEBPACK_IMPORTED_MODULE_2__services_ls_js__["a" /* ls */].set('locale', locale);
-
-    console.log(locale);
-    return locale;
-};
-
-// Create VueI18n instance with options
-/* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vue_i18n__["a" /* default */]({
-    locale: getLocale(),
-    fallbackLocale: fallbackLocale,
-    messages: messages,
-    numberFormats: numberFormats,
-    dateTimeFormats: dateTimeFormats
-}));
-
-/***/ }),
-/* 99 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -56280,7 +54613,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 
 /***/ }),
-/* 100 */
+/* 89 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -56357,7 +54690,9 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Dividend Gain Price is required': 'Dividend Net Price is required',
     'Total Sale Amount': 'Total Sale Amount',
     'Total Amount': 'Total Amount',
-    'Total Average Amount': 'Total Average Amount',
+    'Total Purchase Amount': 'Total Purchase Amount',
+    'Total Paid Amount': 'Total Paid Amount',
+    'Gain/Loss': 'Gain/Loss',
     'Total Comission Amount': 'Total Comission Amount',
     'Total Dividend Gain': 'Total Dividend Gain',
     'Total Bonus Issue Share Gain': 'Total Bonus Issue Share Gain',
@@ -56370,7 +54705,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 });
 
 /***/ }),
-/* 101 */
+/* 90 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -56447,7 +54782,9 @@ if (typeof window !== 'undefined' && window.Vue) {
     'Dividend Gain Price is required': 'Temettü Net Fiyatını girin',
     'Total Sale Amount': 'Toplam Satış Tutarı',
     'Total Amount': 'Toplam Tutar',
-    'Total Average Amount': 'Toplam Ortalama Tutar',
+    'Total Purchase Amount': 'Toplam Alım Tutarı',
+    'Total Paid Amount': 'Toplam Ödenen Tutar',
+    'Gain/Loss': 'Kar/Zarar',
     'Total Comission Amount': 'Toplam Komisyon Tutarı',
     'Total Dividend Gain': 'Toplam Temettü Kazancı',
     'Total Bonus Issue Share Gain': 'Toplam Bedelsiz Hisse Kazancı',
@@ -56458,6 +54795,1904 @@ if (typeof window !== 'undefined' && window.Vue) {
 
     transactions: ['Alım', 'Satım', 'Temettü', 'Bedelsiz Dağıtım']
 });
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-footer",
+    { staticClass: "pa-3", attrs: { app: "" } },
+    [
+      _c(
+        "v-flex",
+        { attrs: { xs1: "" } },
+        [
+          _c("v-select", {
+            attrs: {
+              items: _vm.locales,
+              "item-text": "label",
+              "item-value": "value",
+              label: _vm.$t("Language"),
+              "single-line": "",
+              auto: "",
+              "hide-details": ""
+            },
+            on: {
+              change: function($event) {
+                _vm.setLocale()
+              }
+            },
+            model: {
+              value: _vm.locale,
+              callback: function($$v) {
+                _vm.locale = $$v
+              },
+              expression: "locale"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("v-spacer"),
+      _vm._v(" "),
+      _c("div", [_vm._v("© " + _vm._s(new Date().getFullYear()))])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-7dd53752", module.exports)
+  }
+}
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return !_vm.loading
+    ? _c(
+        "v-app",
+        { attrs: { light: "" } },
+        [
+          _c("main-header"),
+          _vm._v(" "),
+          _c(
+            "main",
+            [
+              _c(
+                "v-content",
+                [
+                  _c(
+                    "v-container",
+                    { attrs: { fluid: "", "grid-list-xl": "" } },
+                    [_vm._t("default")],
+                    2
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("main-footer")
+        ],
+        1
+      )
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3d861d61", module.exports)
+  }
+}
+
+/***/ }),
+/* 93 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return !_vm.loading
+    ? _c(
+        "v-layout",
+        { attrs: { row: "", wrap: "" } },
+        [
+          _c(
+            "v-flex",
+            { attrs: { xs12: "", sm12: "", md10: "", "offset-md1": "" } },
+            [
+              _c(
+                "v-layout",
+                { attrs: { row: "", wrap: "" } },
+                [
+                  _c(
+                    "v-flex",
+                    { attrs: { xs12: "" } },
+                    [
+                      _c(
+                        "v-card",
+                        [
+                          _c(
+                            "v-card-title",
+                            { staticClass: "pt-0 pb-0 elevation-4" },
+                            [
+                              _c(
+                                "v-toolbar",
+                                { attrs: { color: "white", flat: "" } },
+                                [
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        icon: "",
+                                        light: "",
+                                        to: "/",
+                                        exact: ""
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "v-icon",
+                                        { attrs: { color: "grey darken-2" } },
+                                        [_vm._v("arrow_back")]
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-toolbar-title",
+                                    {
+                                      staticClass: "grey--text text--darken-4"
+                                    },
+                                    [_vm._v(_vm._s(_vm.share.symbol.code))]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-icon",
+                                    {
+                                      attrs: { slot: "divider" },
+                                      slot: "divider"
+                                    },
+                                    [_vm._v("chevron_right")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-subheader",
+                                    {
+                                      class: {
+                                        "red--text darken-1":
+                                          _vm.share.symbol.trend == -1,
+                                        "green--text darken-1":
+                                          _vm.share.symbol.trend == 1
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "i",
+                                        {
+                                          directives: [
+                                            {
+                                              name: "show",
+                                              rawName: "v-show",
+                                              value:
+                                                _vm.share.symbol.trend == 1,
+                                              expression:
+                                                "share.symbol.trend == 1"
+                                            }
+                                          ],
+                                          staticClass: "material-icons"
+                                        },
+                                        [_vm._v("arrow_drop_up")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "i",
+                                        {
+                                          directives: [
+                                            {
+                                              name: "show",
+                                              rawName: "v-show",
+                                              value:
+                                                _vm.share.symbol.trend == -1,
+                                              expression:
+                                                "share.symbol.trend == -1"
+                                            }
+                                          ],
+                                          staticClass: "material-icons"
+                                        },
+                                        [_vm._v("arrow_drop_down")]
+                                      ),
+                                      _vm._v(
+                                        "\n                                " +
+                                          _vm._s(
+                                            _vm.$n(
+                                              _vm.share.symbol.last_price,
+                                              "currency"
+                                            )
+                                          ) +
+                                          "\n                            "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-subheader",
+                                    {
+                                      class: {
+                                        "red--text darken-1":
+                                          _vm.share.symbol.trend == -1,
+                                        "green--text darken-1":
+                                          _vm.share.symbol.trend == 1
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                " +
+                                          _vm._s(
+                                            _vm.$n(
+                                              _vm.share.symbol.rate_of_change,
+                                              "percent"
+                                            )
+                                          ) +
+                                          "\n                            "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("v-subheader", [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(_vm.share.symbol.session_time) +
+                                        "\n                            "
+                                    )
+                                  ])
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("v-divider"),
+                          _vm._v(" "),
+                          _c(
+                            "v-card-text",
+                            [
+                              _c("v-data-table", {
+                                attrs: {
+                                  items: _vm.share.transactions,
+                                  headers: [
+                                    {
+                                      text: _vm.$t("Transaction Date"),
+                                      value: "transaction_date",
+                                      align: "left",
+                                      sortable: false
+                                    },
+                                    {
+                                      text: _vm.$t("Transaction"),
+                                      value: "transaction",
+                                      sortable: false
+                                    },
+                                    {
+                                      text: _vm.$t("Lots"),
+                                      value: "lots",
+                                      sortable: false
+                                    },
+                                    {
+                                      text: _vm.$t("Transaction Price"),
+                                      value: "transaction_price",
+                                      sortable: false
+                                    },
+                                    {
+                                      text: _vm.$t("Transaction Amount"),
+                                      value: "transaction_amount",
+                                      sortable: false
+                                    },
+                                    {
+                                      text: _vm.$t("Commission Price"),
+                                      value: "commission_price",
+                                      sortable: false
+                                    },
+                                    {
+                                      text: _vm.$t("Gain"),
+                                      value: "gain",
+                                      sortable: false
+                                    }
+                                  ],
+                                  "item-key": "id",
+                                  "no-data-text": _vm.$t(
+                                    "You have not any transaction."
+                                  )
+                                },
+                                scopedSlots: _vm._u([
+                                  {
+                                    key: "items",
+                                    fn: function(props) {
+                                      return [
+                                        _c("td", [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.$d(
+                                                new Date(props.item.date_at),
+                                                "short"
+                                              )
+                                            )
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c(
+                                          "td",
+                                          { staticClass: "text-xs-right" },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.$t(
+                                                  "transactions[" +
+                                                    props.item.type +
+                                                    "]"
+                                                )
+                                              )
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "td",
+                                          { staticClass: "text-xs-right" },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.$n(
+                                                  props.item.lot,
+                                                  "decimal"
+                                                )
+                                              )
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "td",
+                                          { staticClass: "text-xs-right" },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.$n(
+                                                  props.item.price,
+                                                  "currency"
+                                                )
+                                              )
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "td",
+                                          { staticClass: "text-xs-right" },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.$n(
+                                                  props.item.amount,
+                                                  "currency"
+                                                )
+                                              )
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "td",
+                                          { staticClass: "text-xs-right" },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm.$n(
+                                                  props.item.commission_price,
+                                                  "currency"
+                                                )
+                                              )
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        props.item.type == 0 ||
+                                        props.item.type == 1
+                                          ? _c(
+                                              "td",
+                                              {
+                                                staticClass: "text-xs-right",
+                                                class: {
+                                                  "red--text darken-1":
+                                                    props.item.sale_gain < 0,
+                                                  "green--text darken-1":
+                                                    props.item.sale_gain > 0
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.$n(
+                                                      props.item.sale_gain,
+                                                      "currency"
+                                                    )
+                                                  )
+                                                )
+                                              ]
+                                            )
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        props.item.type == 2
+                                          ? _c(
+                                              "td",
+                                              {
+                                                staticClass:
+                                                  "text-xs-right green--text darken-1"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.$n(
+                                                      props.item.dividend_gain,
+                                                      "currency"
+                                                    )
+                                                  )
+                                                )
+                                              ]
+                                            )
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        props.item.type == 3
+                                          ? _c(
+                                              "td",
+                                              {
+                                                staticClass:
+                                                  "text-xs-right green--text darken-1"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.$n(
+                                                      props.item.bonus_issue,
+                                                      "percent"
+                                                    )
+                                                  )
+                                                )
+                                              ]
+                                            )
+                                          : _vm._e()
+                                      ]
+                                    }
+                                  }
+                                ])
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-card-actions",
+                            [
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "" } },
+                                [
+                                  _c(
+                                    "v-list",
+                                    { attrs: { dense: "" } },
+                                    [
+                                      _c(
+                                        "v-list-tile",
+                                        [
+                                          _c(
+                                            "v-list-tile-content",
+                                            [
+                                              _c("v-list-tile-title", [
+                                                _vm._v(
+                                                  "\n                                            " +
+                                                    _vm._s(
+                                                      _vm.$t(
+                                                        "Total Sale Amount"
+                                                      )
+                                                    ) +
+                                                    "\n                                            "
+                                                ),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "grey--text text--lighten-1"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      " - İlgili hissenin tüm satım işlemin tutarlarının toplamı"
+                                                    )
+                                                  ]
+                                                )
+                                              ])
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c("v-list-tile-action", [
+                                            _c("strong", [
+                                              _vm._v(
+                                                _vm._s(
+                                                  _vm.$n(
+                                                    _vm.share.total_sale_amount,
+                                                    "currency"
+                                                  )
+                                                )
+                                              )
+                                            ])
+                                          ])
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-divider"),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-tile",
+                                        [
+                                          _c(
+                                            "v-list-tile-content",
+                                            [
+                                              _c("v-list-tile-title", [
+                                                _vm._v(
+                                                  "\n                                            " +
+                                                    _vm._s(
+                                                      _vm.$t(
+                                                        "Total Purchase Amount"
+                                                      )
+                                                    ) +
+                                                    "\n                                            "
+                                                ),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "grey--text text--lighten-1"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      " - İlgili hissenin ilk alım işleminden itibaren ödenen işlem tutarlarının toplamı"
+                                                    )
+                                                  ]
+                                                )
+                                              ])
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-list-tile-action",
+                                            {
+                                              staticClass: "red--text darken-1"
+                                            },
+                                            [
+                                              _c("strong", [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.$n(
+                                                      _vm.share
+                                                        .total_purchase_amount,
+                                                      "currency"
+                                                    )
+                                                  )
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-divider"),
+                                      _c(
+                                        "v-list-tile",
+                                        [
+                                          _c(
+                                            "v-list-tile-content",
+                                            [
+                                              _c("v-list-tile-title", [
+                                                _vm._v(
+                                                  "\n                                            " +
+                                                    _vm._s(
+                                                      _vm.$t(
+                                                        "Total Paid Amount"
+                                                      )
+                                                    ) +
+                                                    "\n                                            "
+                                                ),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "grey--text text--lighten-1"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      " - İlgili hisse için cepten ödenen tutar"
+                                                    )
+                                                  ]
+                                                )
+                                              ])
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-list-tile-action",
+                                            {
+                                              staticClass: "red--text darken-1"
+                                            },
+                                            [
+                                              _c("strong", [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.$n(
+                                                      _vm.share
+                                                        .total_paid_amount,
+                                                      "currency"
+                                                    )
+                                                  )
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-divider"),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-tile",
+                                        [
+                                          _c(
+                                            "v-list-tile-content",
+                                            [
+                                              _c("v-list-tile-title", [
+                                                _vm._v(
+                                                  "\n                                            " +
+                                                    _vm._s(
+                                                      _vm.$t("Gain/Loss")
+                                                    ) +
+                                                    "\n                                            "
+                                                ),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "grey--text text--lighten-1"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      " - Satış sonucu kar veya zarar toplamı"
+                                                    )
+                                                  ]
+                                                )
+                                              ])
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-list-tile-action",
+                                            {
+                                              class: {
+                                                "red--text darken-1":
+                                                  _vm.share.gain_loss < 0,
+                                                "green--text darken-1":
+                                                  _vm.share.gain_loss > 0
+                                              }
+                                            },
+                                            [
+                                              _c("strong", [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.$n(
+                                                      _vm.share.gain_loss,
+                                                      "currency"
+                                                    )
+                                                  )
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-divider"),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-tile",
+                                        [
+                                          _c(
+                                            "v-list-tile-content",
+                                            [
+                                              _c("v-list-tile-title", [
+                                                _vm._v(
+                                                  "\n                                            " +
+                                                    _vm._s(
+                                                      _vm.$t(
+                                                        "Total Comission Amount"
+                                                      )
+                                                    ) +
+                                                    "\n                                            "
+                                                ),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "grey--text text--lighten-1"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      " - Tüm alım/satım işlemlerinde ödenen komisyon tutarlarının toplamı"
+                                                    )
+                                                  ]
+                                                )
+                                              ])
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-list-tile-action",
+                                            {
+                                              staticClass: "red--text darken-1"
+                                            },
+                                            [
+                                              _c("strong", [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.$n(
+                                                      _vm.share
+                                                        .total_commission_amount,
+                                                      "currency"
+                                                    )
+                                                  )
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-divider"),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-tile",
+                                        [
+                                          _c(
+                                            "v-list-tile-content",
+                                            [
+                                              _c("v-list-tile-title", [
+                                                _vm._v(
+                                                  "\n                                            " +
+                                                    _vm._s(
+                                                      _vm.$t(
+                                                        "Total Dividend Gain"
+                                                      )
+                                                    ) +
+                                                    "\n                                            "
+                                                ),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "grey--text text--lighten-1"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      " - Kazanılan tüm temettü tutarlarının toplamı"
+                                                    )
+                                                  ]
+                                                )
+                                              ])
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-list-tile-action",
+                                            {
+                                              staticClass:
+                                                "green--text darken-1"
+                                            },
+                                            [
+                                              _c("strong", [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.$n(
+                                                      _vm.share
+                                                        .total_dividend_gain,
+                                                      "currency"
+                                                    )
+                                                  )
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-divider"),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-tile",
+                                        [
+                                          _c(
+                                            "v-list-tile-content",
+                                            [
+                                              _c("v-list-tile-title", [
+                                                _vm._v(
+                                                  "\n                                            " +
+                                                    _vm._s(
+                                                      _vm.$t(
+                                                        "Total Bonus Issue Share Gain"
+                                                      )
+                                                    ) +
+                                                    "\n                                            "
+                                                ),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "grey--text text--lighten-1"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      " - Kazanılan tüm bedelsiz hisse miktarlarının toplamı"
+                                                    )
+                                                  ]
+                                                )
+                                              ])
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-list-tile-action",
+                                            {
+                                              staticClass:
+                                                "green--text darken-1"
+                                            },
+                                            [
+                                              _c("strong", [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.$n(
+                                                      _vm.share
+                                                        .total_bonus_issue_share,
+                                                      "decimal"
+                                                    )
+                                                  )
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-divider"),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-tile",
+                                        [
+                                          _c(
+                                            "v-list-tile-content",
+                                            [
+                                              _c("v-list-tile-title", [
+                                                _vm._v(
+                                                  "\n                                            " +
+                                                    _vm._s(
+                                                      _vm.$t("Total Gain")
+                                                    ) +
+                                                    "\n                                            "
+                                                ),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "grey--text text--lighten-1"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      " - (satış karı+temettü kazancı)-komisyon tutarı ile hesaplanan tutar"
+                                                    )
+                                                  ]
+                                                )
+                                              ])
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-list-tile-action",
+                                            {
+                                              class: {
+                                                "red--text darken-1":
+                                                  _vm.share.total_gain < 0,
+                                                "green--text darken-1":
+                                                  _vm.share.total_gain > 0
+                                              }
+                                            },
+                                            [
+                                              _c("strong", [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.$n(
+                                                      _vm.share.total_gain,
+                                                      "currency"
+                                                    )
+                                                  )
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-divider"),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-tile",
+                                        [
+                                          _c(
+                                            "v-list-tile-content",
+                                            [
+                                              _c("v-list-tile-title", [
+                                                _vm._v(
+                                                  "\n                                            " +
+                                                    _vm._s(
+                                                      _vm.$t(
+                                                        "Instant Total Gain"
+                                                      )
+                                                    ) +
+                                                    "\n                                            "
+                                                ),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "grey--text text--lighten-1"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      " - Anlık hisse fiyatı ile kazanılacak kazanç ile hesaplanan tutar"
+                                                    )
+                                                  ]
+                                                )
+                                              ])
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-list-tile-action",
+                                            {
+                                              class: {
+                                                "red--text darken-1":
+                                                  _vm.calculateGain() < 0,
+                                                "green--text darken-1":
+                                                  _vm.calculateGain() > 0
+                                              }
+                                            },
+                                            [
+                                              _c("strong", [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    _vm.$n(
+                                                      _vm.calculateGain(),
+                                                      "currency"
+                                                    )
+                                                  )
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-fbb61926", module.exports)
+  }
+}
+
+/***/ }),
+/* 94 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__);
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    /*
+     * The component's name.
+     */
+    name: 'LoginForm',
+
+    components: {
+        MainLayout: __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue___default.a, FormErrors: __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue___default.a
+    },
+
+    /*
+     * The component's data.
+     */
+    data: function data() {
+        var _this = this;
+
+        return {
+            form: new Form({
+                email: '',
+                password: ''
+            }),
+            valid: true,
+            emailRules: [function (v) {
+                return !!v || _this.$t("E-mail is required");
+            }, function (v) {
+                return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || _this.$t("E-mail must be valid")
+                );
+            }],
+            passwordRules: [function (v) {
+                return !!v || _this.$t("Password is required");
+            }, function (v) {
+                return !!v || v.length >= 6 || _this.$t("Password must be more than 6 characters");
+            }]
+        };
+    },
+    mounted: function mounted() {
+        if (__WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__["a" /* userStore */].isAuthenticated()) {
+            Bus.$emit('userLoggedIn');
+            this.$router.push('/');
+        }
+    },
+
+
+    methods: {
+        /**
+         * Login User.
+         */
+        login: function login() {
+            var _this2 = this;
+
+            if (this.$refs.form.validate()) {
+                this.form.post('/login').then(function (response) {
+                    if (response.status === 200) {
+                        Bus.$emit('userLoggedIn');
+                        _this2.$router.push('/');
+                    }
+                });
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 95 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-layout",
+    { attrs: { row: "", wrap: "", "justify-center": "" } },
+    [
+      _c(
+        "v-flex",
+        { attrs: { xs12: "", sm6: "", md4: "" } },
+        [
+          _c(
+            "v-layout",
+            { attrs: { row: "", wrap: "" } },
+            [
+              _c(
+                "v-flex",
+                { attrs: { xs12: "" } },
+                [
+                  _c(
+                    "v-card",
+                    [
+                      _c("v-card-title", [
+                        _c("div", { staticClass: "headline mb-0" }, [
+                          _vm._v(_vm._s(_vm.$t("Sign In")))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "v-form",
+                        {
+                          ref: "form",
+                          model: {
+                            value: _vm.valid,
+                            callback: function($$v) {
+                              _vm.valid = $$v
+                            },
+                            expression: "valid"
+                          }
+                        },
+                        [
+                          _c(
+                            "v-card-text",
+                            [
+                              _c("form-errors", {
+                                attrs: { errors: _vm.form.errors }
+                              }),
+                              _vm._v(" "),
+                              _c("v-text-field", {
+                                attrs: {
+                                  name: "email",
+                                  id: "email",
+                                  type: "email",
+                                  label: _vm.$t("E-Mail Address"),
+                                  rules: _vm.emailRules,
+                                  required: ""
+                                },
+                                model: {
+                                  value: _vm.form.email,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.form, "email", $$v)
+                                  },
+                                  expression: "form.email"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("v-text-field", {
+                                attrs: {
+                                  name: "password",
+                                  id: "password",
+                                  type: "password",
+                                  label: _vm.$t("Password"),
+                                  rules: _vm.passwordRules,
+                                  required: ""
+                                },
+                                model: {
+                                  value: _vm.form.password,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.form, "password", $$v)
+                                  },
+                                  expression: "form.password"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "text-sm-right" },
+                                [
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      staticClass: "ma-0",
+                                      attrs: {
+                                        flat: "",
+                                        small: "",
+                                        to: "/password/reset"
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(_vm.$t("Forgot password?")))]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-card-actions",
+                        [
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { color: "primary" },
+                              on: { click: _vm.login }
+                            },
+                            [_vm._v(_vm._s(_vm.$t("Sign In")))]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "" } },
+                [
+                  _c(
+                    "v-card",
+                    [
+                      _c(
+                        "v-card-text",
+                        [
+                          _c("span", [
+                            _vm._v(_vm._s(_vm.$t("You don't have an account?")))
+                          ]),
+                          _vm._v(" "),
+                          _c("router-link", { attrs: { to: "/register" } }, [
+                            _vm._v(_vm._s(_vm.$t("Register")))
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-7d840a46", module.exports)
+  }
+}
+
+/***/ }),
+/* 96 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(97)
+/* template */
+var __vue_template__ = __webpack_require__(98)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/auth/RegisterForm.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-f9f9d1b2", Component.options)
+  } else {
+    hotAPI.reload("data-v-f9f9d1b2", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 97 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__);
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    /*
+     * The component's name.
+     */
+    name: 'RegisterForm',
+
+    components: {
+        MainLayout: __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue___default.a, FormErrors: __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue___default.a
+    },
+
+    /*
+     * The component's data.
+     */
+    data: function data() {
+        var _this = this;
+
+        return {
+            form: new Form({
+                email: '',
+                password: ''
+            }),
+            valid: true,
+            emailRules: [function (v) {
+                return !!v || _this.$t("E-mail is required");
+            }, function (v) {
+                return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || _this.$t("E-mail must be valid")
+                );
+            }],
+            passwordRules: [function (v) {
+                return !!v || _this.$t("Password is required");
+            }, function (v) {
+                return !!v || v.length >= 6 || _this.$t("Password must be more than 6 characters");
+            }]
+        };
+    },
+    mounted: function mounted() {
+        if (__WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__["a" /* userStore */].isAuthenticated()) {
+            Bus.$emit('userLoggedIn');
+            this.$router.push('/');
+        }
+    },
+
+
+    methods: {
+        /**
+         * Create a new User.
+         */
+        register: function register() {
+            var _this2 = this;
+
+            if (this.$refs.form.validate()) {
+                this.form.post('/register').then(function (response) {
+                    if (response.status === 200) {
+                        Bus.$emit('userLoggedIn');
+                        _this2.$router.push('/');
+                    }
+                });
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 98 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-layout",
+    { attrs: { row: "", wrap: "", "justify-center": "" } },
+    [
+      _c(
+        "v-flex",
+        { attrs: { xs12: "", sm6: "", md4: "" } },
+        [
+          _c(
+            "v-layout",
+            { attrs: { row: "", wrap: "" } },
+            [
+              _c(
+                "v-flex",
+                { attrs: { xs12: "" } },
+                [
+                  _c(
+                    "v-card",
+                    [
+                      _c("v-card-title", [
+                        _c("div", [
+                          _c("h3", { staticClass: "headline mb-0" }, [
+                            _vm._v(_vm._s(_vm.$t("Register")))
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "v-form",
+                        {
+                          ref: "form",
+                          model: {
+                            value: _vm.valid,
+                            callback: function($$v) {
+                              _vm.valid = $$v
+                            },
+                            expression: "valid"
+                          }
+                        },
+                        [
+                          _c(
+                            "v-card-text",
+                            [
+                              _c("form-errors", {
+                                attrs: { errors: _vm.form.errors }
+                              }),
+                              _vm._v(" "),
+                              _c("v-text-field", {
+                                attrs: {
+                                  name: "email",
+                                  id: "email",
+                                  type: "email",
+                                  label: _vm.$t("E-Mail Address"),
+                                  rules: _vm.emailRules,
+                                  required: ""
+                                },
+                                model: {
+                                  value: _vm.form.email,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.form, "email", $$v)
+                                  },
+                                  expression: "form.email"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("v-text-field", {
+                                attrs: {
+                                  name: "password",
+                                  id: "password",
+                                  type: "password",
+                                  label: _vm.$t("Password"),
+                                  rules: _vm.passwordRules,
+                                  required: ""
+                                },
+                                model: {
+                                  value: _vm.form.password,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.form, "password", $$v)
+                                  },
+                                  expression: "form.password"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-card-actions",
+                        [
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { color: "primary" },
+                              on: { click: _vm.register }
+                            },
+                            [_vm._v(_vm._s(_vm.$t("Register")))]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "" } },
+                [
+                  _c(
+                    "v-card",
+                    [
+                      _c(
+                        "v-card-text",
+                        [
+                          _c("span", [
+                            _vm._v(_vm._s(_vm.$t("Already have an account?")))
+                          ]),
+                          _vm._v(" "),
+                          _c("router-link", { attrs: { to: "/login" } }, [
+                            _vm._v(_vm._s(_vm.$t("Sign In")))
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-f9f9d1b2", module.exports)
+  }
+}
+
+/***/ }),
+/* 99 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(100)
+/* template */
+var __vue_template__ = __webpack_require__(101)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/auth/EmailForm.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-f33f17e0", Component.options)
+  } else {
+    hotAPI.reload("data-v-f33f17e0", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 100 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue__);
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    /*
+     * The component's name.
+     */
+    name: 'PasswordResetForm',
+
+    components: {
+        MainLayout: __WEBPACK_IMPORTED_MODULE_1__layout_MainLayout_vue___default.a, FormErrors: __WEBPACK_IMPORTED_MODULE_2__partials_FormErrors_vue___default.a
+    },
+
+    /*
+     * The component's data.
+     */
+    data: function data() {
+        var _this = this;
+
+        return {
+            form: new Form({
+                email: ''
+            }),
+            valid: true,
+            emailRules: [function (v) {
+                return !!v || _this.$t("E-mail is required");
+            }, function (v) {
+                return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || _this.$t("E-mail must be valid")
+                );
+            }]
+        };
+    },
+    mounted: function mounted() {
+        if (__WEBPACK_IMPORTED_MODULE_0__stores_userStore_js__["a" /* userStore */].isAuthenticated()) {
+            Bus.$emit('userLoggedIn');
+            this.$router.push('/');
+        }
+    },
+
+
+    methods: {
+        /**
+         * Sends password reset email to user.
+         */
+        passwordResetEmail: function passwordResetEmail() {
+            var _this2 = this;
+
+            if (this.$refs.form.validate()) {
+                this.form.post('/password/email').then(function (response) {
+                    if (response.status === 200) {
+                        _this2.$router.push('/login');
+                    }
+                });
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 101 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-layout",
+    { attrs: { row: "", wrap: "", "justify-center": "" } },
+    [
+      _c(
+        "v-flex",
+        { attrs: { xs12: "", sm6: "", md4: "" } },
+        [
+          _c(
+            "v-layout",
+            { attrs: { row: "", wrap: "" } },
+            [
+              _c(
+                "v-flex",
+                { attrs: { xs12: "" } },
+                [
+                  _c(
+                    "v-card",
+                    [
+                      _c("v-card-title", [
+                        _c("div", [
+                          _c("h3", { staticClass: "headline mb-0" }, [
+                            _vm._v(_vm._s(_vm.$t("Reset Password")))
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "v-form",
+                        {
+                          ref: "form",
+                          model: {
+                            value: _vm.valid,
+                            callback: function($$v) {
+                              _vm.valid = $$v
+                            },
+                            expression: "valid"
+                          }
+                        },
+                        [
+                          _c(
+                            "v-card-text",
+                            [
+                              _c("form-errors", {
+                                attrs: { errors: _vm.form.errors }
+                              }),
+                              _vm._v(" "),
+                              _c("v-text-field", {
+                                attrs: {
+                                  name: "email",
+                                  id: "email",
+                                  type: "email",
+                                  label: _vm.$t("E-Mail Address"),
+                                  rules: _vm.emailRules,
+                                  required: ""
+                                },
+                                model: {
+                                  value: _vm.form.email,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.form, "email", $$v)
+                                  },
+                                  expression: "form.email"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-card-actions",
+                            [
+                              _c("v-spacer"),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { color: "primary" },
+                                  on: { click: _vm.passwordResetEmail }
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(_vm.$t("Send Password Reset Link"))
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-flex",
+                { attrs: { xs12: "" } },
+                [
+                  _c(
+                    "v-card",
+                    [
+                      _c(
+                        "v-card-text",
+                        [
+                          _c("span", [
+                            _vm._v(_vm._s(_vm.$t("You don't have an account?")))
+                          ]),
+                          _vm._v(" "),
+                          _c("router-link", { attrs: { to: "/register" } }, [
+                            _vm._v(_vm._s(_vm.$t("Register")))
+                          ]),
+                          _vm._v(" "),
+                          _c("span", [
+                            _vm._v(" " + _vm._s(_vm.$t("or")) + " ")
+                          ]),
+                          _vm._v(" "),
+                          _c("router-link", { attrs: { to: "/login" } }, [
+                            _vm._v(_vm._s(_vm.$t("Sign In")))
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-f33f17e0", module.exports)
+  }
+}
 
 /***/ }),
 /* 102 */

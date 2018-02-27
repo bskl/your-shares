@@ -1,5 +1,6 @@
 <script type="text/ecmascript-6">
     import { ls } from '../../services/ls.js';
+    import i18n from '../../lang/';
     import { userStore } from '../../stores/userStore.js';
 
     export default {
@@ -25,9 +26,9 @@
             Bus.$on('userLoggedIn', event => {
                 setTimeout(() => {
                     if (userStore.state.user.locale) {
-                        this.$i18n.locale = userStore.state.user.locale;
                         this.locale = userStore.state.user.locale;
                         ls.set('locale', this.locale);
+                        i18n.locale = this.locale;
                     }
                 }, 1000)
             });
