@@ -24,7 +24,7 @@ class Portfolio extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'user_id', 'name', 'currency', 'order', 'total_bonus_issue_gain',
+        'user_id', 'name', 'currency', 'order', 'total_bonus_issue_share',
     ];
 
     /**
@@ -33,7 +33,7 @@ class Portfolio extends BaseModel
      * @var array
      */
     protected $money = [
-        'total_sale_amount', 'total_average_amount', 'total_commission_amount', 'total_dividend_gain', 'total_gain',
+        'total_sale_amount', 'total_purchase_amount', 'total_paid_amount', 'gain_loss', 'total_commission_amount', 'total_dividend_gain', 'total_gain',
     ];
 
     /**
@@ -78,7 +78,7 @@ class Portfolio extends BaseModel
         $totalGain = $totalCommission = $totalDividend = Money::TRY(0);
         $totalBonusIssue = 0;
 
-        $this->shares->map(function ($share) use (&$totalCommission, &$totalDividend, &$totalBonusIssue, &$totalGain) {
+        $this->shares->each(function ($share) use (&$totalCommission, &$totalDividend, &$totalBonusIssue, &$totalGain) {
             $totalCommission = $totalCommission->add($share->total_commission_amount);
             $totalDividend = $totalDividend->add($share->total_dividend_gain);
             $totalBonusIssue = $totalBonusIssue + $share->total_bonus_issue_share;
@@ -89,6 +89,5 @@ class Portfolio extends BaseModel
         $this->total_dividend_gain = $totalDividend;
         $this->total_bonus_issue_share = $totalBonusIssue;
         $this->total_gain = $totalGain;
-        $this->save();
     }
 }

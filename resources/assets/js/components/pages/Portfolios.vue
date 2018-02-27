@@ -83,7 +83,9 @@
                 let index = _.findIndex(this.state.portfolios[portfolioIndex].shares, ['id', share.id]);
                 this.state.portfolios[portfolioIndex].shares.splice(index, 1, share);
                 this.state.portfolios[portfolioIndex].total_sale_amount = share.portfolio.total_sale_amount;
-                this.state.portfolios[portfolioIndex].total_average_amount = share.portfolio.total_average_amount;
+                this.state.portfolios[portfolioIndex].total_purchase_amount = share.portfolio.total_purchase_amount;
+                this.state.portfolios[portfolioIndex].total_paid_amount = share.portfolio.total_paid_amount;
+                this.state.portfolios[portfolioIndex].gain_loss = share.portfolio.gain_loss;
                 this.state.portfolios[portfolioIndex].total_commission_amount = share.portfolio.total_commission_amount;
                 this.state.portfolios[portfolioIndex].total_dividend_gain = share.portfolio.total_dividend_gain;
                 this.state.portfolios[portfolioIndex].total_bonus_issue_share = share.portfolio.total_bonus_issue_share;
@@ -222,12 +224,35 @@
                                     <v-list-tile>
                                         <v-list-tile-content>
                                             <v-list-tile-title>
-                                                {{ $t('Total Average Amount') }}
+                                                {{ $t('Total Purchase Amount') }}
                                                 <span class="grey--text text--lighten-1"> - İlgili portföydeki hisselerin ilk alım işleminden itibaren ödenen işlem tutarlarının toplamı</span>
                                             </v-list-tile-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action class="red--text darken-1">
-                                            <strong>{{ $n(portfolio.total_average_amount, 'currency') }}</strong>
+                                            <strong>{{ $n(portfolio.total_purchase_amount, 'currency') }}</strong>
+                                        </v-list-tile-action>
+                                    </v-list-tile>
+                                    <v-divider></v-divider><v-list-tile>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>
+                                                {{ $t('Total Paid Amount') }}
+                                                <span class="grey--text text--lighten-1"> - İlgili portföydeki hisselerin için ödenen tutarlarının toplamı</span>
+                                            </v-list-tile-title>
+                                        </v-list-tile-content>
+                                        <v-list-tile-action class="red--text darken-1">
+                                            <strong>{{ $n(portfolio.total_paid_amount, 'currency') }}</strong>
+                                        </v-list-tile-action>
+                                    </v-list-tile>
+                                    <v-divider></v-divider>
+                                    <v-list-tile>
+                                        <v-list-tile-content>
+                                            <v-list-tile-title>
+                                                {{ $t('Gain/Loss') }}
+                                                <span class="grey--text text--lighten-1"> - Satış sonucu kar veya zarar toplamı</span>
+                                            </v-list-tile-title>
+                                        </v-list-tile-content>
+                                        <v-list-tile-action :class="{ 'red--text darken-1': portfolio.gain_loss < 0, 'green--text darken-1': portfolio.gain_loss > 0 }">
+                                            <strong>{{ $n(portfolio.gain_loss, 'currency') }}</strong>
                                         </v-list-tile-action>
                                     </v-list-tile>
                                     <v-divider></v-divider>
@@ -271,7 +296,7 @@
                                         <v-list-tile-content>
                                             <v-list-tile-title>
                                                 {{ $t('Total Gain') }}
-                                                <span class="grey--text text--lighten-1"> - (satış karı+temettü kazancı)-(toplam tutar+komisyon tutarı) ile hesaplanan tutar</span>
+                                                <span class="grey--text text--lighten-1"> - (satış karı+temettü kazancı)-komisyon tutarı ile hesaplanan tutar</span>
                                             </v-list-tile-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action :class="{ 'red--text darken-1': portfolio.total_gain < 0, 'green--text darken-1': portfolio.total_gain > 0 }">
