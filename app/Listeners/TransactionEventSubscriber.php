@@ -171,6 +171,7 @@ class TransactionEventSubscriber
         $share->save();
 
         $share->portfolio->calculateMoneyAttributes();
+        $share->portfolio->update();
     }
 
     /**
