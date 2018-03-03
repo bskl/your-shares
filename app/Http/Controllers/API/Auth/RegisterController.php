@@ -7,6 +7,7 @@ use App\Http\Requests\API\RegisterRequest;
 use Illuminate\Auth\Events\Registered;
 use App\Notifications\ConfirmationCode;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller
@@ -49,7 +50,7 @@ class RegisterController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
+            'password' => Hash::make($request->password),
             'locale' => $request->getPreferredLanguage(['en', 'tr']),
         ]);
 
