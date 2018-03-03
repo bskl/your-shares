@@ -37,6 +37,7 @@ class TransactionEventSubscriber
 
         $share->portfolio->total_purchase_amount = $share->portfolio->total_purchase_amount->add($transaction->amount);
         $share->portfolio->total_paid_amount = $share->portfolio->total_paid_amount->add($transaction->amount);
+        $share->portfolio->total_gain = $share->portfolio->total_gain->subtract($transaction->commission_price);
         $share->portfolio->calculateMoneyAttributes();
         $share->portfolio->update();
     }
@@ -60,6 +61,8 @@ class TransactionEventSubscriber
         $share->update();
 
         $share->portfolio->total_sale_amount = $share->portfolio->total_sale_amount->add($transaction->amount);
+        $share->portfolio->total_gain = $share->portfolio->total_gain->subtract($transaction->commission_price);
+        $share->portfolio->update();
 
         $items = $share->getBuyingTransactionsByNotSold();
 
@@ -75,18 +78,20 @@ class TransactionEventSubscriber
                 $share->lot = $share->lot - $soldLot;
                 $buyingAmount = $item->price->multiply($soldLot);
                 $soldAmount = $transaction->price->multiply($soldLot);
+                $transactionGain = $soldAmount->subtract($buyingAmount);
+                $share->gain_loss = $share->gain_loss->add($transactionGain);
+                $share->total_gain = $share->total_gain->add($transactionGain);
+
                 $share->average_amount = $share->average_amount->subtract($buyingAmount);
                 $share->average = $share->average_amount->divide($share->lot);
                 $share->calculateAmount($share->symbol->last_price);
                 $share->calculateGain();
-                $transactionGain = $soldAmount->subtract($buyingAmount);
                 $share->total_paid_amount = $share->total_paid_amount->subtract($buyingAmount);
-                $share->gain_loss = $share->gain_loss->add($transactionGain);
-                $share->total_gain = $share->total_gain->add($transactionGain);
                 $share->update();
 
                 $share->portfolio->total_paid_amount = $share->portfolio->total_paid_amount->subtract($buyingAmount);
                 $share->portfolio->gain_loss = $share->portfolio->gain_loss->add($transactionGain);
+                $share->portfolio->total_gain = $share->portfolio->total_gain->add($transactionGain);
                 $share->portfolio->update();
                 
                 $transaction->lot = $transaction->lot - $soldLot;
@@ -121,8 +126,10 @@ class TransactionEventSubscriber
                 $share->total_paid_amount = $share->total_paid_amount->subtract($buyingAmount);
                 $share->update();
 
-                $share->portfolio->gain_loss = $share->portfolio->gain_loss->add($transactionGain);
                 $share->portfolio->total_paid_amount = $share->portfolio->total_paid_amount->subtract($buyingAmount);
+                $share->portfolio->gain_loss = $share->portfolio->gain_loss->add($transactionGain);
+                $share->portfolio->total_gain = $share->portfolio->total_gain->add($transactionGain);
+                $share->portfolio->update();
 
                 $transaction->lot = 0;
                 return false;
@@ -147,6 +154,7 @@ class TransactionEventSubscriber
         $share->total_gain = $share->total_gain->add($transaction->dividend_gain);
         $share->save();
 
+        $share->portfolio->total_gain = $share->portfolio->total_gain->subtract($transaction->dividend_gain);
         $share->portfolio->calculateMoneyAttributes();
         $share->portfolio->update();
     }
