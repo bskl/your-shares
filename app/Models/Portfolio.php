@@ -75,19 +75,17 @@ class Portfolio extends BaseModel
      */
     public function calculateMoneyAttributes()
     {
-        $totalGain = $totalCommission = $totalDividend = Money::TRY(0);
+        $totalCommission = $totalDividend = Money::TRY(0);
         $totalBonusIssue = 0;
 
-        $this->shares->each(function ($share) use (&$totalCommission, &$totalDividend, &$totalBonusIssue, &$totalGain) {
+        $this->shares->each(function ($share) use (&$totalCommission, &$totalDividend, &$totalBonusIssue) {
             $totalCommission = $totalCommission->add($share->total_commission_amount);
             $totalDividend = $totalDividend->add($share->total_dividend_gain);
             $totalBonusIssue = $totalBonusIssue + $share->total_bonus_issue_share;
-            $totalGain = $totalGain->add($share->total_gain);
         });
 
         $this->total_commission_amount = $totalCommission;
         $this->total_dividend_gain = $totalDividend;
         $this->total_bonus_issue_share = $totalBonusIssue;
-        $this->total_gain = $totalGain;
     }
 }
