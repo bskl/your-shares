@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Enums;
 
 abstract class TransactionTypes extends Enum

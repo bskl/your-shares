@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Portfolio;
-use App\Http\Requests\API\PortfolioRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\PortfolioRequest;
+use App\Models\Portfolio;
 use Illuminate\Support\Facades\Auth;
 
 class PortfolioController extends Controller
@@ -12,7 +12,8 @@ class PortfolioController extends Controller
     /**
      * Create a new portfolio instance for auth user after a valid request.
      *
-     * @param  PortfolioRequest     $request
+     * @param PortfolioRequest $request
+     *
      * @return App\Models\Portfolio $portfolio
      */
     public function store(PortfolioRequest $request)
@@ -34,8 +35,9 @@ class PortfolioController extends Controller
     /**
      * Update given portfolio instance after a valid request.
      *
-     * @param  PortfolioRequest     $request
-     * @param  App\Models\Portfolio $portfolio
+     * @param PortfolioRequest     $request
+     * @param App\Models\Portfolio $portfolio
+     *
      * @return App\Models\Portfolio $portfolio
      */
     public function update(PortfolioRequest $request, Portfolio $portfolio)
@@ -43,7 +45,7 @@ class PortfolioController extends Controller
         $this->authorize($portfolio);
 
         $portfolio->update($request->all());
-        
+
         return response()->json($portfolio);
     }
 
@@ -51,6 +53,7 @@ class PortfolioController extends Controller
      * Delete a portfolio.
      *
      * @param Portfolio $portfolio
+     *
      * @return JsonResponse
      */
     public function destroy(Portfolio $portfolio)

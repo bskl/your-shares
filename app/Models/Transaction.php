@@ -3,9 +3,6 @@
 namespace App\Models;
 
 use Money\Money;
-use Money\Currencies\ISOCurrencies;
-use Money\Parser\DecimalMoneyParser;
-use Carbon\Carbon;
 
 class Transaction extends BaseModel
 {
@@ -15,7 +12,7 @@ class Transaction extends BaseModel
      * @var array
      */
     protected $guarded = [
-        'id'
+        'id',
     ];
 
     /**
@@ -37,11 +34,11 @@ class Transaction extends BaseModel
     ];
 
     /**
-	 * The attributes that should be mutated to dates.
-	 *
-	 * @var array
-	 */
-	protected $dates = [
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
         'date_at', 'created_at', 'updated_at',
     ];
 

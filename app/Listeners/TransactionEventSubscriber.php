@@ -2,12 +2,12 @@
 
 namespace App\Listeners;
 
-use App\Models\Share;
 use App\Enums\TransactionTypes;
+use App\Models\Share;
 use Money\Money;
 
 class TransactionEventSubscriber
-{    
+{
     /**
      * Handle user's share for buying transaction.
      */
@@ -93,7 +93,7 @@ class TransactionEventSubscriber
                 $share->portfolio->gain_loss = $share->portfolio->gain_loss->add($transactionGain);
                 $share->portfolio->total_gain = $share->portfolio->total_gain->add($transactionGain);
                 $share->portfolio->update();
-                
+
                 $transaction->lot = $transaction->lot - $soldLot;
             }
 
@@ -132,6 +132,7 @@ class TransactionEventSubscriber
                 $share->portfolio->update();
 
                 $transaction->lot = 0;
+
                 return false;
             }
         });
@@ -185,9 +186,10 @@ class TransactionEventSubscriber
     /**
      * Register the listeners for the subscriber.
      *
-     * @param  Dispatcher  $events
+     * @param Dispatcher $events
      */
-    public function subscribe($events) {
+    public function subscribe($events)
+    {
         $events->listen(
             'App\Events\BuyingTransactionCreated',
             'App\Listeners\TransactionEventSubscriber@onSharePurchased'
@@ -208,5 +210,4 @@ class TransactionEventSubscriber
             'App\Listeners\TransactionEventSubscriber@onShareBonusIssue'
         );
     }
-
 }

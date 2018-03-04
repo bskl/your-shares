@@ -117,8 +117,8 @@ return [
     */
 
     'attributes' => [
-        'email' => 'E-Mail Address',
-        'password' => 'Password',
+        'email'     => 'E-Mail Address',
+        'password'  => 'Password',
         'symbol_id' => 'Share',
     ],
 
