@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +13,6 @@ use Illuminate\Http\Request;
 */
 
 Route::namespace('API')->group(function () {
-
     Route::post('/register', 'Auth\RegisterController@store');
     Route::get('/confirm/{token}', 'Auth\RegisterController@confirm');
     Route::post('/login', 'Auth\LoginController@login');
@@ -26,13 +24,13 @@ Route::namespace('API')->group(function () {
 
         Route::get('/data', 'DataController@getData');
 
-        Route::post(  '/portfolio', 'PortfolioController@store');
-        Route::put(   '/portfolio/{portfolio}', 'PortfolioController@update');
+        Route::post('/portfolio', 'PortfolioController@store');
+        Route::put('/portfolio/{portfolio}', 'PortfolioController@update');
         Route::delete('/portfolio/{portfolio}', 'PortfolioController@destroy');
 
-        Route::post(  '/share', 'ShareController@store');
+        Route::post('/share', 'ShareController@store');
         Route::delete('/share/{share}', 'ShareController@destroy');
-        Route::get(   '/share/{share}/transactions', 'ShareController@getShareTransactions'); 
+        Route::get('/share/{share}/transactions', 'ShareController@getShareTransactions');
 
         Route::post('/transaction', 'TransactionController@store');
 

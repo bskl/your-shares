@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Share;
-use App\Http\Requests\API\ShareRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\ShareRequest;
+use App\Models\Share;
 
 class ShareController extends Controller
 {
     /**
      * Create a new share instance for auth user after a valid request.
      *
-     * @param  ShareRequest     $request
+     * @param ShareRequest $request
+     *
      * @return App\Models\Portfolio $portfolio
      */
     public function store(ShareRequest $request)
@@ -30,19 +31,20 @@ class ShareController extends Controller
     /**
      * Update given share instance after a valid request.
      *
-     * @param  ShareRequest     $request
-     * @param  App\Models\Sahre $portfolio
+     * @param ShareRequest     $request
+     * @param App\Models\Sahre $portfolio
+     *
      * @return App\Models\Share $portfolio
      */
     public function update()
     {
-        
     }
 
     /**
      * Delete a share.
      *
      * @param Share $share
+     *
      * @return JsonResponse
      */
     public function destroy(Share $share)
@@ -50,14 +52,15 @@ class ShareController extends Controller
         $this->authorize($share);
 
         $share->delete();
-        
-        return response()->json();   
+
+        return response()->json();
     }
 
     /**
      * Get share's all transactions.
      *
      * @param Share $share
+     *
      * @return JsonResponse
      */
     public function getShareTransactions(Share $share)

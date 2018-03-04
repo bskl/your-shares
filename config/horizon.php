@@ -58,20 +58,20 @@ return [
         'production' => [
             'supervisor-1' => [
                 'connection' => 'redis',
-                'queue' => ['default', 'emails'],
-                'balance' => 'simple',
-                'processes' => 1,
-                'tries' => 1,
+                'queue'      => ['default', 'emails'],
+                'balance'    => 'simple',
+                'processes'  => 1,
+                'tries'      => 1,
             ],
         ],
 
         'local' => [
             'supervisor-1' => [
                 'connection' => 'redis',
-                'queue' => ['default', 'emails'],
-                'balance' => 'simple',
-                'processes' => 1,
-                'tries' => 1,
+                'queue'      => ['default', 'emails'],
+                'balance'    => 'simple',
+                'processes'  => 1,
+                'tries'      => 1,
             ],
         ],
     ],
