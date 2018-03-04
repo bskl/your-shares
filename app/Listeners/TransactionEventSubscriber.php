@@ -154,7 +154,7 @@ class TransactionEventSubscriber
         $share->total_gain = $share->total_gain->add($transaction->dividend_gain);
         $share->save();
 
-        $share->portfolio->total_gain = $share->portfolio->total_gain->subtract($transaction->dividend_gain);
+        $share->portfolio->total_gain = $share->portfolio->total_gain->add($transaction->dividend_gain);
         $share->portfolio->calculateMoneyAttributes();
         $share->portfolio->update();
     }
