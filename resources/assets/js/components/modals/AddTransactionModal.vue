@@ -5,6 +5,7 @@
     import ModalBody from '../modals/modal/ModalBody.vue';
     import ModalFooter from '../modals/modal/ModalFooter.vue';
     import FormErrors from '../partials/FormErrors.vue';
+    import { VMoney } from 'v-money';
 
     export default {
         /*
@@ -35,6 +36,11 @@
                     commission: null,
                     dividend_gain: null,
                 }),
+                money: {
+                    decimal: '.',
+                    thousands: '.',
+                    precision: 2,
+                },
                 transactions: [
                     { id: 0, label: this.$t("Buying") },
                     { id: 1, label: this.$t("Sale") },
@@ -62,6 +68,10 @@
                 ],
                 saving: false,
             };
+        },
+
+        directives: {
+            money: VMoney
         },
 
         /**
@@ -142,6 +152,11 @@
                         })
                 }
             },
+
+            /**
+             * Set the allowed dates for date time picker.
+             */
+            allowedDates: val => ((new Date(val)).getDay() !== 0 && (new Date(val)).getDay() !== 6 && new Date(val) <= new Date())
         },
     }
 </script>
@@ -157,78 +172,77 @@
                     <v-progress-circular indeterminate color="primary"></v-progress-circular>
                 </div>
                 <template v-else>
-                        <form-errors :errors="form.errors" />
-                        <v-select
-                            :items="transactions"
-                            item-text="label"
-                            item-value="id"
-                            v-model="form.type"
-                            :label="$t('Select Transaction')"
-                            autofocus
-                            single-line
-                            bottom
-                            required
-                            @change="changeInput()"
-                        ></v-select>
+                    <form-errors :errors="form.errors" />
+                    <v-select
+                        :items="transactions"
+                        item-text="label"
+                        item-value="id"
+                        v-model="form.type"
+                        :label="$t('Select Transaction')"
+                        autofocus
+                        single-line
+                        bottom
+                        required
+                        @change="changeInput()"
+                    ></v-select>
 
-                        <v-menu
-                            lazy
-                            :close-on-content-click="false"
-                            v-model="menu"
-                            transition="scale-transition"
-                            offset-y
-                            full-width
-                            :nudge-right="40"
-                            max-width="290px"
-                            min-width="290px"
-                        >
-                            <v-text-field
-                                slot="activator"
-                                v-model="form.date_at"
-                                :label="$t('Select Date')"
-                                :rules="dateAtRules"
-                                prepend-icon="event"
-                                readonly
-                                required
-                            ></v-text-field>
-                            <v-date-picker v-model="form.date_at" no-title scrollable actions>
-                            <template slot-scope="{ save, cancel }">
-                                <v-card-actions>
-                                <v-spacer></v-spacer>
-                                <v-btn flat color="primary" @click="cancel">Cancel</v-btn>
-                                <v-btn flat color="primary" @click="save">OK</v-btn>
-                                </v-card-actions>
-                            </template>
-                            </v-date-picker>
-                        </v-menu>
-
-                        <v-text-field name="lot" id="lot" type="number" step="1"
-                            v-model="form.lot"
-                            :label="$t('Enter Share Amount')"
-                            :rules="lotRules"
+                    <v-menu
+                        ref="menu"
+                        lazy
+                        :close-on-content-click="false"
+                        v-model="menu"
+                        transition="scale-transition"
+                        offset-y
+                        full-width
+                        :nudge-right="40"
+                        min-width="290px"
+                        :return-value.sync="form.date_at"
+                    >
+                        <v-text-field
+                            slot="activator"
+                            :label="$t('Select Date')"
+                            v-model="form.date_at"
+                            :rules="dateAtRules"
+                            prepend-icon="event"
+                            readonly
                             required
                         ></v-text-field>
+                        <v-date-picker :allowed-dates="allowedDates" :first-day-of-week="1" :locale="this.$i18n.locale" v-model="form.date_at" no-title scrollable>
+                            <v-spacer></v-spacer>
+                            <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
+                            <v-btn flat color="primary" @click="$refs.menu.save(form.date_at)">OK</v-btn>
+                        </v-date-picker>
+                    </v-menu>
 
-                        <v-text-field name="price" id="price" type="number" step="0.01"
-                            v-model="form.price"
-                            :label="$t('Enter Share Price')"
-                            :rules="priceRules"
-                            required
-                        ></v-text-field>
+                    <v-text-field name="lot" id="lot" type="number" step="1"
+                        v-model="form.lot"
+                        :label="$t('Enter Share Amount')"
+                        :rules="lotRules"
+                        required
+                    ></v-text-field>
 
-                        <v-text-field v-show="showCommission" name="commission" id="commission" type="number" step="0.0001"
-                            v-model="form.commission"
-                            :label="$t('Enter Commission Rate')"
-                            :rules="commissionRules"
-                            required
-                        ></v-text-field>
+                    <v-text-field name="price" id="price" type="text"
+                        v-model.lazy="form.price"
+                        :label="$t('Enter Share Price')"
+                        :rules="priceRules"
+                        v-money="money"
+                        required
+                    ></v-text-field>
 
-                        <v-text-field v-show="showDividend" name="dividend_gain" id="dividend_gain" type="number" step="0.0001"
-                            v-model="form.dividend_gain"
-                            :label="$t('Enter Dividend Gain Price')"
-                            :rules="dividendGainRules"
-                            required
-                        ></v-text-field>
+                    <v-text-field v-show="showCommission" name="commission" id="commission" type="number" step="0.0001"
+                        v-model="form.commission"
+                        :label="$t('Enter Commission Rate')"
+                        :rules="commissionRules"
+                        required
+                    ></v-text-field>
+
+                    <v-text-field v-show="showDividend" name="dividend_gain" id="dividend_gain" type="text"
+                        v-model.lazy="form.dividend_gain"
+                        :label="$t('Enter Dividend Gain Price')"
+                        :rules="dividendGainRules"
+                        v-money="money"
+                        required
+                    ></v-text-field>
                 </template>
             </modal-body>
             <modal-footer>
