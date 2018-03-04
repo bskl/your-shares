@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use Money\Money;
-use Money\Currency;
-use Money\Currencies\ISOCurrencies;
-use Money\Parser\DecimalMoneyParser;
-use Money\Formatter\DecimalMoneyFormatter;
 use Illuminate\Database\Eloquent\Model;
+use Money\Currencies\ISOCurrencies;
+use Money\Currency;
+use Money\Formatter\DecimalMoneyFormatter;
+use Money\Money;
+use Money\Parser\DecimalMoneyParser;
 
 abstract class BaseModel extends Model
 {
@@ -37,22 +37,24 @@ abstract class BaseModel extends Model
     /**
      * Convert Money object to decimal.
      *
-     * @param  Money\Money  $money
+     * @param Money\Money $money
+     *
      * @return string
      */
     public function convertMoneyToDecimal(Money $money)
     {
         $currencies = new ISOCurrencies();
-        
+
         $moneyFormatter = new DecimalMoneyFormatter($currencies);
 
         return $moneyFormatter->format($money);
     }
-    
+
     /**
      * Get money object for given attribute from the model.
      *
-     * @param  string  $key
+     * @param string $key
+     *
      * @return Money
      */
     public function getMoneyAttribute($key)
@@ -63,8 +65,9 @@ abstract class BaseModel extends Model
     /**
      * Set a given attribute on the model.
      *
-     * @param  string  $key
-     * @param  mixed  $value
+     * @param string $key
+     * @param mixed  $value
+     *
      * @return $this
      */
     public function setMoneyAttribute($key, $value)
@@ -73,9 +76,9 @@ abstract class BaseModel extends Model
             $money = $value;
         } else {
             $currencies = new ISOCurrencies();
-            
+
             $moneyParser = new DecimalMoneyParser($currencies);
-    
+
             $money = $moneyParser->parse($value, 'TRY');
         }
 
@@ -87,12 +90,13 @@ abstract class BaseModel extends Model
     /**
      * Dynamically retrieve attributes on the model.
      *
-     * @param  string  $key
+     * @param string $key
+     *
      * @return mixed
      */
     public function __get($key)
     {
-        if (! $key) {
+        if (!$key) {
             return;
         }
 
@@ -106,8 +110,9 @@ abstract class BaseModel extends Model
     /**
      * Dynamically set attributes on the model.
      *
-     * @param  string  $key
-     * @param  mixed  $value
+     * @param string $key
+     * @param mixed  $value
+     *
      * @return void
      */
     public function __set($key, $value)

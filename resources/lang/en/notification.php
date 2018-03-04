@@ -3,7 +3,7 @@
 return [
     'confirmation_code' => [
         'subject' => 'Activation Code',
-        'text' => '',
-        'button' => 'Verify',
+        'text'    => '',
+        'button'  => 'Verify',
     ],
 ];

@@ -27,9 +27,9 @@ return [
         'numeric' => ':attribute :min - :max arasında olmalıdır.',
         'file'    => ':attribute :min - :max arasındaki kilobayt değeri olmalıdır.',
         'string'  => ':attribute :min - :max arasında karakterden oluşmalıdır.',
-        'array'   => ':attribute :min - :max arasında nesneye sahip olmalıdır.'
+        'array'   => ':attribute :min - :max arasında nesneye sahip olmalıdır.',
     ],
-	'boolean'              => ':Attribute doğru veya yanlış değerinde olmalıdır.',
+    'boolean'              => ':Attribute doğru veya yanlış değerinde olmalıdır.',
     'confirmed'            => ':Attribute tekrarı eşleşmiyor.',
     'date'                 => ':Attribute geçerli bir tarih olmalıdır.',
     'date_format'          => ':Attribute :format biçimi ile eşleşmiyor.',
@@ -54,7 +54,7 @@ return [
         'numeric' => ':Attribute değeri :max değerinden küçük olmalıdır.',
         'file'    => ':Attribute değeri :max kilobayt değerinden küçük olmalıdır.',
         'string'  => ':Attribute değeri :max karakter değerinden küçük olmalıdır.',
-        'array'   => ':Attribute değeri :max adedinden az nesneye sahip olmalıdır.'
+        'array'   => ':Attribute değeri :max adedinden az nesneye sahip olmalıdır.',
     ],
     'mimes'                => ':Attribute dosya biçimi :values olmalıdır.',
     'mimetypes'            => ':Attribute :values türünde bir dosya olmalıdır.',
@@ -62,7 +62,7 @@ return [
         'numeric' => ':Attribute değeri :min değerinden büyük olmalıdır.',
         'file'    => ':Attribute değeri :min kilobayt değerinden büyük olmalıdır.',
         'string'  => ':Attribute değeri :min karakter değerinden büyük olmalıdır.',
-        'array'   => ':Attribute en az :min nesneye sahip olmalıdır.'
+        'array'   => ':Attribute en az :min nesneye sahip olmalıdır.',
     ],
     'not_in'               => 'Seçili :attribute geçersiz.',
     'numeric'              => ':Attribute rakam olmalıdır.',
@@ -80,7 +80,7 @@ return [
         'numeric' => ':attribute :size olmalıdır.',
         'file'    => ':attribute :size kilobyte olmalıdır.',
         'string'  => ':attribute :size karakter olmalıdır.',
-        'array'   => ':attribute :size nesneye sahip olmalıdır.'
+        'array'   => ':attribute :size nesneye sahip olmalıdır.',
     ],
     'string'               => ':Attribute alanı bir dizi olmalıdır.',
     'timezone'             => ':Attribute geçerli bölge olmalıdır.',
@@ -117,14 +117,14 @@ return [
     */
 
     'attributes' => [
-        'email' => 'E-Posta Adresi',
-        'password' => 'Şifre',
-        'symbol_id' => 'Hisse',
-        'share_id' => 'Hisse',
-        'type' => 'İşlem',
-        'date_at' => 'Tarih',
-        'lot' => 'Lot',
-        'price' => 'Fiyat',
+        'email'      => 'E-Posta Adresi',
+        'password'   => 'Şifre',
+        'symbol_id'  => 'Hisse',
+        'share_id'   => 'Hisse',
+        'type'       => 'İşlem',
+        'date_at'    => 'Tarih',
+        'lot'        => 'Lot',
+        'price'      => 'Fiyat',
         'commission' => 'Komisyon',
     ],
 

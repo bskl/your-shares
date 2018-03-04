@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\API\Auth;
 
-use App\Http\Requests\API\LoginRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\LoginRequest;
 
 class LoginController extends Controller
 {
@@ -33,8 +33,9 @@ class LoginController extends Controller
     /**
      * Login a request to the OAuth server.
      *
-     * @param  \App\Http\Requests\API\LoginRequest  $request
-     * @return json  $response
+     * @param \App\Http\Requests\API\LoginRequest $request
+     *
+     * @return json $response
      */
     public function login(LoginRequest $request)
     {
