@@ -2,16 +2,9 @@ import Vue from 'vue';
 import VueI18n from 'vue-i18n';
 import { ls } from '../services/ls.js';
 import { userStore } from '../stores/userStore';
-
-import en from './en/';
-import tr from './tr/';
+import messages from './map';
 
 Vue.use(VueI18n);
-
-const messages = {
-    en,
-    tr,
-}
 
 const numberFormats = {
     'en': {
