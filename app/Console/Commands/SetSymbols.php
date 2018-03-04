@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Models\Symbol;
-use Illuminate\Console\Command;
 use Carbon\Carbon;
+use Illuminate\Console\Command;
 
 class SetSymbols extends Command
 {
@@ -63,7 +63,7 @@ class SetSymbols extends Command
 
     protected function getStocks($data)
     {
-        if($data['session'] === "error") {
+        if ($data['session'] === 'error') {
             $this->handle();
         } else {
             return $data['stocks'];
@@ -73,7 +73,7 @@ class SetSymbols extends Command
     protected function getSymbols($stocks)
     {
         foreach ($stocks as $key => $symbol) {
-            if($symbol[11] === 1) {
+            if ($symbol[11] === 1) {
                 $symbols[$key] = $symbol;
             }
         }
@@ -83,29 +83,29 @@ class SetSymbols extends Command
 
     protected function convertToInt($val)
     {
-        if(is_numeric($val)) {
-            return (float)$val = $val / 100;
+        if (is_numeric($val)) {
+            return (float) $val = $val / 100;
         }
 
-        if(preg_match('#^\d*[\.,]\d$#', $val)) { 
-            return (float)$val = str_replace(',', '', $val);
+        if (preg_match('#^\d*[\.,]\d$#', $val)) {
+            return (float) $val = str_replace(',', '', $val);
         }
 
-        if(preg_match('#\d*([.,\/]?\d+)#', $val)) {
-            return (float)$val = str_replace([',', '.'], '', $val);
+        if (preg_match('#\d*([.,\/]?\d+)#', $val)) {
+            return (float) $val = str_replace([',', '.'], '', $val);
         }
 
-        throw new \InvalidArgumentException("Not a valid currency amount");
+        throw new \InvalidArgumentException('Not a valid currency amount');
     }
 
     protected function storeSymbols($symbols)
     {
         foreach ($symbols as $key => $value) {
             Symbol::updateOrCreate(['code' => $key], [
-                'trend' => (int)$value[0],
-                'last_price' => $this->convertToInt($value[1]),
+                'trend'          => (int) $value[0],
+                'last_price'     => $this->convertToInt($value[1]),
                 'rate_of_change' => $this->convertToInt($value[4]),
-                'session_time' => Carbon::parse($value[10]),
+                'session_time'   => Carbon::parse($value[10]),
             ]);
         }
     }

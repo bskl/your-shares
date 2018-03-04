@@ -35,11 +35,11 @@ class Symbol extends BaseModel
     ];
 
     /**
-	 * The attributes that should be mutated to dates.
-	 *
-	 * @var array
-	 */
-	protected $dates = [
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
         'session_time', 'created_at', 'updated_at',
     ];
 

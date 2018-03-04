@@ -1,17 +1,16 @@
 <?php
 
-
 namespace App\Http\Controllers\API\Auth;
 
 use App\Models\User;
+use GuzzleHttp\Client;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
 
 trait LoginUsers
 {
     use AuthenticatesUsers;
-    
+
     /**
      * The http instance.
      *
@@ -22,8 +21,9 @@ trait LoginUsers
     /**
      * Login a request to the OAuth server.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return json  $response
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return json $response
      */
     public function loginUser(Request $request)
     {
@@ -48,26 +48,27 @@ trait LoginUsers
     /**
      * Make passport login to authenticate a user using the given credentials.
      *
-     * @param  array  $credentials
-     * @param  bool   $remember
-     * @return json  $response
+     * @param array $credentials
+     * @param bool  $remember
+     *
+     * @return json $response
      */
     public function passportLogin(Request $request)
     {
-        $url = env('APP_URL') . '/oauth/token';
+        $url = env('APP_URL').'/oauth/token';
         $credentials = $this->credentials($request);
-        
+
         $response = $this->getHttp()->post($url, [
             'form_params' => [
-                'grant_type' => 'password',
-                'client_id' => env('PASSWORD_CLIENT_ID'),
+                'grant_type'    => 'password',
+                'client_id'     => env('PASSWORD_CLIENT_ID'),
                 'client_secret' => env('PASSWORD_CLIENT_SECRET'),
-                'username' => $credentials[$this->username()],
-                'password' => $credentials['password'],
-                'scope' => '*',
+                'username'      => $credentials[$this->username()],
+                'password'      => $credentials['password'],
+                'scope'         => '*',
                 ],
             ]);
-            
+
         $this->clearLoginAttempts($request);
 
         return json_decode((string) $response->getBody(), true);

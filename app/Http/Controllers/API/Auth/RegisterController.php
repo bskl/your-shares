@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\API\Auth;
 
-use App\Models\User;
-use App\Http\Requests\API\RegisterRequest;
-use Illuminate\Auth\Events\Registered;
-use App\Notifications\ConfirmationCode;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\API\RegisterRequest;
+use App\Models\User;
+use App\Notifications\ConfirmationCode;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
@@ -42,16 +42,17 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param array $data
+     *
      * @return User
      */
     public function store(RegisterRequest $request)
     {
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
+            'name'     => $request->name,
+            'email'    => $request->email,
             'password' => Hash::make($request->password),
-            'locale' => $request->getPreferredLanguage(['en', 'tr']),
+            'locale'   => $request->getPreferredLanguage(['en', 'tr']),
         ]);
 
         $user->confirmation_code = hash_hmac('sha256', str_random(60), config('app.key'));
@@ -67,7 +68,8 @@ class RegisterController extends Controller
     /**
      * Handle a registration request for the application.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return JsonResponse
      */
     public function confirm(Request $request, $token)
