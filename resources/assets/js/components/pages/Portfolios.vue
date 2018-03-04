@@ -173,7 +173,7 @@
                                     { text: $t('Amount'), value: 'amount', sortable: false },
                                     { text: $t('Average Amount'), value: 'average_amount', sortable: false },
                                     { text: $t('Gain'), value: 'gain', sortable: false },
-                                    { text: $t('Transactions'), value: 'transactions', align: 'center', sortable: false }
+                                    { text: $t('Actions'), value: 'actions', align: 'center', sortable: false }
                                 ]"
                                 item-key="id"
                                 hide-actions
@@ -191,14 +191,14 @@
                                     <td class="text-xs-right">{{ $n(props.item.average_amount, 'currency') }}</td>
                                     <td class="text-xs-right" :class="{ 'red--text darken-1': props.item.gain < 0, 'green--text darken-1': props.item.gain > 0 }">
                                         {{ $n(props.item.gain, 'currency') }}</td>
-                                    <td class="text-xs-right">
-                                        <v-btn v-if="props.item.total_amount == 0" icon small @click="deleteShare(props.item)">
+                                    <td class="justify-center layout px-0">
+                                        <v-btn v-if="props.item.total_amount == 0" icon small class="mx-1" @click="deleteShare(props.item)">
                                             <v-icon color="red darken-2">delete</v-icon>
                                         </v-btn>
-                                        <v-btn v-if="props.item.total_amount != 0" icon small :to="'/share/' + props.item.id + '/transactions'">
+                                        <v-btn v-if="props.item.total_amount != 0" icon small class="mx-1" :to="'/share/' + props.item.id + '/transactions'">
                                             <v-icon color="blue darken-2">line_weight</v-icon>
                                         </v-btn>
-                                        <v-btn icon small @click="showAddTransactionModal(props.item.id)">
+                                        <v-btn icon small class="mx-1" @click="showAddTransactionModal(props.item.id)">
                                             <v-icon color="green darken-2">add_circle_outline</v-icon>
                                         </v-btn>
                                     </td>
