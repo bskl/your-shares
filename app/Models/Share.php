@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Money\Money;
 use App\Enums\TransactionTypes;
+use Money\Money;
 
 class Share extends BaseModel
 {

@@ -2,9 +2,9 @@
 
 namespace App\Policies;
 
-use App\Models\User;
 use App\Models\Share;
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class TransactionPolicy
@@ -14,8 +14,9 @@ class TransactionPolicy
     /**
      * Determine whether the user can view the share.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Transaction  $transaction
+     * @param \App\Models\User        $user
+     * @param \App\Models\Transaction $transaction
+     *
      * @return mixed
      */
     public function view(User $user, Transaction $transaction)
@@ -26,9 +27,10 @@ class TransactionPolicy
     /**
      * Determine whether the user can create shares.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Transaction  $transaction
-     * @param  \App\Models\Share  $share
+     * @param \App\Models\User        $user
+     * @param \App\Models\Transaction $transaction
+     * @param \App\Models\Share       $share
+     *
      * @return mixed
      */
     public function create(User $user, Share $share)

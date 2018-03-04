@@ -10,13 +10,14 @@ class SymbolUpdated
     use SerializesModels;
 
     public $symbol;
-    
+
     /**
      * Create a new event instance.
      *
-     * @param  Order  $order
+     * @param Order $order
+     *
      * @return void
-    */
+     */
     public function __construct(Symbol $symbol)
     {
         $this->symbol = $symbol;

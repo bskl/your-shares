@@ -10,13 +10,14 @@ class SaleTransactionCreated
     use SerializesModels;
 
     public $transaction;
-    
+
     /**
      * Create a new event instance.
      *
-     * @param  Order  $order
+     * @param Order $order
+     *
      * @return void
-    */
+     */
     public function __construct(Transaction $transaction)
     {
         $this->transaction = $transaction;

@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Portfolio;
-use Money\Money;
 use App\Http\Controllers\Controller;
+use App\Models\Portfolio;
 use Illuminate\Support\Facades\Auth;
 
 class DataController extends Controller
@@ -17,7 +16,7 @@ class DataController extends Controller
     public function getData()
     {
         return [
-            'user' => auth()->user(),
+            'user'       => auth()->user(),
             'portfolios' => Portfolio::byCurrentUser()->get(),
         ];
     }
