@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Transaction;
-use App\Models\Share;
 use App\Enums\TransactionTypes;
-use App\Http\Requests\API\TransactionRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\TransactionRequest;
+use App\Models\Share;
+use App\Models\Transaction;
 
 class TransactionController extends Controller
 {
     /**
      * Create a new transaction instance for auth user after a valid request.
      *
-     * @param  TransactionRequest     $request
+     * @param TransactionRequest $request
+     *
      * @return App\Models\Transaction $transaction
      */
     public function store(TransactionRequest $request)
@@ -28,11 +29,11 @@ class TransactionController extends Controller
 
         $transaction->price = $data['price'];
         $transaction->dividend_gain = $data['dividend_gain'];
-        
+
         $transaction->save();
         $transaction->refresh()->load('share');
 
-        $event = 'App\\Events\\' . TransactionTypes::getTypeName($transaction->type) . 'TransactionCreated';
+        $event = 'App\\Events\\'.TransactionTypes::getTypeName($transaction->type).'TransactionCreated';
         event(new $event($transaction));
 
         $transaction->share->load('portfolio');
@@ -43,23 +44,23 @@ class TransactionController extends Controller
     /**
      * Update given transaction instance after a valid request.
      *
-     * @param  TransactionRequest     $request
-     * @param  App\Models\Transaction $transaction
+     * @param TransactionRequest     $request
+     * @param App\Models\Transaction $transaction
+     *
      * @return App\Models\Transaction $transaction
      */
     public function update()
     {
-        
     }
 
     /**
      * Delete a portfolio.
      *
      * @param Transaction $transaction
+     *
      * @return JsonResponse
      */
     public function destroy()
-    { 
-        
+    {
     }
 }

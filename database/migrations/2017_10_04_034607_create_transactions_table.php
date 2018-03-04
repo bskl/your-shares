@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateTransactionsTable extends Migration
 {
@@ -32,7 +32,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('dividend_gain')->nullable()->default(0);
             $table->float('bonus_issue', 5, 4)->nullable()->default(0);
             $table->timestamps();
-            
+
             $table->foreign('user_id')
                   ->references('id')->on('users')
                   ->onUpdate('cascade')

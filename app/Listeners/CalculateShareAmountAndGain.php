@@ -2,17 +2,16 @@
 
 namespace App\Listeners;
 
-use App\Models\Share;
 use App\Events\SymbolUpdated;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Models\Share;
 
 class CalculateShareAmountAndGain
 {
     /**
      * calculate shares money attributes with symbol's last_price.
      *
-     * @param  SymbolUpdated  $event
+     * @param SymbolUpdated $event
+     *
      * @return void
      */
     public function handle(SymbolUpdated $event)
