@@ -57,6 +57,7 @@
                 try {
                     sharedStore.getData()
                         .then(response => {
+                            this.$i18n.locale = userStore.state.user.locale;
                             setTimeout(() => {
                                 this.loading = false;
                             }, 500)

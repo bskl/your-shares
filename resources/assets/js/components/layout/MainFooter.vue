@@ -1,6 +1,6 @@
 <script type="text/ecmascript-6">
     import { ls } from '../../services/ls.js';
-    import i18n from '../../lang/';
+    import { languages as list } from '../../lang/map';
     import { userStore } from '../../stores/userStore.js';
 
     export default {
@@ -13,39 +13,31 @@
          * The component's data.
          */
         data() {
-            return {
-                locale: this.$i18n.locale,
-                locales: [
-                    { value: "tr", label: "Türkçe" },
-                    { value: "en", label: "English" },
-                ],
-            }
+            return { }
         },
 
-        mounted() {
-            Bus.$on('userLoggedIn', event => {
-                setTimeout(() => {
-                    if (userStore.state.user.locale) {
-                        this.locale = userStore.state.user.locale;
-                        ls.set('locale', this.locale);
-                        i18n.locale = this.locale;
-                    }
-                }, 1000)
-            });
+        computed: {
+            languages() {
+                return list;
+            },
+
+            currentLanguage() {
+                return this.languages.find(l => l.locale === this.$i18n.locale);
+            },
         },
 
         methods: {
             /**
              * Change the language.
              */
-            setLocale() {
+            setLocale(locale) {
                 setTimeout(() => {
-                    ls.set('locale', this.locale);
-                    this.$i18n.locale = this.locale;
+                    ls.set('locale', locale);
+                    this.$i18n.locale = locale;
 
                     if (userStore.isAuthenticated()) {
                         return new Promise((resolve, reject) => {
-                            http.get('/locale/' + this.locale, response => {
+                            http.get('/locale/' + locale, response => {
                                 resolve(response);
                             }, error => {
                                 reject(error);
@@ -59,21 +51,26 @@
 </script>
 
 <template>
-    <v-footer app class="pa-3">
-        <v-flex xs1>
-            <v-select
-                :items="locales"
-                item-text="label"
-                item-value="value"
-                v-model="locale"
-                :label="$t('Language')"
-                single-line
-                auto
-                hide-details
-                @change="setLocale()"
-            ></v-select>
-        </v-flex>
+    <v-footer app height="auto" class="px-3">
+        <v-layout row wrap>
+            <v-menu open-on-hover top offset-y>
+                <v-btn flat slot="activator" style="min-width: 64px">
+                    <img :src="`https://countryflags.io/${currentLanguage.country}/flat/32.png`" width="32px">
+                </v-btn>
+                <v-list light>
+                    <v-list-tile avatar v-for="language in languages" :key="language.locale" @click="setLocale(language.locale)">
+                        <v-list-tile-avatar class="avatar--tile" size="24px">
+                            <img :src="`https://countryflags.io/${language.country}/flat/24.png`" width="24px">
+                        </v-list-tile-avatar>
+                        <v-list-tile-title v-text="language.title"></v-list-tile-title>
+                    </v-list-tile>
+                </v-list>
+            </v-menu>
+        </v-layout>
+
         <v-spacer></v-spacer>
-        <div>© {{ new Date().getFullYear() }}</div>
+        <div>
+            &copy; {{ (new Date()).getFullYear() }} — yourshares
+        </div>
     </v-footer>
 </template>
