@@ -128,22 +128,22 @@
                     <v-progress-circular indeterminate color="primary"></v-progress-circular>
                 </div>
                 <template v-else>
-                        <form-errors :errors="form.errors" />
-                        <v-select
-                            :label="$t('Search Symbol')"
-                            :no-data-text = "$t('No data available')"
-                            autocomplete
-                            clearable
-                            :loading="loading"
-                            required
-                            :items="symbols"
-                            item-text="code"
-                            item-value="id"
-                            :rules="symbolRules"
-                            :search-input.sync="search"
-                            v-model="form.symbol_id"
-                            autofocus
-                        ></v-select>
+                    <form-errors :errors="form.errors" />
+                    <v-select
+                        :label="$t('Search Symbol')"
+                        :no-data-text = "$t('No data available')"
+                        autocomplete
+                        clearable
+                        :loading="loading"
+                        required
+                        :items="symbols"
+                        item-text="code"
+                        item-value="id"
+                        :rules="symbolRules"
+                        :search-input.sync="search"
+                        v-model="form.symbol_id"
+                        autofocus
+                    ></v-select>
                 </template>
             </modal-body>
             <modal-footer>
