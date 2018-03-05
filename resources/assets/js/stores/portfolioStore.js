@@ -3,15 +3,17 @@ export const portfolioStore = {
         portfolios: [{
             id: 0,
             name: '',
-            order: '',
             currency: '',
-            shares: [],
-            total_amount: '',
+            order: '',
+            total_bonus_issue_share: '',
+            total_sale_amount: '',
             total_purchase_amount: '',
+            paid_amount: '',
+            gain_loss: '',
             total_commission_amount: '',
             total_dividend_gain: '',
-            total_bonus_issue_share: '',
             total_gain: '',
+            shares: [],
         }]
     },
 

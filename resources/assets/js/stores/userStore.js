@@ -9,6 +9,7 @@ export const userStore = {
             name: '',
             email: '',
             locale: '',
+            role: '',
         }]
     },
 
