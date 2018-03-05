@@ -21,7 +21,7 @@ class CreatePortfoliosTable extends Migration
             $table->integer('order');
             $table->integer('total_sale_amount')->default(0);
             $table->integer('total_purchase_amount')->default(0);
-            $table->integer('total_paid_amount')->default(0);
+            $table->integer('paid_amount')->default(0);
             $table->integer('gain_loss')->default(0);
             $table->integer('total_commission_amount')->default(0);
             $table->integer('total_dividend_gain')->default(0);

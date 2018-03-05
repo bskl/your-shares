@@ -33,7 +33,7 @@ class Portfolio extends BaseModel
      * @var array
      */
     protected $money = [
-        'total_sale_amount', 'total_purchase_amount', 'total_paid_amount', 'gain_loss', 'total_commission_amount', 'total_dividend_gain', 'total_gain',
+        'total_sale_amount', 'total_purchase_amount', 'paid_amount', 'gain_loss', 'total_commission_amount', 'total_dividend_gain', 'total_gain',
     ];
 
     /**

@@ -501,7 +501,8 @@ var userStore = {
             id: 0,
             name: '',
             email: '',
-            locale: ''
+            locale: '',
+            role: ''
         }]
     },
 
@@ -29576,15 +29577,17 @@ var portfolioStore = {
         portfolios: [{
             id: 0,
             name: '',
-            order: '',
             currency: '',
-            shares: [],
-            total_amount: '',
+            order: '',
+            total_bonus_issue_share: '',
+            total_sale_amount: '',
             total_purchase_amount: '',
+            paid_amount: '',
+            gain_loss: '',
             total_commission_amount: '',
             total_dividend_gain: '',
-            total_bonus_issue_share: '',
-            total_gain: ''
+            total_gain: '',
+            shares: []
         }]
     },
 
@@ -51464,7 +51467,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.state.portfolios[portfolioIndex].shares.splice(index, 1, share);
             this.state.portfolios[portfolioIndex].total_sale_amount = share.portfolio.total_sale_amount;
             this.state.portfolios[portfolioIndex].total_purchase_amount = share.portfolio.total_purchase_amount;
-            this.state.portfolios[portfolioIndex].total_paid_amount = share.portfolio.total_paid_amount;
+            this.state.portfolios[portfolioIndex].paid_amount = share.portfolio.paid_amount;
             this.state.portfolios[portfolioIndex].gain_loss = share.portfolio.gain_loss;
             this.state.portfolios[portfolioIndex].total_commission_amount = share.portfolio.total_commission_amount;
             this.state.portfolios[portfolioIndex].total_dividend_gain = share.portfolio.total_dividend_gain;
@@ -53278,36 +53281,43 @@ var render = function() {
                                 {
                                   text: _vm.$t("Last Price"),
                                   value: "last_price",
+                                  align: "center",
                                   sortable: false
                                 },
                                 {
                                   text: _vm.$t("Change"),
                                   value: "change",
+                                  align: "center",
                                   sortable: false
                                 },
                                 {
                                   text: _vm.$t("Lots"),
                                   value: "lots",
+                                  align: "center",
                                   sortable: false
                                 },
                                 {
-                                  text: _vm.$t("Average"),
-                                  value: "average",
+                                  text: _vm.$t("Average Cost"),
+                                  value: "average_cost",
+                                  align: "center",
                                   sortable: false
                                 },
                                 {
                                   text: _vm.$t("Amount"),
                                   value: "amount",
+                                  align: "center",
                                   sortable: false
                                 },
                                 {
                                   text: _vm.$t("Average Amount"),
                                   value: "average_amount",
+                                  align: "center",
                                   sortable: false
                                 },
                                 {
-                                  text: _vm.$t("Gain"),
-                                  value: "gain",
+                                  text: _vm.$t("Gain/Loss"),
+                                  value: "gain_loss",
+                                  align: "center",
                                   sortable: false
                                 },
                                 {
@@ -53573,9 +53583,16 @@ var render = function() {
                                                   "grey--text text--lighten-1"
                                               },
                                               [
-                                                _vm._v(
-                                                  " - İlgili portföydeki hisselerin tüm satış tutarların toplamı"
-                                                )
+                                                _vm._v(" - "),
+                                                _c("i", [
+                                                  _vm._v(
+                                                    _vm._s(
+                                                      _vm.$t(
+                                                        "Total amount of all sale transactions."
+                                                      )
+                                                    )
+                                                  )
+                                                ])
                                               ]
                                             )
                                           ])
@@ -53624,9 +53641,16 @@ var render = function() {
                                                   "grey--text text--lighten-1"
                                               },
                                               [
-                                                _vm._v(
-                                                  " - İlgili portföydeki hisselerin ilk alım işleminden itibaren ödenen işlem tutarlarının toplamı"
-                                                )
+                                                _vm._v(" - "),
+                                                _c("i", [
+                                                  _vm._v(
+                                                    _vm._s(
+                                                      _vm.$t(
+                                                        "Total amount of all purchase transactions."
+                                                      )
+                                                    )
+                                                  )
+                                                ])
                                               ]
                                             )
                                           ])
@@ -53664,9 +53688,7 @@ var render = function() {
                                           _c("v-list-tile-title", [
                                             _vm._v(
                                               "\n                                            " +
-                                                _vm._s(
-                                                  _vm.$t("Total Paid Amount")
-                                                ) +
+                                                _vm._s(_vm.$t("Paid Amount")) +
                                                 "\n                                            "
                                             ),
                                             _c(
@@ -53676,9 +53698,16 @@ var render = function() {
                                                   "grey--text text--lighten-1"
                                               },
                                               [
-                                                _vm._v(
-                                                  " - İlgili portföydeki hisselerin için ödenen tutarlarının toplamı"
-                                                )
+                                                _vm._v(" - "),
+                                                _c("i", [
+                                                  _vm._v(
+                                                    _vm._s(
+                                                      _vm.$t(
+                                                        "Total amount of purchase transactions."
+                                                      )
+                                                    )
+                                                  )
+                                                ])
                                               ]
                                             )
                                           ])
@@ -53694,7 +53723,7 @@ var render = function() {
                                             _vm._v(
                                               _vm._s(
                                                 _vm.$n(
-                                                  portfolio.total_paid_amount,
+                                                  portfolio.paid_amount,
                                                   "currency"
                                                 )
                                               )
@@ -53727,9 +53756,16 @@ var render = function() {
                                                   "grey--text text--lighten-1"
                                               },
                                               [
-                                                _vm._v(
-                                                  " - Satış sonucu kar veya zarar toplamı"
-                                                )
+                                                _vm._v(" - "),
+                                                _c("i", [
+                                                  _vm._v(
+                                                    _vm._s(
+                                                      _vm.$t(
+                                                        "Total gain/loss after sales."
+                                                      )
+                                                    )
+                                                  )
+                                                ])
                                               ]
                                             )
                                           ])
@@ -53789,9 +53825,16 @@ var render = function() {
                                                   "grey--text text--lighten-1"
                                               },
                                               [
-                                                _vm._v(
-                                                  " - İlgili portföydeki hisselerin tüm alım/satım işlemlerinde ödenen komisyon tutarlarının toplamı"
-                                                )
+                                                _vm._v(" - "),
+                                                _c("i", [
+                                                  _vm._v(
+                                                    _vm._s(
+                                                      _vm.$t(
+                                                        "Sum of commission amounts paid in all purchase / sale transactions."
+                                                      )
+                                                    )
+                                                  )
+                                                ])
                                               ]
                                             )
                                           ])
@@ -53842,9 +53885,16 @@ var render = function() {
                                                   "grey--text text--lighten-1"
                                               },
                                               [
-                                                _vm._v(
-                                                  " - İlgili portföydeki hisselerden kazanılan tüm temettü tutarlarının toplamı"
-                                                )
+                                                _vm._v(" - "),
+                                                _c("i", [
+                                                  _vm._v(
+                                                    _vm._s(
+                                                      _vm.$t(
+                                                        "Sum of dividend amounts."
+                                                      )
+                                                    )
+                                                  )
+                                                ])
                                               ]
                                             )
                                           ])
@@ -53897,9 +53947,16 @@ var render = function() {
                                                   "grey--text text--lighten-1"
                                               },
                                               [
-                                                _vm._v(
-                                                  " - İlgili portföydeki hisselerden kazanılan tüm bedelsiz hisse miktarlarının toplamı"
-                                                )
+                                                _vm._v(" - "),
+                                                _c("i", [
+                                                  _vm._v(
+                                                    _vm._s(
+                                                      _vm.$t(
+                                                        "Sum of bonus shares."
+                                                      )
+                                                    )
+                                                  )
+                                                ])
                                               ]
                                             )
                                           ])
@@ -53948,9 +54005,16 @@ var render = function() {
                                                   "grey--text text--lighten-1"
                                               },
                                               [
-                                                _vm._v(
-                                                  " - (satış karı+temettü kazancı)-komisyon tutarı ile hesaplanan tutar"
-                                                )
+                                                _vm._v(" - "),
+                                                _c("i", [
+                                                  _vm._v(
+                                                    _vm._s(
+                                                      _vm.$t(
+                                                        "Total gain. [(gain/loss + dividend) - commission amount]"
+                                                      )
+                                                    )
+                                                  )
+                                                ])
                                               ]
                                             )
                                           ])
@@ -54008,9 +54072,16 @@ var render = function() {
                                                   "grey--text text--lighten-1"
                                               },
                                               [
-                                                _vm._v(
-                                                  " - İlgili portföydeki hisselerin anlık hisse fiyatı ile kazanılacak kazanç ile hesaplanan tutar"
-                                                )
+                                                _vm._v(" - "),
+                                                _c("i", [
+                                                  _vm._v(
+                                                    _vm._s(
+                                                      _vm.$t(
+                                                        "Gain on the instant stock price."
+                                                      )
+                                                    )
+                                                  )
+                                                ])
                                               ]
                                             )
                                           ])
@@ -54849,10 +54920,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     'Last Price': 'Son Fiyat',
     'Change': 'Değişim',
     'Lots': 'Adet',
-    'Average': 'Ortalama',
+    'Average Cost': 'Ortalama Maliyet',
     'Amount': 'Tutar',
     'Average Amount': 'Ortalama Tutar',
-    'Gain': 'Kazanç',
+    'Gain/Loss': 'Kar/Zarar',
     'Actions': 'İşlemler',
     'Transaction Date': 'İşlem Tarihi',
     'Transaction': 'İşlem',
@@ -54881,8 +54952,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     'Total Sale Amount': 'Toplam Satış Tutarı',
     'Total Amount': 'Toplam Tutar',
     'Total Purchase Amount': 'Toplam Alım Tutarı',
-    'Total Paid Amount': 'Toplam Ödenen Tutar',
-    'Gain/Loss': 'Kar/Zarar',
+    'Paid Amount': 'Ödenen Tutar',
     'Total Comission Amount': 'Toplam Komisyon Tutarı',
     'Total Dividend Gain': 'Toplam Temettü Kazancı',
     'Total Bonus Issue Share Gain': 'Toplam Bedelsiz Hisse Kazancı',
@@ -54890,6 +54960,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     'Instant Total Gain': 'Anlık Toplam Kazanç',
     'Your email account has been verified.': 'Eposta hesabınız doğrulanmıştır.',
     'Your activation code is invalid or your e-mail address verified before.': 'Aktivasyon kodunuz hatalı veya eposta hesabınız daha önce doğrulandı.',
+    'Total amount of all sale transactions.': 'Tüm satış işlemlerinin toplam tutarı.',
+    'Total amount of all purchase transactions.': 'Tüm alım işlemlerinin toplam tutarı.',
+    'Total amount of purchase transactions.': 'Alım işlemlerinin toplam tutarı.',
+    'Total gain/loss after sales.': 'Satış sonrasındaki kar/zarar toplamı.',
+    'Sum of commission amounts paid in all purchase / sale transactions.': 'Tüm alım/satım işlemlerinde ödenen komisyon tutarlarının toplamı.',
+    'Sum of dividend amounts.': 'Temettü tutarlarının toplamı.',
+    'Sum of bonus shares.': 'Bedelsiz hisslerin toplamı.',
+    'Total gain. [(gain/loss + dividend) - commission amount]': 'Toplam kazanç. [(kar/zarar + temettü) - komisyon tutarı]',
+    'Gain on the instant stock price.': 'Anlık hisse fiyatı ile elde edilen kazanç.',
 
     transactions: ['Alım', 'Satım', 'Temettü', 'Bedelsiz Dağıtım']
 });
@@ -54941,10 +55020,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     'Last Price': 'Last Price',
     'Change': 'Change',
     'Lots': 'Lots',
-    'Average': 'Average',
+    'Average Cost': 'Average Cost',
     'Amount': 'Amount',
     'Average Amount': 'Average Amount',
-    'Gain': 'Gain',
+    'Gain/Loss': 'Gain/Loss',
     'Actions': 'Actions',
     'Transaction Date': 'Transaction Date',
     'Transaction': 'Transaction',
@@ -54973,8 +55052,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     'Total Sale Amount': 'Total Sale Amount',
     'Total Amount': 'Total Amount',
     'Total Purchase Amount': 'Total Purchase Amount',
-    'Total Paid Amount': 'Total Paid Amount',
-    'Gain/Loss': 'Gain/Loss',
+    'Paid Amount': 'Paid Amount',
     'Total Comission Amount': 'Total Comission Amount',
     'Total Dividend Gain': 'Total Dividend Gain',
     'Total Bonus Issue Share Gain': 'Total Bonus Issue Share Gain',
@@ -54982,6 +55060,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     'Instant Total Gain': 'Instant Total Gain',
     'Your email account has been verified.': 'Your email account has been verified.',
     'Your activation code is invalid or your e-mail address verified before.': 'Your activation code is invalid or your e-mail address verified before.',
+    'Total amount of all sale transactions.': 'Total amount of all sale transactions.',
+    'Total amount of all purchase transactions.': 'Total amount of all purchase transactions.',
+    'Total amount of purchase transactions.': 'Total amount of purchase transactions.',
+    'Total gain/loss after sales.': 'Total gain/loss after sales.',
+    'Sum of commission amounts paid in all purchase / sale transactions.': 'Sum of commission amounts paid in all purchase / sale transactions.',
+    'Sum of dividend amounts.': 'Sum of dividend amounts.',
+    'Sum of bonus shares.': 'Sum of bonus shares.',
+    'Total gain. [(gain/loss + dividend) - commission amount]': 'Total gain. [(gain/loss + dividend) - commission amount]',
+    'Gain on the instant stock price.': 'Gain on the instant stock price.',
 
     transactions: ['Buying', 'Sale', 'Dividend', 'Bonus Issue']
 });
@@ -55337,31 +55424,37 @@ var render = function() {
                                     {
                                       text: _vm.$t("Transaction"),
                                       value: "transaction",
+                                      align: "center",
                                       sortable: false
                                     },
                                     {
                                       text: _vm.$t("Lots"),
                                       value: "lots",
+                                      align: "center",
                                       sortable: false
                                     },
                                     {
                                       text: _vm.$t("Transaction Price"),
                                       value: "transaction_price",
+                                      align: "center",
                                       sortable: false
                                     },
                                     {
                                       text: _vm.$t("Transaction Amount"),
                                       value: "transaction_amount",
+                                      align: "center",
                                       sortable: false
                                     },
                                     {
                                       text: _vm.$t("Commission Price"),
                                       value: "commission_price",
+                                      align: "center",
                                       sortable: false
                                     },
                                     {
-                                      text: _vm.$t("Gain"),
-                                      value: "gain",
+                                      text: _vm.$t("Gain/Loss"),
+                                      value: "gain_loss",
+                                      align: "center",
                                       sortable: false
                                     }
                                   ],
@@ -55570,9 +55663,16 @@ var render = function() {
                                                       "grey--text text--lighten-1"
                                                   },
                                                   [
-                                                    _vm._v(
-                                                      " - İlgili hissenin tüm satım işlemin tutarlarının toplamı"
-                                                    )
+                                                    _vm._v(" - "),
+                                                    _c("i", [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          _vm.$t(
+                                                            "Total amount of all sale transactions."
+                                                          )
+                                                        )
+                                                      )
+                                                    ])
                                                   ]
                                                 )
                                               ])
@@ -55621,9 +55721,16 @@ var render = function() {
                                                       "grey--text text--lighten-1"
                                                   },
                                                   [
-                                                    _vm._v(
-                                                      " - İlgili hissenin ilk alım işleminden itibaren ödenen işlem tutarlarının toplamı"
-                                                    )
+                                                    _vm._v(" - "),
+                                                    _c("i", [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          _vm.$t(
+                                                            "Total amount of all purchase transactions."
+                                                          )
+                                                        )
+                                                      )
+                                                    ])
                                                   ]
                                                 )
                                               ])
@@ -55665,9 +55772,7 @@ var render = function() {
                                                 _vm._v(
                                                   "\n                                            " +
                                                     _vm._s(
-                                                      _vm.$t(
-                                                        "Total Paid Amount"
-                                                      )
+                                                      _vm.$t("Paid Amount")
                                                     ) +
                                                     "\n                                            "
                                                 ),
@@ -55678,9 +55783,16 @@ var render = function() {
                                                       "grey--text text--lighten-1"
                                                   },
                                                   [
-                                                    _vm._v(
-                                                      " - İlgili hisse için cepten ödenen tutar"
-                                                    )
+                                                    _vm._v(" - "),
+                                                    _c("i", [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          _vm.$t(
+                                                            "Total amount of purchase transactions."
+                                                          )
+                                                        )
+                                                      )
+                                                    ])
                                                   ]
                                                 )
                                               ])
@@ -55698,8 +55810,7 @@ var render = function() {
                                                 _vm._v(
                                                   _vm._s(
                                                     _vm.$n(
-                                                      _vm.share
-                                                        .total_paid_amount,
+                                                      _vm.share.paid_amount,
                                                       "currency"
                                                     )
                                                   )
@@ -55734,9 +55845,16 @@ var render = function() {
                                                       "grey--text text--lighten-1"
                                                   },
                                                   [
-                                                    _vm._v(
-                                                      " - Satış sonucu kar veya zarar toplamı"
-                                                    )
+                                                    _vm._v(" - "),
+                                                    _c("i", [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          _vm.$t(
+                                                            "Total gain/loss after sales."
+                                                          )
+                                                        )
+                                                      )
+                                                    ])
                                                   ]
                                                 )
                                               ])
@@ -55796,9 +55914,16 @@ var render = function() {
                                                       "grey--text text--lighten-1"
                                                   },
                                                   [
-                                                    _vm._v(
-                                                      " - Tüm alım/satım işlemlerinde ödenen komisyon tutarlarının toplamı"
-                                                    )
+                                                    _vm._v(" - "),
+                                                    _c("i", [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          _vm.$t(
+                                                            "Sum of commission amounts paid in all purchase / sale transactions."
+                                                          )
+                                                        )
+                                                      )
+                                                    ])
                                                   ]
                                                 )
                                               ])
@@ -55854,9 +55979,16 @@ var render = function() {
                                                       "grey--text text--lighten-1"
                                                   },
                                                   [
-                                                    _vm._v(
-                                                      " - Kazanılan tüm temettü tutarlarının toplamı"
-                                                    )
+                                                    _vm._v(" - "),
+                                                    _c("i", [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          _vm.$t(
+                                                            "Sum of dividend amounts."
+                                                          )
+                                                        )
+                                                      )
+                                                    ])
                                                   ]
                                                 )
                                               ])
@@ -55913,9 +56045,16 @@ var render = function() {
                                                       "grey--text text--lighten-1"
                                                   },
                                                   [
-                                                    _vm._v(
-                                                      " - Kazanılan tüm bedelsiz hisse miktarlarının toplamı"
-                                                    )
+                                                    _vm._v(" - "),
+                                                    _c("i", [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          _vm.$t(
+                                                            "Sum of bonus shares."
+                                                          )
+                                                        )
+                                                      )
+                                                    ])
                                                   ]
                                                 )
                                               ])
@@ -55970,9 +56109,16 @@ var render = function() {
                                                       "grey--text text--lighten-1"
                                                   },
                                                   [
-                                                    _vm._v(
-                                                      " - (satış karı+temettü kazancı)-komisyon tutarı ile hesaplanan tutar"
-                                                    )
+                                                    _vm._v(" - "),
+                                                    _c("i", [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          _vm.$t(
+                                                            "Total gain. [(gain/loss + dividend) - commission amount]"
+                                                          )
+                                                        )
+                                                      )
+                                                    ])
                                                   ]
                                                 )
                                               ])
@@ -56032,9 +56178,16 @@ var render = function() {
                                                       "grey--text text--lighten-1"
                                                   },
                                                   [
-                                                    _vm._v(
-                                                      " - Anlık hisse fiyatı ile kazanılacak kazanç ile hesaplanan tutar"
-                                                    )
+                                                    _vm._v(" - "),
+                                                    _c("i", [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          _vm.$t(
+                                                            "Gain on the instant stock price."
+                                                          )
+                                                        )
+                                                      )
+                                                    ])
                                                   ]
                                                 )
                                               ])
