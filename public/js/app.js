@@ -52688,6 +52688,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             showModal: false,
             valid: true,
             menu: false,
+            showPrice: true,
             showCommission: true,
             showDividend: false,
             form: new Form({
@@ -52780,16 +52781,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             setTimeout(function () {
                 if (_this3.form.type == 0 || _this3.form.type == 1) {
+                    _this3.showPrice = true;
                     _this3.showCommission = true;
                     _this3.showDividend = false;
                     _this3.form.dividend_gain = '0';
                 }
                 if (_this3.form.type == 2) {
+                    _this3.showPrice = false;
                     _this3.showDividend = true;
                     _this3.showCommission = false;
+                    _this3.form.price = '0';
                     _this3.form.commission = '0';
                 }
                 if (_this3.form.type == 3) {
+                    _this3.showPrice = false;
                     _this3.showDividend = false;
                     _this3.showCommission = false;
                     _this3.form.commission = '0';
@@ -53030,6 +53035,12 @@ var render = function() {
                     _vm._v(" "),
                     _c("v-text-field", {
                       directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.showPrice,
+                          expression: "showPrice"
+                        },
                         {
                           name: "money",
                           rawName: "v-money",

@@ -25,6 +25,7 @@
                 showModal: false,
                 valid: true,
                 menu: false,
+                showPrice: true,
                 showCommission: true,
                 showDividend: false,
                 form: new Form({
@@ -115,16 +116,20 @@
             changeInput() {
                 setTimeout(() => {
                     if (this.form.type == 0 || this.form.type == 1) {
+                        this.showPrice = true;
                         this.showCommission = true;
                         this.showDividend = false;
                         this.form.dividend_gain = '0';
                     }
                     if (this.form.type == 2) {
+                        this.showPrice = false;
                         this.showDividend = true;
                         this.showCommission = false;
+                        this.form.price = '0';
                         this.form.commission = '0';
                     }
                     if (this.form.type == 3) {
+                        this.showPrice = false;
                         this.showDividend = false;
                         this.showCommission = false;
                         this.form.commission = '0';
@@ -221,7 +226,7 @@
                         required
                     ></v-text-field>
 
-                    <v-text-field name="price" id="price" type="text"
+                    <v-text-field v-show="showPrice" name="price" id="price" type="text"
                         v-model.lazy="form.price"
                         :label="$t('Enter Share Price')"
                         :rules="priceRules"
