@@ -54660,8 +54660,6 @@ var render = function() {
       _vm._v(" "),
       _c("v-spacer"),
       _vm._v(" "),
-      _c("v-toolbar-side-icon", { staticClass: "hidden-md-and-up" }),
-      _vm._v(" "),
       _c("user-badge")
     ],
     1
