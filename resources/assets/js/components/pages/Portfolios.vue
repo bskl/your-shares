@@ -147,15 +147,15 @@
                     <v-card>
                         <v-card-title class="pt-0 pb-0 elevation-4">
                             <v-toolbar color="white" flat>
-                                <v-btn icon light disabled>
+                                <v-btn icon light disabled class="ml-0">
                                     <v-icon color="grey darken-2">home</v-icon>
                                 </v-btn>
-                                <v-toolbar-title class="grey--text text--darken-4">{{ portfolio.name }}</v-toolbar-title>
+                                <v-toolbar-title class="grey--text text--darken-4 ml-1">{{ portfolio.name }}</v-toolbar-title>
                                 <v-spacer></v-spacer>
-                                <v-btn icon small @click="showEditPortfolioModal(portfolio)">
+                                <v-btn icon small class="mx-1" @click="showEditPortfolioModal(portfolio)">
                                     <v-icon color="green darken-2">edit</v-icon>
                                 </v-btn>
-                                <v-btn icon small @click="showAddShareModal(portfolio.id)">
+                                <v-btn icon small class="mx-1" @click="showAddShareModal(portfolio.id)">
                                     <v-icon color="blue darken-2">add</v-icon>
                                 </v-btn>
                             </v-toolbar>

@@ -62,10 +62,10 @@
                     <v-card>
                         <v-card-title class="pt-0 pb-0 elevation-4">
                             <v-toolbar color="white" flat>
-                                <v-btn icon light to="/" exact>
+                                <v-btn icon light class="ml-0" to="/" exact>
                                     <v-icon color="grey darken-2">arrow_back</v-icon>
                                 </v-btn>
-                                <v-toolbar-title class="grey--text text--darken-4">{{ share.symbol.code }}</v-toolbar-title>
+                                <v-toolbar-title class="grey--text text--darken-4 ml-1">{{ share.symbol.code }}</v-toolbar-title>
                                 <v-icon slot="divider">chevron_right</v-icon>
                                 <v-subheader :class="{ 'red--text darken-1': share.symbol.trend == -1, 'green--text darken-1': share.symbol.trend == 1 }">
                                     <i class="material-icons" v-show="share.symbol.trend == 1">arrow_drop_up</i>
