@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Money\Money;
 use Carbon\Carbon;
+use Money\Money;
 
 class Transaction extends BaseModel
 {
