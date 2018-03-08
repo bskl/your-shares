@@ -51,7 +51,7 @@
 </script>
 
 <template>
-    <v-footer app height="auto" class="px-3">
+    <v-footer app height="auto" class="pr-3">
         <v-layout row wrap>
             <v-menu open-on-hover top offset-y>
                 <v-btn flat slot="activator" style="min-width: 64px">
