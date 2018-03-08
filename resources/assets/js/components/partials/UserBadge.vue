@@ -45,7 +45,10 @@
     <div>
         <v-menu offset-y v-if="isLogged">
             <v-toolbar-title slot="activator">
-                <span class="subheading">{{ state.user.email }}</span>
+                <v-avatar>
+                    <v-icon large dark>account_circle</v-icon>
+                </v-avatar>
+                <!--<span class="subheading">{{ state.user.email }}</span>-->
                 <v-icon dark>more_vert</v-icon>
             </v-toolbar-title>
             <v-list dense>
