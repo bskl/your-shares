@@ -34,7 +34,7 @@ const numberFormats = {
 const dateTimeFormats = {
     'en': {
         short: {
-            year: 'numeric', month: 'short', day: 'numeric'
+            year: 'numeric', month: 'short', day: '2-digit'
         },
         long: {
             year: 'numeric', month: 'short', day: 'numeric',
@@ -43,7 +43,7 @@ const dateTimeFormats = {
     },
     'tr': {
         short: {
-            day: 'numeric', month: 'short', year: 'numeric'
+            day: 'numeric', month: 'short', year: '2-digit'
         },
         long: {
             year: 'numeric', month: 'short', day: 'numeric',

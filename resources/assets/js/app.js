@@ -22,7 +22,13 @@ window.http = http;
 window.Form = Form;
 window.NProgress = NProgress;
 
-window.Bus = new Vue({name: 'Bus'});
+NProgress.configure({
+    showSpinner: false
+});
+
+window.Bus = new Vue({
+    name: 'Bus'
+});
 
 const app = new Vue({
     el: '#app',
