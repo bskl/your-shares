@@ -145,7 +145,7 @@
             <v-layout row wrap>
                 <v-flex xs12 v-for="portfolio in state.portfolios" :key="portfolio.id">
                     <v-card>
-                        <v-card-title class="pt-0 pb-0 elevation-4">
+                        <v-card-title class="pt-0 pb-0 elevation-3">
                             <v-toolbar color="white" flat>
                                 <v-btn icon light disabled class="ml-0">
                                     <v-icon color="grey darken-2">home</v-icon>

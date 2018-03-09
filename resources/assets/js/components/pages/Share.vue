@@ -60,22 +60,19 @@
             <v-layout row wrap>
                 <v-flex xs12>
                     <v-card>
-                        <v-card-title class="pt-0 pb-0 elevation-4">
+                        <v-card-title class="pt-0 pb-0 elevation-3">
                             <v-toolbar color="white" flat>
                                 <v-btn icon light class="ml-0" to="/" exact>
                                     <v-icon color="grey darken-2">arrow_back</v-icon>
                                 </v-btn>
                                 <v-toolbar-title class="grey--text text--darken-4 ml-1">{{ share.symbol.code }}</v-toolbar-title>
-                                <v-icon slot="divider">chevron_right</v-icon>
-                                <v-subheader :class="{ 'red--text darken-1': share.symbol.trend == -1, 'green--text darken-1': share.symbol.trend == 1 }">
+                                <v-subheader class="px-1" :class="{ 'red--text darken-1': share.symbol.trend == -1, 'green--text darken-1': share.symbol.trend == 1 }">
                                     <i class="material-icons" v-show="share.symbol.trend == 1">arrow_drop_up</i>
                                     <i class="material-icons" v-show="share.symbol.trend == -1">arrow_drop_down</i>
-                                    {{ $n(share.symbol.last_price, 'currency') }}
+                                    <span class="pr-2">{{ $n(share.symbol.last_price, 'currency') }}</span>
+                                    <span>{{ $n(share.symbol.rate_of_change, 'percent') }}</span>
                                 </v-subheader>
-                                <v-subheader :class="{ 'red--text darken-1': share.symbol.trend == -1, 'green--text darken-1': share.symbol.trend == 1 }">
-                                    {{ $n(share.symbol.rate_of_change, 'percent') }}
-                                </v-subheader>
-                                <v-subheader>
+                                <v-subheader class="pl-1 mx-0">
                                     {{ share.symbol.session_time }}
                                 </v-subheader>
                             </v-toolbar>
@@ -97,7 +94,7 @@
                                 :no-data-text="$t('You have not any transaction.')"
                             >
                                 <template slot="items" slot-scope="props">
-                                    <td>{{ $d(new Date(props.item.date_at), 'short') }}</td>
+                                    <td class="text-xs-left">{{ $d(new Date(props.item.date_at), 'short') }}</td>
                                     <td class="text-xs-right">{{ $t('transactions[' + props.item.type + ']') }}</td>
                                     <td class="text-xs-right">{{ $n(props.item.lot, 'decimal') }}</td>
                                     <td class="text-xs-right">{{ $n(props.item.price, 'currency') }}</td>

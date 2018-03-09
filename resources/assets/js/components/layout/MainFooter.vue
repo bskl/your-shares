@@ -57,7 +57,7 @@
                 <v-btn flat slot="activator" style="min-width: 64px">
                     <img :src="`https://countryflags.io/${currentLanguage.country}/flat/32.png`" width="32px">
                 </v-btn>
-                <v-list light>
+                <v-list dense light>
                     <v-list-tile avatar v-for="language in languages" :key="language.locale" @click="setLocale(language.locale)">
                         <v-list-tile-avatar class="avatar--tile" size="24px">
                             <img :src="`https://countryflags.io/${language.country}/flat/24.png`" width="24px">
