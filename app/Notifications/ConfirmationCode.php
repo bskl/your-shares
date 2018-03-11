@@ -45,8 +45,11 @@ class ConfirmationCode extends Notification
     {
         return (new MailMessage())
                     ->subject(trans('notification.confirmation_code.subject'))
+                    ->greeting(trans('mail.greeting'))
                     ->line(trans('notification.confirmation_code.text'))
-                    ->action(trans('notification.confirmation_code.button'), url('confirm', $this->token));
+                    ->action(trans('notification.confirmation_code.button'), url('confirm', $this->token))
+                    ->line(trans('mail.thankyou'))
+                    ->salutation(trans('mail.salutation', ['name' => config('app.name')]));
     }
 
     /**
