@@ -13,10 +13,10 @@ return [
     |
     */
 
-    'password' => 'Passwords must be at least six characters and match the confirmation.',
-    'reset'    => 'Your password has been reset!',
-    'sent'     => 'We have e-mailed your password reset link!',
-    'token'    => 'This password reset token is invalid.',
-    'user'     => "We can't find a user with that e-mail address.",
+    'password' => 'Şifreler en az altı karakter olmalı ve onay ile eşleşmelidir.',
+    'reset'    => 'Şifreniz sıfırlandı! Şimdi giriş yapabilirsiniz.',
+    'sent'     => 'Şifre sıfırlama bağlantınızı e-posta ile gönderdik!',
+    'token'    => 'Bu şifre sıfırlama kodu geçersiz.',
+    'user'     => "Bu e-posta adresine sahip bir kullanıcı bulamıyoruz.",
 
 ];

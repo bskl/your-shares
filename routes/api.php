@@ -14,10 +14,10 @@
 
 Route::namespace('API')->group(function () {
     Route::post('/register', 'Auth\RegisterController@store');
-    Route::get('/confirm/{token}', 'Auth\RegisterController@confirm');
+    Route::get('/confirm/{token}', 'Auth\RegisterController@verifyConfirmationCode');
     Route::post('/login', 'Auth\LoginController@login');
-    //Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail');
-    //Route::post('/password/reset', 'ResetPasswordController@reset');
+    Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+    Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
     Route::middleware('auth:api')->group(function () {
         Route::post('/logout', 'Auth\LogoutController@logout');
         Route::get('/locale/{locale}', 'UserController@setLocale');
