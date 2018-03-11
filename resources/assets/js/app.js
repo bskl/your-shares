@@ -36,6 +36,19 @@ const app = new Vue({
     router,
     i18n,
 
+    /**
+     * The component's data.
+     */
+    data(){
+        return {
+            snackbar: {
+                show: false,
+                position_y: 'top',
+                color: 'success',
+            },
+        }
+    },
+
     created() {
         http.init();
     },
