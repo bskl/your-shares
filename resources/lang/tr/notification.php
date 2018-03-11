@@ -11,6 +11,6 @@ return [
         'subject' => 'Şifre Yenile',
         'button'  => 'Şifre Yenile',
         'line_1'  => 'Hesabınız için şifre sıfırlama isteği aldığımız için bu e-postayı alıyorsunuz.',
-        'line_2'  => 'Şifre sıfırlama isteğinde bulunmadıysanız, başka bir işlem yapmanız gerekmez.'
-    ]
+        'line_2'  => 'Şifre sıfırlama isteğinde bulunmadıysanız, başka bir işlem yapmanız gerekmez.',
+    ],
 ];
