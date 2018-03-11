@@ -7,7 +7,7 @@
         /*
          * The component's name.
          */
-        name: 'PasswordResetForm',
+        name: 'ForgotPasswordForm',
 
         components: {
             MainLayout, FormErrors,
@@ -45,7 +45,8 @@
                     this.form.post('/password/email')
                         .then(response => {
                             if (response.status === 200) {
-                                this.$router.push('/login');
+                                this.$root.snackbar.show = true;
+                                this.$root.snackbar.text = response.data;
                             }
                         })
                 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\RegisterRequest;
 use App\Models\User;
-use App\Notifications\ConfirmationCode;
+use App\Notifications\ConfirmationCode as ConfirmationCodeNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -58,7 +58,7 @@ class RegisterController extends Controller
         $user->confirmation_code = hash_hmac('sha256', str_random(60), config('app.key'));
         $user->save();
 
-        $user->notify(new ConfirmationCode($user->confirmation_code));
+        $user->notify(new ConfirmationCodeNotification($user->confirmation_code));
 
         event(new Registered($user));
 
@@ -72,7 +72,7 @@ class RegisterController extends Controller
      *
      * @return JsonResponse
      */
-    public function confirm(Request $request, $token)
+    public function verifyConfirmationCode(Request $request, $token)
     {
         $user = User::where('confirmation_code', $token)->firstOrFail();
         $user->confirmed = \App\Enums\User::ACCEPTED;

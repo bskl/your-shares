@@ -29,7 +29,11 @@ export default new Router({
         },
         {
             path: '/password/reset',
-            component: require('../components/auth/EmailForm.vue'),
+            component: require('../components/auth/ForgotPasswordForm.vue'),
+        },
+        {
+            path: '/password/reset/:reset_password_code',
+            component: require('../components/auth/PasswordResetForm.vue'),
         },
     ],
 })
