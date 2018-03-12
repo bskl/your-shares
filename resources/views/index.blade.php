@@ -24,6 +24,16 @@
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+        @env('production')
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({
+                  google_ad_client: "ca-pub-4323093082652553",
+                  enable_page_level_ads: true
+             });
+        </script>
+        @endenv
+
     </head>
     <body>
         <div id="app"></div>
