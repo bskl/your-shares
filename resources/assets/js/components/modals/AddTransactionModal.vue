@@ -107,10 +107,10 @@
              * Close the modal and reset form elements.
              */
             close() {
+                this.$refs.transactionForm.reset();
                 this.showModal = false;
                 this.saving = false;
                 this.form.reset();
-                this.$refs.transactionForm.reset();
             },
 
             changeInput() {
@@ -238,6 +238,7 @@
                         v-model="form.commission"
                         :label="$t('Enter Commission Rate')"
                         :rules="commissionRules"
+                        :hint="$t('For example; Garanti Bank: 0,188')"
                         required
                     ></v-text-field>
 
