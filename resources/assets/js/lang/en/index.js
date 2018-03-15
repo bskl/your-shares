@@ -89,6 +89,7 @@ export default {
     'Sum of bonus shares.' : 'Sum of bonus shares.',
     'Total gain. [(gain/loss + dividend) - commission amount]' : 'Total gain. [(gain/loss + dividend) - commission amount]',
     'Gain on the instant stock price.' : 'Gain on the instant stock price.',
+    'For example; Garanti Bank: 0,188' : 'For example; Garanti Bank: 0,188',
 
     transactions: [
         'Buying', 'Sale', 'Dividend', 'Bonus Issue',

@@ -89,6 +89,7 @@ export default {
     'Sum of bonus shares.' : 'Bedelsiz hisslerin toplamı.',
     'Total gain. [(gain/loss + dividend) - commission amount]' : 'Toplam kazanç. [(kar/zarar + temettü) - komisyon tutarı]',
     'Gain on the instant stock price.' : 'Anlık hisse fiyatı ile elde edilen kazanç.',
+    'For example; Garanti Bank: 0,188' : 'Örneğin; Garanti Bankası: 0,188',
 
     transactions: [
         'Alım', 'Satım', 'Temettü', 'Bedelsiz Dağıtım',
