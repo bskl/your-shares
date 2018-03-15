@@ -5,6 +5,7 @@
     import MainLayout from '../layout/MainLayout.vue';
     import Portfolios from './Portfolios.vue';
     import Snackbar from '../partials/Snackbar.vue';
+    import VueAdsense from 'vue-adsense';
 
     export default {
         /*
@@ -13,7 +14,7 @@
         name: 'Home',
 
         components: {
-            MainLayout, Portfolios, Snackbar,
+            MainLayout, Portfolios, Snackbar, VueAdsense,
         },
 
         /*
@@ -94,6 +95,22 @@
     <main-layout :loading="loading">
 
         <snackbar :snackbar="this.$root.snackbar"></snackbar>
+
+        <v-layout row wrap align-center justify-center>
+            <v-flex xs12 sm12 md10 offset-md1>
+                <v-layout row wrap>
+                    <v-flex xs12>
+                        <!-- your_shares_responsive -->
+                        <vue-adsense
+                            ad-client="ca-pub-4323093082652553"
+                            ad-slot="5022772684"
+                            ad-style="display:block"
+                            ad-format="auto">
+                        </vue-adsense>
+                    </v-flex>
+                </v-layout>
+            </v-flex>
+        </v-layout>
 
         <router-view></router-view>
 

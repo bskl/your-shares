@@ -13,15 +13,16 @@
         "axios": "^0.18",
         "cross-env": "^5.1.4",
         "jquery": "^3.3.1",
-        "laravel-mix": "^2.0",
+        "laravel-mix": "^2.1.1",
         "local-storage": "^1.4.2",
         "lodash": "^4.17.5",
         "nprogress": "^0.2.0",
         "v-money": "^0.8.1",
-        "vue": "2.5.13",
-        "vue-i18n": "^7.5.0",
+        "vue": "^2.5.16",
+        "vue-adsense": "^1.0.1",
+        "vue-i18n": "^7.6.0",
         "vue-router": "^3.0.1",
-        "vuetify": "^1.0.6"
+        "vuetify": "^1.0.8"
     },
     "dependencies": {}
 }
