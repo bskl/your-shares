@@ -67,9 +67,10 @@
                                 </v-btn>
                                 <v-toolbar-title class="grey--text text--darken-4 ml-1">{{ share.symbol.code }}</v-toolbar-title>
                                 <v-subheader class="px-1" :class="{ 'red--text darken-1': share.symbol.trend == -1, 'green--text darken-1': share.symbol.trend == 1 }">
-                                    <i class="material-icons" v-show="share.symbol.trend == 1">arrow_drop_up</i>
-                                    <i class="material-icons" v-show="share.symbol.trend == -1">arrow_drop_down</i>
-                                    <span class="pr-2">{{ $n(share.symbol.last_price, 'currency') }}</span>
+                                    <i class="material-icons" v-show="share.symbol.trend == -1">trending_down</i>
+                                    <i class="material-icons" v-show="share.symbol.trend == 0">trending_flat</i>
+                                    <i class="material-icons" v-show="share.symbol.trend == 1">trending_up</i>
+                                    <span class="px-2">{{ $n(share.symbol.last_price, 'currency') }}</span>
                                     <span>{{ $n(share.symbol.rate_of_change, 'percent') }}</span>
                                 </v-subheader>
                                 <v-subheader class="pl-1 mx-0">
