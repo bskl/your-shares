@@ -55,12 +55,12 @@
         <v-layout row wrap>
             <v-menu open-on-hover top offset-y>
                 <v-btn flat slot="activator" style="min-width: 64px">
-                    <img :src="`https://countryflags.io/${currentLanguage.country}/flat/32.png`" width="32px">
+                    <img :src="`./img/flags/${currentLanguage.country}-32.png`" width="32px">
                 </v-btn>
                 <v-list dense light>
                     <v-list-tile avatar v-for="language in languages" :key="language.locale" @click="setLocale(language.locale)">
                         <v-list-tile-avatar class="avatar--tile" size="24px">
-                            <img :src="`https://countryflags.io/${language.country}/flat/24.png`" width="24px">
+                            <img :src="`./img/flags/${language.country}-r32.png`" width="24px">
                         </v-list-tile-avatar>
                         <v-list-tile-title v-text="language.title"></v-list-tile-title>
                     </v-list-tile>
