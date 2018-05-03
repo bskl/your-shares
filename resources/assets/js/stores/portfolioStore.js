@@ -5,7 +5,7 @@ export const portfolioStore = {
             name: '',
             currency: '',
             order: '',
-            total_bonus_issue_share: '',
+            total_bonus_share: '',
             total_sale_amount: '',
             total_purchase_amount: '',
             paid_amount: '',

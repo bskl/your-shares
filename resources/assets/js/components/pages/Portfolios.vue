@@ -88,7 +88,7 @@
                 this.state.portfolios[portfolioIndex].gain_loss = share.portfolio.gain_loss;
                 this.state.portfolios[portfolioIndex].total_commission_amount = share.portfolio.total_commission_amount;
                 this.state.portfolios[portfolioIndex].total_dividend_gain = share.portfolio.total_dividend_gain;
-                this.state.portfolios[portfolioIndex].total_bonus_issue_share = share.portfolio.total_bonus_issue_share;
+                this.state.portfolios[portfolioIndex].total_bonus_share = share.portfolio.total_bonus_share;
                 this.state.portfolios[portfolioIndex].total_gain = share.portfolio.total_gain;
                 Bus.$off('transactionAdded', share);
             },
@@ -283,12 +283,12 @@
                                     <v-list-tile>
                                         <v-list-tile-content>
                                             <v-list-tile-title>
-                                                {{ $t('Total Bonus Issue Share Gain') }}
+                                                {{ $t('Total Bonus Share Gain') }}
                                                 <span class="grey--text text--lighten-1"> - <i>{{ $t('Sum of bonus shares.') }}</i></span>
                                             </v-list-tile-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action class="green--text darken-1">
-                                            <strong>{{ $n(portfolio.total_bonus_issue_share, 'decimal') }}</strong>
+                                            <strong>{{ $n(portfolio.total_bonus_share, 'decimal') }}</strong>
                                         </v-list-tile-action>
                                     </v-list-tile>
                                     <v-divider></v-divider>

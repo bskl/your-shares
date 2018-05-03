@@ -35,7 +35,7 @@ export default {
     'Buying' : 'Buying',
     'Sale' : 'Sale',
     'Dividend' : 'Dividend',
-    'Bonus Issue' : 'Bonus Issue',
+    'Bonus Share' : 'Bonus Share',
     'Symbol' : 'Symbol',
     'Last Price' : 'Last Price',
     'Change' : 'Change',
@@ -75,7 +75,7 @@ export default {
     'Paid Amount' : 'Paid Amount',
     'Total Comission Amount' : 'Total Comission Amount',
     'Total Dividend Gain' : 'Total Dividend Gain',
-    'Total Bonus Issue Share Gain' :'Total Bonus Issue Share Gain',
+    'Total Bonus Share Gain' :'Total Bonus Share Gain',
     'Total Gain' : 'Total Gain',
     'Instant Total Gain' : 'Instant Total Gain',
     'Your email account has been verified.' : 'Your email account has been verified.',
@@ -92,6 +92,6 @@ export default {
     'For example; Garanti Bank: 0,188' : 'For example; Garanti Bank: 0,188',
 
     transactions: [
-        'Buying', 'Sale', 'Dividend', 'Bonus Issue',
+        'Buying', 'Sale', 'Dividend', 'Bonus Share',
     ],
 }

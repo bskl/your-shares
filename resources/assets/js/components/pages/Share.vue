@@ -103,7 +103,7 @@
                                     <td class="text-xs-right">{{ $n(props.item.commission_price, 'currency') }}</td>
                                     <td class="text-xs-right" :class="{ 'red--text darken-1': props.item.sale_gain < 0, 'green--text darken-1': props.item.sale_gain > 0 }" v-if="props.item.type == 0 || props.item.type == 1">{{ $n(props.item.sale_gain, 'currency') }}</td>
                                     <td class="text-xs-right green--text darken-1" v-if="props.item.type == 2">{{ $n(props.item.dividend_gain, 'currency') }}</td>
-                                    <td class="text-xs-right green--text darken-1" v-if="props.item.type == 3">{{ $n(props.item.bonus_issue, 'percent') }}</td>
+                                    <td class="text-xs-right green--text darken-1" v-if="props.item.type == 3">{{ $n(props.item.bonus, 'percent') }}</td>
                                 </template>
                             </v-data-table>
                         </v-card-text>
@@ -184,12 +184,12 @@
                                     <v-list-tile>
                                         <v-list-tile-content>
                                             <v-list-tile-title>
-                                                {{ $t('Total Bonus Issue Share Gain') }}
+                                                {{ $t('Total Bonus Share Gain') }}
                                                 <span class="grey--text text--lighten-1"> - <i>{{ $t('Sum of bonus shares.') }}</i></span>
                                             </v-list-tile-title>
                                         </v-list-tile-content>
                                         <v-list-tile-action class="green--text darken-1">
-                                            <strong>{{ $n(share.total_bonus_issue_share, 'decimal') }}</strong>
+                                            <strong>{{ $n(share.total_bonus_share, 'decimal') }}</strong>
                                         </v-list-tile-action>
                                     </v-list-tile>
                                     <v-divider></v-divider>

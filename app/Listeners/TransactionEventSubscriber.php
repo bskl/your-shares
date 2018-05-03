@@ -106,7 +106,7 @@ class TransactionEventSubscriber
                 $item->update();
 
                 $buyingAmount = $item->price->multiply($transaction->lot);
-                if ($item->type == TransactionTypes::BONUSISSUE) {
+                if ($item->type == TransactionTypes::BONUS) {
                     $buyingAmount = Money::TRY(0);
                 }
                 $soldAmount = $transaction->price->multiply($transaction->lot);
@@ -161,14 +161,14 @@ class TransactionEventSubscriber
     }
 
     /**
-     * Handle user's share for giving bonus issue.
+     * Handle user's share for giving bonus share.
      */
-    public function onShareBonusIssue($event)
+    public function onShareBonus($event)
     {
         $transaction = $event->transaction;
         $share = $transaction->share;
 
-        $transaction->bonus_issue = ($transaction->lot * 100) / $share->lot;
+        $transaction->bonus = ($transaction->lot * 100) / $share->lot;
         $transaction->remaining = $transaction->lot;
         $transaction->save();
 
@@ -176,7 +176,7 @@ class TransactionEventSubscriber
         $share->calculateAmount($share->symbol->last_price);
         $share->calculateGain();
         $share->average = $share->average_amount->divide($share->lot);
-        $share->total_bonus_issue_share += $transaction->lot;
+        $share->total_bonus_share += $transaction->lot;
         $share->save();
 
         $share->portfolio->calculateMoneyAttributes();
@@ -206,8 +206,8 @@ class TransactionEventSubscriber
         );
 
         $events->listen(
-            'App\Events\BonusIssueTransactionCreated',
-            'App\Listeners\TransactionEventSubscriber@onShareBonusIssue'
+            'App\Events\BonusTransactionCreated',
+            'App\Listeners\TransactionEventSubscriber@onShareBonus'
         );
     }
 }

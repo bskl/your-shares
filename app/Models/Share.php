@@ -22,7 +22,7 @@ class Share extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'user_id', 'portfolio_id', 'symbol_id', 'lot', 'total_bonus_issue_share',
+        'user_id', 'portfolio_id', 'symbol_id', 'lot', 'total_bonus_share',
     ];
 
     /**
@@ -97,7 +97,7 @@ class Share extends BaseModel
      */
     public function getBuyingTransactionsByNotSold()
     {
-        return $this->getTransactionsByType([TransactionTypes::BUYING, TransactionTypes::BONUSISSUE])->where('remaining', '!=', 0);
+        return $this->getTransactionsByType([TransactionTypes::BUYING, TransactionTypes::BONUS])->where('remaining', '!=', 0);
     }
 
     /**
