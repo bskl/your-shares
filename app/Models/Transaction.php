@@ -22,7 +22,7 @@ class Transaction extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'user_id', 'share_id', 'type', 'date_at', 'lot', 'remaining', 'commission', 'bonus_issue',
+        'user_id', 'share_id', 'type', 'date_at', 'lot', 'remaining', 'commission', 'bonus',
     ];
 
     /**
@@ -81,12 +81,12 @@ class Transaction extends BaseModel
     }
 
     /**
-     * Set the bonus_issue attribute with divided 100.
+     * Set the bonus attribute with divided 100.
      */
-    public function setBonusIssueAttribute($value)
+    public function setBonusAttribute($value)
     {
         if ($value) {
-            return (float) $this->attributes['bonus_issue'] = ($value / 100);
+            return (float) $this->attributes['bonus'] = ($value / 100);
         }
     }
 }

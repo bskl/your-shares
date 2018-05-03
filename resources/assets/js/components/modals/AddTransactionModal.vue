@@ -46,7 +46,7 @@
                     { id: 0, label: this.$t("Buying") },
                     { id: 1, label: this.$t("Sale") },
                     { id: 2, label: this.$t("Dividend") },
-                    { id: 3, label: this.$t("Bonus Issue") },
+                    { id: 3, label: this.$t("Bonus Share") },
                 ],
                 transactionRules: [
                     (v) => !!v || this.$t("Transaction is required"),

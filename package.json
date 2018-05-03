@@ -15,14 +15,14 @@
         "jquery": "^3.3.1",
         "laravel-mix": "^2.1.11",
         "local-storage": "^1.4.2",
-        "lodash": "^4.17.5",
+        "lodash": "^4.17.10",
         "nprogress": "^0.2.0",
         "v-money": "^0.8.1",
         "vue": "^2.5.16",
         "vue-adsense": "^1.0.1",
         "vue-i18n": "^7.6.0",
         "vue-router": "^3.0.1",
-        "vuetify": "^1.0.14"
+        "vuetify": "^1.0.17"
     },
     "dependencies": {}
 }

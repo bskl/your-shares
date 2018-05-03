@@ -24,6 +24,6 @@ abstract class Enum
     {
         $types = array_flip(self::getTypes());
 
-        return camel_case($types[$id]);
+        return title_case($types[$id]);
     }
 }

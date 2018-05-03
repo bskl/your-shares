@@ -24,7 +24,7 @@ class Portfolio extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'user_id', 'name', 'currency', 'order', 'total_bonus_issue_share',
+        'user_id', 'name', 'currency', 'order', 'total_bonus_share',
     ];
 
     /**
@@ -76,16 +76,16 @@ class Portfolio extends BaseModel
     public function calculateMoneyAttributes()
     {
         $totalCommission = $totalDividend = Money::TRY(0);
-        $totalBonusIssue = 0;
+        $totalBonus = 0;
 
-        $this->shares->each(function ($share) use (&$totalCommission, &$totalDividend, &$totalBonusIssue) {
+        $this->shares->each(function ($share) use (&$totalCommission, &$totalDividend, &$totalBonus) {
             $totalCommission = $totalCommission->add($share->total_commission_amount);
             $totalDividend = $totalDividend->add($share->total_dividend_gain);
-            $totalBonusIssue = $totalBonusIssue + $share->total_bonus_issue_share;
+            $totalBonus = $totalBonus + $share->total_bonus_share;
         });
 
         $this->total_commission_amount = $totalCommission;
         $this->total_dividend_gain = $totalDividend;
-        $this->total_bonus_issue_share = $totalBonusIssue;
+        $this->total_bonus_share = $totalBonus;
     }
 }
