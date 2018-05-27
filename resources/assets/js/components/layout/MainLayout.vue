@@ -1,6 +1,5 @@
 <script type="text/ecmascript-6">
     import MainHeader from './MainHeader.vue';
-    import MainFooter from './MainFooter.vue';
 
     export default {
         props: ['loading'],
@@ -10,7 +9,7 @@
         name: 'MainLayout',
 
         components: { 
-            MainHeader, MainFooter,
+            MainHeader,
         },
     }
 </script>
@@ -27,8 +26,6 @@
                 </v-container>
             </v-content>
         </main>
-
-        <main-footer />
 
     </v-app>
 </template>
