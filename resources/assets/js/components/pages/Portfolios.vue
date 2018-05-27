@@ -212,7 +212,7 @@
                                     <v-list-tile>
                                         <v-list-tile-content>
                                             <v-list-tile-title>
-                                                {{ $t('Total Sale Amount') }}
+                                                {{ $t('Sale Amount') }}
                                                 <span class="grey--text text--lighten-1"> - <i>{{ $t('Total amount of all sale transactions.') }}</i></span>
                                             </v-list-tile-title>
                                         </v-list-tile-content>
@@ -224,7 +224,7 @@
                                     <v-list-tile>
                                         <v-list-tile-content>
                                             <v-list-tile-title>
-                                                {{ $t('Total Purchase Amount') }}
+                                                {{ $t('Purchase Amount') }}
                                                 <span class="grey--text text--lighten-1"> - <i>{{ $t('Total amount of all purchase transactions.') }}</i></span>
                                             </v-list-tile-title>
                                         </v-list-tile-content>
@@ -259,7 +259,7 @@
                                     <v-list-tile>
                                         <v-list-tile-content>
                                             <v-list-tile-title>
-                                                {{ $t('Total Comission Amount') }}
+                                                {{ $t('Comission Amount') }}
                                                 <span class="grey--text text--lighten-1"> - <i>{{ $t('Sum of commission amounts paid in all purchase / sale transactions.') }}</i></span>
                                             </v-list-tile-title>
                                         </v-list-tile-content>
@@ -271,7 +271,7 @@
                                     <v-list-tile>
                                         <v-list-tile-content>
                                             <v-list-tile-title>
-                                                {{ $t('Total Dividend Gain') }}
+                                                {{ $t('Dividend Gain') }}
                                                 <span class="grey--text text--lighten-1"> - <i>{{ $t('Sum of dividend amounts.') }}</i></span>
                                             </v-list-tile-title>
                                         </v-list-tile-content>
@@ -283,7 +283,7 @@
                                     <v-list-tile>
                                         <v-list-tile-content>
                                             <v-list-tile-title>
-                                                {{ $t('Total Bonus Share Gain') }}
+                                                {{ $t('Bonus Share Gain') }}
                                                 <span class="grey--text text--lighten-1"> - <i>{{ $t('Sum of bonus shares.') }}</i></span>
                                             </v-list-tile-title>
                                         </v-list-tile-content>
@@ -295,7 +295,7 @@
                                     <v-list-tile>
                                         <v-list-tile-content>
                                             <v-list-tile-title>
-                                                {{ $t('Total Gain') }}
+                                                {{ $t('Gain') }}
                                                 <span class="grey--text text--lighten-1"> - <i>{{ $t('Total gain. [(gain/loss + dividend) - commission amount]') }}</i></span>
                                             </v-list-tile-title>
                                         </v-list-tile-content>
@@ -307,7 +307,7 @@
                                     <v-list-tile>
                                         <v-list-tile-content>
                                             <v-list-tile-title>
-                                                {{ $t('Instant Total Gain') }}
+                                                {{ $t('Instant Gain') }}
                                                 <span class="grey--text text--lighten-1"> - <i>{{ $t('Gain on the instant stock price.') }}</i></span>
                                             </v-list-tile-title>
                                         </v-list-tile-content>
