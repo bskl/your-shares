@@ -23,6 +23,13 @@ class SetSymbols extends Command
     protected $description = 'Set symbols with xml file from web service.';
 
     /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $url = 'http://finans.mynet.com/borsa/canliborsadata/data/';
+
+    /**
      * Create a new instance.
      *
      * @return void
@@ -39,35 +46,22 @@ class SetSymbols extends Command
      */
     public function handle()
     {
-        $content = $this->fileGetContents('http://finans.mynet.com/borsa/canliborsadata/data/');
+        do {
+            $content = $this->fileGetContents($this->url);
+        } while ($content['session'] === 'error');
 
-        $array = json_decode($content, true);
-
-        $stocks = $this->getStocks($array);
-
-        $symbols = $this->getSymbols($stocks);
+        $symbols = $this->getSymbols($content['stocks']);
 
         $this->storeSymbols($symbols);
     }
 
     protected function fileGetContents($url)
     {
-        $content = file_get_contents($url);
+        do {
+            $content = file_get_contents($url);
+        } while ($content === false);
 
-        if ($content === false) {
-            echo "Error fetching XML\n";
-        } else {
-            return $content;
-        }
-    }
-
-    protected function getStocks($data)
-    {
-        if ($data['session'] === 'error') {
-            $this->handle();
-        } else {
-            return $data['stocks'];
-        }
+        return json_decode($content, true);
     }
 
     protected function getSymbols($stocks)
