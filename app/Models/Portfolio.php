@@ -87,5 +87,6 @@ class Portfolio extends BaseModel
         $this->total_commission_amount = $totalCommission;
         $this->total_dividend_gain = $totalDividend;
         $this->total_bonus_share = $totalBonus;
+        $this->update();
     }
 }
