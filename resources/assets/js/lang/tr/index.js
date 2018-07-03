@@ -89,7 +89,10 @@ export default {
     'Total gain. [(gain/loss + dividend) - commission amount]' : 'Toplam kazanç. [(kar/zarar + temettü) - komisyon tutarı]',
     'Gain on the instant stock price.' : 'Anlık hisse fiyatı ile elde edilen kazanç.',
     'For example; Garanti Bank: 0,188' : 'Örneğin; Garanti Bankası: 0,188',
+    'Rows per page:' : 'Sayfa başına satır:',
+    'All' : 'Hepsi',
 
+    'page_text' : '{itemsLength} satırdan {pageStart} - {pageStop} arası',
     transactions: [
         'Alım', 'Satım', 'Temettü', 'Bedelsiz Dağıtım',
     ],
