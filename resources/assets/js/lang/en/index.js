@@ -89,7 +89,10 @@ export default {
     'Total gain. [(gain/loss + dividend) - commission amount]' : 'Total gain. [(gain/loss + dividend) - commission amount]',
     'Gain on the instant stock price.' : 'Gain on the instant stock price.',
     'For example; Garanti Bank: 0,188' : 'For example; Garanti Bank: 0,188',
+    'Rows per page:' : 'Rows per page:',
+    'All' : 'All',
 
+    'page_text' : '{pageStart} - {pageStop} of {itemsLength}',
     transactions: [
         'Buying', 'Sale', 'Dividend', 'Bonus Share',
     ],
