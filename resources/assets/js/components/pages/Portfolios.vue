@@ -122,8 +122,8 @@
             /**
              * Open the modal for adding a new transaction.
              */
-            showAddTransactionModal(shareId) {
-                this.$refs.addTransactionModal.open(shareId);
+            showAddTransactionModal(shareId, symbolCode) {
+                this.$refs.addTransactionModal.open(shareId, symbolCode);
             },
 
             calculateGain(portfolio) {
@@ -198,7 +198,7 @@
                                         <v-btn v-if="props.item.total_amount != 0" icon small class="mx-1" :to="'/share/' + props.item.id + '/transactions'">
                                             <v-icon color="blue darken-2">line_weight</v-icon>
                                         </v-btn>
-                                        <v-btn icon small class="mx-1" @click="showAddTransactionModal(props.item.id)">
+                                        <v-btn icon small class="mx-1" @click="showAddTransactionModal(props.item.id, props.item.symbol.code)">
                                             <v-icon color="green darken-2">add_circle_outline</v-icon>
                                         </v-btn>
                                     </td>

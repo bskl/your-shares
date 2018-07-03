@@ -28,6 +28,7 @@
                 showPrice: true,
                 showCommission: true,
                 showDividend: false,
+                symbolCode: null,
                 form: new Form({
                     share_id: null,
                     type: null,
@@ -90,7 +91,7 @@
             /**
              * Open the model.
              */
-            open(shareId) {
+            open(shareId, symbolCode) {
                 this.form = new Form({
                     share_id: shareId,
                     type: null,
@@ -100,6 +101,7 @@
                     commission: null,
                     dividend_gain: null,
                 });
+                this.symbolCode = symbolCode;
                 this.showModal = true;
             },
 
@@ -169,7 +171,7 @@
 <template>
     <modal width="360" :dialog="showModal">
         <modal-heading>
-            <span class="headline">{{ $t("Add Transaction") }}</span>
+            <span class="headline"><span class="red--text darken-4">{{ symbolCode }}</span> - {{ $t("Add Transaction") }}</span>
         </modal-heading>
         <v-form v-model="valid" ref="transactionForm">
             <modal-body>
