@@ -91,6 +91,7 @@ export default {
     'For example; Garanti Bank: 0,188' : 'Örneğin; Garanti Bankası: 0,188',
     'Rows per page:' : 'Sayfa başına satır:',
     'All' : 'Hepsi',
+    'Your portfolio commission rate has not been recorded.' : 'Portföy komisyon oranınız kayıt edilmemiş.',
 
     'page_text' : '{itemsLength} satırdan {pageStart} - {pageStop} arası',
     transactions: [

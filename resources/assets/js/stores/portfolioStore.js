@@ -4,6 +4,7 @@ export const portfolioStore = {
             id: 0,
             name: '',
             currency: '',
+            commission: '',
             order: '',
             total_bonus_share: '',
             total_sale_amount: '',

@@ -18,6 +18,7 @@ class CreatePortfoliosTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('name');
             $table->string('currency', 3)->default(App\Enums\SupportedCurrencies::DEFAULT);
+            $table->decimal('commission', 5, 5)->nullable()->default(0);
             $table->integer('order');
             $table->integer('total_sale_amount')->default(0);
             $table->integer('total_purchase_amount')->default(0);

@@ -24,7 +24,7 @@ class Portfolio extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'user_id', 'name', 'currency', 'order', 'total_bonus_share',
+        'user_id', 'name', 'currency', 'commission', 'order', 'total_bonus_share',
     ];
 
     /**
@@ -68,6 +68,16 @@ class Portfolio extends BaseModel
     public function shares()
     {
         return $this->hasMany('App\Models\Share');
+    }
+
+    /**
+     * Get the commission attribute with remove zeros from end of number ie. 0,18800 becomes 0,188.
+     */
+    public function getCommissionAttribute()
+    {
+        if ($this->attributes['commission']) {
+            return floatval($this->attributes['commission']);
+        }
     }
 
     /**

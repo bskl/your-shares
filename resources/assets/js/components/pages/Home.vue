@@ -1,7 +1,6 @@
 <script type="text/ecmascript-6">
     import { sharedStore } from '../../stores/sharedStore.js';
     import { userStore } from '../../stores/userStore.js';
-    import { ls } from '../../services/ls.js';
     import MainLayout from '../layout/MainLayout.vue';
     import Portfolios from './Portfolios.vue';
     import Snackbar from '../partials/Snackbar.vue';

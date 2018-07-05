@@ -33,6 +33,16 @@
             Bus.$on('portfolioDeleted', payload => this.deletePortfolio(payload.portfolioId));
             Bus.$on('shareAdded', payload => this.pushShare(payload.share));
             Bus.$on('transactionAdded', payload => this.updateShare(payload.share));
+
+            for (let index = 0, len = this.state.portfolios.length; index < len; ++index) {
+                if (this.state.portfolios[index].commission == null) {
+                    this.$root.snackbar.show = true;
+                    this.$root.snackbar.color = 'error';
+                    this.$root.snackbar.text = this.$t('Your portfolio commission rate has not been recorded.');
+                    this.showEditPortfolioModal(this.state.portfolios[index]);
+                    break;
+                }
+            };
         },
 
         created() {
@@ -122,8 +132,8 @@
             /**
              * Open the modal for adding a new transaction.
              */
-            showAddTransactionModal(shareId, symbolCode) {
-                this.$refs.addTransactionModal.open(shareId, symbolCode);
+            showAddTransactionModal(shareId, symbolCode, commission) {
+                this.$refs.addTransactionModal.open(shareId, symbolCode, commission);
             },
 
             calculateGain(portfolio) {
@@ -198,7 +208,7 @@
                                         <v-btn v-if="props.item.total_amount != 0" icon small class="mx-1" :to="'/share/' + props.item.id + '/transactions'">
                                             <v-icon color="blue darken-2">line_weight</v-icon>
                                         </v-btn>
-                                        <v-btn icon small class="mx-1" @click="showAddTransactionModal(props.item.id, props.item.symbol.code)">
+                                        <v-btn icon small class="mx-1" @click="showAddTransactionModal(props.item.id, props.item.symbol.code, portfolio.commission)">
                                             <v-icon color="green darken-2">add_circle_outline</v-icon>
                                         </v-btn>
                                     </td>
