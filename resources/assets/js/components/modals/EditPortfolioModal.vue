@@ -27,6 +27,7 @@
                     user_id: 0,
                     name: '',
                     currency: '',
+                    commission: '',
                     order: 0,
                 }),
                 nameRules: [
@@ -34,6 +35,9 @@
                 ],
                 currencyRules: [
                     (v) => !!v || this.$t("Currency is required"),
+                ],
+                commissionRules: [
+                    (v) => !!v || this.$t("Commission is required"),
                 ],
                 saving: false,
             };
@@ -136,6 +140,13 @@
                             :rules="currencyRules"
                             required
                         ></v-select>
+                        <v-text-field name="commission" id="commission" type="number" step="0.0001"
+                            v-model="form.commission"
+                            :label="$t('Enter Commission Rate')"
+                            :rules="commissionRules"
+                            :hint="$t('For example; Garanti Bank: 0,188')"
+                            required
+                        ></v-text-field>
                 </template>
             </modal-body>
             <modal-footer>

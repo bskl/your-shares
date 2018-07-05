@@ -25,12 +25,16 @@
                 form: new Form({
                     name: '',
                     currency: '',
+                    commission: '',
                 }),
                 nameRules: [
                     (v) => !!v || this.$t("Name is required"),
                 ],
                 currencyRules: [
                     (v) => !!v || this.$t("Currency is required"),
+                ],
+                commissionRules: [
+                    (v) => !!v || this.$t("Commission is required"),
                 ],
                 saving: false,
             };
@@ -99,7 +103,6 @@
                     <v-progress-circular indeterminate color="primary"></v-progress-circular>
                 </div>
                 <template v-else>
-                    
                         <form-errors :errors="form.errors" />
                         <v-text-field name="name" id="name" type="text"
                             v-model="form.name"
@@ -115,6 +118,13 @@
                             :rules="currencyRules"
                             required
                         ></v-select>
+                        <v-text-field name="commission" id="commission" type="number" step="0.0001"
+                            v-model="form.commission"
+                            :label="$t('Enter Commission Rate')"
+                            :rules="commissionRules"
+                            :hint="$t('For example; Garanti Bank: 0,188')"
+                            required
+                        ></v-text-field>
                 </template>
             </modal-body>
             <modal-footer>

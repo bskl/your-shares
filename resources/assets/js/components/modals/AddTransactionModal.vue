@@ -91,14 +91,14 @@
             /**
              * Open the model.
              */
-            open(shareId, symbolCode) {
+            open(shareId, symbolCode, commission) {
                 this.form = new Form({
                     share_id: shareId,
                     type: null,
                     date_at: null,
                     lot: null,
                     price: null,
-                    commission: null,
+                    commission: commission,
                     dividend_gain: null,
                 });
                 this.symbolCode = symbolCode;

@@ -91,6 +91,7 @@ export default {
     'For example; Garanti Bank: 0,188' : 'For example; Garanti Bank: 0,188',
     'Rows per page:' : 'Rows per page:',
     'All' : 'All',
+    'Your portfolio commission rate has not been recorded.' : 'Your portfolio commission rate has not been recorded.',
 
     'page_text' : '{pageStart} - {pageStop} of {itemsLength}',
     transactions: [
