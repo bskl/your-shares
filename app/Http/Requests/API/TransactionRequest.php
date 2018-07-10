@@ -37,7 +37,7 @@ class TransactionRequest extends Request
                 Rule::in([0, 1, 2, 3]),
             ],
             'date_at'       => 'required|date|before_or_equal:'.Carbon::today()->toDateString(),
-            'lot'           => 'required|numeric|regex:/^[1-9]\d*$/'.$addRule,
+            'lot'           => 'required|numeric'.$addRule,
             'price'         => 'required',
             'commission'    => 'required|regex:/^(0(\.\d+)?)$/',
             'dividend_gain' => 'sometimes|required',
