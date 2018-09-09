@@ -129,10 +129,9 @@
                 </div>
                 <template v-else>
                     <form-errors :errors="form.errors" />
-                    <v-select
+                    <v-autocomplete
                         :label="$t('Search Symbol')"
                         :no-data-text = "$t('No data available')"
-                        autocomplete
                         clearable
                         :loading="loading"
                         required
@@ -143,7 +142,7 @@
                         :search-input.sync="search"
                         v-model="form.symbol_id"
                         autofocus
-                    ></v-select>
+                    ></v-autocomplete>
                 </template>
             </modal-body>
             <modal-footer>

@@ -188,7 +188,7 @@
                         :label="$t('Select Transaction')"
                         autofocus
                         single-line
-                        bottom
+                        menu-props="bottom"
                         required
                         @change="changeInput()"
                     ></v-select>
