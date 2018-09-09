@@ -15,4 +15,5 @@ yarn-error.log
 package-lock.json
 composer.lock
 .env
+.phpunit.result.cache
 .htaccess

@@ -3,7 +3,7 @@
     "scripts": {
         "dev": "npm run development",
         "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "npm run development -- --watch",
         "watch-poll": "npm run watch -- --watch-poll",
         "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod": "npm run production",
@@ -13,16 +13,17 @@
         "axios": "^0.18",
         "cross-env": "^5.2.0",
         "jquery": "^3.3.1",
-        "laravel-mix": "^2.1.11",
+        "laravel-mix": "^2.1.14",
         "local-storage": "^1.4.2",
-        "lodash": "^4.17.10",
+        "lodash": "^4.17.5",
         "nprogress": "^0.2.0",
+        "popper.js": "^1.12",
         "v-money": "^0.8.1",
-        "vue": "^2.5.16",
+        "vue": "^2.5.17",
         "vue-adsense": "^1.0.1",
         "vue-i18n": "^7.8.1",
         "vue-router": "^3.0.1",
-        "vuetify": "^1.0.19"
+        "vuetify": "^1.2.3"
     },
     "dependencies": {}
 }
