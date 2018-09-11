@@ -28,7 +28,7 @@ return [
     | you a variety of powerful log handlers / formatters to utilize.
     |
     | Available Drivers: "single", "daily", "slack", "syslog",
-    |                    "errorlog", "monolog", 
+    |                    "errorlog", "monolog",
     |                    "custom", "stack"
     |
     */
@@ -61,9 +61,9 @@ return [
         ],
 
         'papertrail' => [
-            'driver'  => 'monolog',
-            'level' => 'debug',
-            'handler' => SyslogUdpHandler::class,
+            'driver'       => 'monolog',
+            'level'        => 'debug',
+            'handler'      => SyslogUdpHandler::class,
             'handler_with' => [
                 'host' => env('PAPERTRAIL_URL'),
                 'port' => env('PAPERTRAIL_PORT'),
@@ -71,9 +71,9 @@ return [
         ],
 
         'stderr' => [
-            'driver' => 'monolog',
+            'driver'  => 'monolog',
             'handler' => StreamHandler::class,
-            'with' => [
+            'with'    => [
                 'stream' => 'php://stderr',
             ],
         ],
