@@ -99,7 +99,6 @@
                                     { text: $t('Transaction Amount'), value: 'transaction_amount', align: 'center', sortable: false },
                                     { text: $t('Commission Price'), value: 'commission_price', align: 'center', sortable: false },
                                     { text: $t('Gain/Loss'), value: 'gain_loss', align: 'center', sortable: false },
-                                    { text: $t('Actions'), value: 'actions', align: 'center', sortable: false }
                                 ]"
                                 item-key="id"
                                 :no-data-text="$t('You have not any transaction.')"
@@ -116,11 +115,6 @@
                                     <td class="text-xs-right" :class="{ 'red--text darken-1': props.item.sale_gain < 0, 'green--text darken-1': props.item.sale_gain > 0 }" v-if="props.item.type == 0 || props.item.type == 1">{{ $n(props.item.sale_gain, 'currency') }}</td>
                                     <td class="text-xs-right green--text darken-1" v-if="props.item.type == 2">{{ $n(props.item.dividend_gain, 'currency') }}</td>
                                     <td class="text-xs-right green--text darken-1" v-if="props.item.type == 3">{{ $n(props.item.bonus, 'percent') }}</td>
-                                    <td class="justify-center layout px-0">
-                                        <v-btn v-show="isLast(props.item.id)" icon small class="mx-1" @click="deleteTransaction(props.item)">
-                                            <v-icon color="red darken-2">delete</v-icon>
-                                        </v-btn>
-                                    </td>
                                 </template>
                                 <template slot="pageText" slot-scope="props">
                                     {{ $t('page_text', {itemsLength: props.itemsLength, pageStart: props.pageStart, pageStop: props.pageStop}) }}
