@@ -190,7 +190,10 @@
                                 :no-data-text="$t('You have not created any symbol.')"
                             >
                                 <template slot="items" slot-scope="props">
-                                    <td>{{ props.item.symbol.code }}</td>
+                                    <td class="no-wrap">
+                                        <strong>{{ props.item.symbol.code }}</strong>
+                                        <span class="ml-1 caption grey--text font-weight-thin">{{ props.item.symbol.session_time }}</span>
+                                    </td>
                                     <td class="text-xs-right" :class="{ 'red--text darken-1': props.item.symbol.trend == -1, 'green--text darken-1': props.item.symbol.trend == 1 }">
                                         {{ $n(props.item.symbol.last_price, 'currency') }}</td>
                                     <td class="text-xs-right" :class="{ 'red--text darken-1': props.item.symbol.trend == -1, 'green--text darken-1': props.item.symbol.trend == 1 }">
