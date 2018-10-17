@@ -74,6 +74,6 @@ class Symbol extends BaseModel
      */
     public function getSessionTimeAttribute()
     {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $this->attributes['session_time'])->diffForHumans(Carbon::now(), true, true);
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->attributes['session_time'])->format('H:i');
     }
 }
