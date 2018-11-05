@@ -26,7 +26,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('yourshares:set-symbols')
-                 ->twiceDaily(11, 19);
+                 ->weekdays()
+                 ->twiceDaily(12, 20);
     }
 
     /**
