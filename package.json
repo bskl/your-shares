@@ -8,7 +8,7 @@
         "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "format": "prettier --write 'resources/assets/**/*.{css,js,vue}' 'nova-components/**/*.{css,js,vue}'"
+        "format": "prettier --write 'resources/{js,sass}/**/*.{css,js,vue}' 'nova-components/**/*.{css,js,vue}'"
     },
     "devDependencies": {
         "axios": "^0.18",
@@ -19,12 +19,14 @@
         "lodash": "^4.17.11",
         "nprogress": "^0.2.0",
         "popper.js": "^1.12",
-        "prettier": "1.16.0",
+        "prettier": "1.16.1",
         "v-money": "^0.8.1",
-        "vue": "^2.5.17",
+        "vue": "^2.5.22",
         "vue-i18n": "^7.8.1",
-        "vue-router": "^3.0.1",
-        "vuetify": "^1.2.9"
+        "vue-router": "^3.0.2",
+        "vuetify": "^1.4.3"
     },
-    "dependencies": {}
+    "dependencies": {
+        "vue-template-compiler": "^2.5.22"
+    }
 }
