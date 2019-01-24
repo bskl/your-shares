@@ -1,344 +1,532 @@
 <script type="text/ecmascript-6">
-    import { portfolioStore } from '../../stores/portfolioStore.js';
-    import AddPortfolioModal from '../modals/AddPortfolioModal.vue';
-    import EditPortfolioModal from '../modals/EditPortfolioModal.vue';
-    import AddShareModal from '../modals/AddShareModal.vue';
-    import AddTransactionModal from '../modals/AddTransactionModal.vue';
+import { portfolioStore } from '../../stores/portfolioStore.js';
+import AddPortfolioModal from '../modals/AddPortfolioModal.vue';
+import EditPortfolioModal from '../modals/EditPortfolioModal.vue';
+import AddShareModal from '../modals/AddShareModal.vue';
+import AddTransactionModal from '../modals/AddTransactionModal.vue';
 
-    export default {
-        /*
-         * The component's name.
-         */
-        name: 'Portfolios',
+export default {
+    /*
+     * The component's name.
+     */
+    name: 'Portfolios',
 
-        components: {
-            AddPortfolioModal, EditPortfolioModal, AddShareModal, AddTransactionModal,
-        },
+    components: {
+        AddPortfolioModal, EditPortfolioModal, AddShareModal, AddTransactionModal,
+    },
 
-        /*
-         * The component's data.
-         */
-        data() {
-            return {
-                state: portfolioStore.state,
+    /*
+     * The component's data.
+     */
+    data() {
+        return {
+            state: portfolioStore.state,
+        }
+    },
+
+    /**
+     * Prepare the component.
+     */
+    mounted() {
+        Bus.$on('portfolioAdded', payload => this.pushPortfolio(payload.portfolio));
+        Bus.$on('portfolioUpdated', payload => this.updatePortfolio(payload.portfolio));
+        Bus.$on('portfolioDeleted', payload => this.deletePortfolio(payload.portfolioId));
+        Bus.$on('shareAdded', payload => this.pushShare(payload.share));
+        Bus.$on('transactionAdded', payload => this.updateShare(payload.share));
+
+        for (let index = 0, len = this.state.portfolios.length; index < len; ++index) {
+            if (this.state.portfolios[index].commission == null) {
+                this.$root.snackbar.show = true;
+                this.$root.snackbar.color = 'error';
+                this.$root.snackbar.text = this.$t('Your portfolio commission rate has not been recorded.');
+                this.showEditPortfolioModal(this.state.portfolios[index]);
+                break;
             }
+        };
+    },
+
+    created() {
+
+    },
+
+    methods: {
+        /**
+         * Push created portfolio to portfolios.
+         */
+        pushPortfolio(portfolio) {
+            this.state.portfolios.push(portfolio);
+            Bus.$off('portfolioAdded', portfolio);
         },
 
         /**
-         * Prepare the component.
+         * Change updated portfolio on portfolios.
          */
-        mounted() {
-            Bus.$on('portfolioAdded', payload => this.pushPortfolio(payload.portfolio));
-            Bus.$on('portfolioUpdated', payload => this.updatePortfolio(payload.portfolio));
-            Bus.$on('portfolioDeleted', payload => this.deletePortfolio(payload.portfolioId));
-            Bus.$on('shareAdded', payload => this.pushShare(payload.share));
-            Bus.$on('transactionAdded', payload => this.updateShare(payload.share));
-
-            for (let index = 0, len = this.state.portfolios.length; index < len; ++index) {
-                if (this.state.portfolios[index].commission == null) {
-                    this.$root.snackbar.show = true;
-                    this.$root.snackbar.color = 'error';
-                    this.$root.snackbar.text = this.$t('Your portfolio commission rate has not been recorded.');
-                    this.showEditPortfolioModal(this.state.portfolios[index]);
-                    break;
-                }
-            };
+        updatePortfolio(portfolio) {
+            let index = _.findIndex(this.state.portfolios, ['id', portfolio.id]);
+            this.state.portfolios.splice(index, 1, portfolio);
+            Bus.$off('portfolioUpdated', portfolio);
         },
 
-        created() {
-            
+        /**
+         * Delete deleted portfolio on portfolios.
+         */
+        deletePortfolio(portfolioId) {
+            let index = _.findIndex(this.state.portfolios, ['id', portfolioId]);
+            this.state.portfolios.splice(index, 1);
+            Bus.$off('portfolioDeleted', portfolioId);
         },
 
-        methods: {
-            /**
-             * Push created portfolio to portfolios.
-             */
-            pushPortfolio(portfolio) {
-                this.state.portfolios.push(portfolio);
-                Bus.$off('portfolioAdded', portfolio);
-            },
+        /**
+         * Push added share to given portfolio.
+         */
+        pushShare(share) {
+            let portfolioIndex = _.findIndex(this.state.portfolios, ['id', share.portfolio_id]);
+            this.state.portfolios[portfolioIndex].shares.push(share);
+            Bus.$off('shareAdded', share);
+        },
 
-            /**
-             * Change updated portfolio on portfolios.
-             */
-            updatePortfolio(portfolio) {
-                let index = _.findIndex(this.state.portfolios, ['id', portfolio.id]);
-                this.state.portfolios.splice(index, 1, portfolio);
-                Bus.$off('portfolioUpdated', portfolio);
-            },
+        /**
+         * Change updated share on portfolios.
+         */
+        updateShare(share) {
+            let portfolioIndex = _.findIndex(this.state.portfolios, ['id', share.portfolio_id]);
+            let index = _.findIndex(this.state.portfolios[portfolioIndex].shares, ['id', share.id]);
+            this.state.portfolios[portfolioIndex].shares.splice(index, 1, share);
+            this.state.portfolios[portfolioIndex].total_sale_amount = share.portfolio.total_sale_amount;
+            this.state.portfolios[portfolioIndex].total_purchase_amount = share.portfolio.total_purchase_amount;
+            this.state.portfolios[portfolioIndex].paid_amount = share.portfolio.paid_amount;
+            this.state.portfolios[portfolioIndex].gain_loss = share.portfolio.gain_loss;
+            this.state.portfolios[portfolioIndex].total_commission_amount = share.portfolio.total_commission_amount;
+            this.state.portfolios[portfolioIndex].total_dividend_gain = share.portfolio.total_dividend_gain;
+            this.state.portfolios[portfolioIndex].total_bonus_share = share.portfolio.total_bonus_share;
+            this.state.portfolios[portfolioIndex].total_gain = share.portfolio.total_gain;
+            Bus.$off('transactionAdded', share);
+        },
 
-            /**
-             * Delete deleted portfolio on portfolios.
-             */
-            deletePortfolio(portfolioId) {
-                let index = _.findIndex(this.state.portfolios, ['id', portfolioId]);
-                this.state.portfolios.splice(index, 1);
-                Bus.$off('portfolioDeleted', portfolioId);
-            },
-
-            /**
-             * Push added share to given portfolio.
-             */
-            pushShare(share) {
-                let portfolioIndex = _.findIndex(this.state.portfolios, ['id', share.portfolio_id]);
-                this.state.portfolios[portfolioIndex].shares.push(share);
-                Bus.$off('shareAdded', share);
-            },
-
-            /**
-             * Change updated share on portfolios.
-             */
-            updateShare(share) {
-                let portfolioIndex = _.findIndex(this.state.portfolios, ['id', share.portfolio_id]);
-                let index = _.findIndex(this.state.portfolios[portfolioIndex].shares, ['id', share.id]);
-                this.state.portfolios[portfolioIndex].shares.splice(index, 1, share);
-                this.state.portfolios[portfolioIndex].total_sale_amount = share.portfolio.total_sale_amount;
-                this.state.portfolios[portfolioIndex].total_purchase_amount = share.portfolio.total_purchase_amount;
-                this.state.portfolios[portfolioIndex].paid_amount = share.portfolio.paid_amount;
-                this.state.portfolios[portfolioIndex].gain_loss = share.portfolio.gain_loss;
-                this.state.portfolios[portfolioIndex].total_commission_amount = share.portfolio.total_commission_amount;
-                this.state.portfolios[portfolioIndex].total_dividend_gain = share.portfolio.total_dividend_gain;
-                this.state.portfolios[portfolioIndex].total_bonus_share = share.portfolio.total_bonus_share;
-                this.state.portfolios[portfolioIndex].total_gain = share.portfolio.total_gain;
-                Bus.$off('transactionAdded', share);
-            },
-
-            /**
-             * Delete selected share
-             */
-            deleteShare(share) {
-                axios.delete('/share/' + share.id)
-                    .then(response => {
-                        let portfolioIndex = _.findIndex(this.state.portfolios, ['id', share.portfolio_id]);
-                        let index = _.findIndex(this.state.portfolios[portfolioIndex].shares, ['id', share.id]);
-                        this.state.portfolios[portfolioIndex].shares.splice(index, 1);
-                    })
-            },
-
-            /**
-             * Open the modal for editing portfolio.
-             */
-            showEditPortfolioModal(portfolio) {
-                this.$refs.editPortfolioModal.open(portfolio);
-            },
-            
-            /**
-             * Open the modal for adding a new share.
-             */
-            showAddShareModal(portfolioId) {
-                this.$refs.addShareModal.open(portfolioId);
-            },
-
-            /**
-             * Open the modal for adding a new transaction.
-             */
-            showAddTransactionModal(shareId, symbolCode, commission) {
-                this.$refs.addTransactionModal.open(shareId, symbolCode, commission);
-            },
-
-            calculateGain(portfolio) {
-                let shareGain = 0;
-
-                _.forEach(portfolio.shares, function(share) {
-                    shareGain += (+share.gain)
+        /**
+         * Delete selected share
+         */
+        deleteShare(share) {
+            axios.delete('/share/' + share.id)
+                .then(response => {
+                    let portfolioIndex = _.findIndex(this.state.portfolios, ['id', share.portfolio_id]);
+                    let index = _.findIndex(this.state.portfolios[portfolioIndex].shares, ['id', share.id]);
+                    this.state.portfolios[portfolioIndex].shares.splice(index, 1);
                 })
-
-                return (+shareGain) + (+portfolio.total_gain)
-            }
         },
-    }
+
+        /**
+         * Open the modal for editing portfolio.
+         */
+        showEditPortfolioModal(portfolio) {
+            this.$refs.editPortfolioModal.open(portfolio);
+        },
+
+        /**
+         * Open the modal for adding a new share.
+         */
+        showAddShareModal(portfolioId) {
+            this.$refs.addShareModal.open(portfolioId);
+        },
+
+        /**
+         * Open the modal for adding a new transaction.
+         */
+        showAddTransactionModal(shareId, symbolCode, commission) {
+            this.$refs.addTransactionModal.open(shareId, symbolCode, commission);
+        },
+
+        calculateGain(portfolio) {
+            let shareGain = 0;
+
+            _.forEach(portfolio.shares, function(share) {
+                shareGain += (+share.gain)
+            })
+
+            return (+shareGain) + (+portfolio.total_gain)
+        }
+    },
+}
 </script>
 
 <template>
-    <v-layout row wrap>
-        <v-flex xs12 sm12 md10 offset-md1>
-            <v-layout row wrap>
-                <v-flex xs12 pb-4 v-for="portfolio in state.portfolios" :key="portfolio.id">
-                    <v-card>
-                        <v-card-title class="pt-0 pb-0 elevation-3">
-                            <v-toolbar color="white" flat>
-                                <v-btn icon light disabled class="ml-0">
-                                    <v-icon color="grey darken-2">home</v-icon>
-                                </v-btn>
-                                <v-toolbar-title class="grey--text text--darken-4 ml-1">{{ portfolio.name }}</v-toolbar-title>
-                                <v-spacer></v-spacer>
-                                <v-btn icon small class="mx-1" @click="showEditPortfolioModal(portfolio)">
-                                    <v-icon color="green darken-2">edit</v-icon>
-                                </v-btn>
-                                <v-btn icon small class="mx-1" @click="showAddShareModal(portfolio.id)">
-                                    <v-icon color="blue darken-2">add</v-icon>
-                                </v-btn>
-                            </v-toolbar>
-                        </v-card-title>
-                        <v-divider></v-divider>
-                        <v-card-text>
-                            <v-data-table
-                                :items="portfolio.shares"
-                                :headers="[
-                                    { text: $t('Symbol'), value: 'symbol', align: 'left', sortable: false },
-                                    { text: $t('Last Price'), value: 'last_price', align: 'center', sortable: false },
-                                    { text: $t('Change'), value: 'change', align: 'center', sortable: false },
-                                    { text: $t('Lots'), value: 'lots', align: 'center', sortable: false },
-                                    { text: $t('Average Cost'), value: 'average_cost', align: 'center', sortable: false },
-                                    { text: $t('Amount'), value: 'amount', align: 'center', sortable: false },
-                                    { text: $t('Average Amount'), value: 'average_amount', align: 'center', sortable: false },
-                                    { text: $t('Gain/Loss'), value: 'gain_loss', align: 'center', sortable: false },
-                                    { text: $t('Actions'), value: 'actions', align: 'center', sortable: false }
-                                ]"
-                                item-key="id"
-                                hide-actions
-                                :no-data-text="$t('You have not created any symbol.')"
-                            >
-                                <template slot="items" slot-scope="props">
-                                    <td class="no-wrap">
-                                        <strong>{{ props.item.symbol.code }}</strong>
-                                        <span class="ml-1 caption grey--text font-weight-thin">{{ props.item.symbol.session_time }}</span>
-                                    </td>
-                                    <td class="text-xs-right" :class="{ 'red--text darken-1': props.item.symbol.trend == -1, 'green--text darken-1': props.item.symbol.trend == 1 }">
-                                        {{ $n(props.item.symbol.last_price, 'currency') }}</td>
-                                    <td class="text-xs-right" :class="{ 'red--text darken-1': props.item.symbol.trend == -1, 'green--text darken-1': props.item.symbol.trend == 1 }">
-                                        {{ $n(props.item.symbol.rate_of_change, 'percent') }}</td>
-                                    <td class="text-xs-right">{{ $n(props.item.lot, 'decimal') }}</td>
-                                    <td class="text-xs-right">{{ $n(props.item.average, 'currency') }}</td>
-                                    <td class="text-xs-right">{{ $n(props.item.amount, 'currency') }}</td>
-                                    <td class="text-xs-right">{{ $n(props.item.average_amount, 'currency') }}</td>
-                                    <td class="text-xs-right" :class="{ 'red--text darken-1': props.item.gain < 0, 'green--text darken-1': props.item.gain > 0 }">
-                                        {{ $n(props.item.gain, 'currency') }}</td>
-                                    <td class="justify-center layout px-0">
-                                        <v-btn v-if="props.item.total_amount == 0" icon small class="mx-1" @click="deleteShare(props.item)">
-                                            <v-icon color="red darken-2">delete</v-icon>
-                                        </v-btn>
-                                        <v-btn v-if="props.item.total_amount != 0" icon small class="mx-1" :to="'/share/' + props.item.id + '/transactions'">
-                                            <v-icon color="blue darken-2">line_weight</v-icon>
-                                        </v-btn>
-                                        <v-btn icon small class="mx-1" @click="showAddTransactionModal(props.item.id, props.item.symbol.code, portfolio.commission)">
-                                            <v-icon color="green darken-2">add_circle_outline</v-icon>
-                                        </v-btn>
-                                    </td>
-                                </template>
-                            </v-data-table>
-                        </v-card-text>
+  <v-layout row wrap>
+    <v-flex xs12 sm12 md10 offset-md1>
+      <v-layout row wrap>
+        <v-flex
+          xs12
+          pb-4
+          v-for="portfolio in state.portfolios"
+          :key="portfolio.id"
+        >
+          <v-card>
+            <v-card-title class="pt-0 pb-0 elevation-3">
+              <v-toolbar color="white" flat>
+                <v-btn icon light disabled class="ml-0">
+                  <v-icon color="grey darken-2">home</v-icon>
+                </v-btn>
+                <v-toolbar-title class="grey--text text--darken-4 ml-1">{{
+                  portfolio.name
+                }}</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-btn
+                  icon
+                  small
+                  class="mx-1"
+                  @click="showEditPortfolioModal(portfolio)"
+                >
+                  <v-icon color="green darken-2">edit</v-icon>
+                </v-btn>
+                <v-btn
+                  icon
+                  small
+                  class="mx-1"
+                  @click="showAddShareModal(portfolio.id)"
+                >
+                  <v-icon color="blue darken-2">add</v-icon>
+                </v-btn>
+              </v-toolbar>
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+              <v-data-table
+                :items="portfolio.shares"
+                :headers="[
+                  {
+                    text: $t('Symbol'),
+                    value: 'symbol',
+                    align: 'left',
+                    sortable: false
+                  },
+                  {
+                    text: $t('Last Price'),
+                    value: 'last_price',
+                    align: 'center',
+                    sortable: false
+                  },
+                  {
+                    text: $t('Change'),
+                    value: 'change',
+                    align: 'center',
+                    sortable: false
+                  },
+                  {
+                    text: $t('Lots'),
+                    value: 'lots',
+                    align: 'center',
+                    sortable: false
+                  },
+                  {
+                    text: $t('Average Cost'),
+                    value: 'average_cost',
+                    align: 'center',
+                    sortable: false
+                  },
+                  {
+                    text: $t('Amount'),
+                    value: 'amount',
+                    align: 'center',
+                    sortable: false
+                  },
+                  {
+                    text: $t('Average Amount'),
+                    value: 'average_amount',
+                    align: 'center',
+                    sortable: false
+                  },
+                  {
+                    text: $t('Gain/Loss'),
+                    value: 'gain_loss',
+                    align: 'center',
+                    sortable: false
+                  },
+                  {
+                    text: $t('Actions'),
+                    value: 'actions',
+                    align: 'center',
+                    sortable: false
+                  }
+                ]"
+                item-key="id"
+                hide-actions
+                :no-data-text="$t('You have not created any symbol.')"
+              >
+                <template slot="items" slot-scope="props">
+                  <td class="no-wrap">
+                    <strong>{{ props.item.symbol.code }}</strong>
+                    <span class="ml-1 caption grey--text font-weight-thin">{{
+                      props.item.symbol.session_time
+                    }}</span>
+                  </td>
+                  <td
+                    class="text-xs-right"
+                    :class="{
+                      'red--text darken-1': props.item.symbol.trend == -1,
+                      'green--text darken-1': props.item.symbol.trend == 1
+                    }"
+                  >
+                    {{ $n(props.item.symbol.last_price, "currency") }}
+                  </td>
+                  <td
+                    class="text-xs-right"
+                    :class="{
+                      'red--text darken-1': props.item.symbol.trend == -1,
+                      'green--text darken-1': props.item.symbol.trend == 1
+                    }"
+                  >
+                    {{ $n(props.item.symbol.rate_of_change, "percent") }}
+                  </td>
+                  <td class="text-xs-right">
+                    {{ $n(props.item.lot, "decimal") }}
+                  </td>
+                  <td class="text-xs-right">
+                    {{ $n(props.item.average, "currency") }}
+                  </td>
+                  <td class="text-xs-right">
+                    {{ $n(props.item.amount, "currency") }}
+                  </td>
+                  <td class="text-xs-right">
+                    {{ $n(props.item.average_amount, "currency") }}
+                  </td>
+                  <td
+                    class="text-xs-right"
+                    :class="{
+                      'red--text darken-1': props.item.gain < 0,
+                      'green--text darken-1': props.item.gain > 0
+                    }"
+                  >
+                    {{ $n(props.item.gain, "currency") }}
+                  </td>
+                  <td class="justify-center layout px-0">
+                    <v-btn
+                      v-if="props.item.total_amount == 0"
+                      icon
+                      small
+                      class="mx-1"
+                      @click="deleteShare(props.item)"
+                    >
+                      <v-icon color="red darken-2">delete</v-icon>
+                    </v-btn>
+                    <v-btn
+                      v-if="props.item.total_amount != 0"
+                      icon
+                      small
+                      class="mx-1"
+                      :to="'/share/' + props.item.id + '/transactions'"
+                    >
+                      <v-icon color="blue darken-2">line_weight</v-icon>
+                    </v-btn>
+                    <v-btn
+                      icon
+                      small
+                      class="mx-1"
+                      @click="
+                        showAddTransactionModal(
+                          props.item.id,
+                          props.item.symbol.code,
+                          portfolio.commission
+                        )
+                      "
+                    >
+                      <v-icon color="green darken-2">add_circle_outline</v-icon>
+                    </v-btn>
+                  </td>
+                </template>
+              </v-data-table>
+            </v-card-text>
 
-                        <v-card-actions>
-                            <v-flex xs12>
-                                <v-list dense>
-                                    <v-list-tile>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title>
-                                                {{ $t('Sale Amount') }}
-                                                <span class="grey--text text--lighten-1"> - <i>{{ $t('Total amount of all sale transactions.') }}</i></span>
-                                            </v-list-tile-title>
-                                        </v-list-tile-content>
-                                        <v-list-tile-action>
-                                            <strong>{{ $n(portfolio.total_sale_amount, 'currency') }}</strong>
-                                        </v-list-tile-action>
-                                    </v-list-tile>
-                                    <v-divider></v-divider>
-                                    <v-list-tile>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title>
-                                                {{ $t('Purchase Amount') }}
-                                                <span class="grey--text text--lighten-1"> - <i>{{ $t('Total amount of all purchase transactions.') }}</i></span>
-                                            </v-list-tile-title>
-                                        </v-list-tile-content>
-                                        <v-list-tile-action class="red--text darken-1">
-                                            <strong>{{ $n(portfolio.total_purchase_amount, 'currency') }}</strong>
-                                        </v-list-tile-action>
-                                    </v-list-tile>
-                                    <v-divider></v-divider><v-list-tile>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title>
-                                                {{ $t('Paid Amount') }}
-                                                <span class="grey--text text--lighten-1"> - <i>{{ $t('Total amount of purchase transactions.') }}</i></span>
-                                            </v-list-tile-title>
-                                        </v-list-tile-content>
-                                        <v-list-tile-action class="red--text darken-1">
-                                            <strong>{{ $n(portfolio.paid_amount, 'currency') }}</strong>
-                                        </v-list-tile-action>
-                                    </v-list-tile>
-                                    <v-divider></v-divider>
-                                    <v-list-tile>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title>
-                                                {{ $t('Gain/Loss') }}
-                                                <span class="grey--text text--lighten-1"> - <i>{{ $t('Total gain/loss after sales.') }}</i></span>
-                                            </v-list-tile-title>
-                                        </v-list-tile-content>
-                                        <v-list-tile-action :class="{ 'red--text darken-1': portfolio.gain_loss < 0, 'green--text darken-1': portfolio.gain_loss > 0 }">
-                                            <strong>{{ $n(portfolio.gain_loss, 'currency') }}</strong>
-                                        </v-list-tile-action>
-                                    </v-list-tile>
-                                    <v-divider></v-divider>
-                                    <v-list-tile>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title>
-                                                {{ $t('Comission Amount') }}
-                                                <span class="grey--text text--lighten-1"> - <i>{{ $t('Sum of commission amounts paid in all purchase / sale transactions.') }}</i></span>
-                                            </v-list-tile-title>
-                                        </v-list-tile-content>
-                                        <v-list-tile-action class="red--text darken-1">
-                                            <strong>{{ $n(portfolio.total_commission_amount, 'currency') }}</strong>
-                                        </v-list-tile-action>
-                                    </v-list-tile>
-                                    <v-divider></v-divider>
-                                    <v-list-tile>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title>
-                                                {{ $t('Dividend Gain') }}
-                                                <span class="grey--text text--lighten-1"> - <i>{{ $t('Sum of dividend amounts.') }}</i></span>
-                                            </v-list-tile-title>
-                                        </v-list-tile-content>
-                                        <v-list-tile-action class="green--text darken-1">
-                                            <strong>{{ $n(portfolio.total_dividend_gain, 'currency') }}</strong>
-                                        </v-list-tile-action>
-                                    </v-list-tile>
-                                    <v-divider></v-divider>
-                                    <v-list-tile>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title>
-                                                {{ $t('Bonus Share Gain') }}
-                                                <span class="grey--text text--lighten-1"> - <i>{{ $t('Sum of bonus shares.') }}</i></span>
-                                            </v-list-tile-title>
-                                        </v-list-tile-content>
-                                        <v-list-tile-action class="green--text darken-1">
-                                            <strong>{{ $n(portfolio.total_bonus_share, 'decimal') }}</strong>
-                                        </v-list-tile-action>
-                                    </v-list-tile>
-                                    <v-divider></v-divider>
-                                    <v-list-tile>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title>
-                                                {{ $t('Gain') }}
-                                                <span class="grey--text text--lighten-1"> - <i>{{ $t('Total gain. [(gain/loss + dividend) - commission amount]') }}</i></span>
-                                            </v-list-tile-title>
-                                        </v-list-tile-content>
-                                        <v-list-tile-action :class="{ 'red--text darken-1': portfolio.total_gain < 0, 'green--text darken-1': portfolio.total_gain > 0 }">
-                                            <strong>{{ $n(portfolio.total_gain, 'currency') }}</strong>
-                                        </v-list-tile-action>
-                                    </v-list-tile>
-                                    <v-divider></v-divider>
-                                    <v-list-tile>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title>
-                                                {{ $t('Instant Gain') }}
-                                                <span class="grey--text text--lighten-1"> - <i>{{ $t('Gain on the instant stock price.') }}</i></span>
-                                            </v-list-tile-title>
-                                        </v-list-tile-content>
-                                        <v-list-tile-action :class="{ 'red--text darken-1': calculateGain(portfolio) < 0, 'green--text darken-1': calculateGain(portfolio) > 0 }">
-                                            <strong>{{ $n(calculateGain(portfolio), 'currency') }}</strong>
-                                        </v-list-tile-action>
-                                    </v-list-tile>
-                                </v-list>
-                            </v-flex>
-                        </v-card-actions>
-                    </v-card>
-                </v-flex>
-            </v-layout>
+            <v-card-actions>
+              <v-flex xs12>
+                <v-list dense>
+                  <v-list-tile>
+                    <v-list-tile-content>
+                      <v-list-tile-title>
+                        {{ $t("Sale Amount") }}
+                        <span class="grey--text text--lighten-1">
+                          -
+                          <i>{{
+                            $t("Total amount of all sale transactions.")
+                          }}</i></span
+                        >
+                      </v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-action>
+                      <strong>{{
+                        $n(portfolio.total_sale_amount, "currency")
+                      }}</strong>
+                    </v-list-tile-action>
+                  </v-list-tile>
+                  <v-divider></v-divider>
+                  <v-list-tile>
+                    <v-list-tile-content>
+                      <v-list-tile-title>
+                        {{ $t("Purchase Amount") }}
+                        <span class="grey--text text--lighten-1">
+                          -
+                          <i>{{
+                            $t("Total amount of all purchase transactions.")
+                          }}</i></span
+                        >
+                      </v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-action class="red--text darken-1">
+                      <strong>{{
+                        $n(portfolio.total_purchase_amount, "currency")
+                      }}</strong>
+                    </v-list-tile-action>
+                  </v-list-tile>
+                  <v-divider></v-divider
+                  ><v-list-tile>
+                    <v-list-tile-content>
+                      <v-list-tile-title>
+                        {{ $t("Paid Amount") }}
+                        <span class="grey--text text--lighten-1">
+                          -
+                          <i>{{
+                            $t("Total amount of purchase transactions.")
+                          }}</i></span
+                        >
+                      </v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-action class="red--text darken-1">
+                      <strong>{{
+                        $n(portfolio.paid_amount, "currency")
+                      }}</strong>
+                    </v-list-tile-action>
+                  </v-list-tile>
+                  <v-divider></v-divider>
+                  <v-list-tile>
+                    <v-list-tile-content>
+                      <v-list-tile-title>
+                        {{ $t("Gain/Loss") }}
+                        <span class="grey--text text--lighten-1">
+                          -
+                          <i>{{ $t("Total gain/loss after sales.") }}</i></span
+                        >
+                      </v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-action
+                      :class="{
+                        'red--text darken-1': portfolio.gain_loss < 0,
+                        'green--text darken-1': portfolio.gain_loss > 0
+                      }"
+                    >
+                      <strong>{{ $n(portfolio.gain_loss, "currency") }}</strong>
+                    </v-list-tile-action>
+                  </v-list-tile>
+                  <v-divider></v-divider>
+                  <v-list-tile>
+                    <v-list-tile-content>
+                      <v-list-tile-title>
+                        {{ $t("Comission Amount") }}
+                        <span class="grey--text text--lighten-1">
+                          -
+                          <i>{{
+                            $t(
+                              "Sum of commission amounts paid in all purchase / sale transactions."
+                            )
+                          }}</i></span
+                        >
+                      </v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-action class="red--text darken-1">
+                      <strong>{{
+                        $n(portfolio.total_commission_amount, "currency")
+                      }}</strong>
+                    </v-list-tile-action>
+                  </v-list-tile>
+                  <v-divider></v-divider>
+                  <v-list-tile>
+                    <v-list-tile-content>
+                      <v-list-tile-title>
+                        {{ $t("Dividend Gain") }}
+                        <span class="grey--text text--lighten-1">
+                          - <i>{{ $t("Sum of dividend amounts.") }}</i></span
+                        >
+                      </v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-action class="green--text darken-1">
+                      <strong>{{
+                        $n(portfolio.total_dividend_gain, "currency")
+                      }}</strong>
+                    </v-list-tile-action>
+                  </v-list-tile>
+                  <v-divider></v-divider>
+                  <v-list-tile>
+                    <v-list-tile-content>
+                      <v-list-tile-title>
+                        {{ $t("Bonus Share Gain") }}
+                        <span class="grey--text text--lighten-1">
+                          - <i>{{ $t("Sum of bonus shares.") }}</i></span
+                        >
+                      </v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-action class="green--text darken-1">
+                      <strong>{{
+                        $n(portfolio.total_bonus_share, "decimal")
+                      }}</strong>
+                    </v-list-tile-action>
+                  </v-list-tile>
+                  <v-divider></v-divider>
+                  <v-list-tile>
+                    <v-list-tile-content>
+                      <v-list-tile-title>
+                        {{ $t("Gain") }}
+                        <span class="grey--text text--lighten-1">
+                          -
+                          <i>{{
+                            $t(
+                              "Total gain. [(gain/loss + dividend) - commission amount]"
+                            )
+                          }}</i></span
+                        >
+                      </v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-action
+                      :class="{
+                        'red--text darken-1': portfolio.total_gain < 0,
+                        'green--text darken-1': portfolio.total_gain > 0
+                      }"
+                    >
+                      <strong>{{
+                        $n(portfolio.total_gain, "currency")
+                      }}</strong>
+                    </v-list-tile-action>
+                  </v-list-tile>
+                  <v-divider></v-divider>
+                  <v-list-tile>
+                    <v-list-tile-content>
+                      <v-list-tile-title>
+                        {{ $t("Instant Gain") }}
+                        <span class="grey--text text--lighten-1">
+                          -
+                          <i>{{
+                            $t("Gain on the instant stock price.")
+                          }}</i></span
+                        >
+                      </v-list-tile-title>
+                    </v-list-tile-content>
+                    <v-list-tile-action
+                      :class="{
+                        'red--text darken-1': calculateGain(portfolio) < 0,
+                        'green--text darken-1': calculateGain(portfolio) > 0
+                      }"
+                    >
+                      <strong>{{
+                        $n(calculateGain(portfolio), "currency")
+                      }}</strong>
+                    </v-list-tile-action>
+                  </v-list-tile>
+                </v-list>
+              </v-flex>
+            </v-card-actions>
+          </v-card>
         </v-flex>
+      </v-layout>
+    </v-flex>
 
-        <edit-portfolio-modal ref="editPortfolioModal" />
-        <add-share-modal ref="addShareModal" />
-        <add-transaction-modal ref="addTransactionModal" />
-
-    </v-layout>
+    <edit-portfolio-modal ref="editPortfolioModal" />
+    <add-share-modal ref="addShareModal" />
+    <add-transaction-modal ref="addTransactionModal" />
+  </v-layout>
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <v-card-title>
-        <slot/>
-    </v-card-title>
+  <v-card-title>
+    <slot />
+  </v-card-title>
 </template>
