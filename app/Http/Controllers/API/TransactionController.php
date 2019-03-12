@@ -23,10 +23,10 @@ class TransactionController extends Controller
         $this->authorize('create', $share);
 
         $data = $request->all();
-        $data['user_id'] = auth()->user()->id;
         $transaction = new Transaction();
         $transaction->fill($data);
 
+        $transaction->user_id = auth()->user()->id;
         $transaction->price = $data['price'];
         $transaction->dividend_gain = $data['dividend_gain'];
 

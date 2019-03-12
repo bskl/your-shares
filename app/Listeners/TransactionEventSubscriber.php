@@ -23,10 +23,13 @@ class TransactionEventSubscriber
 
         $share->lot += $transaction->lot;
         $share->average_amount = $share->average_amount->add($transaction->amount);
+        $share->average_amount_with_dividend = $share->average_amount_with_dividend->add($transaction->amount);
         $share->average = $share->average_amount->divide($share->lot);
+        $share->average_with_dividend = $share->average_amount_with_dividend->divide($share->lot);
 
-        $share->calculateAmount($share->symbol->last_price);
-        $share->calculateGain();
+        $share->setAmount();
+        $share->setGain();
+        $share->setGainWithDividend();
         $share->total_purchase_amount = $share->total_purchase_amount->add($transaction->amount);
         $share->paid_amount = $share->paid_amount->add($transaction->amount);
         $share->total_commission_amount = $share->total_commission_amount->add($transaction->commission_price);
@@ -65,9 +68,10 @@ class TransactionEventSubscriber
         $share->portfolio->update();
 
         $items = $share->getBuyingTransactionsByNotSold();
+        $transactionLot = $transaction->lot;
 
-        $items->each(function ($item) use ($transaction, $share) {
-            if ($item->remaining < $transaction->lot) {
+        $items->each(function ($item) use ($transaction, &$transactionLot, $share) {
+            if ($item->remaining < $transactionLot) {
                 $soldLot = $item->remaining;
                 $item->remaining = 0;
                 $item->sale_average_amount = $item->sale_average_amount->add($transaction->price->multiply($soldLot));
@@ -75,54 +79,25 @@ class TransactionEventSubscriber
                 $item->sale_gain = $item->sale_average_amount->subtract($item->amount);
                 $item->update();
 
-                $share->lot = $share->lot - $soldLot;
                 $buyingAmount = $item->price->multiply($soldLot);
-                $soldAmount = $transaction->price->multiply($soldLot);
-                $transactionGain = $soldAmount->subtract($buyingAmount);
-                $share->gain_loss = $share->gain_loss->add($transactionGain);
-                $share->total_gain = $share->total_gain->add($transactionGain);
-
-                $share->average_amount = $share->average_amount->subtract($buyingAmount);
-                $share->average = $share->average_amount->divide($share->lot);
-                $share->calculateAmount($share->symbol->last_price);
-                $share->calculateGain();
-                $share->paid_amount = $share->paid_amount->subtract($buyingAmount);
-                $share->update();
-
-                $share->portfolio->paid_amount = $share->portfolio->paid_amount->subtract($buyingAmount);
-                $share->portfolio->gain_loss = $share->portfolio->gain_loss->add($transactionGain);
-                $share->portfolio->total_gain = $share->portfolio->total_gain->add($transactionGain);
-                $share->portfolio->update();
-
-                $transaction->lot = $transaction->lot - $soldLot;
-            }
-
-            if ($item->remaining >= $transaction->lot) {
-                $item->remaining = $item->remaining - $transaction->lot;
-                $item->sale_average_amount = $item->sale_average_amount->add($transaction->price->multiply($transaction->lot));
-                $soldLot = (int) ($item->lot - $item->remaining);
-                $item->sale_average = $item->sale_average_amount->divide($soldLot);
-                $item->sale_gain = $item->sale_average_amount->subtract($item->amount);
-                $item->update();
-
-                $buyingAmount = $item->price->multiply($transaction->lot);
                 if ($item->type == TransactionTypes::BONUS) {
                     $buyingAmount = Money::TRY(0);
                 }
-                $soldAmount = $transaction->price->multiply($transaction->lot);
+                $soldAmount = $transaction->price->multiply($soldLot);
                 $transactionGain = $soldAmount->subtract($buyingAmount);
+                $transaction->sale_gain = $transaction->sale_gain->add($transactionGain);
+                $transaction->update();
+
                 $share->gain_loss = $share->gain_loss->add($transactionGain);
                 $share->total_gain = $share->total_gain->add($transactionGain);
-
-                $share->lot = $share->lot - $transaction->lot;
-                if ($share->lot == 0) {
-                    $share->average_amount = $share->average = $share->amount = $share->gain = '0';
-                } else {
-                    $share->average_amount = $share->average_amount->subtract($buyingAmount);
-                    $share->average = $share->average_amount->divide($share->lot);
-                    $share->calculateAmount($share->symbol->last_price);
-                    $share->calculateGain();
-                }
+                $share->average_amount = $share->average_amount->subtract($buyingAmount);
+                $share->average_amount_with_dividend = $share->average_amount_with_dividend->subtract($buyingAmount);
+                $share->lot = $share->lot - $soldLot;
+                $share->average = $share->average_amount->divide($share->lot);
+                $share->average_with_dividend = $share->average_amount_with_dividend->divide($share->lot);
+                $share->setAmount();
+                $share->setGain();
+                $share->setGainWithDividend();
                 $share->paid_amount = $share->paid_amount->subtract($buyingAmount);
                 $share->update();
 
@@ -131,7 +106,46 @@ class TransactionEventSubscriber
                 $share->portfolio->total_gain = $share->portfolio->total_gain->add($transactionGain);
                 $share->portfolio->update();
 
-                $transaction->lot = 0;
+                $transactionLot = $transactionLot - $soldLot;
+            }
+
+            if ($item->remaining >= $transactionLot) {
+                $soldLot = $transactionLot;
+                $item->remaining = $item->remaining - $soldLot;
+                $item->sale_average_amount = $item->sale_average_amount->add($transaction->price->multiply($soldLot));
+                $itemSoldLot = (int) ($item->lot - $item->remaining);
+                $item->sale_average = $item->sale_average_amount->divide($itemSoldLot);
+                $item->sale_gain = $item->sale_average_amount->subtract($item->amount);
+                $item->update();
+
+                $buyingAmount = $item->price->multiply($soldLot);
+                if ($item->type == TransactionTypes::BONUS) {
+                    $buyingAmount = Money::TRY(0);
+                }
+                $soldAmount = $transaction->price->multiply($soldLot);
+                $transactionGain = $soldAmount->subtract($buyingAmount);
+                $transaction->sale_gain = $transaction->sale_gain->add($transactionGain);
+                $transaction->update();
+
+                $share->gain_loss = $share->gain_loss->add($transactionGain);
+                $share->total_gain = $share->total_gain->add($transactionGain);
+                $share->average_amount = $share->average_amount->subtract($buyingAmount);
+                $share->average_amount_with_dividend = $share->average_amount_with_dividend->subtract($buyingAmount);
+                $share->lot = $share->lot - $soldLot;
+                $share->average = ($share->lot == 0) ? '0' : $share->average_amount->divide($share->lot);
+                $share->average_with_dividend = ($share->lot == 0) ? '0' : $share->average_amount_with_dividend->divide($share->lot);
+                $share->setAmount();
+                $share->setGain();
+                $share->setGainWithDividend();
+                $share->paid_amount = $share->paid_amount->subtract($buyingAmount);
+                $share->update();
+
+                $share->portfolio->paid_amount = $share->portfolio->paid_amount->subtract($buyingAmount);
+                $share->portfolio->gain_loss = $share->portfolio->gain_loss->add($transactionGain);
+                $share->portfolio->total_gain = $share->portfolio->total_gain->add($transactionGain);
+                $share->portfolio->update();
+
+                $transactionLot = 0;
 
                 return false;
             }
@@ -149,11 +163,14 @@ class TransactionEventSubscriber
         $transaction = $event->transaction;
         $share = $transaction->share;
         $transaction->dividend = $transaction->dividend_gain->divide($transaction->lot);
-        $transaction->save();
+        $transaction->update();
 
         $share->total_dividend_gain = $share->total_dividend_gain->add($transaction->dividend_gain);
         $share->total_gain = $share->total_gain->add($transaction->dividend_gain);
-        $share->save();
+        $share->average_amount_with_dividend = $share->average_amount_with_dividend->subtract($transaction->dividend_gain);
+        $share->average_with_dividend = $share->average_amount_with_dividend->divide($share->lot);
+        $share->setGainWithDividend();
+        $share->update();
 
         $share->portfolio->total_gain = $share->portfolio->total_gain->add($transaction->dividend_gain);
         $share->portfolio->calculateMoneyAttributes();
@@ -170,14 +187,16 @@ class TransactionEventSubscriber
 
         $transaction->bonus = ($transaction->lot * 100) / $share->lot;
         $transaction->remaining = $transaction->lot;
-        $transaction->save();
+        $transaction->update();
 
         $share->lot += $transaction->lot;
-        $share->calculateAmount($share->symbol->last_price);
-        $share->calculateGain();
         $share->average = $share->average_amount->divide($share->lot);
+        $share->average_with_dividend = $share->average_amount_with_dividend->divide($share->lot);
         $share->total_bonus_share += $transaction->lot;
-        $share->save();
+        $share->setAmount();
+        $share->setGain();
+        $share->setGainWithDividend();
+        $share->update();
 
         $share->portfolio->calculateMoneyAttributes();
         $share->portfolio->update();

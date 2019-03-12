@@ -16,15 +16,13 @@ class CalculateShareAmountAndGain
      */
     public function handle(SymbolUpdated $event)
     {
-        $symbol = $event->symbol;
+        $shares = Share::where('symbol_id', $event->symbol->id)->get();
 
-        $shares = Share::where('symbol_id', $symbol->id)->get();
-
-        $shares->map(function ($share) use ($symbol) {
-            $share->calculateAmount($symbol->last_price);
-            $share->calculateGain();
+        $shares->map(function ($share) {
+            $share->setAmount();
+            $share->setGain();
+            $share->setGainWithDividend();
             $share->update();
-            $share->portfolio->calculateMoneyAttributes();
         });
     }
 }

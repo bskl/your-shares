@@ -33,6 +33,11 @@ export default {
         Bus.$on('portfolioDeleted', payload => this.deletePortfolio(payload.portfolioId));
         Bus.$on('shareAdded', payload => this.pushShare(payload.share));
         Bus.$on('transactionAdded', payload => this.updateShare(payload.share));
+        Bus.$on('addPortfolio', payload => this.showAddPortfolioModal());
+
+        if (this.state.portfolios.length == 0) {
+            this.showAddPortfolioModal();
+        }
 
         for (let index = 0, len = this.state.portfolios.length; index < len; ++index) {
             if (this.state.portfolios[index].commission == null) {
@@ -113,6 +118,13 @@ export default {
                     let index = _.findIndex(this.state.portfolios[portfolioIndex].shares, ['id', share.id]);
                     this.state.portfolios[portfolioIndex].shares.splice(index, 1);
                 })
+        },
+
+        /**
+         * Open the modal for adding a new portfolio.
+         */
+        showAddPortfolioModal() {
+            this.$refs.addPortfolioModal.open();
         },
 
         /**
@@ -279,23 +291,44 @@ export default {
                   <td class="text-xs-right">
                     {{ $n(props.item.lot, "decimal") }}
                   </td>
-                  <td class="text-xs-right">
-                    {{ $n(props.item.average, "currency") }}
+                  <td class="text-xs-right no-wrap">
+                    <span>{{ $n(props.item.average, "currency") }}</span>
+                    <span class="ml-1 caption grey--text font-weight-thin"
+                      >({{
+                        $n(props.item.average_with_dividend, "currency")
+                      }})</span
+                    >
                   </td>
                   <td class="text-xs-right">
                     {{ $n(props.item.amount, "currency") }}
                   </td>
-                  <td class="text-xs-right">
-                    {{ $n(props.item.average_amount, "currency") }}
+                  <td class="text-xs-right no-wrap">
+                    <span>{{ $n(props.item.average_amount, "currency") }}</span>
+                    <span class="ml-1 caption grey--text font-weight-thin"
+                      >({{
+                        $n(props.item.average_amount_with_dividend, "currency")
+                      }})</span
+                    >
                   </td>
-                  <td
-                    class="text-xs-right"
-                    :class="{
-                      'red--text darken-1': props.item.gain < 0,
-                      'green--text darken-1': props.item.gain > 0
-                    }"
-                  >
-                    {{ $n(props.item.gain, "currency") }}
+                  <td class="text-xs-right no-wrap">
+                    <span
+                      :class="{
+                        'red--text darken-1': props.item.gain < 0,
+                        'green--text darken-1': props.item.gain > 0
+                      }"
+                      >{{ $n(props.item.gain, "currency") }}</span
+                    >
+                    <span
+                      class="ml-1 caption font-weight-thin"
+                      :class="{
+                        'red--text darken-1': props.item.gain_with_dividend < 0,
+                        'green--text darken-1':
+                          props.item.gain_with_dividend > 0
+                      }"
+                      >({{
+                        $n(props.item.gain_with_dividend, "currency")
+                      }})</span
+                    >
                   </td>
                   <td class="justify-center layout px-0">
                     <v-btn
@@ -525,6 +558,7 @@ export default {
       </v-layout>
     </v-flex>
 
+    <add-portfolio-modal ref="addPortfolioModal" />
     <edit-portfolio-modal ref="editPortfolioModal" />
     <add-share-modal ref="addShareModal" />
     <add-transaction-modal ref="addTransactionModal" />

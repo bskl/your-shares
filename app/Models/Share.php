@@ -13,7 +13,7 @@ class Share extends BaseModel
      * @var array
      */
     protected $guarded = [
-        'id',
+        'id', 'average_with_dividend', 'average_amount_with_dividend', 'gain_with_dividend',
     ];
 
     /**
@@ -31,7 +31,7 @@ class Share extends BaseModel
      * @var array
      */
     protected $money = [
-        'average', 'average_amount', 'amount', 'gain', 'total_sale_amount', 'total_purchase_amount', 'paid_amount', 'gain_loss', 'total_commission_amount', 'total_dividend_gain', 'total_gain',
+        'average', 'average_with_dividend', 'average_amount', 'average_amount_with_dividend', 'amount', 'gain', 'gain_with_dividend', 'total_sale_amount', 'total_purchase_amount', 'paid_amount', 'gain_loss', 'total_commission_amount', 'total_dividend_gain', 'total_gain',
     ];
 
     /**
@@ -93,7 +93,7 @@ class Share extends BaseModel
     }
 
     /**
-     * Get the share's buying transactions by remaining.
+     * Get the share's buying and bonus transactions by remaining.
      */
     public function getBuyingTransactionsByNotSold()
     {
@@ -103,16 +103,24 @@ class Share extends BaseModel
     /**
      * Calculate the total amount price attribute with money object.
      */
-    public function calculateAmount(Money $lastPrice)
+    public function setAmount()
     {
-        $this->amount = $lastPrice->multiply($this->lot);
+        $this->amount = $this->symbol->last_price->multiply($this->lot);
     }
 
     /**
      * Calculate the gain attribute with money object.
      */
-    public function calculateGain()
+    public function setGain()
     {
         $this->gain = $this->amount->subtract($this->average_amount);
+    }
+
+    /**
+     * Calculate the gain with dividend attribute with money object.
+     */
+    public function setGainWithDividend()
+    {
+        $this->gain_with_dividend = $this->amount->subtract($this->average_amount_with_dividend);
     }
 }

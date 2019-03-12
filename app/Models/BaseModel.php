@@ -79,7 +79,7 @@ abstract class BaseModel extends Model
 
             $moneyParser = new DecimalMoneyParser($currencies);
 
-            $money = $moneyParser->parse($value, 'TRY');
+            $money = $moneyParser->parse($value, config('app.currency'));
         }
 
         $this->attributes[$key] = $money->getAmount();

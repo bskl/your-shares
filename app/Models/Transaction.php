@@ -13,7 +13,7 @@ class Transaction extends BaseModel
      * @var array
      */
     protected $guarded = [
-        'id',
+        'id', 'user_id', 'price', 'amount', 'commission_price', 'sale_average', 'sale_average_amount', 'sale_gain', 'dividend', 'dividend_gain', 'bonus',
     ];
 
     /**
@@ -22,7 +22,7 @@ class Transaction extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'user_id', 'share_id', 'type', 'date_at', 'lot', 'remaining', 'commission', 'bonus',
+        'share_id', 'type', 'date_at', 'lot', 'remaining', 'commission',
     ];
 
     /**
