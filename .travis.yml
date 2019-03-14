@@ -12,12 +12,14 @@ branches:
 install:
   - docker pull tetraweb/php
 
-script:
+before_script:
   - mkdir -p ~/.ssh
   - echo -e "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
   - chmod 600 ~/.ssh/id_rsa
   - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-  - ssh deploy@bilisim1.eniyisite.net "
+
+script:
+    - ssh deploy@bilisim1.eniyisite.net "
     cd /var/www/vhosts/savaskartal.com/shares.savaskartal.com &&
     php artisan down &&
     git checkout . &&
