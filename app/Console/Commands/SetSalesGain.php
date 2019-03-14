@@ -45,6 +45,7 @@ class SetSalesGain extends Command
 
         $buyingTransactions = $_buyingTransactions->map(function (&$_buyingTransaction) {
             $_buyingTransaction->remaining = (int) $_buyingTransaction->lot;
+
             return $_buyingTransaction;
         });
 
@@ -72,7 +73,7 @@ class SetSalesGain extends Command
                 if ($salebuyingTransaction->remaining >= $saleTransactionLot) {
                     $soldLot = $saleTransactionLot;
                     $salebuyingTransaction->remaining = $salebuyingTransaction->remaining - $soldLot;
-    
+
                     $buyingAmount = $salebuyingTransaction->price->multiply($soldLot);
                     if ($salebuyingTransaction->type == TransactionTypes::BONUS) {
                         $buyingAmount = Money::TRY(0);

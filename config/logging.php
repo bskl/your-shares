@@ -35,8 +35,8 @@ return [
 
     'channels' => [
         'stack' => [
-            'driver'   => 'stack',
-            'channels' => ['daily'],
+            'driver'            => 'stack',
+            'channels'          => ['daily'],
             'ignore_exceptions' => false,
         ],
 
@@ -72,10 +72,10 @@ return [
         ],
 
         'stderr' => [
-            'driver'  => 'monolog',
-            'handler' => StreamHandler::class,
+            'driver'    => 'monolog',
+            'handler'   => StreamHandler::class,
             'formatter' => env('LOG_STDERR_FORMATTER'),
-            'with'    => [
+            'with'      => [
                 'stream' => 'php://stderr',
             ],
         ],
