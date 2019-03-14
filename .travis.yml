@@ -1,9 +1,5 @@
 jobs:
   include:
-    - stage: unit tests
-      script: echo one
-    - stage: unit tests
-      script: echo two
     - stage: deploy to staging
       services:
         - docker
