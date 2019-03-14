@@ -7,10 +7,9 @@ php:
   - '7.2'
   
 before_script:
-  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-  - eval $(ssh-agent -s)
   - mkdir -p ~/.ssh
-  - echo -n "$SSH_PRIVATE_KEY" | ssh-add - >/dev/null
+  - echo -e "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/id_rsa
   - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   
 script:
