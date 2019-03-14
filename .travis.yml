@@ -1,0 +1,30 @@
+language: php
+
+sudo: required
+
+services:
+  - docker
+
+branches:
+  only:
+    - master
+
+install:
+  - docker pull tetraweb/php
+
+script:
+  - mkdir -p ~/.ssh
+  - echo -e "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/id_rsa
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  - ssh deploy@bilisim1.eniyisite.net "
+    cd /var/www/vhosts/savaskartal.com/shares.savaskartal.com &&
+    php artisan down &&
+    git checkout . &&
+    git pull &&
+    php artisan up &&
+    php artisan horizon:terminate &&
+    php artisan config:clear &&
+    php artisan view:clear &&
+    php artisan cache:clear &&
+    php artisan config:cache"
