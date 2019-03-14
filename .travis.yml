@@ -1,10 +1,16 @@
-jobs:
-  include:
-    - stage: deploy to staging
-      services:
+language: php
+
+sudo: false
+
+services:
         - docker
       install:
         - docker pull tetraweb/php
+
+jobs:
+  include:
+    - stage: deploy to staging
+      
       before_script:
         - mkdir -p ~/.ssh
         - echo -e "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
