@@ -43,7 +43,7 @@ class SetSalesGain extends Command
         $_buyingTransactions = Transaction::whereIn('type', [TransactionTypes::BUYING, TransactionTypes::BONUS])->orderBy('date_at')->get();
         $saleTransactions = Transaction::whereIn('type', [TransactionTypes::SALE])->orderBy('date_at', 'asc')->get();
 
-        $buyingTransactions = $_buyingTransactions->map(function(&$_buyingTransaction) {
+        $buyingTransactions = $_buyingTransactions->map(function (&$_buyingTransaction) {
             $_buyingTransaction->remaining = (int) $_buyingTransaction->lot;
             return $_buyingTransaction;
         });

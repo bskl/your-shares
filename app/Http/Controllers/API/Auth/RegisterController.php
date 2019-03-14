@@ -9,6 +9,7 @@ use App\Notifications\ConfirmationCode as ConfirmationCodeNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -55,7 +56,7 @@ class RegisterController extends Controller
             'locale'   => $request->getPreferredLanguage(['en', 'tr']),
         ]);
 
-        $user->confirmation_code = hash_hmac('sha256', str_random(60), config('app.key'));
+        $user->confirmation_code = hash_hmac('sha256', Str::random(60), config('app.key'));
         $user->save();
 
         $user->notify(new ConfirmationCodeNotification($user->confirmation_code));
