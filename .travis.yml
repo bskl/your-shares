@@ -11,8 +11,6 @@ before_script:
   - mkdir -p /home/travis/.ssh
   - echo -e "$PRIVATE_KEY" > /home/travis/.ssh/id_rsa
   - chmod 600 /home/travis/.ssh/id_rsa
-  - ssh-add /home/travis/.ssh/id_rsa
-  - 'echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > /home/travis/.ssh/config'
   
 script:
   - ssh deploy@share.savaskartal.com
