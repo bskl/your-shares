@@ -5,7 +5,12 @@ language: php
 
 php:
   - '7.2'
-  
+
+addons:
+  apt:
+    packages:
+    - sshpass
+
 before_script:
   - eval "$(ssh-agent)"
   - mkdir -p ~/.ssh
