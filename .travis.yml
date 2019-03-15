@@ -8,12 +8,12 @@ php:
   
 before_script:
   - eval "$(ssh-agent)"
-  - mkdir -p /home/travis/.ssh
-  - echo -e "$PRIVATE_KEY" > /home/travis/.ssh/id_rsa
-  - chmod 600 /home/travis/.ssh/id_rsa
+  - mkdir -p ~/.ssh
+  - echo -e "$PRIVATE_KEY" > ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/id_rsa
   
 script:
-  - ssh -o "StrictHostKeyChecking=no" deploy@shares.savaskartal.com
+  - ssh deploy@shares.savaskartal.com -o "StrictHostKeyChecking=no"
   - cd /var/www/vhosts/savaskartal.com/shares.savaskartal.com
   - php artisan down
   - git checkout
