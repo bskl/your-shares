@@ -9,13 +9,13 @@ php:
 before_script:
   - eval "$(ssh-agent)"
   - mkdir -p /home/travis/.ssh
-  - echo -e "$SSH_PRIVATE_KEY" > /home/travis/.ssh/id_rsa
+  - echo -e "$PRIVATE_KEY" > /home/travis/.ssh/id_rsa
   - chmod 600 /home/travis/.ssh/id_rsa
   - ssh-add /home/travis/.ssh/id_rsa
   - 'echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > /home/travis/.ssh/config'
   
 script:
-  - ssh deploy@bilisim1.eniyisite.net
+  - ssh deploy@share.savaskartal.com
   - cd /var/www/vhosts/savaskartal.com/shares.savaskartal.com
   - php artisan down
   - git checkout
