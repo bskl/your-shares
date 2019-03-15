@@ -11,10 +11,9 @@ before_script:
   - mkdir -p ~/.ssh
   - echo -e "$PRIVATE_KEY" > ~/.ssh/id_rsa
   - chmod 600 ~/.ssh/id_rsa
-  - ssh-add
   
 script:
-  - ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" deploy@shares.savaskartal.com
+  - ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no deploy@shares.savaskartal.com
   - cd /var/www/vhosts/savaskartal.com/shares.savaskartal.com
   - php artisan down
   - git checkout
