@@ -6,16 +6,6 @@ language: php
 php:
   - '7.1'
 
-sudo: required
-
-services:
-  - docker
-
-install: true
-
-before_script:
-  - docker build tetraweb/php:7.1
-
 before_script:
   - eval "$(ssh-agent)"
   - mkdir -p ~/.ssh
