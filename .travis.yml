@@ -14,7 +14,7 @@ services:
 install: true
 
 before_script:
-  - docker pull tetraweb/php:7.1
+  - docker build tetraweb/php:7.1
 
 before_script:
   - eval "$(ssh-agent)"
