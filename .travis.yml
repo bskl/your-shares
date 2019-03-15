@@ -13,7 +13,7 @@ before_script:
   - chmod 600 ~/.ssh/id_rsa
   
 script:
-  - ssh deploy@shares.savaskartal.com -o "StrictHostKeyChecking=no"
+  - ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null deploy@shares.savaskartal.com
   - cd /var/www/vhosts/savaskartal.com/shares.savaskartal.com
   - php artisan down
   - git checkout
