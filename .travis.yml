@@ -13,7 +13,7 @@ before_script:
   - chmod 600 /home/travis/.ssh/id_rsa
   
 script:
-  - ssh deploy@share.savaskartal.com
+  - ssh deploy@shares.savaskartal.com
   - cd /var/www/vhosts/savaskartal.com/shares.savaskartal.com
   - php artisan down
   - git checkout
