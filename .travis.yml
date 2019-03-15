@@ -8,11 +8,11 @@ php:
   
 before_script:
   - eval "$(ssh-agent)"
-  - mkdir -p ~/.ssh
-  - echo -e "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-  - chmod 600 ~/.ssh/id_rsa
-  - ssh-add ~/.ssh/id_rsa
-  - 'echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  - mkdir -p /home/travis/.ssh
+  - echo -e "$SSH_PRIVATE_KEY" > /home/travis/.ssh/id_rsa
+  - chmod 600 /home/travis/.ssh/id_rsa
+  - ssh-add /home/travis/.ssh/id_rsa
+  - 'echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > /home/travis/.ssh/config'
   
 script:
   - ssh deploy@bilisim1.eniyisite.net
