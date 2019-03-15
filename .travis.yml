@@ -11,6 +11,7 @@ before_script:
   - mkdir -p ~/.ssh
   - echo -e "$PRIVATE_KEY" > ~/.ssh/id_rsa
   - chmod 600 ~/.ssh/id_rsa
+  - sshpass -p passphrase ssh-add ~/.ssh/id_rsa
   
 script:
   - ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no deploy@shares.savaskartal.com
