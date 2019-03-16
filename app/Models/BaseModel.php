@@ -35,6 +35,27 @@ abstract class BaseModel extends Model
     }
 
     /**
+     * Move the item to the end of the collection.
+     *
+     * @param Illuminate\Database\Eloquent\Collection $collection
+     * @param int|string $key
+     * @param int|string $value
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public function moveItemToEnd($collection, $key, $value)
+    {
+        foreach ($collection as $id => $item) {
+            if ($collection[$id]->$key == $value) {
+                $spliced = $collection->splice($id, 1)->first();
+                $collection->push($spliced);
+            }
+        };
+
+        return $collection;
+    }
+
+    /**
      * Convert Money object to decimal.
      *
      * @param Money\Money $money

@@ -17,7 +17,10 @@ class DataController extends Controller
     {
         return [
             'user'       => auth()->user(),
-            'portfolios' => Portfolio::byCurrentUser()->get(),
+            'portfolios' => Portfolio::byCurrentUser()->get()
+                                                      ->each(function ($portfolio) {
+                                                          $portfolio->sortSharesByLot();
+                                                      }),
         ];
     }
 }

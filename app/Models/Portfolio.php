@@ -71,6 +71,16 @@ class Portfolio extends BaseModel
     }
 
     /**
+     * Sort the shares by lot.
+     * 
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public function sortSharesByLot()
+    {
+        return $this->moveItemToEnd($this->shares, 'lot', '0.000');
+    }
+
+    /**
      * Get the commission attribute with remove zeros from end of number ie. 0,18800 becomes 0,188.
      */
     public function getCommissionAttribute()
