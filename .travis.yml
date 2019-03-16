@@ -13,14 +13,14 @@ before_script:
   - chmod 600 ~/.ssh/id_rsa
   
 script:
-  - ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no deploy@shares.savaskartal.com
-  - cd /var/www/vhosts/savaskartal.com/shares.savaskartal.com
-  - php artisan down
-  - git checkout
-  - git pull
-  - php artisan up
-  - php artisan horizon:terminate
-  - php artisan config:clear
-  - php artisan view:clear
-  - php artisan cache:clear
-  - php artisan config:cache
+  - ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no deploy@shares.savaskartal.com "
+    cd /var/www/vhosts/savaskartal.com/shares.savaskartal.com &&
+    php artisan down &&
+    git checkout . &&
+    git pull &&
+    php artisan up &&
+    php artisan horizon:terminate &&
+    php artisan config:clear &&
+    php artisan view:clear &&
+    php artisan cache:clear &&
+    php artisan config:cache"
