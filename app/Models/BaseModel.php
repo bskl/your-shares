@@ -38,8 +38,8 @@ abstract class BaseModel extends Model
      * Move the item to the end of the collection.
      *
      * @param Illuminate\Database\Eloquent\Collection $collection
-     * @param int|string $key
-     * @param int|string $value
+     * @param int|string                              $key
+     * @param int|string                              $value
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
@@ -50,7 +50,7 @@ abstract class BaseModel extends Model
                 $spliced = $collection->splice($id, 1)->first();
                 $collection->push($spliced);
             }
-        };
+        }
 
         return $collection;
     }

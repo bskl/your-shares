@@ -72,7 +72,7 @@ class Portfolio extends BaseModel
 
     /**
      * Sort the shares by lot.
-     * 
+     *
      * @return Illuminate\Database\Eloquent\Collection
      */
     public function sortSharesByLot()
