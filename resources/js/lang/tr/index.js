@@ -90,11 +90,11 @@ export default {
   "Sum of commission amounts paid in all purchase / sale transactions.":
     "Tüm alım/satım işlemlerinde ödenen komisyon tutarlarının toplamı.",
   "Sum of dividend amounts.": "Temettü tutarlarının toplamı.",
-  "Sum of bonus shares.": "Bedelsiz hisslerin toplamı.",
+  "Sum of bonus shares.": "Bedelsiz hisselerin toplamı.",
   "Total gain. [(gain/loss + dividend) - commission amount]":
     "Toplam kazanç. [(kar/zarar + temettü) - komisyon tutarı]",
   "Gain on the instant stock price.":
-    "Anlık hisse fiyatı ile elde edilen kazanç.",
+    "Hisse son fiyatı karları ile kazanç toplamı.",
   "For example; Garanti Bank: 0,188": "Örneğin; Garanti Bankası: 0,188",
   "Rows per page:": "Sayfa başına satır:",
   All: "Hepsi",
