@@ -149,6 +149,7 @@ return [
         'date_at'    => 'Tarih',
         'lot'        => 'Lot',
         'price'      => 'Fiyat',
+        'name'       => 'Portföy Adı',
         'commission' => 'Komisyon',
     ],
 

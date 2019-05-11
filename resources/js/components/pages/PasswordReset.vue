@@ -1,16 +1,15 @@
 <script type="text/ecmascript-6">
-import { userStore } from '../../stores/userStore.js';
-import MainLayout from '../layout/MainLayout.vue';
 import FormErrors from '../partials/FormErrors.vue';
+import { mapActions } from 'vuex';
 
 export default {
     /*
      * The component's name.
      */
-    name: 'PasswordResetForm',
+    name: 'PasswordReset',
 
     components: {
-        MainLayout, FormErrors,
+        FormErrors,
     },
 
     /*
@@ -36,27 +35,23 @@ export default {
         }
     },
 
-    mounted() {
-        if (userStore.isAuthenticated()) {
-            Bus.$emit('userLoggedIn');
-            this.$router.push('/');
-        }
-    },
-
     methods: {
+        ...mapActions([
+            'passwordReset',
+        ]),
+
         /**
          * Sends password reset email to user.
          */
-        passwordReset() {
+        submit() {
             if (this.$refs.form.validate()) {
-                this.form.post('/password/reset',)
-                    .then(response => {
-                        if (response.status === 200) {
-                            this.$root.snackbar.show = true;
-                            this.$root.snackbar.text = response.data;
-                            this.$router.push('/login');
-                        }
+                this.isLoading = true;
+
+                this.passwordReset(this.form)
+                    .then((res) => {
+                        this.$router.push('/login');
                     })
+                    .finally(() => this.isLoading = false);
             }
         },
     }
@@ -74,7 +69,7 @@ export default {
                 <h3 class="headline mb-0">{{ $t("Reset Password") }}</h3>
               </div>
             </v-card-title>
-            <v-form v-model="valid" ref="form">
+            <v-form v-model="valid" ref="form" @keyup.native.enter="submit">
               <v-card-text>
                 <form-errors :errors="form.errors" />
                 <input
@@ -114,7 +109,7 @@ export default {
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" @click="passwordReset">{{
+                <v-btn color="primary" :loading="isLoading" @click="submit">{{
                   $t("Reset Password")
                 }}</v-btn>
               </v-card-actions>

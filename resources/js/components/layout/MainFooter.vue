@@ -1,7 +1,5 @@
 <script type="text/ecmascript-6">
-import { ls } from '../../services/ls.js';
 import { languages as list } from '../../lang/map';
-import { userStore } from '../../stores/userStore.js';
 
 export default {
     /*
@@ -29,7 +27,7 @@ export default {
     methods: {
         /**
          * Change the language.
-         */
+         
         setLocale(locale) {
             setTimeout(() => {
                 ls.set('locale', locale);
@@ -46,6 +44,7 @@ export default {
                 }
             }, 500);
         },
+        */
     }
 }
 </script>

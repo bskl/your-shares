@@ -141,9 +141,16 @@ return [
     */
 
     'attributes' => [
-        'email'     => 'E-Mail Address',
-        'password'  => 'Password',
-        'symbol_id' => 'Share',
+        'email'      => 'E-Mail Address',
+        'password'   => 'Password',
+        'symbol_id'  => 'Share',
+        'share_id'   => 'Share',
+        'type'       => 'Type',
+        'date_at'    => 'Date',
+        'lot'        => 'Lot',
+        'price'      => 'Price',
+        'name'       => 'Portfolio Name',
+        'commission' => 'Commission',
     ],
 
 ];

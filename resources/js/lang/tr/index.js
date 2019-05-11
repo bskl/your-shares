@@ -5,6 +5,7 @@ export default {
   "Confirm Password": "Şifreni Onayla",
   Register: "Kaydol",
   "Sign In": "Giriş Yap",
+  "Signing In": "Giriş Yapılıyor...",
   Logout: "Çıkış",
   "Forgot password?": "Şifreni mi unuttun?",
   "You don't have an account?": "Hesabın yok mu?",
@@ -16,6 +17,7 @@ export default {
   Delete: "Sil",
   Edit: "Düzenle",
   Close: "Kapat",
+  "Ok": "Tamam",
   Language: "Dil",
   "You have not created any symbol.":
     "Oluşturulmuş hisse senediniz bulunmamaktadır.",
@@ -24,6 +26,7 @@ export default {
   "Add Portfolio": "Portföy Ekle",
   "Update Portfolio": "Portföy Güncelle",
   "Delete Portfolio": "Portföy Sil",
+  "Are you sure want to delete to portfolio?" : "Portföyü silmek istediğinize emin misiniz?",
   "Search Symbol": "Hisse Ara",
   "Add Symbol": "Hisse Ekle",
   "Add Transaction": "İşlem Ekle",
@@ -57,8 +60,8 @@ export default {
   "E-mail is required": "E-Posta adresi girin",
   "E-mail must be valid": "Geçerli bir E-Posta adresi girin",
   "Password is required": "Şifrenizi girin",
-  "Password must be more than 6 characters":
-    "Şifreniz 6 karakterden uzun olmalıdır",
+  "Password must be more than 6 characters": "Şifreniz 6 karakterden uzun olmalıdır",
+  "Password must be more than 8 characters": "Şifreniz 8 karakterden uzun olmalıdır",
   or: "veya",
   "Name is required": "İsim alanını doldurun",
   "Currency is required": "Para Birimini seçin",
@@ -80,8 +83,7 @@ export default {
   Gain: "Kazanç",
   "Instant Gain": "Anlık Kazanç",
   "Your email account has been verified.": "Eposta hesabınız doğrulanmıştır.",
-  "Your activation code is invalid or your e-mail address verified before.":
-    "Aktivasyon kodunuz hatalı veya eposta hesabınız daha önce doğrulandı.",
+  "Your activation code is invalid or your e-mail address verified before.": "Aktivasyon kodunuz hatalı veya eposta hesabınız daha önce doğrulandı.",
   "Total amount of all sale transactions.": "Tüm satış işlemlerinin toplamı.",
   "Total amount of all purchase transactions.":
     "Tüm alım işlemlerinin toplamı.",

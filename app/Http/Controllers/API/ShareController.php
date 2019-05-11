@@ -51,6 +51,10 @@ class ShareController extends Controller
     {
         $this->authorize($share);
 
+        if ($share->total_amount != 0) {
+            return response()->json(['error' => ''], 401);
+        }
+
         $share->delete();
 
         return response()->json();

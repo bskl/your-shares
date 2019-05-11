@@ -1,5 +1,5 @@
 <script type="text/ecmascript-6">
-import { userStore } from '../../stores/userStore.js';
+import { mapGetters } from 'vuex';
 
 export default {
     /*
@@ -7,23 +7,20 @@ export default {
      */
     name: 'UserBadge',
 
-    /*
-     * The component's data.
-     */
-    data() {
-        return {
-            isLogged: userStore.isAuthenticated(),
-            state: userStore.state
-        }
-    },
-
-    mounted() {
-        Bus.$on('userLoggedIn', event => this.isLogged = userStore.isAuthenticated());
+    computed: {
+        ...mapGetters([
+            'isLoggedIn',
+        ])
     },
 
     methods: {
-        logout () {
-            userStore.logout()
+        logout() {
+            this.$store.dispatch('logout')
+                .then((res) => {
+                    this.$router.push('/login');
+                })
+                .catch(() => {
+                });
         },
     }
 }
@@ -31,7 +28,7 @@ export default {
 
 <template>
   <div>
-    <v-menu offset-y v-if="isLogged">
+    <v-menu offset-y v-if="isLoggedIn">
       <v-toolbar-title slot="activator">
         <v-avatar>
           <v-icon large dark>account_circle</v-icon>
@@ -40,12 +37,12 @@ export default {
         <v-icon dark>more_vert</v-icon>
       </v-toolbar-title>
       <v-list dense>
-        <v-list-tile @click="this.Bus.$emit('addPortfolio')">
-          <v-icon class="pr-2">add</v-icon>
-          <v-list-tile-title>
-            {{ $t("Add Portfolio") }}
-          </v-list-tile-title>
-        </v-list-tile>
+          <v-list-tile :to="'/portfolio/create'">
+            <v-icon class="pr-2">add</v-icon>
+            <v-list-tile-title>
+              {{ $t("Add Portfolio") }}
+            </v-list-tile-title>
+          </v-list-tile>
         <v-divider></v-divider>
         <v-list-tile @click="logout()">
           <v-icon class="pr-2">exit_to_app</v-icon>

@@ -1,28 +1,20 @@
 <script type="text/ecmascript-6">
 
+import { mapState } from 'vuex';
+
 export default {
-    props: {
-        snackbar: {
-            type: Object,
-            default: function () {
-                return {
-                    show: false,
-                    timeout: 3000,
-                    position_y: null,
-                    position_x: null,
-                    mode: '',
-                    color: '',
-                    text: '',
-                }
-            }
-        },
-    },
     //props: ['snackbar', 'timeout', 'position_y', 'position_x', 'mode', 'color', 'text'],
 
     /*
      * The component's name.
      */
     name: 'Snackbar',
+
+    computed: {
+        ...mapState([
+            'snackbar',
+        ]),
+    },
 
 }
 </script>

@@ -24,8 +24,9 @@ class PortfolioRequest extends Request
     public function rules()
     {
         return [
-            'name'     => 'required|string',
-            'currency' => 'required|string',
+            'name'       => 'required|string',
+            'currency'   => 'required|string',
+            'commission' => 'required|regex:/^(\d*\.)?\d+$/',
         ];
     }
 }

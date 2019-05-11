@@ -1,9 +1,7 @@
 <script type="text/ecmascript-6">
-import { portfolioStore } from '../../stores/portfolioStore.js';
-import AddPortfolioModal from '../modals/AddPortfolioModal.vue';
-import EditPortfolioModal from '../modals/EditPortfolioModal.vue';
+
+import { mapState, mapActions, mapMutations, mapGetters } from 'vuex';
 import AddShareModal from '../modals/AddShareModal.vue';
-import AddTransactionModal from '../modals/AddTransactionModal.vue';
 
 export default {
     /*
@@ -12,7 +10,7 @@ export default {
     name: 'Portfolios',
 
     components: {
-        AddPortfolioModal, EditPortfolioModal, AddShareModal, AddTransactionModal,
+        AddShareModal,
     },
 
     /*
@@ -20,118 +18,34 @@ export default {
      */
     data() {
         return {
-            state: portfolioStore.state,
+            isLoading: false,
         }
     },
 
-    /**
-     * Prepare the component.
-     */
-    mounted() {
-        Bus.$on('portfolioAdded', payload => this.pushPortfolio(payload.portfolio));
-        Bus.$on('portfolioUpdated', payload => this.updatePortfolio(payload.portfolio));
-        Bus.$on('portfolioDeleted', payload => this.deletePortfolio(payload.portfolioId));
-        Bus.$on('shareAdded', payload => this.pushShare(payload.share));
-        Bus.$on('transactionAdded', payload => this.updateShare(payload.share));
-        Bus.$on('addPortfolio', payload => this.showAddPortfolioModal());
+    computed: {
+        ...mapState([
+            'portfolios',
+        ]),
 
-        if (this.state.portfolios.length == 0) {
-            this.showAddPortfolioModal();
-        }
-
-        for (let index = 0, len = this.state.portfolios.length; index < len; ++index) {
-            if (this.state.portfolios[index].commission == null) {
-                this.$root.snackbar.show = true;
-                this.$root.snackbar.color = 'error';
-                this.$root.snackbar.text = this.$t('Your portfolio commission rate has not been recorded.');
-                this.showEditPortfolioModal(this.state.portfolios[index]);
-                break;
-            }
-        };
-    },
-
-    created() {
-
+        ...mapGetters([
+            'portfoliosCount', 'getPortfolioByIndex',
+        ])
     },
 
     methods: {
-        /**
-         * Push created portfolio to portfolios.
-         */
-        pushPortfolio(portfolio) {
-            this.state.portfolios.push(portfolio);
-            Bus.$off('portfolioAdded', portfolio);
-        },
+        ...mapActions([
+            'destroyShare'
+        ]),
 
-        /**
-         * Change updated portfolio on portfolios.
-         */
-        updatePortfolio(portfolio) {
-            let index = _.findIndex(this.state.portfolios, ['id', portfolio.id]);
-            this.state.portfolios.splice(index, 1, portfolio);
-            Bus.$off('portfolioUpdated', portfolio);
-        },
-
-        /**
-         * Delete deleted portfolio on portfolios.
-         */
-        deletePortfolio(portfolioId) {
-            let index = _.findIndex(this.state.portfolios, ['id', portfolioId]);
-            this.state.portfolios.splice(index, 1);
-            Bus.$off('portfolioDeleted', portfolioId);
-        },
-
-        /**
-         * Push added share to given portfolio.
-         */
-        pushShare(share) {
-            let portfolioIndex = _.findIndex(this.state.portfolios, ['id', share.portfolio_id]);
-            this.state.portfolios[portfolioIndex].shares.push(share);
-            Bus.$off('shareAdded', share);
-        },
-
-        /**
-         * Change updated share on portfolios.
-         */
-        updateShare(share) {
-            let portfolioIndex = _.findIndex(this.state.portfolios, ['id', share.portfolio_id]);
-            let index = _.findIndex(this.state.portfolios[portfolioIndex].shares, ['id', share.id]);
-            this.state.portfolios[portfolioIndex].shares.splice(index, 1, share);
-            this.state.portfolios[portfolioIndex].total_sale_amount = share.portfolio.total_sale_amount;
-            this.state.portfolios[portfolioIndex].total_purchase_amount = share.portfolio.total_purchase_amount;
-            this.state.portfolios[portfolioIndex].paid_amount = share.portfolio.paid_amount;
-            this.state.portfolios[portfolioIndex].gain_loss = share.portfolio.gain_loss;
-            this.state.portfolios[portfolioIndex].total_commission_amount = share.portfolio.total_commission_amount;
-            this.state.portfolios[portfolioIndex].total_dividend_gain = share.portfolio.total_dividend_gain;
-            this.state.portfolios[portfolioIndex].total_bonus_share = share.portfolio.total_bonus_share;
-            this.state.portfolios[portfolioIndex].total_gain = share.portfolio.total_gain;
-            Bus.$off('transactionAdded', share);
-        },
+        ...mapMutations([
+            'SET_SNACKBAR',
+        ]),
 
         /**
          * Delete selected share
          */
         deleteShare(share) {
-            axios.delete('/share/' + share.id)
-                .then(response => {
-                    let portfolioIndex = _.findIndex(this.state.portfolios, ['id', share.portfolio_id]);
-                    let index = _.findIndex(this.state.portfolios[portfolioIndex].shares, ['id', share.id]);
-                    this.state.portfolios[portfolioIndex].shares.splice(index, 1);
-                })
-        },
-
-        /**
-         * Open the modal for adding a new portfolio.
-         */
-        showAddPortfolioModal() {
-            this.$refs.addPortfolioModal.open();
-        },
-
-        /**
-         * Open the modal for editing portfolio.
-         */
-        showEditPortfolioModal(portfolio) {
-            this.$refs.editPortfolioModal.open(portfolio);
+            this.destroyShare(share)
         },
 
         /**
@@ -139,13 +53,6 @@ export default {
          */
         showAddShareModal(portfolioId) {
             this.$refs.addShareModal.open(portfolioId);
-        },
-
-        /**
-         * Open the modal for adding a new transaction.
-         */
-        showAddTransactionModal(shareId, symbolCode, commission) {
-            this.$refs.addTransactionModal.open(shareId, symbolCode, commission);
         },
 
         calculateGain(portfolio) {
@@ -158,17 +65,28 @@ export default {
             return (+shareGain) + (+portfolio.total_gain)
         }
     },
+
+    created() {
+        for (let index = 0, count = this.portfoliosCount; index <  count; ++index) {
+            let portfolio = this.getPortfolioByIndex(index);
+            if (portfolio.commission == null) {
+                this.SET_SNACKBAR({ color: 'error', text: this.$t('Your portfolio commission rate has not been recorded.') });
+                this.$router.push(`/portfolio/${portfolio.id}/edit`);
+                break;
+            }
+        }
+    },
 }
 </script>
 
 <template>
-  <v-layout row wrap>
+  <v-layout row wrap v-if="!isLoading">
     <v-flex xs12 sm12 md10 offset-md1>
       <v-layout row wrap>
         <v-flex
           xs12
           pb-4
-          v-for="portfolio in state.portfolios"
+          v-for="portfolio in portfolios"
           :key="portfolio.id"
         >
           <v-card>
@@ -185,7 +103,7 @@ export default {
                   icon
                   small
                   class="mx-1"
-                  @click="showEditPortfolioModal(portfolio)"
+                  :to="`/portfolio/${portfolio.id}/edit`"
                 >
                   <v-icon color="green darken-2">edit</v-icon>
                 </v-btn>
@@ -332,7 +250,7 @@ export default {
                   </td>
                   <td class="justify-center layout px-0">
                     <v-btn
-                      v-if="props.item.total_amount == 0"
+                    v-if="props.item.paid_amount == 0"
                       icon
                       small
                       class="mx-1"
@@ -341,11 +259,11 @@ export default {
                       <v-icon color="red darken-2">delete</v-icon>
                     </v-btn>
                     <v-btn
-                      v-if="props.item.total_amount != 0"
+                      v-if="props.item.paid_amount != 0"
                       icon
                       small
                       class="mx-1"
-                      :to="'/share/' + props.item.id + '/transactions'"
+                      :to="`/share/${props.item.id}/transactions`"
                     >
                       <v-icon color="blue darken-2">line_weight</v-icon>
                     </v-btn>
@@ -353,13 +271,7 @@ export default {
                       icon
                       small
                       class="mx-1"
-                      @click="
-                        showAddTransactionModal(
-                          props.item.id,
-                          props.item.symbol.code,
-                          portfolio.commission
-                        )
-                      "
+                      :to="`/${portfolio.id}/${props.item.id}/transaction/add`"
                     >
                       <v-icon color="green darken-2">add_circle_outline</v-icon>
                     </v-btn>
@@ -558,9 +470,6 @@ export default {
       </v-layout>
     </v-flex>
 
-    <add-portfolio-modal ref="addPortfolioModal" />
-    <edit-portfolio-modal ref="editPortfolioModal" />
     <add-share-modal ref="addShareModal" />
-    <add-transaction-modal ref="addTransactionModal" />
   </v-layout>
 </template>

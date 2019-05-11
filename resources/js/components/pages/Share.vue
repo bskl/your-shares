@@ -1,6 +1,6 @@
 <script type="text/ecmascript-6">
-import { userStore } from '../../stores/userStore.js';
-import MainLayout from '../layout/MainLayout.vue';
+
+import { mapActions } from 'vuex';
 
 export default {
     /*
@@ -8,63 +8,45 @@ export default {
      */
     name: 'Share',
 
-    components: {
-        MainLayout,
-    },
-
     /*
      * The component's data.
      */
     data() {
         return {
-            loading: true,
-            share: '',
+            isLoading: false,
+            share: null,
         }
-    },
-
-    mounted() {
-        if (!userStore.isAuthenticated()) {
-            this.$router.push('/login');
-        } else {
-            this.init();
-        }
-    },
-
-    created() {
-
     },
 
     methods: {
-        init() {
-            NProgress.start();
-
-            return new Promise((resolve, reject) => {
-                http.get('/share/' + this.$route.params.shareId + '/transactions', ({ data }) => {
-                    this.share = data;
-                    resolve(this.share);
-                    this.loading = false;
-                }, error => reject(error))
-            })
-        },
+        ...mapActions([
+            'fetchByShare',
+        ]),
 
         calculateGain() {
             return (+this.share.gain) + (+this.share.total_gain)
         },
+    },
 
-        isLast(id) {
-            for (let index = 0, len = this.share.transactions.length; index < len; ++index) {
-                if (this.share.transactions[index].id == id && index + 1 == len) {
-                    return true;
-                }
-            }
-            return false;
+    created() {
+        if (this.share == null) {
+            this.isLoading = true;
+
+            this.fetchByShare(this.$route.params.shareId)
+                .then((res) => {
+                    this.share = res;
+                })
+                .catch()
+                .finally(() => {
+                    this.isLoading = false;
+                });
         }
     },
 }
 </script>
 
 <template>
-  <v-layout row wrap v-if="!loading">
+  <v-layout row wrap v-if="!isLoading">
     <v-flex xs12 sm12 md10 offset-md1>
       <v-layout row wrap>
         <v-flex xs12 pb-4>
@@ -74,9 +56,9 @@ export default {
                 <v-btn icon light class="ml-0" to="/" exact>
                   <v-icon color="grey darken-2">arrow_back</v-icon>
                 </v-btn>
-                <v-toolbar-title class="grey--text text--darken-4 ml-1">{{
-                  share.symbol.code
-                }}</v-toolbar-title>
+                <v-toolbar-title class="grey--text text--darken-4 ml-1">
+                    {{ share.symbol.code }}
+                </v-toolbar-title>
                 <v-subheader
                   class="px-1"
                   :class="{

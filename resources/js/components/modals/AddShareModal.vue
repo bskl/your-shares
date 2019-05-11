@@ -4,6 +4,7 @@ import ModalHeading from '../modals/modal/ModalHeading.vue';
 import ModalBody from '../modals/modal/ModalBody.vue';
 import ModalFooter from '../modals/modal/ModalFooter.vue';
 import FormErrors from '../partials/FormErrors.vue';
+import { mapActions } from 'vuex';
 
 export default {
     /*
@@ -20,6 +21,7 @@ export default {
      */
     data() {
         return {
+            isLoading: false,
             showModal: false,
             valid: true,
             search: null,
@@ -31,14 +33,13 @@ export default {
             symbolRules: [
                 (v) => !!v || this.$t("Symbol is required"),
             ],
-            loading: false,
-            saving: false,
+            searching: false,
         };
     },
 
     watch: {
         search (val) {
-            val && this.searchSymbol(val)
+            val && this.getSymbol(val)
         }
     },
 
@@ -54,6 +55,10 @@ export default {
     },
 
     methods: {
+        ...mapActions([
+            'searchSymbol', 'addShare',
+        ]),
+
         /**
          * Open the model.
          */
@@ -72,45 +77,41 @@ export default {
             this.showModal = false;
             this.saving = false;
             this.symbols = [];
-            this.form.reset();
-            this.$refs.shareForm.reset();
+            this.$refs.form.resetValidation();
         },
 
         /**
          * Search symbols.
          */
-        searchSymbol(val) {
-            this.loading = true
+        getSymbol(val) {
+            this.searching = true;
 
             setTimeout(() => {
-                axios.get('/symbol/search', {
-                    params: {
-                        q: val
-                    }
-                }).then(response => {
-                    this.symbols = response.data
-                    this.loading = false
-                })
+                this.searchSymbol(val)
+                    .then((res) => {
+                        this.symbols = res.data;
+                    })
+                    .finally(() => this.searching = false);
             }, 500)
         },
 
         /**
-         * Save the share and hide the modal.
+         * Add the share and hide the modal.
          */
-        saveShare() {
-            if (this.$refs.shareForm.validate()) {
-                this.saving = true;
+        submit() {
+            if (this.$refs.form.validate()) {
+                this.isLoading = true;
 
-                this.form.post('/share')
-                    .then(response => {
-                        Bus.$emit('shareAdded', {
-                            share: response.data
-                        });
-
-                        this.close();
-                    }, error => {
-                        this.saving = false;
+                this.addShare(this.form)
+                    .then(() => {
                     })
+                    .catch((error) => {
+                        this.form.onFail(error.response.data)
+                    })
+                    .finally(() => {
+                        this.close();
+                        this.isLoading = false
+                    });
             }
         },
     },
@@ -122,9 +123,9 @@ export default {
     <modal-heading>
       <span class="headline">{{ $t("Add Symbol") }}</span>
     </modal-heading>
-    <v-form v-model="valid" ref="shareForm">
+    <v-form ref="form" v-model="valid" lazy-validation @keyup.native.enter="submit">
       <modal-body>
-        <div class="text-xs-center" v-if="saving">
+        <div class="text-xs-center" v-if="isLoading">
           <v-progress-circular
             indeterminate
             color="primary"
@@ -136,7 +137,7 @@ export default {
             :label="$t('Search Symbol')"
             :no-data-text="$t('No data available')"
             clearable
-            :loading="loading"
+            :loading="searching"
             required
             :items="symbols"
             item-text="code"
@@ -153,7 +154,7 @@ export default {
         <v-btn color="grey darken-1" flat @click="close">{{
           $t("Close")
         }}</v-btn>
-        <v-btn color="blue darken-1" flat @click="saveShare">{{
+        <v-btn color="blue darken-1" flat :loading="isLoading" @click="submit">{{
           $t("Create")
         }}</v-btn>
       </modal-footer>

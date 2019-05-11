@@ -15,12 +15,12 @@ export default {
 </script>
 
 <template>
-  <v-app light v-if="!loading">
+  <v-app light>
     <main-header />
 
     <main>
       <v-content>
-        <v-container fluid grid-list-md>
+        <v-container fluid grid-list-md v-if="!loading">
           <slot />
         </v-container>
       </v-content>

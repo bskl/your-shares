@@ -1,16 +1,15 @@
 <script type="text/ecmascript-6">
-import { userStore } from '../../stores/userStore.js';
-import MainLayout from '../layout/MainLayout.vue';
+import { mapActions } from 'vuex';
 import FormErrors from '../partials/FormErrors.vue';
 
 export default {
     /*
      * The component's name.
      */
-    name: 'LoginForm',
+    name: 'Login',
 
     components: {
-        MainLayout, FormErrors,
+        FormErrors,
     },
 
     /*
@@ -18,6 +17,7 @@ export default {
      */
     data() {
         return {
+            isLoading: false,
             form: new Form({
                 email: '',
                 password: '',
@@ -34,28 +34,37 @@ export default {
         }
     },
 
-    mounted() {
-        if (userStore.isAuthenticated()) {
-            Bus.$emit('userLoggedIn');
-            this.$router.push('/');
+    computed: {
+        sendTo() {
+            const { redirect } = this.$route.query;
+            if (redirect !== undefined ) return { path: redirect };
+            return { name: 'Home' };
         }
+
     },
 
     methods: {
+        ...mapActions([
+            'login',
+        ]),
+
         /**
          * Login User.
          */
-        login() {
+        submit() {
             if (this.$refs.form.validate()) {
-                this.form.post('/login')
-                    .then(response => {
-                         if (response.status === 200) {
-                            Bus.$emit('userLoggedIn');
-                            this.$router.push('/');
-                        }
-                    });
+                this.isLoading = true;
+
+                this.login(this.form)
+                    .then(() => {
+                        this.$router.push(this.sendTo);
+                    })
+                    .catch((error) => {
+                        this.form.onFail(error.response.data)
+                    })
+                    .finally(() => this.isLoading = false);
             }
-        },
+        }
     }
 }
 </script>
@@ -69,7 +78,7 @@ export default {
             <v-card-title>
               <div class="headline mb-0">{{ $t("Sign In") }}</div>
             </v-card-title>
-            <v-form v-model="valid" ref="form">
+            <v-form v-model="valid" ref="form" @keyup.native.enter="submit">
               <v-card-text>
                 <form-errors :errors="form.errors" />
                 <v-text-field
@@ -96,11 +105,13 @@ export default {
                   }}</v-btn>
                 </div>
               </v-card-text>
-            </v-form>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="primary" @click="login">{{ $t("Sign In") }}</v-btn>
+              <v-btn color="primary" :loading="isLoading" @click="submit">
+                {{ $t("Sign In") }}
+              </v-btn>
             </v-card-actions>
+            </v-form>
           </v-card>
         </v-flex>
         <v-flex xs12>

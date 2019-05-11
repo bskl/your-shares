@@ -38,7 +38,7 @@ class TransactionController extends Controller
 
         $transaction->share->load('portfolio');
 
-        return response()->json($transaction->share);
+        return response()->json($transaction->share->portfolio);
     }
 
     /**
