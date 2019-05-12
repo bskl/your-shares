@@ -250,7 +250,7 @@ export default {
                   </td>
                   <td class="justify-center layout px-0">
                     <v-btn
-                    v-if="props.item.paid_amount == 0"
+                    v-if="props.item.total_purchase_amount == 0"
                       icon
                       small
                       class="mx-1"
@@ -259,7 +259,7 @@ export default {
                       <v-icon color="red darken-2">delete</v-icon>
                     </v-btn>
                     <v-btn
-                      v-if="props.item.paid_amount != 0"
+                      v-if="props.item.total_purchase_amount != 0"
                       icon
                       small
                       class="mx-1"
