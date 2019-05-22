@@ -117,7 +117,7 @@ export default {
         allowedDates: val => ((new Date(val)).getDay() !== 0 && (new Date(val)).getDay() !== 6 && new Date(val) <= new Date())
     },
 
-    beforeCreate() {
+    mounted() {
         const { portfolioId, shareId } = this.$route.params;
 
         if (portfolioId && shareId) {
