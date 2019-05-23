@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\TransactionTypes;
 use Money\Money;
+use Illuminate\Database\Eloquent\Builder;
 
 class Share extends BaseModel
 {
@@ -51,6 +52,20 @@ class Share extends BaseModel
     protected $with = [
         'symbol',
     ];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('lot', function (Builder $builder) {
+            $builder->orderByRaw('CASE WHEN lot = 0 THEN lot END ASC, symbol_id ASC');
+        });
+    }
 
     /**
      * Get the user that owns the share.
