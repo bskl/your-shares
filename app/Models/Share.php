@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Enums\TransactionTypes;
-use Money\Money;
 use Illuminate\Database\Eloquent\Builder;
+use Money\Money;
 
 class Share extends BaseModel
 {
