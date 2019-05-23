@@ -99,14 +99,13 @@ export default {
 
                 this.createTransaction(this.form)
                     .then(() => {
+                        this.isLoading = false;
                         this.$router.replace('/');
                     })
                     .catch((error) => {
-                        this.form.onFail(error.response.data)
-                    })
-                    .finally(() => {
-                        this.isLoading = false;
                         this.$refs.form.resetValidation();
+                        this.isLoading = false;
+                        this.form.onFail(error.response.data)
                     });
             }
         },
