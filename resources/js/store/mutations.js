@@ -17,6 +17,7 @@ export default {
     SET_DATA(state, data) {
         state.user = data.user;
         state.portfolios = data.portfolios;
+        ls.set('locale', data.user.locale);
     },
     ADD_PORTFOLIO(state, portfolio) {
         state.portfolios.push(portfolio);

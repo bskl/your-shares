@@ -89,19 +89,7 @@ const getNavigatorLocale = function() {
 };
 
 const getLocale = function() {
-  let locale = getNavigatorLocale();
-
-  if (ls.get("locale")) {
-    locale = ls.get("locale");
-  }
-
-  if (!locale) {
-    locale = fallbackLocale;
-  }
-
-  ls.set("locale", locale);
-
-  return locale;
+  return ls.get("locale") ? ls.get("locale") : getNavigatorLocale();
 };
 
 // Create VueI18n instance with options
