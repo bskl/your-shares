@@ -51,7 +51,7 @@ class Portfolio extends BaseModel
      * @var array
      */
     protected $appends = [
-        'instant_gain'
+        'instant_gain',
     ];
 
     /**

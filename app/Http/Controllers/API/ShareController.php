@@ -11,7 +11,8 @@ class ShareController extends Controller
     /**
      * Show the profile for the given user.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return View
      */
     public function show($id)
@@ -65,7 +66,7 @@ class ShareController extends Controller
     /**
      * Delete a share.
      *
-     * @param Int $id
+     * @param int $id
      *
      * @return JsonResponse
      */
@@ -97,7 +98,7 @@ class ShareController extends Controller
     /**
      * Get share's all transactions.
      *
-     * @param Int $shareId
+     * @param int $shareId
      *
      * @return JsonResponse
      */

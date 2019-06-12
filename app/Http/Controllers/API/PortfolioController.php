@@ -13,7 +13,8 @@ class PortfolioController extends Controller
     /**
      * Show the profile for the given user.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return View
      */
     public function show($id)
@@ -44,7 +45,7 @@ class PortfolioController extends Controller
         try {
             $portfolio = Portfolio::create($data);
             $portfolio->refresh()->load('shares');
-    
+
             return response()->json($portfolio);
         } catch (\Exception $e) {
             return response()->json(
@@ -57,8 +58,8 @@ class PortfolioController extends Controller
     /**
      * Update given portfolio instance after a valid request.
      *
-     * @param PortfolioRequest      $request
-     * @param Int                   $id
+     * @param PortfolioRequest $request
+     * @param int              $id
      *
      * @return App\Models\Portfolio $portfolio
      */
@@ -83,7 +84,7 @@ class PortfolioController extends Controller
     /**
      * Delete a portfolio.
      *
-     * @param Int $id
+     * @param int $id
      *
      * @return JsonResponse
      */
