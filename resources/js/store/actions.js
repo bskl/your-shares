@@ -186,7 +186,7 @@ export default {
     },
 
     destroyShare({ commit, getters }, data) {
-        return http.delete(`/share/1111111`)
+        return http.delete(`/share/${data.id}`)
             .then((res) => {
                 const portfolioIndex = getters.getPortfolioIndexById(data.portfolio_id);
                 const index = getters.getShareIndexById(data.portfolio_id, data.id);
