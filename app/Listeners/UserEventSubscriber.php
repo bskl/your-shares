@@ -12,7 +12,7 @@ class UserEventSubscriber
      */
     public function onUserRegister($event)
     {
-        /**
+        /*
          * Create standart portfolio data for new user.
          */
         Portfolio::create([

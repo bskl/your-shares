@@ -41,8 +41,9 @@ class TransactionPolicy
     /**
      * Determine if the given post can be deleted by the user.
      *
-     * @param  \App\Modals\User         $user
-     * @param  \App\Models\Transaction  $transaction
+     * @param \App\Modals\User        $user
+     * @param \App\Models\Transaction $transaction
+     *
      * @return bool
      */
     public function delete(User $user, Transaction $transaction)
