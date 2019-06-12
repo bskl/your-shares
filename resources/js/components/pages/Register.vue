@@ -52,7 +52,7 @@ export default {
 
                 this.register(this.form)
                     .then(() => {
-                        this.$router.push('/');
+                        this.$router.push({ name: 'Home' });
                     })
                     .catch((error) => {
                         this.form.onFail(error.response.data)

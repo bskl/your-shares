@@ -30,25 +30,37 @@ export default {
         }
     },
 
+    watch: {
+      $route() {
+        this.fetchData();
+      },
+    },
+
     computed: {
         ...mapGetters([
-            'getPortfolioById', 'getPortfolioWithKey',
+            'portfoliosCount',
         ]),
     },
 
-    mounted() {
-        const portfolioId = this.$route.params.portfolioId;
-
-        if (portfolioId) {
-            const portfolio = this.getPortfolioById(portfolioId);
-            this.form = new Form(this.getPortfolioWithKey(portfolio, ['id', 'name', 'currency', 'commission']));
-        }
+    created() {
+        this.fetchData();
     },
 
     methods: {
         ...mapActions([
-            'updatePortfolio',
+            'updatePortfolio', 'fetchPortfolio'
         ]),
+
+        fetchData() {
+            this.fetchPortfolio(this.$route.params.id)
+                .then((res) => {
+                    this.form = new Form(res);
+                }).catch((error) => {
+                    if (error.response.status == 404) {
+                        this.$router.push({ name: 'NotFound' });
+                    }
+                });
+        },
 
         /**
          * Update Portfolio.
@@ -59,7 +71,7 @@ export default {
 
                 this.updatePortfolio(this.form)
                     .then(() => {
-                        this.$router.replace('/');
+                        this.$router.push({ name: 'Home' });
                     })
                     .catch((error) => {
                         this.form.onFail(error.response.data)
@@ -74,8 +86,8 @@ export default {
         /**
          * Open the modal for deleting portfolio.
          */
-        showDeletePortfolioModal(portfolioId) {
-            this.$refs.deletePortfolioModal.open(portfolioId);
+        showDeletePortfolioModal(id) {
+            this.$refs.deletePortfolioModal.open(id);
         },
     }
 }
@@ -90,11 +102,11 @@ export default {
           <v-card>
             <v-form ref="form" v-model="valid" lazy-validation @keyup.native.enter="submit">
               <v-card-title>
-                <div class="headline mb-0">{{ $t("Add Portfolio") }}</div>
+                <div class="headline mb-0">{{ $t("Update Portfolio") }}</div>
               </v-card-title>
               <portfolio-form :form="form"></portfolio-form>
               <v-card-actions>
-                <v-btn color="red" @click="showDeletePortfolioModal({id: form.id})">
+                <v-btn color="red" v-if="this.portfoliosCount > 1" @click="showDeletePortfolioModal({id: form.id})">
                     {{ $t("Delete Portfolio") }}
                 </v-btn>
                 <v-spacer></v-spacer>

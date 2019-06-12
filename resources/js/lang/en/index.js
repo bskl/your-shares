@@ -100,9 +100,48 @@ export default {
   "Gain on the instant stock price.": "Gain on the instant stock price.",
   "For example; Garanti Bank: 0,188": "For example; Garanti Bank: 0,188",
   "Rows per page:": "Rows per page:",
-  All: "All",
-  "Your portfolio commission rate has not been recorded.":
-    "Your portfolio commission rate has not been recorded.",
+  "All": "All",
+  "Connection error!": "Connection error!",
+  "Your portfolio commission rate has not been recorded.": "Your portfolio commission rate has not been recorded.",
+  "Page not found.": "Page not found.",
+  "Return Home Page": "Return Home Page",
+
+  "total_sale_amount": {
+    "title": "Satış Tutarı",
+    "description": "Tüm satış işlemlerinin toplamı.",
+  },
+  "total_purchase_amount": {
+    "title": "Alım Tutarı",
+    "description": "Tüm alım işlemlerinin toplamı.",
+  },
+  "paid_amount": {
+    "title": "Ödenen Tutar",
+    "description": "Alım işlemlerinin toplamı.",
+  },
+  "gain_loss": {
+    "title": "Kar/Zarar",
+    "description": "Satış sonrasındaki kar/zarar toplamı.",
+  },
+  "total_commission_amount": {
+    "title": "Komisyon Tutarı",
+    "description": "Tüm alım/satım işlemlerinde ödenen komisyon tutarlarının toplamı.",
+  },
+  "total_dividend_gain": {
+    "title": "Temettü Kazancı",
+    "description": "Temettü tutarlarının toplamı.",
+  },
+  "total_bonus_share": {
+    "title": "Bedelsiz Hisse Kazancı",
+    "description": "Bedelsiz hisselerin toplamı.",
+  },
+  "total_gain": {
+    "title": "Kazanç",
+    "description": "Toplam kazanç. [(kar/zarar + temettü) - komisyon tutarı]",
+  },
+  "instant_gain": {
+    "title": "Anlık Kazanç",
+    "description": "Hisse son fiyatı karları ile kazanç toplamı.",
+  },
 
   page_text: "{pageStart} - {pageStop} of {itemsLength}",
   transactions: ["Buying", "Sale", "Dividend", "Bonus Share"]

@@ -49,9 +49,9 @@ export default {
 
                 this.passwordReset(this.form)
                     .then((res) => {
-                        this.$router.push('/login');
-                    })
-                    .finally(() => this.isLoading = false);
+                      this.isLoading = false
+                      this.$router.push({ name: 'Login' });
+                    });
             }
         },
     }

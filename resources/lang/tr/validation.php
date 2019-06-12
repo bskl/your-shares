@@ -69,7 +69,7 @@ return [
         'array'   => 'The :attribute must have less than :value items.',
     ],
     'lte'                  => [
-        'numeric' => 'The :attribute must be less than or equal :value.',
+        'numeric' => ':Attribute değeri :value değerinden küçük veya eşit olmalıdır.',
         'file'    => 'The :attribute must be less than or equal :value kilobytes.',
         'string'  => 'The :attribute must be less than or equal :value characters.',
         'array'   => 'The :attribute must not have more than :value items.',
@@ -106,7 +106,7 @@ return [
         'string'  => ':attribute :size karakter olmalıdır.',
         'array'   => ':attribute :size nesneye sahip olmalıdır.',
     ],
-    'string'               => ':Attribute alanı bir dizi olmalıdır.',
+    'string'               => ':Attribute alanı bir dizge olmalıdır.',
     'timezone'             => ':Attribute geçerli bölge olmalıdır.',
     'unique'               => ':Attribute daha önceden kayıt edilmiş.',
     'uploaded'             => ':Attribute yüklenirken hata oluştu.',

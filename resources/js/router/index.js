@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import store from '../store';
+import ls from "local-storage";
 import Home from '../components/pages/Home';
 import CreatePortfolio from '../components/pages/CreatePortfolio';
 import EditPortfolio from '../components/pages/EditPortfolio';
@@ -10,6 +11,7 @@ import Login from '../components/pages/Login';
 import Register from '../components/pages/Register';
 import ForgotPassword from '../components/pages/ForgotPassword';
 import PasswordReset from '../components/pages/PasswordReset';
+import NotFound from '../components/pages/NotFound';
 
 Vue.use(Router);
 
@@ -17,7 +19,7 @@ const confirmUser = function(to, from, next) {
     if (to.params.confirmation_code) {
         store.dispatch('confirmUserMail', to.params.confirmation_code);
         next({
-            path: '/',
+            name: 'Home',
             query: { redirect: to.fullPath }
         })
     } else {
@@ -42,7 +44,7 @@ const router = new Router({
       meta: { requiresAuth: true, transitionName: 'slide-right' },
     },
     {
-      path: "/portfolio/:portfolioId(\\d+)/edit",
+      path: "/portfolio/:id(\\d+)/edit",
       name: 'EditPortfolio',
       component: EditPortfolio,
       meta: { requiresAuth: true, transitionName: 'slide-right' },
@@ -90,46 +92,41 @@ const router = new Router({
       component: PasswordReset,
       meta: { redirectIfAuth: true, transitionName: 'fade' },
     },
-    { 
+    {
+      path: '/404',
+      name: 'NotFound',
+      component: NotFound,
+    },
+    {
       path: '*',
-      redirect: '/'
-    }
-  ]
+      redirect: '/404',
+    },
+  ],
+  scrollBehavior () {
+    return { x: 0, y: 0 }
+  }
 });
 
 router.beforeEach((to, from, next) => {
-    if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (store.getters.isLoggedIn) {
-            if (store.getters.portfoliosCount == 0) {
-                store.dispatch('fetchData')
-                     .then(() => {
-                         return next();
-                     });
+    store.dispatch('checkAuth', ls.get('access_token'))
+         .then(() => {
+            if (to.matched.some(record => record.meta.requiresAuth)) {
+                if (store.getters.isLoggedIn) {
+                    return next();
+                } else {
+                    return next({ name: 'Login', query: { redirect: to.fullPath } });
+                }
             }
-            return next();
-        } else {
-            return next({ name: 'Login', query: { redirect: to.fullPath } });
-        }
-    } else if (to.matched.some(record => record.meta.redirectIfAuth)) {
-        if (store.getters.isLoggedIn) {
-            if (store.getters.portfoliosCount == 0) {
-                store.dispatch('fetchData')
-                     .then(() => {
-                         return next();
-                     });
+            if (to.matched.some(record => record.meta.redirectIfAuth)) {
+                if (store.getters.isLoggedIn) {
+                    return next({ name: 'Home' });
+                } else {
+                    return next();
+                }
             }
-            return next({ name: 'Home' })
-        } else {
+        
             return next();
-        }
-    } else {
-        return next();
-    }
-})
-
-router.afterEach((to, from) => {
-    // Set window location.
-    window.scrollTo(0, 0);
+        })
 })
 
 export default router;

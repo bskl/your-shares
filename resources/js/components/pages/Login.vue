@@ -40,7 +40,6 @@ export default {
             if (redirect !== undefined ) return { path: redirect };
             return { name: 'Home' };
         }
-
     },
 
     methods: {

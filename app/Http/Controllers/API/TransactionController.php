@@ -30,15 +30,22 @@ class TransactionController extends Controller
         $transaction->price = $data['price'];
         $transaction->dividend_gain = $data['dividend_gain'];
 
-        $transaction->save();
-        $transaction->refresh()->load('share');
+        try {
+            $transaction->save();
+            $transaction->refresh()->load('share');
 
-        $event = 'App\\Events\\'.TransactionTypes::getTypeName($transaction->type).'TransactionCreated';
-        event(new $event($transaction));
+            $event = 'App\\Events\\'.TransactionTypes::getTypeName($transaction->type).'TransactionCreated';
+            event(new $event($transaction));
 
-        $transaction->share->load('portfolio');
+            $transaction->share->load('portfolio');
 
-        return response()->json($transaction->share->portfolio);
+            return response()->json($transaction->share->portfolio);
+        } catch (\Exception $e) {
+            return response()->json(
+                ['messages' => '', 'errors' => [['transaction' => trans('app.transaction.create_error')]]],
+                422
+            );
+        }
     }
 
     /**
@@ -60,7 +67,27 @@ class TransactionController extends Controller
      *
      * @return JsonResponse
      */
-    public function destroy()
+    public function destroy($id)
     {
+        $transaction = Transaction::findOrFail($id);
+
+        $this->authorize($transaction);
+
+        try {
+            $event = 'App\\Events\\'.TransactionTypes::getTypeName($transaction->type).'TransactionDeleted';
+            event(new $event($transaction));
+
+            $transaction->refresh()->load('share');
+            $transaction->share->load('portfolio');
+            $portfolio = $transaction->share->portfolio;
+            $transaction->delete();
+
+            return response()->json($portfolio);
+        } catch (\Exception $e) {
+            return response()->json(
+                trans('app.transaction.delete_error'),
+                422
+            );
+        }
     }
 }

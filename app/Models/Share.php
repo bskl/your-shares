@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Enums\TransactionTypes;
-use Money\Money;
 use Illuminate\Database\Eloquent\Builder;
+use Money\Money;
 
 class Share extends BaseModel
 {
@@ -42,6 +42,15 @@ class Share extends BaseModel
      */
     protected $hidden = [
         'created_at', 'updated_at',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'instant_gain'
     ];
 
     /**
@@ -113,6 +122,14 @@ class Share extends BaseModel
     public function getBuyingTransactionsByNotSold()
     {
         return $this->getTransactionsByType([TransactionTypes::BUYING, TransactionTypes::BONUS])->where('remaining', '!=', 0);
+    }
+
+    /**
+     * Get instant gains to share based on instant prices.
+     */
+    public function getInstantGainAttribute()
+    {
+        return $this->convertMoneyToDecimal($this->gain->add($this->total_gain));
     }
 
     /**

@@ -25,14 +25,17 @@ Route::namespace('API')->group(function () {
         Route::get('/data', 'DataController@getData');
 
         Route::post('/portfolio', 'PortfolioController@store');
-        Route::put('/portfolio/{portfolio}', 'PortfolioController@update');
-        Route::delete('/portfolio/{portfolio}', 'PortfolioController@destroy');
+        Route::get('/portfolio/{id}', 'PortfolioController@show');
+        Route::put('/portfolio/{id}', 'PortfolioController@update');
+        Route::delete('/portfolio/{id}', 'PortfolioController@destroy');
 
         Route::post('/share', 'ShareController@store');
-        Route::delete('/share/{share}', 'ShareController@destroy');
-        Route::get('/share/{share}/transactions', 'ShareController@getShareTransactions');
+        Route::get('/share/{id}', 'ShareController@show');
+        Route::delete('/share/{id}', 'ShareController@destroy');
+        Route::get('/share/{shareId}/transactions', 'ShareController@getShareTransactions');
 
         Route::post('/transaction', 'TransactionController@store');
+        Route::delete('/transaction/{id}', 'TransactionController@destroy');
 
         Route::get('/symbol/search', 'SymbolController@searchSymbol');
     });

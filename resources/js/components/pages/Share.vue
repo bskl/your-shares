@@ -1,47 +1,84 @@
 <script type="text/ecmascript-6">
 
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
+import ItemDetail from '../partials/ItemDetail.vue';
+import { ITEM_DETAIL_MAP } from '../../store/constants.js';
 
 export default {
-    /*
-     * The component's name.
-     */
-    name: 'Share',
+  /*
+    * The component's name.
+    */
+  name: 'Share',
 
-    /*
-     * The component's data.
-     */
-    data() {
-        return {
-            isLoading: false,
-            share: null,
-        }
+  components: {
+    ItemDetail,
+  },
+
+  /*
+    * The component's data.
+    */
+  data() {
+    return {
+      isLoading: false,
+      share: null,
+    }
+  },
+
+  computed: {
+    indexedTransactions () {
+      return this.share.transactions.map((item, index) => ({
+        index: index,
+        ...item
+      }))
     },
 
-    methods: {
-        ...mapActions([
-            'fetchByShare',
-        ]),
-
-        calculateGain() {
-            return (+this.share.gain) + (+this.share.total_gain)
-        },
+    count() {
+      return this.share.transactions.length;
     },
 
-    created() {
-        if (this.share == null) {
-            this.isLoading = true;
+    itemDetails() {
+      return ITEM_DETAIL_MAP;
+    }
+  },
 
-            this.fetchByShare(this.$route.params.shareId)
-                .then((res) => {
-                    this.share = res;
-                })
-                .catch()
-                .finally(() => {
-                    this.isLoading = false;
-                });
-        }
-    },
+  methods: {
+    ...mapActions([
+      'fetchTransactionsByShare', 'destroyTransaction',
+    ]),
+
+    ...mapMutations([
+      'SET_SNACKBAR',
+    ]),
+
+    deleteTransaction(id) {
+      this.destroyTransaction(id)
+        .then((res) => {
+          this.$router.push({ name: 'Home' });
+        })
+        .catch((error) => {
+          if (error.response.status == 404) {
+            this.$router.push({ name: 'NotFound' });
+          } else {
+            this.SET_SNACKBAR({ color: 'error', text: error.response.data });
+          }
+        });
+    }
+  },
+
+  created() {
+    this.isLoading = true;
+
+    this.fetchTransactionsByShare(this.$route.params.shareId)
+        .then((res) => {
+          this.share = res;
+          this.isLoading = false;
+        })
+        .catch((error) => {
+          if (error.response.status == 404) {
+            this.$router.push({ name: 'NotFound' });
+          }
+        });
+  },
 }
 </script>
 
@@ -88,7 +125,7 @@ export default {
             <v-divider></v-divider>
             <v-card-text>
               <v-data-table
-                :items="share.transactions"
+                :items="indexedTransactions"
                 :headers="[
                   {
                     text: $t('Transaction Date'),
@@ -131,6 +168,12 @@ export default {
                     value: 'gain_loss',
                     align: 'center',
                     sortable: false
+                  },
+                  {
+                    text: $t('Actions'),
+                    value: 'actions',
+                    align: 'center',
+                    sortable: false
                   }
                 ]"
                 item-key="id"
@@ -148,7 +191,7 @@ export default {
                     {{ $d(new Date(props.item.date_at), "short") }}
                   </td>
                   <td class="text-xs-right">
-                    {{ $t("transactions[" + props.item.type + "]") }}
+                    {{ $t(`transactions[${props.item.type}]`) }}
                   </td>
                   <td class="text-xs-right">
                     {{ $n(props.item.lot, "decimal") }}
@@ -184,6 +227,17 @@ export default {
                   >
                     {{ $n(props.item.bonus, "percent") }}
                   </td>
+                  <td class="justify-center layout px-0">
+                    <v-btn
+                      v-if="props.item.index == count - 1 && props.item.type == 0"
+                      icon
+                      small
+                      class="mx-1"
+                      @click="deleteTransaction(props.item.id)"
+                    >
+                      <v-icon color="red darken-2">delete</v-icon>
+                    </v-btn>
+                  </td>
                 </template>
                 <template slot="pageText" slot-scope="props">
                   {{
@@ -199,179 +253,11 @@ export default {
             <v-card-actions>
               <v-flex xs12>
                 <v-list dense>
-                  <v-list-tile>
-                    <v-list-tile-content>
-                      <v-list-tile-title>
-                        {{ $t("Sale Amount") }}
-                        <span class="grey--text text--lighten-1">
-                          -
-                          <i>{{
-                            $t("Total amount of all sale transactions.")
-                          }}</i></span
-                        >
-                      </v-list-tile-title>
-                    </v-list-tile-content>
-                    <v-list-tile-action>
-                      <strong>{{
-                        $n(share.total_sale_amount, "currency")
-                      }}</strong>
-                    </v-list-tile-action>
-                  </v-list-tile>
-                  <v-divider></v-divider>
-                  <v-list-tile>
-                    <v-list-tile-content>
-                      <v-list-tile-title>
-                        {{ $t("Purchase Amount") }}
-                        <span class="grey--text text--lighten-1">
-                          -
-                          <i>{{
-                            $t("Total amount of all purchase transactions.")
-                          }}</i></span
-                        >
-                      </v-list-tile-title>
-                    </v-list-tile-content>
-                    <v-list-tile-action class="red--text darken-1">
-                      <strong>{{
-                        $n(share.total_purchase_amount, "currency")
-                      }}</strong>
-                    </v-list-tile-action>
-                  </v-list-tile>
-                  <v-divider></v-divider
-                  ><v-list-tile>
-                    <v-list-tile-content>
-                      <v-list-tile-title>
-                        {{ $t("Paid Amount") }}
-                        <span class="grey--text text--lighten-1">
-                          -
-                          <i>{{
-                            $t("Total amount of purchase transactions.")
-                          }}</i></span
-                        >
-                      </v-list-tile-title>
-                    </v-list-tile-content>
-                    <v-list-tile-action class="red--text darken-1">
-                      <strong>{{ $n(share.paid_amount, "currency") }}</strong>
-                    </v-list-tile-action>
-                  </v-list-tile>
-                  <v-divider></v-divider>
-                  <v-list-tile>
-                    <v-list-tile-content>
-                      <v-list-tile-title>
-                        {{ $t("Gain/Loss") }}
-                        <span class="grey--text text--lighten-1">
-                          -
-                          <i>{{ $t("Total gain/loss after sales.") }}</i></span
-                        >
-                      </v-list-tile-title>
-                    </v-list-tile-content>
-                    <v-list-tile-action
-                      :class="{
-                        'red--text darken-1': share.gain_loss < 0,
-                        'green--text darken-1': share.gain_loss > 0
-                      }"
-                    >
-                      <strong>{{ $n(share.gain_loss, "currency") }}</strong>
-                    </v-list-tile-action>
-                  </v-list-tile>
-                  <v-divider></v-divider>
-                  <v-list-tile>
-                    <v-list-tile-content>
-                      <v-list-tile-title>
-                        {{ $t("Comission Amount") }}
-                        <span class="grey--text text--lighten-1">
-                          -
-                          <i>{{
-                            $t(
-                              "Sum of commission amounts paid in all purchase / sale transactions."
-                            )
-                          }}</i></span
-                        >
-                      </v-list-tile-title>
-                    </v-list-tile-content>
-                    <v-list-tile-action class="red--text darken-1">
-                      <strong>{{
-                        $n(share.total_commission_amount, "currency")
-                      }}</strong>
-                    </v-list-tile-action>
-                  </v-list-tile>
-                  <v-divider></v-divider>
-                  <v-list-tile>
-                    <v-list-tile-content>
-                      <v-list-tile-title>
-                        {{ $t("Dividend Gain") }}
-                        <span class="grey--text text--lighten-1">
-                          - <i>{{ $t("Sum of dividend amounts.") }}</i></span
-                        >
-                      </v-list-tile-title>
-                    </v-list-tile-content>
-                    <v-list-tile-action class="green--text darken-1">
-                      <strong>{{
-                        $n(share.total_dividend_gain, "currency")
-                      }}</strong>
-                    </v-list-tile-action>
-                  </v-list-tile>
-                  <v-divider></v-divider>
-                  <v-list-tile>
-                    <v-list-tile-content>
-                      <v-list-tile-title>
-                        {{ $t("Bonus Share Gain") }}
-                        <span class="grey--text text--lighten-1">
-                          - <i>{{ $t("Sum of bonus shares.") }}</i></span
-                        >
-                      </v-list-tile-title>
-                    </v-list-tile-content>
-                    <v-list-tile-action class="green--text darken-1">
-                      <strong>{{
-                        $n(share.total_bonus_share, "decimal")
-                      }}</strong>
-                    </v-list-tile-action>
-                  </v-list-tile>
-                  <v-divider></v-divider>
-                  <v-list-tile>
-                    <v-list-tile-content>
-                      <v-list-tile-title>
-                        {{ $t("Gain") }}
-                        <span class="grey--text text--lighten-1">
-                          -
-                          <i>{{
-                            $t(
-                              "Total gain. [(gain/loss + dividend) - commission amount]"
-                            )
-                          }}</i></span
-                        >
-                      </v-list-tile-title>
-                    </v-list-tile-content>
-                    <v-list-tile-action
-                      :class="{
-                        'red--text darken-1': share.total_gain < 0,
-                        'green--text darken-1': share.total_gain > 0
-                      }"
-                    >
-                      <strong>{{ $n(share.total_gain, "currency") }}</strong>
-                    </v-list-tile-action>
-                  </v-list-tile>
-                  <v-divider></v-divider>
-                  <v-list-tile>
-                    <v-list-tile-content>
-                      <v-list-tile-title>
-                        {{ $t("Instant Gain") }}
-                        <span class="grey--text text--lighten-1">
-                          -
-                          <i>{{
-                            $t("Gain on the instant stock price.")
-                          }}</i></span
-                        >
-                      </v-list-tile-title>
-                    </v-list-tile-content>
-                    <v-list-tile-action
-                      :class="{
-                        'red--text darken-1': calculateGain() < 0,
-                        'green--text darken-1': calculateGain() > 0
-                      }"
-                    >
-                      <strong>{{ $n(calculateGain(), "currency") }}</strong>
-                    </v-list-tile-action>
-                  </v-list-tile>
+                  <item-detail 
+                    v-for="(item, index) in itemDetails" :key="index"
+                    :item="item"
+                    :value="share[item.key]"
+                  />
                 </v-list>
               </v-flex>
             </v-card-actions>

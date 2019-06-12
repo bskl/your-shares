@@ -203,6 +203,36 @@ class TransactionEventSubscriber
     }
 
     /**
+     * Handle user's share for deleting transaction.
+     */
+    public function onShareDeleted($event)
+    {
+        $transaction = $event->transaction;
+        $share = $transaction->share;
+
+        $share->lot -= $transaction->lot;
+        $share->average_amount = $share->average_amount->subtract($transaction->amount);
+        $share->average_amount_with_dividend = $share->average_amount_with_dividend->subtract($transaction->amount);
+        $share->average = ($share->lot == 0) ? '0' : $share->average_amount->divide($share->lot);
+        $share->average_with_dividend = ($share->lot == 0) ? '0' : $share->average_amount_with_dividend->divide($share->lot);
+
+        $share->setAmount();
+        $share->setGain();
+        $share->setGainWithDividend();
+        $share->total_purchase_amount = $share->total_purchase_amount->subtract($transaction->amount);
+        $share->paid_amount = $share->paid_amount->subtract($transaction->amount);
+        $share->total_commission_amount = $share->total_commission_amount->subtract($transaction->commission_price);
+        $share->total_gain = $share->total_gain->add($transaction->commission_price);
+
+        $share->save();
+
+        $share->portfolio->total_purchase_amount = $share->portfolio->total_purchase_amount->subtract($transaction->amount);
+        $share->portfolio->paid_amount = $share->portfolio->paid_amount->subtract($transaction->amount);
+        $share->portfolio->total_gain = $share->portfolio->total_gain->add($transaction->commission_price);
+        $share->portfolio->calculateMoneyAttributes();
+    }
+
+    /**
      * Register the listeners for the subscriber.
      *
      * @param Dispatcher $events
@@ -227,6 +257,11 @@ class TransactionEventSubscriber
         $events->listen(
             'App\Events\BonusTransactionCreated',
             'App\Listeners\TransactionEventSubscriber@onShareBonus'
+        );
+
+        $events->listen(
+            'App\Events\BuyingTransactionDeleted',
+            'App\Listeners\TransactionEventSubscriber@onShareDeleted'
         );
     }
 }

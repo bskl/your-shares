@@ -43,7 +43,7 @@ export default {
                 this.isLoading = true;
 
                 this.sendPasswordResetEmail(this.form)
-                    .finally(() => this.isLoading = false);
+                    .then(() => this.isLoading = false);
             }
         },
     }

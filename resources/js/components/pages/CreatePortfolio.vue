@@ -42,7 +42,7 @@ export default {
 
                 this.createPortfolio(this.form)
                     .then(() => {
-                        this.$router.replace('/');
+                        this.$router.push({ name: 'Home' });
                     })
                     .catch((error) => {
                         this.form.onFail(error.response.data)

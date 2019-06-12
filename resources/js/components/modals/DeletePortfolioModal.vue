@@ -4,7 +4,7 @@ import Modal from '../modals/modal/Modal.vue';
 import ModalHeading from '../modals/modal/ModalHeading.vue';
 import ModalBody from '../modals/modal/ModalBody.vue';
 import ModalFooter from '../modals/modal/ModalFooter.vue';
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 
 export default {
     /*
@@ -45,6 +45,10 @@ export default {
             'destroyPortfolio',
         ]),
 
+      ...mapMutations([
+        'SET_SNACKBAR',
+      ]),
+
         /**
          * Set form elements from given data and open the model.
          */
@@ -69,12 +73,17 @@ export default {
 
             this.destroyPortfolio(this.form.id)
                 .then((res) => {
-                    this.$router.replace('/');
+                    this.isLoading = false
                     this.close();
+                    this.$router.push({ name: 'Home' });
                 })
                 .catch((error) => {
-                })
-                .finally(() => this.isLoading = false);
+                    if (error.response.status == 404) {
+                        this.$router.push({ name: 'NotFound' });
+                    } else {
+                      this.SET_SNACKBAR({ color: 'error', text: error.response.data });
+                    }
+                });
         }
     },
 }
@@ -92,12 +101,12 @@ export default {
       </modal-body>
       <modal-footer>
         <v-spacer></v-spacer>
-        <v-btn color="grey darken-1" flat @click="close">{{
-          $t("Close")
-        }}</v-btn>
-        <v-btn color="red darken-1" :loading="isLoading" flat @click="submit">{{
-          $t("Delete")
-        }}</v-btn>
+        <v-btn color="grey darken-1" flat @click="close">
+            {{ $t("Close") }}
+        </v-btn>
+        <v-btn color="red darken-1" :loading="isLoading" flat @click="submit">
+            {{ $t("Delete") }}
+        </v-btn>
       </modal-footer>
   </modal>
 </template>

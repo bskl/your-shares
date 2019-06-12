@@ -7,114 +7,110 @@ import FormErrors from '../partials/FormErrors.vue';
 import { mapActions } from 'vuex';
 
 export default {
-    /*
-     * The component's name.
-     */
-    name: 'AddShareModal',
+  /*
+    * The component's name.
+    */
+  name: 'AddShareModal',
 
-    components: {
-        Modal, ModalHeading, ModalBody, ModalFooter, FormErrors,
-    },
+  components: {
+    Modal, ModalHeading, ModalBody, ModalFooter, FormErrors,
+  },
 
-    /**
-     * The component's data.
-     */
-    data() {
-        return {
-            isLoading: false,
-            showModal: false,
-            valid: true,
-            search: null,
-            symbols: [],
-            form: new Form({
-                symbol_id: '',
-                portfolio_id: '',
-            }),
-            symbolRules: [
-                (v) => !!v || this.$t("Symbol is required"),
-            ],
-            searching: false,
-        };
-    },
+  /**
+   * The component's data.
+   */
+  data() {
+    return {
+      isLoading: false,
+      showModal: false,
+      valid: true,
+      search: null,
+      symbols: [],
+      form: new Form({
+        symbol_id: '',
+        portfolio_id: '',
+      }),
+      symbolRules: [
+        (v) => !!v || this.$t("Symbol is required"),
+      ],
+      searching: false,
+    };
+  },
 
-    watch: {
-        search (val) {
-            val && this.getSymbol(val)
-        }
-    },
+  watch: {
+    search (val) {
+      if (this.symbols.length > 0) return
 
-    /**
-     * Prepare the component.
-     */
-    mounted() {
-        document.addEventListener("keydown", (e) => {
-            if (e.keyCode == 27) {
-                this.close();
-            }
-        });
-    },
+      if (this.isLoading) return
 
-    methods: {
-        ...mapActions([
-            'searchSymbol', 'addShare',
-        ]),
+      this.searching = true;
 
-        /**
-         * Open the model.
-         */
-        open(portfolioId) {
-            this.form = new Form({
-                symbol_id: '',
-                portfolio_id: portfolioId,
+      setTimeout(() => {
+        this.searchSymbol(val)
+            .then((res) => {
+              this.symbols = res;
+              this.searching = false
             });
-            this.showModal = true;
-        },
+      }, 500)
+    }
+  },
 
-        /**
-         * Close the modal and reset form elements.
-         */
-        close() {
-            this.showModal = false;
-            this.saving = false;
-            this.symbols = [];
-            this.$refs.form.resetValidation();
-        },
+  /**
+   * Prepare the component.
+   */
+  mounted() {
+    document.addEventListener("keydown", (e) => {
+      if (e.keyCode == 27) {
+        this.close();
+      }
+    });
+  },
 
-        /**
-         * Search symbols.
-         */
-        getSymbol(val) {
-            this.searching = true;
+  methods: {
+    ...mapActions([
+      'searchSymbol', 'addShare',
+    ]),
 
-            setTimeout(() => {
-                this.searchSymbol(val)
-                    .then((res) => {
-                        this.symbols = res.data;
-                    })
-                    .finally(() => this.searching = false);
-            }, 500)
-        },
-
-        /**
-         * Add the share and hide the modal.
-         */
-        submit() {
-            if (this.$refs.form.validate()) {
-                this.isLoading = true;
-
-                this.addShare(this.form)
-                    .then(() => {
-                    })
-                    .catch((error) => {
-                        this.form.onFail(error.response.data)
-                    })
-                    .finally(() => {
-                        this.close();
-                        this.isLoading = false
-                    });
-            }
-        },
+    /**
+     * Open the model.
+     */
+    open(portfolioId) {
+      this.form = new Form({
+        symbol_id: '',
+        portfolio_id: portfolioId,
+      });
+      this.showModal = true;
     },
+
+    /**
+     * Close the modal and reset form elements.
+     */
+    close() {
+      this.showModal = false;
+      this.saving = false;
+      this.symbols = [];
+    },
+
+    /**
+     * Add the share and hide the modal.
+     */
+    submit() {
+      if (this.$refs.form.validate()) {
+        this.isLoading = true;
+
+        this.addShare(this.form)
+            .then(() => {
+              this.close();
+            })
+            .catch((error) => {
+              this.form.onFail(error.response.data)
+            })
+            .finally(() => {
+              this.isLoading = false
+            });
+      }
+    },
+  },
 }
 </script>
 
@@ -125,13 +121,7 @@ export default {
     </modal-heading>
     <v-form ref="form" v-model="valid" lazy-validation @keyup.native.enter="submit">
       <modal-body>
-        <div class="text-xs-center" v-if="isLoading">
-          <v-progress-circular
-            indeterminate
-            color="primary"
-          ></v-progress-circular>
-        </div>
-        <template v-else>
+        <template>
           <form-errors :errors="form.errors" />
           <v-autocomplete
             :label="$t('Search Symbol')"

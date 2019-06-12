@@ -23,7 +23,7 @@ export default {
             isLoading: false,
             form: new Form({
                 share_id: null,
-                type: null,
+                type: 0,
                 date_at: null,
                 lot: null,
                 price: null,
@@ -32,7 +32,7 @@ export default {
             }),
             valid: true,
             money: {
-                decimal: '.',
+                decimal: ',',
                 thousands: '.',
                 precision: 2,
             },
@@ -66,10 +66,20 @@ export default {
         };
     },
 
+    watch: {
+      $route() {
+        this.fetchData();
+      },
+    },
+
     computed: {
         ...mapGetters([
             'getShareByPortfolio', 'getPortfolioById',
         ]),
+    },
+
+    created() {
+        this.fetchData();
     },
 
     directives: {
@@ -78,7 +88,7 @@ export default {
 
     methods: {
         ...mapActions([
-            'createTransaction',
+            'createTransaction', 'fetchPortfolio', 'fetchShare',
         ]),
 
         changeInput() {
@@ -90,6 +100,23 @@ export default {
             }, 500)
         },
 
+        fetchData() {
+            this.fetchPortfolio(this.$route.params.portfolioId)
+                .then((res) => {
+                    this.form.share_id = this.$route.params.shareId;
+                    this.form.commission = res.commission;
+
+                    this.fetchShare(this.$route.params.shareId)
+                        .then((res) => {
+                            this.symbolCode = res.code;
+                        })
+                }).catch((error) => {
+                    if (error.response.status == 404) {
+                        this.$router.push({ name: 'NotFound' });
+                    }
+                });
+        },
+
         /**
          * Save the transaction.
          */
@@ -98,14 +125,18 @@ export default {
                 this.isLoading = true;
 
                 this.createTransaction(this.form)
-                    .then(() => {
-                        this.isLoading = false;
-                        this.$router.replace('/');
+                    .then((res) => {
+                        this.$router.push({ name: 'Home' });
                     })
                     .catch((error) => {
-                        this.$refs.form.resetValidation();
-                        this.isLoading = false;
+                        if (error.response.status == 404) {
+                            this.$router.push({ name: 'NotFound' });
+                        }
                         this.form.onFail(error.response.data)
+                    })
+                    .finally(() => {
+                        this.isLoading = false
+                        this.$refs.form.resetValidation();
                     });
             }
         },
@@ -114,16 +145,6 @@ export default {
          * Set the allowed dates for date time picker.
          */
         allowedDates: val => ((new Date(val)).getDay() !== 0 && (new Date(val)).getDay() !== 6 && new Date(val) <= new Date())
-    },
-
-    mounted() {
-        const { portfolioId, shareId } = this.$route.params;
-
-        if (portfolioId && shareId) {
-            this.form.share_id = shareId;
-                this.symbolCode = this.getShareByPortfolio(portfolioId, shareId).symbol.code;
-                this.form.commission = this.getPortfolioById(portfolioId).commission;
-        }
     },
 }
 </script>

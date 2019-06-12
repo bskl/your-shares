@@ -80,28 +80,63 @@ export default {
   "Comission Amount": "Komisyon Tutarı",
   "Dividend Gain": "Temettü Kazancı",
   "Bonus Share Gain": "Bedelsiz Hisse Kazancı",
-  Gain: "Kazanç",
+  "Gain": "Kazanç",
   "Instant Gain": "Anlık Kazanç",
   "Your email account has been verified.": "Eposta hesabınız doğrulanmıştır.",
   "Your activation code is invalid or your e-mail address verified before.": "Aktivasyon kodunuz hatalı veya eposta hesabınız daha önce doğrulandı.",
   "Total amount of all sale transactions.": "Tüm satış işlemlerinin toplamı.",
-  "Total amount of all purchase transactions.":
-    "Tüm alım işlemlerinin toplamı.",
+  "Total amount of all purchase transactions.": "Tüm alım işlemlerinin toplamı.",
   "Total amount of purchase transactions.": "Alım işlemlerinin toplamı.",
   "Total gain/loss after sales.": "Satış sonrasındaki kar/zarar toplamı.",
-  "Sum of commission amounts paid in all purchase / sale transactions.":
-    "Tüm alım/satım işlemlerinde ödenen komisyon tutarlarının toplamı.",
+  "Sum of commission amounts paid in all purchase / sale transactions.": "Tüm alım/satım işlemlerinde ödenen komisyon tutarlarının toplamı.",
   "Sum of dividend amounts.": "Temettü tutarlarının toplamı.",
   "Sum of bonus shares.": "Bedelsiz hisselerin toplamı.",
-  "Total gain. [(gain/loss + dividend) - commission amount]":
-    "Toplam kazanç. [(kar/zarar + temettü) - komisyon tutarı]",
-  "Gain on the instant stock price.":
-    "Hisse son fiyatı karları ile kazanç toplamı.",
+  "Total gain. [(gain/loss + dividend) - commission amount]": "Toplam kazanç. [(kar/zarar + temettü) - komisyon tutarı]",
+  "Gain on the instant stock price.": "Hisse son fiyatı karları ile kazanç toplamı.",
   "For example; Garanti Bank: 0,188": "Örneğin; Garanti Bankası: 0,188",
   "Rows per page:": "Sayfa başına satır:",
-  All: "Hepsi",
-  "Your portfolio commission rate has not been recorded.":
-    "Portföy komisyon oranınız kayıt edilmemiş.",
+  "All": "Hepsi",
+  "Connection error!": "Bağlantı hatası!",
+  "Your portfolio commission rate has not been recorded.": "Portföy komisyon oranınız kayıt edilmemiş.",
+  "Page not found.": "Aradığınız sayfa bulunamadı.",
+  "Return Home Page": "Ana Sayfaya Dön",
+
+  "total_sale_amount": {
+    "title": "Satış Tutarı",
+    "description": "Tüm satış işlemlerinin toplamı.",
+  },
+  "total_purchase_amount": {
+    "title": "Alım Tutarı",
+    "description": "Tüm alım işlemlerinin toplamı.",
+  },
+  "paid_amount": {
+    "title": "Ödenen Tutar",
+    "description": "Alım işlemlerinin toplamı.",
+  },
+  "gain_loss": {
+    "title": "Kar/Zarar",
+    "description": "Satış sonrasındaki kar/zarar toplamı.",
+  },
+  "total_commission_amount": {
+    "title": "Komisyon Tutarı",
+    "description": "Tüm alım/satım işlemlerinde ödenen komisyon tutarlarının toplamı.",
+  },
+  "total_dividend_gain": {
+    "title": "Temettü Kazancı",
+    "description": "Temettü tutarlarının toplamı.",
+  },
+  "total_bonus_share": {
+    "title": "Bedelsiz Hisse Kazancı",
+    "description": "Bedelsiz hisselerin toplamı.",
+  },
+  "total_gain": {
+    "title": "Kazanç",
+    "description": "Toplam kazanç. [(kar/zarar + temettü) - komisyon tutarı]",
+  },
+  "instant_gain": {
+    "title": "Anlık Kazanç",
+    "description": "Hisse son fiyatı karları ile kazanç toplamı.",
+  },
 
   page_text: "{itemsLength} satırdan {pageStart} - {pageStop} arası",
   transactions: ["Alım", "Satım", "Temettü", "Bedelsiz Dağıtım"]

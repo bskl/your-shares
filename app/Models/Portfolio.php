@@ -46,6 +46,15 @@ class Portfolio extends BaseModel
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'instant_gain'
+    ];
+
+    /**
      * The relations to eager load on every query.
      *
      * @var array
@@ -78,6 +87,20 @@ class Portfolio extends BaseModel
         if ($this->attributes['commission']) {
             return floatval($this->attributes['commission']);
         }
+    }
+
+    /**
+     * Get instant gains to all shares based on instant prices.
+     */
+    public function getInstantGainAttribute()
+    {
+        $sharesGain = Money::TRY(0);
+
+        $this->shares->each(function ($share) use (&$sharesGain) {
+            $sharesGain = $sharesGain->add($share->gain);
+        });
+
+        return $this->convertMoneyToDecimal($sharesGain->add($this->total_gain));
     }
 
     /**

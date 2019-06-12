@@ -5,10 +5,26 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\PortfolioRequest;
 use App\Models\Portfolio;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class PortfolioController extends Controller
 {
+    /**
+     * Show the profile for the given user.
+     *
+     * @param  int  $id
+     * @return View
+     */
+    public function show($id)
+    {
+        $portfolio = Portfolio::findOrFail($id);
+
+        $this->authorize($portfolio);
+
+        return response()->json($portfolio->only('id', 'name', 'currency', 'commission'));
+    }
+
     /**
      * Create a new portfolio instance for auth user after a valid request.
      *
@@ -25,43 +41,74 @@ class PortfolioController extends Controller
         $data['user_id'] = Auth::user()->id;
         $data['order'] = ++$order;
 
-        $portfolio = Portfolio::create($data);
-
-        $portfolio->refresh()->load('shares');
-
-        return response()->json($portfolio);
+        try {
+            $portfolio = Portfolio::create($data);
+            $portfolio->refresh()->load('shares');
+    
+            return response()->json($portfolio);
+        } catch (\Exception $e) {
+            return response()->json(
+                ['messages' => '', 'errors' => [['portfolio' => trans('app.portfolio.create_error')]]],
+                422
+            );
+        }
     }
 
     /**
      * Update given portfolio instance after a valid request.
      *
-     * @param PortfolioRequest     $request
-     * @param App\Models\Portfolio $portfolio
+     * @param PortfolioRequest      $request
+     * @param Int                   $id
      *
      * @return App\Models\Portfolio $portfolio
      */
-    public function update(PortfolioRequest $request, Portfolio $portfolio)
+    public function update(PortfolioRequest $request, $id)
     {
+        $portfolio = Portfolio::findOrFail($id);
+
         $this->authorize($portfolio);
 
-        $portfolio->update($request->all());
+        try {
+            $portfolio->update($request->all());
 
-        return response()->json($portfolio);
+            return response()->json($portfolio);
+        } catch (\Exception $e) {
+            return response()->json(
+                ['messages' => '', 'errors' => [['portfolio' => trans('app.portfolio.update_error')]]],
+                422
+            );
+        }
     }
 
     /**
      * Delete a portfolio.
      *
-     * @param Portfolio $portfolio
+     * @param Int $id
      *
      * @return JsonResponse
      */
-    public function destroy(Portfolio $portfolio)
+    public function destroy($id)
     {
+        $portfolio = Portfolio::findOrFail($id);
+
         $this->authorize($portfolio);
 
-        $portfolio->delete();
+        if (Portfolio::byCurrentUser()->count() <= 1) {
+            return response()->json(
+                trans('app.portfolio.destroy_error'),
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
 
-        return response()->json();
+        try {
+            $portfolio->delete();
+
+            return response()->json();
+        } catch (\Exception $e) {
+            return response()->json(
+                trans('app.portfolio.delete_error'),
+                422
+            );
+        }
     }
 }

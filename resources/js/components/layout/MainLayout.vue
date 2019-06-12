@@ -2,7 +2,6 @@
 import MainHeader from './MainHeader.vue';
 
 export default {
-    props: ['loading'],
     /*
      * The component's name.
      */
@@ -20,7 +19,7 @@ export default {
 
     <main>
       <v-content>
-        <v-container fluid grid-list-md v-if="!loading">
+        <v-container fluid grid-list-md>
           <slot />
         </v-container>
       </v-content>

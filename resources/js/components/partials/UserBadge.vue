@@ -1,6 +1,6 @@
 <script type="text/ecmascript-6">
 
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
     /*
@@ -11,18 +11,20 @@ export default {
     computed: {
         ...mapGetters([
             'isLoggedIn',
-        ])
+        ]),
     },
 
     methods: {
-        logout() {
-            this.$store.dispatch('logout')
-                .then((res) => {
-                    this.$router.push('/login');
-                })
-                .catch(() => {
-                });
-        },
+      ...mapActions([
+        'logout',
+      ]),
+
+      submit() {
+        this.logout()
+            .then((res) => {
+                this.$router.push({ name: 'Login' });
+            });
+      },
     }
 }
 </script>
@@ -45,7 +47,7 @@ export default {
             </v-list-tile-title>
           </v-list-tile>
         <v-divider></v-divider>
-        <v-list-tile @click="logout()">
+        <v-list-tile @click="submit()">
           <v-icon class="pr-2">exit_to_app</v-icon>
           <v-list-tile-title>
             {{ $t("Logout") }}

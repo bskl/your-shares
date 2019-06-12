@@ -13,7 +13,7 @@ import store from "./store";
 import i18n from "./lang/";
 import Form from "./utilities/Form.js";
 import NProgress from "nprogress";
-import App from "./components/App.vue";
+import App from "./App.vue";
 
 sync(store, router)
 window.Vue = Vue;

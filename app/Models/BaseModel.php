@@ -7,7 +7,7 @@ use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
-use Money\Parser\DecimalMoneyParser;
+use Money\Parser\IntlLocalizedDecimalParser;
 
 abstract class BaseModel extends Model
 {
@@ -98,9 +98,10 @@ abstract class BaseModel extends Model
         } else {
             $currencies = new ISOCurrencies();
 
-            $moneyParser = new DecimalMoneyParser($currencies);
+            $numberFormatter = new \NumberFormatter(config('app.locale'), \NumberFormatter::DECIMAL);
+            $moneyParser = new IntlLocalizedDecimalParser($numberFormatter, $currencies);
 
-            $money = $moneyParser->parse($value, config('app.currency'));
+            $money = $moneyParser->parse($value, new Currency(config('app.currency')));
         }
 
         $this->attributes[$key] = $money->getAmount();

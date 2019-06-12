@@ -2,10 +2,13 @@ import ls from "local-storage";
 
 export default {
     LOGGED_IN(state, data) {
-        if (data.access_token) {
+        if (_.has(data, 'access_token') && data.access_token) {
             ls.set('access_token', data.access_token);
+            state.isLoggedIn = true;
         }
-        state.isLoggedIn = true;
+    },
+    CHECK_AUTH(state, data) {
+        state.isLoggedIn = (data) ? true : false;
     },
     LOGGED_OUT(state) {
         ls.remove('access_token');
