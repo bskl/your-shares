@@ -16,7 +16,6 @@ import NProgress from "nprogress";
 import App from "./App.vue";
 
 sync(store, router)
-window.Vue = Vue;
 Vue.use(Vuetify);
 
 window.Form = Form;
@@ -26,11 +25,7 @@ NProgress.configure({
   showSpinner: false
 });
 
-window.Bus = new Vue({
-  name: "Bus"
-});
-
-const app = new Vue({
+new Vue({
   el: "#app",
   router,
   store,
