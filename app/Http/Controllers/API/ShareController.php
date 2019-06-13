@@ -72,7 +72,7 @@ class ShareController extends Controller
      */
     public function destroy($id)
     {
-        $share = Share::findOrFail($share);
+        $share = Share::findOrFail($id);
 
         $this->authorize($share);
 
