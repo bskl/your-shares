@@ -21,6 +21,7 @@ export default {
     data() {
       return {
           isLoading: false,
+          loading: false,
       }
     },
 
@@ -69,21 +70,24 @@ export default {
       },
 
       getSymbolsData() {
+        this. loading = true;
+
         this.fetchSymbolsData()
           .then()
           .catch((error) => {
             this.SET_SNACKBAR({ color: 'error', text: error.response.data });
-          });
-      }
+          })
+          .finally(() => { this.loading = false; });
+      },
     },
 
     created() {
       this.isLoading = true;
 
       this.fetchData()
-        .then(() => {
+        .finally(() => {
           this.isLoading = false;
-      });
+        });
 
       for (let index = 0, count = this.portfoliosCount; index <  count; ++index) {
         let portfolio = this.getPortfolioByIndex(index);
@@ -119,6 +123,7 @@ export default {
                 <v-spacer></v-spacer>
                 <v-btn icon small class="mx-1"
                   v-if="isAdmin"
+                  :loading="loading"
                   @click="getSymbolsData()">
                   <v-icon>refresh</v-icon>
                 </v-btn>
