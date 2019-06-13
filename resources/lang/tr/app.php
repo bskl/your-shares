@@ -26,4 +26,6 @@ return [
         'create_error' => 'İşlem oluşturulurken hata oluştu. Lütfen daha sonra tekrar deneyiniz.',
         'delete_error' => 'İşlem silme sırasında hata oluştu. Lütfen daha sonra tekrar deneyiniz.',
     ],
+    'auth_error' => 'Bu işlemi yapmak için yetkiniz yoktur.',
+    'service_error' => 'Servis kullanılamıyor. Lütfen daha sonra tekrar deneyiniz.',
 ];

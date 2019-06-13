@@ -37,6 +37,7 @@ Route::namespace('API')->group(function () {
         Route::post('/transaction', 'TransactionController@store');
         Route::delete('/transaction/{id}', 'TransactionController@destroy');
 
+        Route::get('/symbol/data', 'SymbolController@getData');
         Route::get('/symbol/search', 'SymbolController@searchSymbol');
     });
 });

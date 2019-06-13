@@ -46,7 +46,7 @@ export default {
 
     methods: {
       ...mapActions([
-        'fetchData', 'destroyShare',
+        'fetchData', 'destroyShare', 'fetchSymbolsData',
       ]),
 
       ...mapMutations([
@@ -65,15 +65,16 @@ export default {
               } else {
                 this.SET_SNACKBAR({ color: 'error', text: error.response.data });
               }
-            })
+            });
       },
 
-      /**
-       * Open the modal for adding a new share.
-       */
-      showAddShareModal(portfolioId) {
-          this.$refs.addShareModal.open(portfolioId);
-      },
+      getSymbolsData() {
+        this.fetchSymbolsData()
+          .then()
+          .catch((error) => {
+            this.SET_SNACKBAR({ color: 'error', text: error.response.data });
+          });
+      }
     },
 
     created() {
@@ -112,24 +113,20 @@ export default {
                 <v-btn icon light disabled class="ml-0">
                   <v-icon color="grey darken-2">home</v-icon>
                 </v-btn>
-                <v-toolbar-title class="grey--text text--darken-4 ml-1">{{
-                  portfolio.name
-                }}</v-toolbar-title>
+                <v-toolbar-title class="grey--text text--darken-4 ml-1">
+                  {{ portfolio.name }}
+                </v-toolbar-title>
                 <v-spacer></v-spacer>
-                <v-btn
-                  icon
-                  small
-                  class="mx-1"
-                  :to="`/portfolio/${portfolio.id}/edit`"
-                >
+                <v-btn icon small class="mx-1"
+                  @click="getSymbolsData()">
+                  <v-icon>refresh</v-icon>
+                </v-btn>
+                <v-btn icon small class="mx-1"
+                  :to="`/portfolio/${portfolio.id}/edit`">
                   <v-icon color="green darken-2">edit</v-icon>
                 </v-btn>
-                <v-btn
-                  icon
-                  small
-                  class="mx-1"
-                  @click="showAddShareModal(portfolio.id)"
-                >
+                <v-btn icon small class="mx-1"
+                  @click="$refs.addShareModal.open(portfolio.id)">
                   <v-icon color="blue darken-2">add</v-icon>
                 </v-btn>
               </v-toolbar>

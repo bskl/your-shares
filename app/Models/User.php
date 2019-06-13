@@ -48,4 +48,14 @@ class User extends Authenticatable
     {
         $this->notify(new PasswordResetNotification($token));
     }
+
+    /**
+     * Check if the user is an admin.
+     *
+     * @return boolean
+     */
+    public function isAdmin()
+    {
+        return $this->role == \App\Enums\User::ADMIN;
+    }
 }

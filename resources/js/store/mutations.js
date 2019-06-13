@@ -14,10 +14,12 @@ export default {
         ls.remove('access_token');
         state.isLoggedIn = false;
     },
-    SET_DATA(state, data) {
-        state.user = data.user;
-        state.portfolios = data.portfolios;
-        ls.set('locale', data.user.locale);
+    SET_USER(state, data) {
+        state.user = data;
+        ls.set('locale', data.locale);
+    },
+    SET_PORTFOLIOS(state, data) {
+        state.portfolios = data;
     },
     ADD_PORTFOLIO(state, portfolio) {
         state.portfolios.push(portfolio);

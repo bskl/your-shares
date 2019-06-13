@@ -50,7 +50,7 @@ class PortfolioController extends Controller
         } catch (\Exception $e) {
             return response()->json(
                 ['messages' => '', 'errors' => [['portfolio' => trans('app.portfolio.create_error')]]],
-                422
+                Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
     }
@@ -76,7 +76,7 @@ class PortfolioController extends Controller
         } catch (\Exception $e) {
             return response()->json(
                 ['messages' => '', 'errors' => [['portfolio' => trans('app.portfolio.update_error')]]],
-                422
+                Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
     }
@@ -108,7 +108,7 @@ class PortfolioController extends Controller
         } catch (\Exception $e) {
             return response()->json(
                 trans('app.portfolio.delete_error'),
-                422
+                Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
     }

@@ -7,7 +7,7 @@ const http = axios.create({
   baseURL: '/api',
   adapter: cacheAdapterEnhancer(axios.defaults.adapter),
 });
-
+console.log(http);
 
 http.interceptors.request.use(function (config) {
   NProgress.start()
@@ -40,7 +40,7 @@ export default {
       });
   },
 
-  login({ dispatch, commit }, data) {
+  login({ commit }, data) {
     return http.post('/login', data)
       .then((res) => {
         commit('LOGGED_IN', res.data);
@@ -49,7 +49,7 @@ export default {
       });
   },
 
-    checkAuth({ dispatch, commit }, data) {
+    checkAuth({ commit }, data) {
         return new Promise((resolve, reject) => {
             commit('CHECK_AUTH', data);
             resolve();
@@ -110,7 +110,17 @@ export default {
     fetchData({ commit }) {
         return http.get('/data')
             .then((res) => {
-                commit('SET_DATA', res.data);
+                commit('SET_USER', res.data.user);
+                commit('SET_PORTFOLIOS', res.data.portfolios);
+
+                return res.data;
+            });
+    },
+
+    fetchSymbolsData({ commit }) {
+        return http.get('/symbol/data')
+            .then((res) => {
+                commit('SET_PORTFOLIOS', res.data);
 
                 return res.data;
             });
