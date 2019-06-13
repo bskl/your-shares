@@ -2,6 +2,9 @@ export default {
     isLoggedIn (state) {
         return state.isLoggedIn;
     },
+    isAdmin (state) {
+        return state.user.role == 'admin';
+    },
     portfoliosCount (state) {
         return state.portfolios.length;
     },
@@ -29,7 +32,6 @@ export default {
     },
     getShareIndexById: (state, getters) => (portfolioId, shareId) => {
         return _.findIndex(getters.getSharesByPortfolio(portfolioId), ['id', shareId]);
-
     },
     getShareByPortfolio: (state, getters) => (portfolioId, shareId) => {
         const portfolio = getters.getPortfolioById(portfolioId);

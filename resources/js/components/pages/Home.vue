@@ -36,7 +36,7 @@ export default {
       ]),
 
       ...mapGetters([
-        'portfoliosCount', 'getPortfolioByIndex',
+        'portfoliosCount', 'getPortfolioByIndex', 'isAdmin',
       ]),
 
       itemDetails() {
@@ -118,6 +118,7 @@ export default {
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-btn icon small class="mx-1"
+                  v-if="isAdmin"
                   @click="getSymbolsData()">
                   <v-icon>refresh</v-icon>
                 </v-btn>
