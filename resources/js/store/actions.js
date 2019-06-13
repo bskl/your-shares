@@ -7,7 +7,6 @@ const http = axios.create({
   baseURL: '/api',
   adapter: cacheAdapterEnhancer(axios.defaults.adapter),
 });
-console.log(http);
 
 http.interceptors.request.use(function (config) {
   NProgress.start()
@@ -173,7 +172,7 @@ export default {
             });
     },
 
-    searchSymbol({ commit }, data) {
+    searchSymbol(_, data) {
         return http.get('/symbol/search', {
                 params: {
                     q: data
