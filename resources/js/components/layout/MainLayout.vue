@@ -1,15 +1,16 @@
-<script type="text/ecmascript-6">
+<script>
+
 import MainHeader from './MainHeader.vue';
 
 export default {
-    /*
-     * The component's name.
-     */
-    name: 'MainLayout',
+  /**
+   * The component's name.
+   */
+  name: 'MainLayout',
 
-    components: {
-        MainHeader,
-    },
+  components: {
+    MainHeader,
+  },
 }
 </script>
 

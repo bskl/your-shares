@@ -1,13 +1,12 @@
-<script type="text/ecmascript-6">
+<script>
 
 export default {
-    props: ['status', 'color'],
+  props: ['status', 'color'],
 
-    /*
-     * The component's name.
-     */
-    name: 'Status',
-
+  /**
+   * The component's name.
+   */
+  name: 'Status',
 }
 </script>
 

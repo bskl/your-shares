@@ -48,185 +48,167 @@ export default {
       });
   },
 
-    checkAuth({ commit }, data) {
-        return new Promise((resolve, reject) => {
-            commit('CHECK_AUTH', data);
-            resolve();
-        });
-    },
+  checkAuth({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      commit('CHECK_AUTH', data);
+      resolve();
+    });
+  },
 
-    logout({ commit }) {
-        return http.post('/logout')
-            .then((res) => {
-                commit('LOGGED_OUT');
+  logout({ commit }) {
+    return http.post('/logout')
+      .then((res) => {
+        commit('LOGGED_OUT');
 
-                return res.data;
-            });
-    },
+        return res.data;
+    });
+  },
 
-    confirmUserMail({ commit }, data) {
-        return http.get(`/confirm/${data}`)
-            .then((res) => {
-                commit('SET_SNACKBAR', { text: i18n.t('Your email account has been verified.') });
+  confirmUserMail({ commit }, data) {
+    return http.get(`/confirm/${data}`)
+      .then((res) => {
+        commit('SET_SNACKBAR', { text: i18n.t('Your email account has been verified.') });
 
-                return res.data;
-            })
-            .catch((error) => {
-                commit('SET_SNACKBAR', { color: 'error', text: i18n.t('Your activation code is invalid or your e-mail address verified before.') });
-                
-                return error;
-            });
-    },
+        return res.data;
+      })
+      .catch((error) => {
+        commit('SET_SNACKBAR', { color: 'error', text: i18n.t('Your activation code is invalid or your e-mail address verified before.') });
 
-    sendPasswordResetEmail({ commit }, data) {
-        return http.post('/password/email', data)
-            .then((res) => {
-                commit('SET_SNACKBAR', { text: res.data });
+        return error;
+      });
+  },
 
-                return res.data;
-            })
-            .catch((error) => {
-                commit('SET_SNACKBAR', { color: 'error', text: error.data });
+  sendPasswordResetEmail(_, data) {
+    return http.post('/password/email', data)
+      .then((res) => {
+        return res.data;
+      });
+  },
 
-                return error;
-            });
-    },
+  passwordReset(_, data) {
+    return http.post('/password/reset', data)
+      .then((res) => {
+        return res.data;
+      });
+  },
 
-    passwordReset({ commit }, data) {
-        return http.post('/password/reset', data)
-            .then((res) => {
-                commit('SET_SNACKBAR', { text: res.data });
+  fetchData({ commit }) {
+    return http.get('/data')
+      .then((res) => {
+        commit('SET_USER', res.data.user);
+        commit('SET_PORTFOLIOS', res.data.portfolios);
 
-                return res.data;
-            })
-            .catch((error) => {
-                commit('SET_SNACKBAR', { color: 'error', text: error.response.data });
+        return res.data;
+      });
+  },
 
-                return error;
-            });
-    },
+  fetchSymbolsData({ commit }) {
+    return http.get('/symbol/data')
+      .then((res) => {
+        commit('SET_PORTFOLIOS', res.data);
 
-    fetchData({ commit }) {
-        return http.get('/data')
-            .then((res) => {
-                commit('SET_USER', res.data.user);
-                commit('SET_PORTFOLIOS', res.data.portfolios);
+        return res.data;
+      });
+  },
 
-                return res.data;
-            });
-    },
+  createPortfolio({ commit }, data) {
+    return http.post('/portfolio', data)
+      .then((res) => {
+        commit('ADD_PORTFOLIO', res.data);
 
-    fetchSymbolsData({ commit }) {
-        return http.get('/symbol/data')
-            .then((res) => {
-                commit('SET_PORTFOLIOS', res.data);
+        return res.data;
+      });
+  },
 
-                return res.data;
-            });
-    },
+  updatePortfolio({ commit, getters }, data) {
+    return http.put(`/portfolio/${data.id}`, data)
+      .then((res) => {
+        const index = getters.getPortfolioIndexById(data.id);
+        commit('UPDATE_PORTFOLIO', { index, data });
 
-    createPortfolio({ commit }, data) {
-        return http.post('/portfolio', data)
-            .then((res) => {
-                commit('ADD_PORTFOLIO', res.data);
+        return res.data;
+      });
+  },
 
-                return res.data;
-            });
-    },
+  destroyPortfolio({ commit, getters }, portfolioId) {
+    return http.delete(`/portfolio/${portfolioId}`)
+      .then((res) => {
+        const index = getters.getPortfolioIndexById(portfolioId);
+        commit('DESTROY_PORTFOLIO', index);
 
-    updatePortfolio({ commit, getters }, data) {
-        return http.put(`/portfolio/${data.id}`, data)
-            .then((res) => {
-                const index = getters.getPortfolioIndexById(data.id);
-                commit('UPDATE_PORTFOLIO', { index, data });
+        return res.data;
+      });
+  },
 
-                return res.data;
-            });
-    },
+  fetchPortfolio(_, id) {
+    return http.get(`/portfolio/${id}`)
+      .then((res) => {
+        return res.data;
+      });
+  },
 
-    destroyPortfolio({ commit, getters }, portfolioId) {
-        return http.delete(`/portfolio/${portfolioId}`)
-            .then((res) => {
-                const index = getters.getPortfolioIndexById(portfolioId);
-                commit('DESTROY_PORTFOLIO', index);
+  createTransaction({ commit, getters }, data) {
+    return http.post('/transaction', data)
+      .then((res) => {
+        const index = getters.getPortfolioIndexById(res.data.id);
+        const data = res.data;
+        commit('UPDATE_PORTFOLIO', { index, data }); 
 
-                return res.data;
-            });
-    },
+        return res.data;
+      });
+  },
 
-    fetchPortfolio(_, id) {
-        return http.get(`/portfolio/${id}`)
-            .then((res) => {
-                return res.data;
-            });
-    },
+  fetchSymbols(_, data) {
+    return http.get('/symbol')
+      .then((res) => {
+        return res.data;
+      });
+  },
 
-    createTransaction({ commit, getters }, data) {
-        return http.post('/transaction', data)
-            .then((res) => {
-                const index = getters.getPortfolioIndexById(res.data.id);
-                const data = res.data;
-                commit('UPDATE_PORTFOLIO', { index, data }); 
+  addShare({ commit, getters }, data) {
+    return http.post('/share', data)
+      .then((res) => {
+        const index = getters.getPortfolioIndexById(res.data.portfolio_id);
+        const data = res.data;
+        commit('ADD_SHARE', { index, data });     
 
-                return res.data;
-            });
-    },
+        return res.data;
+      });
+  },
 
-    searchSymbol(_, data) {
-        return http.get('/symbol/search', {
-                params: {
-                    q: data
-                }
-            })
-            .then((res) => {
-                return res.data;
-            });
-    },
+  destroyShare({ commit, getters }, data) {
+    return http.delete(`/share/${data.id}`)
+      .then((res) => {
+        const portfolioIndex = getters.getPortfolioIndexById(data.portfolio_id);
+        const index = getters.getShareIndexById(data.portfolio_id, data.id);
+        commit('DESTROY_SHARE', { portfolioIndex, index });
 
-    addShare({ commit, getters }, data) {
-        return http.post('/share', data)
-            .then((res) => {
-                const index = getters.getPortfolioIndexById(res.data.portfolio_id);
-                const data = res.data;
-                commit('ADD_SHARE', { index, data });     
+        return res.data;
+      });
+  },
 
-                return res.data;
-            });
-    },
+  fetchShare(_, id) {
+    return http.get(`/share/${id}`)
+      .then((res) => {
+        return res.data;
+      });
+  },
 
-    destroyShare({ commit, getters }, data) {
-        return http.delete(`/share/${data.id}`)
-            .then((res) => {
-                const portfolioIndex = getters.getPortfolioIndexById(data.portfolio_id);
-                const index = getters.getShareIndexById(data.portfolio_id, data.id);
-                commit('DESTROY_SHARE', { portfolioIndex, index });
+  fetchTransactionsByShare(_, shareId) {
+    return http.get(`/share/${shareId}/transactions`)
+      .then((res) => {
+        return res.data;
+      });
+  },
 
-                return res.data;
-            });
-    },
+  destroyTransaction({ commit, getters }, id) {
+    return http.delete(`/transaction/${id}`)
+      .then((res) => {
+        const index = getters.getPortfolioIndexById(res.data.id);
+        const data = res.data;
+        commit('UPDATE_PORTFOLIO', { index, data });
 
-    fetchShare(_, id) {
-        return http.get(`/share/${id}`)
-            .then((res) => {
-                return res.data;
-            });
-    },
-
-    fetchTransactionsByShare(_, shareId) {
-        return http.get(`/share/${shareId}/transactions`)
-            .then((res) => {
-                return res.data;
-            });
-    },
-
-    destroyTransaction({ commit, getters }, id) {
-        return http.delete(`/transaction/${id}`)
-            .then((res) => {
-                const index = getters.getPortfolioIndexById(res.data.id);
-                const data = res.data;
-                commit('UPDATE_PORTFOLIO', { index, data });
-
-                return res.data;
-            });
-    }
+        return res.data;
+      });
+  },
 }

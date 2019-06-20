@@ -1,21 +1,18 @@
-<script type="text/ecmascript-6">
+<script>
 
 import { mapState } from 'vuex';
 
 export default {
-    //props: ['snackbar', 'timeout', 'position_y', 'position_x', 'mode', 'color', 'text'],
+  /**
+   * The component's name.
+   */
+  name: 'Snackbar',
 
-    /*
-     * The component's name.
-     */
-    name: 'Snackbar',
-
-    computed: {
-        ...mapState([
-            'snackbar',
-        ]),
-    },
-
+  computed: {
+    ...mapState([
+      'snackbar',
+    ]),
+  },
 }
 </script>
 
@@ -33,9 +30,7 @@ export default {
       v-model="snackbar.show"
     >
       {{ snackbar.text }}
-      <v-btn dark flat @click.native="snackbar.show = false">{{
-        $t("Close")
-      }}</v-btn>
+      <v-btn dark flat @click.native="snackbar.show = false">{{ $t("Close") }}</v-btn>
     </v-snackbar>
   </v-card>
 </template>

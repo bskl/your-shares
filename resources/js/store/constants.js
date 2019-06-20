@@ -1,4 +1,4 @@
-export const ITEM_DETAIL_MAP = {
+export const ITEM_DETAILS = {
   0:{
     key: 'total_sale_amount',
     type: 'currency',
@@ -45,3 +45,10 @@ export const ITEM_DETAIL_MAP = {
     change_color: true,
   },
 };
+
+export const TRANSACTION_TYPES = [
+  'Buying',
+  'Sale',
+  'Dividend',
+  'Bonus Share',
+];

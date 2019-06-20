@@ -1,52 +1,64 @@
-<script type="text/ecmascript-6">
+<script>
 
 import FormErrors from '../partials/FormErrors.vue';
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 
 export default {
-    /*
-     * The component's name.
-     */
-    name: 'ForgotPassword',
+  /**
+    * The component's name.
+    */
+  name: 'ForgotPassword',
 
-    components: {
-        FormErrors,
-    },
+  components: {
+    FormErrors,
+  },
 
-    /*
-     * The component's data.
-     */
-    data() {
-        return {
-            isLoading: false,
-            form: new Form({
-                email: '',
-            }),
-            valid: true,
-            emailRules: [
-                (v) => !!v || this.$t("E-mail is required"),
-                (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t("E-mail must be valid")
-            ],
-        }
-    },
-
-    methods: {
-        ...mapActions([
-            'sendPasswordResetEmail',
-        ]),
-
-        /**
-         * Sends password reset email to user.
-         */
-        submit() {
-            if (this.$refs.form.validate()) {
-                this.isLoading = true;
-
-                this.sendPasswordResetEmail(this.form)
-                    .then(() => this.isLoading = false);
-            }
-        },
+  /**
+   * The component's data.
+   */
+  data() {
+    return {
+      isLoading: false,
+      form: new Form({
+        email: '',
+      }),
+      valid: true,
+      emailRules: [
+        (v) => !!v || this.$t("E-mail is required"),
+        (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t("E-mail must be valid")
+      ],
     }
+  },
+
+  methods: {
+    ...mapActions([
+      'sendPasswordResetEmail',
+    ]),
+
+    ...mapMutations([
+      'SET_SNACKBAR',
+    ]),
+
+    /**
+     * Sends password reset email to user.
+     */
+    submit() {
+      if (this.$refs.form.validate()) {
+        this.isLoading = true;
+
+        this.sendPasswordResetEmail(this.form)
+          .then((res) => {
+            this.SET_SNACKBAR({ text: res });
+          })
+          .catch((error) => {
+            this.form.onFail(error.response.data);
+          })
+          .finally(() => {
+            this.isLoading = false;
+          });
+      }
+    },
+  },
 }
 </script>
 
@@ -57,33 +69,25 @@ export default {
         <v-flex xs12>
           <v-card>
             <v-card-title>
-              <div>
-                <h3 class="headline mb-0">{{ $t("Reset Password") }}</h3>
-              </div>
+              <div class="headline mb-0">{{ $t("Reset Password") }}</div>
             </v-card-title>
             <v-form v-model="valid" ref="form" @keyup.native.enter="submit">
               <v-card-text>
                 <form-errors :errors="form.errors" />
-                <v-text-field
-                  name="email"
-                  id="email"
-                  type="email"
+                <v-text-field type="email" name="email" id="email" required
                   v-model="form.email"
                   :label="$t('E-Mail Address')"
                   :rules="emailRules"
-                  required
                 ></v-text-field>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" :loading="isLoading" @click="submit">{{
-                  $t("Send Password Reset Link")
-                }}</v-btn>
+                <v-btn color="primary" :loading="isLoading" @click="submit">{{$t("Send Password Reset Link")}}</v-btn>
               </v-card-actions>
             </v-form>
           </v-card>
         </v-flex>
-        <v-flex xs12>
+        <v-flex xs12 sm6 md4>
           <v-card>
             <v-card-text>
               <span>{{ $t("You don't have an account?") }}</span>

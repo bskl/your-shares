@@ -1,15 +1,16 @@
-<script type="text/ecmascript-6">
-export default {
-    props: ['dialog', 'width'],
+<script>
 
-    /**
-     * The component's data.
-     */
-    data() {
-        return {
-            dialogWidth: `${this.width}px`,
-        }
-    },
+export default {
+  props: ['dialog', 'width'],
+
+  /**
+   * The component's data.
+   */
+  data() {
+    return {
+      dialogWidth: `${this.width}px`,
+    }
+  },
 }
 </script>
 

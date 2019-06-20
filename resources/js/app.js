@@ -1,10 +1,3 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
-require("./bootstrap");
 import Vue from "vue";
 import Vuetify from "vuetify";
 import { sync } from 'vuex-router-sync'
@@ -14,6 +7,7 @@ import i18n from "./lang/";
 import Form from "./utilities/Form.js";
 import NProgress from "nprogress";
 import App from "./App.vue";
+window._ = require("lodash");
 
 sync(store, router)
 Vue.use(Vuetify);

@@ -12,9 +12,10 @@ export default {
       default: 0,
     },
   },
-  /*
-  * The component's name.
-  */
+
+  /**
+   * The component's name.
+   */
   name: 'ItemDetail',
 
   computed: {

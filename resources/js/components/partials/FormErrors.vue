@@ -1,13 +1,12 @@
-<script type="text/ecmascript-6">
+<script>
 
 export default {
-    props: ['errors'],
+  props: ['errors'],
 
-    /*
-     * The component's name.
-     */
-    name: 'FormErrors',
-
+  /**
+   * The component's name.
+   */
+  name: 'FormErrors',
 }
 </script>
 

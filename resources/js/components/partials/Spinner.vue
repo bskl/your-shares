@@ -1,7 +1,7 @@
 <template>
-    <div class="spinner" role="spinner">
-      <div class="spinner-icon"></div>
-    </div>
+  <div class="spinner" role="spinner">
+    <div class="spinner-icon"></div>
+  </div>
 </template>
 
 <style>

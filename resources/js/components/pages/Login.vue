@@ -1,70 +1,73 @@
-<script type="text/ecmascript-6">
-import { mapActions } from 'vuex';
+<script>
+
 import FormErrors from '../partials/FormErrors.vue';
+import { mapActions } from 'vuex';
 
 export default {
-    /*
-     * The component's name.
-     */
-    name: 'Login',
+  /**
+   * The component's name.
+   */
+  name: 'Login',
 
-    components: {
-        FormErrors,
-    },
+  components: {
+    FormErrors,
+  },
 
-    /*
-     * The component's data.
-     */
-    data() {
-        return {
-            isLoading: false,
-            form: new Form({
-                email: '',
-                password: '',
-            }),
-            valid: true,
-            emailRules: [
-                (v) => !!v || this.$t("E-mail is required"),
-                (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t("E-mail must be valid")
-            ],
-            passwordRules: [
-                (v) => !!v || this.$t("Password is required"),
-                (v) => !!v || v.length >= 6 || this.$t("Password must be more than 6 characters")
-            ],
-        }
-    },
-
-    computed: {
-        sendTo() {
-            const { redirect } = this.$route.query;
-            if (redirect !== undefined ) return { path: redirect };
-            return { name: 'Home' };
-        }
-    },
-
-    methods: {
-        ...mapActions([
-            'login',
-        ]),
-
-        /**
-         * Login User.
-         */
-        submit() {
-            if (this.$refs.form.validate()) {
-                this.isLoading = true;
-
-                this.login(this.form)
-                    .then(() => {
-                        this.$router.push(this.sendTo);
-                    })
-                    .catch((error) => {
-                        this.form.onFail(error.response.data)
-                    })
-                    .finally(() => this.isLoading = false);
-            }
-        }
+  /**
+   * The component's data.
+   */
+  data() {
+    return {
+      isLoading: false,
+      form: new Form({
+        email: '',
+        password: '',
+      }),
+      valid: true,
+      emailRules: [
+        (v) => !!v || this.$t("E-mail is required"),
+        (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t("E-mail must be valid")
+      ],
+      passwordRules: [
+        (v) => !!v || this.$t("Password is required"),
+        (v) => !!v || v.length >= 6 || this.$t("Password must be more than 6 characters")
+      ],
     }
+  },
+
+  computed: {
+    sendTo() {
+      const { redirect } = this.$route.query;
+      if (redirect !== undefined ) return { path: redirect };
+      return { name: 'Home' };
+    }
+  },
+
+  methods: {
+    ...mapActions([
+      'login',
+    ]),
+
+    /**
+     * Login User.
+     */
+    submit() {
+      if (this.$refs.form.validate()) {
+        this.isLoading = true;
+
+        this.login(this.form)
+          .then(() => {
+            this.$router.push(this.sendTo);
+          })
+          .catch((error) => {
+            this.form.onFail(error.response.data);
+          })
+          .finally(() => {
+            this.isLoading = false;
+          });
+      }
+    },
+  },
 }
 </script>
 
@@ -80,36 +83,24 @@ export default {
             <v-form v-model="valid" ref="form" @keyup.native.enter="submit">
               <v-card-text>
                 <form-errors :errors="form.errors" />
-                <v-text-field
-                  name="email"
-                  id="email"
-                  type="email"
+                <v-text-field type="email" name="email" id="email" required
                   v-model="form.email"
                   :label="$t('E-Mail Address')"
                   :rules="emailRules"
-                  required
                 ></v-text-field>
-                <v-text-field
-                  name="password"
-                  id="password"
-                  type="password"
+                <v-text-field type="password" name="password" id="password" required
                   v-model="form.password"
                   :label="$t('Password')"
                   :rules="passwordRules"
-                  required
                 ></v-text-field>
                 <div class="text-sm-right">
-                  <v-btn flat small to="/password/reset" class="ma-0">{{
-                    $t("Forgot password?")
-                  }}</v-btn>
+                  <v-btn flat small to="/password/reset" class="ma-0">{{ $t("Forgot password?") }}</v-btn>
                 </div>
               </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="primary" :loading="isLoading" @click="submit">
-                {{ $t("Sign In") }}
-              </v-btn>
-            </v-card-actions>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="primary" :loading="isLoading" @click="submit">{{ $t("Sign In") }}</v-btn>
+              </v-card-actions>
             </v-form>
           </v-card>
         </v-flex>

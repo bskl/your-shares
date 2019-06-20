@@ -16,15 +16,15 @@ import NotFound from '../components/pages/NotFound';
 Vue.use(Router);
 
 const confirmUser = function(to, from, next) {
-    if (to.params.confirmation_code) {
-        store.dispatch('confirmUserMail', to.params.confirmation_code);
-        next({
-            name: 'Home',
-            query: { redirect: to.fullPath }
-        })
-    } else {
-        next();
-    }
+  if (to.params.confirmation_code) {
+    store.dispatch('confirmUserMail', to.params.confirmation_code);
+    next({
+      name: 'Home',
+      query: { redirect: to.fullPath }
+    })
+  } else {
+    next();
+  }
 }
 
 const router = new Router({
@@ -108,25 +108,25 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-    store.dispatch('checkAuth', ls.get('access_token'))
-         .then(() => {
-            if (to.matched.some(record => record.meta.requiresAuth)) {
-                if (store.getters.isLoggedIn) {
-                    return next();
-                } else {
-                    return next({ name: 'Login', query: { redirect: to.fullPath } });
-                }
-            }
-            if (to.matched.some(record => record.meta.redirectIfAuth)) {
-                if (store.getters.isLoggedIn) {
-                    return next({ name: 'Home' });
-                } else {
-                    return next();
-                }
-            }
-        
-            return next();
-        })
+  store.dispatch('checkAuth', ls.get('access_token'))
+    .then(() => {
+      if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (store.getters.isLoggedIn) {
+          return next();
+        } else {
+          return next({ name: 'Login', query: { redirect: to.fullPath } });
+        }
+      }
+      if (to.matched.some(record => record.meta.redirectIfAuth)) {
+        if (store.getters.isLoggedIn) {
+          return next({ name: 'Home' });
+        } else {
+          return next();
+        }
+      }
+
+      return next();
+    })
 })
 
 export default router;

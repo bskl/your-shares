@@ -1,31 +1,31 @@
-<script type="text/ecmascript-6">
+<script>
 
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
-    /*
-     * The component's name.
-     */
-    name: 'UserBadge',
+  /**
+   * The component's name.
+   */
+  name: 'UserBadge',
 
-    computed: {
-        ...mapGetters([
-            'isLoggedIn',
-        ]),
+  computed: {
+    ...mapGetters([
+      'isLoggedIn',
+    ]),
+  },
+
+  methods: {
+    ...mapActions([
+      'logout',
+    ]),
+
+    submit() {
+      this.logout()
+        .then((res) => {
+          this.$router.push({ name: 'Login' });
+        });
     },
-
-    methods: {
-      ...mapActions([
-        'logout',
-      ]),
-
-      submit() {
-        this.logout()
-            .then((res) => {
-                this.$router.push({ name: 'Login' });
-            });
-      },
-    }
+  }
 }
 </script>
 
@@ -40,18 +40,14 @@ export default {
         <v-icon dark>more_vert</v-icon>
       </v-toolbar-title>
       <v-list dense>
-          <v-list-tile :to="'/portfolio/create'">
-            <v-icon class="pr-2">add</v-icon>
-            <v-list-tile-title>
-              {{ $t("Add Portfolio") }}
-            </v-list-tile-title>
-          </v-list-tile>
+        <v-list-tile :to="'/portfolio/create'">
+          <v-icon class="pr-2">add</v-icon>
+          <v-list-tile-title>{{ $t("Add Portfolio") }}</v-list-tile-title>
+        </v-list-tile>
         <v-divider></v-divider>
         <v-list-tile @click="submit()">
           <v-icon class="pr-2">exit_to_app</v-icon>
-          <v-list-tile-title>
-            {{ $t("Logout") }}
-          </v-list-tile-title>
+          <v-list-tile-title>{{ $t("Logout") }}</v-list-tile-title>
         </v-list-tile>
       </v-list>
     </v-menu>
