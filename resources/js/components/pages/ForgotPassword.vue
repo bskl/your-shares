@@ -1,7 +1,7 @@
 <script>
 
 import FormErrors from '../partials/FormErrors.vue';
-import { mapActions, mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   /**
@@ -32,11 +32,7 @@ export default {
 
   methods: {
     ...mapActions([
-      'sendPasswordResetEmail',
-    ]),
-
-    ...mapMutations([
-      'SET_SNACKBAR',
+      'sendPasswordResetEmail', 'setSnackbar',
     ]),
 
     /**
@@ -48,7 +44,7 @@ export default {
 
         this.sendPasswordResetEmail(this.form)
           .then((res) => {
-            this.SET_SNACKBAR({ text: res });
+            this.setSnackbar({ text: res });
           })
           .catch((error) => {
             this.form.onFail(error.response.data);

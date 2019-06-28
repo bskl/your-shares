@@ -1,6 +1,6 @@
-<script type="text/ecmascript-6">
+<script>
 
-import { mapActions, mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 import ItemDetail from '../partials/ItemDetail.vue';
 import { ITEM_DETAILS, TRANSACTION_TYPES } from '../../store/constants.js';
 
@@ -41,11 +41,7 @@ export default {
 
   methods: {
     ...mapActions([
-      'fetchTransactionsByShare', 'destroyTransaction',
-    ]),
-
-    ...mapMutations([
-      'SET_SNACKBAR',
+      'fetchTransactionsByShare', 'destroyTransaction', 'setSnackbar',
     ]),
 
     deleteTransaction(id) {
@@ -54,11 +50,7 @@ export default {
           this.$router.push({ name: 'Home' });
         })
         .catch((error) => {
-          if (error.response.status == 404) {
-            this.$router.push({ name: 'NotFound' });
-          } else {
-            this.SET_SNACKBAR({ color: 'error', text: error.response.data });
-          }
+          this.setSnackbar({ color: 'error', text: error.response.data });
         });
     }
   },
@@ -66,16 +58,12 @@ export default {
   created() {
     this.isLoading = true;
 
-    this.fetchTransactionsByShare(this.$route.params.shareId)
+    this.fetchTransactionsByShare(this.$route.params.id)
       .then((res) => {
         this.share = res;
         this.isLoading = false;
       })
-      .catch((error) => {
-        if (error.response.status == 404) {
-          this.$router.push({ name: 'NotFound' });
-        }
-      });
+      .catch();
   },
 }
 </script>

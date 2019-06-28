@@ -98,13 +98,13 @@ class ShareController extends Controller
     /**
      * Get share's all transactions.
      *
-     * @param int $shareId
+     * @param int $id
      *
      * @return JsonResponse
      */
-    public function getShareTransactions($shareId)
+    public function getTransactions($id)
     {
-        $share = Share::findOrFail($shareId);
+        $share = Share::findOrFail($id);
 
         $this->authorize('view', $share);
 

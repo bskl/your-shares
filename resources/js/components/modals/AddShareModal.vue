@@ -98,7 +98,7 @@ export default {
             this.close();
           })
           .catch((error) => {
-            this.form.onFail(error.response.data)
+            this.form.onFail(error.response.data);
           })
           .finally(() => {
             this.isLoading = false

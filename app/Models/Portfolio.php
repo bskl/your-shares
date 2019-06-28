@@ -80,6 +80,14 @@ class Portfolio extends BaseModel
     }
 
     /**
+     * Get all of the transactions for the portfolio.
+     */
+    public function transactions()
+    {
+        return $this->hasManyThrough('App\Models\Transaction', 'App\Models\Share');
+    }
+
+    /**
      * Get the commission attribute with remove zeros from end of number ie. 0,18800 becomes 0,188.
      */
     public function getCommissionAttribute()

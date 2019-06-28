@@ -11,6 +11,11 @@ export default {
       required: false,
       default: 0,
     },
+    baseLink: {
+      type: String,
+      required: false,
+      default: null,
+    },
   },
 
   /**
@@ -21,13 +26,18 @@ export default {
   computed: {
     classObject() {
       return (this.item.change_color) ? (this.value < 0) ? 'red--text' : 'green--text' : '';
+    },
+    createLink() {
+      return this.item.link ? `/${this.baseLink}/${this.item.link}` : undefined;
     }
   },
 };
 </script>
 
 <template>
-  <v-list-tile>
+  <v-list-tile
+    :to="createLink"
+  >
     <v-list-tile-content>
       <v-list-tile-title>
         {{ $t(`${item.key}.title`) }}

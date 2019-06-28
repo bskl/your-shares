@@ -1,6 +1,9 @@
 import ls from "local-storage";
 
 export default {
+  TOGGLE_LOADING(state) {
+    state.isLoading = !state.isLoading;
+  },
   LOGGED_IN(state, data) {
     if (_.has(data, 'access_token') && data.access_token) {
       ls.set('access_token', data.access_token);
@@ -25,11 +28,7 @@ export default {
     state.portfolios.push(portfolio);
   },
   UPDATE_PORTFOLIO(state, { index, data }) {
-    _.forEach(data, function(value, key) {
-      if(_.has(state.portfolios[index], key)) {
-        state.portfolios[index][key] = value;
-      }
-    });
+    state.portfolios[index] = data;
   },
   DESTROY_PORTFOLIO(state, index) {
     state.portfolios.splice(index, 1);

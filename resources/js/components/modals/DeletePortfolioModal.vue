@@ -4,7 +4,7 @@ import Modal from '../modals/modal/Modal.vue';
 import ModalHeading from '../modals/modal/ModalHeading.vue';
 import ModalBody from '../modals/modal/ModalBody.vue';
 import ModalFooter from '../modals/modal/ModalFooter.vue';
-import { mapActions, mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   /**
@@ -42,11 +42,7 @@ export default {
 
   methods: {
     ...mapActions([
-      'destroyPortfolio',
-    ]),
-
-    ...mapMutations([
-      'SET_SNACKBAR',
+      'destroyPortfolio', 'setSnackbar',
     ]),
 
     /**
@@ -77,11 +73,7 @@ export default {
           this.$router.push({ name: 'Home' });
         })
         .catch((error) => {
-          if (error.response.status == 404) {
-            this.$router.push({ name: 'NotFound' });
-          } else {
-            this.SET_SNACKBAR({ color: 'error', text: error.response.data });
-          }
+          this.setSnackbar({ color: 'error', text: error.response.data });
         })
         .finally(() => {
           this.isLoading = false;

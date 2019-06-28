@@ -1,7 +1,7 @@
 <script>
 
 import FormErrors from '../partials/FormErrors.vue';
-import { mapActions, mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   /**
@@ -38,11 +38,7 @@ export default {
 
   methods: {
     ...mapActions([
-      'passwordReset',
-    ]),
-
-    ...mapMutations([
-      'SET_SNACKBAR',
+      'passwordReset', 'setSnackbar',
     ]),
 
     /**
@@ -54,7 +50,7 @@ export default {
 
         this.passwordReset(this.form)
           .then((res) => {
-            this.SET_SNACKBAR({ text: res });
+            this.setSnackbar({ text: res });
             this.$router.push({ name: 'Login' });
           })
           .catch((error) => {

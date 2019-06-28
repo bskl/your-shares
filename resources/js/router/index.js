@@ -7,11 +7,13 @@ import CreatePortfolio from '../components/pages/CreatePortfolio';
 import EditPortfolio from '../components/pages/EditPortfolio';
 import AddTransaction from '../components/pages/AddTransaction';
 import Share from '../components/pages/Share';
+import TransactionListingByType from '../components/pages/TransactionListingByType';
 import Login from '../components/pages/Login';
 import Register from '../components/pages/Register';
 import ForgotPassword from '../components/pages/ForgotPassword';
 import PasswordReset from '../components/pages/PasswordReset';
 import NotFound from '../components/pages/NotFound';
+import Forbidden from '../components/pages/Forbidden';
 
 Vue.use(Router);
 
@@ -57,10 +59,16 @@ const router = new Router({
       meta: { requiresAuth: true, transitionName: 'slide-right' },
     },
     {
-      path: "/share/:shareId(\\d+)/transactions",
+      path: "/share/:id(\\d+)/transactions",
       name: 'Share',
       component: Share,
       props: true,
+      meta: { requiresAuth: true, transitionName: 'slide-right' },
+    },
+    {
+      path: "/portfolio/:id(\\d+)/transactions/:type/:year(\\d+)?",
+      name: 'TransactionListingByType',
+      component: TransactionListingByType,
       meta: { requiresAuth: true, transitionName: 'slide-right' },
     },
     {
@@ -96,6 +104,11 @@ const router = new Router({
       path: '/404',
       name: 'NotFound',
       component: NotFound,
+    },
+    {
+      path: '/403',
+      name: 'Forbidden',
+      component: Forbidden,
     },
     {
       path: '*',

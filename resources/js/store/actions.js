@@ -1,5 +1,6 @@
 import axios from "axios";
 import { cacheAdapterEnhancer } from 'axios-extensions';
+import router from "../router";
 import ls from "local-storage";
 import i18n from  "../lang/";
 
@@ -22,14 +23,25 @@ http.interceptors.response.use(function (response) {
 
   if (error.response.status === 400 || error.response.status === 401) {
     ls.remove("access_token");
-    window.onbeforeunload = function() {};
-    window.location.reload();
+    router.push({ name: 'Login' });
+  } else if (error.response.status === 403) {
+    router.push({ name: 'Forbidden' });
+  } else if (error.response.status === 404) {
+    router.push({ name: 'NotFound' });
   }
 
   return Promise.reject(error);
 });
 
 export default {
+  toggleLoading({ commit }) {
+    commit('TOGGLE_LOADING');
+  },
+
+  setSnackbar({ commit }, data) {
+    commit('SET_SNACKBAR', data);
+  },
+
   register({ dispatch, commit }, data) {
     return http.post('/register', data)
       .then((res) => {
@@ -194,8 +206,15 @@ export default {
       });
   },
 
-  fetchTransactionsByShare(_, shareId) {
-    return http.get(`/share/${shareId}/transactions`)
+  fetchTransactionsByShare(_, id) {
+    return http.get(`/share/${id}/transactions`)
+      .then((res) => {
+        return res.data;
+      });
+  },
+
+  fetchTransactionsByTypeAndYear(_, path) {
+    return http.get(path)
       .then((res) => {
         return res.data;
       });

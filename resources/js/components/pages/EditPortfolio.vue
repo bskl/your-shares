@@ -48,7 +48,7 @@ export default {
 
   methods: {
     ...mapActions([
-      'updatePortfolio', 'fetchPortfolio'
+      'updatePortfolio', 'fetchPortfolio',
     ]),
 
     fetchData() {
@@ -56,11 +56,7 @@ export default {
         .then((res) => {
           this.form = new Form(res);
         })
-        .catch((error) => {
-          if (error.response.status == 404) {
-            this.$router.push({ name: 'NotFound' });
-          }
-        });
+        .catch();
     },
 
     /**

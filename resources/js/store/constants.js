@@ -28,6 +28,7 @@ export const ITEM_DETAILS = {
     key: 'total_dividend_gain',
     type: 'currency',
     change_color: true,
+    link: 'transactions/dividend'
   },
   6: {
     key: 'total_bonus_share',
@@ -39,7 +40,7 @@ export const ITEM_DETAILS = {
     type: 'currency',
     change_color: true,
   },
-  7: {
+  8: {
     key: 'instant_gain',
     type: 'currency',
     change_color: true,

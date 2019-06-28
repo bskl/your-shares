@@ -1,6 +1,6 @@
 <script type="text/ecmascript-6">
 
-import { mapState, mapActions, mapMutations, mapGetters } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 import AddShareModal from '../modals/AddShareModal.vue';
 import ItemDetail from '../partials/ItemDetail.vue';
 import { ITEM_DETAILS } from '../../store/constants.js';
@@ -44,11 +44,7 @@ export default {
 
   methods: {
     ...mapActions([
-      'fetchData', 'destroyShare', 'fetchSymbolsData',
-    ]),
-
-    ...mapMutations([
-      'SET_SNACKBAR',
+      'fetchData', 'destroyShare', 'fetchSymbolsData', 'setSnackbar',
     ]),
 
     trendClass(trend) {
@@ -62,21 +58,17 @@ export default {
       this.destroyShare(share)
         .then()
         .catch((error) => {
-          if (error.response.status == 404) {
-            this.$router.push({ name: 'NotFound' });
-          } else {
-            this.SET_SNACKBAR({ color: 'error', text: error.response.data });
-          }
+          this.setSnackbar({ color: 'error', text: error.response.data });
         });
     },
 
     getSymbolsData() {
-      this. loading = true;
+      this.loading = true;
 
       this.fetchSymbolsData()
         .then()
         .catch((error) => {
-          this.SET_SNACKBAR({ color: 'error', text: error.response.data });
+          this.setSnackbar({ color: 'error', text: error.response.data });
         })
         .finally(() => {
           this.loading = false;
@@ -223,6 +215,7 @@ export default {
                 v-for="(item, index) in itemDetails" :key="index"
                 :item="item"
                 :value="portfolio[item.key]"
+                :baseLink="`portfolio/${portfolio.id}`"
               />
             </v-list>
           </v-flex>

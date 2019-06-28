@@ -22,7 +22,7 @@ export default {
     return {
       isLoading: false,
       form: new Form({
-        share_id: null,
+        share_id: this.$route.params.shareId,
         type: 0,
         date_at: null,
         lot: null,
@@ -91,7 +91,6 @@ export default {
     fetchData() {
       this.fetchPortfolio(this.$route.params.portfolioId)
         .then((res) => {
-          this.form.share_id = this.$route.params.shareId;
           this.form.commission = res.commission;
 
           this.fetchShare(this.$route.params.shareId)
@@ -99,11 +98,7 @@ export default {
               this.symbolCode = res.code;
             })
         })
-        .catch((error) => {
-          if (error.response.status == 404) {
-            this.$router.push({ name: 'NotFound' });
-          }
-        });
+        .catch();
     },
 
     /**
@@ -118,9 +113,6 @@ export default {
             this.$router.push({ name: 'Home' });
           })
           .catch((error) => {
-            if (error.response.status == 404) {
-              this.$router.push({ name: 'NotFound' });
-            }
             this.form.onFail(error.response.data);
           })
           .finally(() => {

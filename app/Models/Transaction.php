@@ -53,7 +53,7 @@ class Transaction extends BaseModel
     ];
 
     /**
-     * Get the portfolio symbol.
+     * Get the transaction share.
      */
     public function share()
     {

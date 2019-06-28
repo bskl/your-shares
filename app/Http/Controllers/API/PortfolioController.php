@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Enums\TransactionTypes;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\PortfolioRequest;
+use App\Models\BaseModel;
 use App\Models\Portfolio;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Money\Money;
 
 class PortfolioController extends Controller
 {
@@ -111,5 +115,96 @@ class PortfolioController extends Controller
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
+    }
+
+    /**
+     * Get portfolio transactions by type then list transactions by year.
+     *
+     * @param int    $id
+     * @param string $type
+     *
+     * @return JsonResponse
+     */
+    public function getTransactionsOfType($id, $type)
+    {
+        $portfolio = Portfolio::findOrFail($id);
+
+        $this->authorize('view', $portfolio);
+
+        $transactions = $portfolio->transactions()
+                                  ->selectRaw("transactions.*, MONTH(date_at) AS month, YEAR(date_at) AS year")
+                                  ->whereType(TransactionTypes::getTypeId($type))
+                                  ->orderBy('date_at')
+                                  ->get();
+
+        if (! count($transactions)) {
+            return response()->json();
+        }
+
+        foreach ($transactions as $key => $transaction) {
+            $dividends[$key]['name'] = $transaction->year;
+            $dividends[$key]['total'] = Money::TRY(0);
+            foreach ($transactions as $item) {
+                if ($item->year == $transaction->year) {
+                    $dividends[$key]['total'] = $dividends[$key]['total']->add($item->dividend_gain);
+                    $dividends[$key][$item->month] = ($dividends[$key][$item->month] ?? Money::TRY(0))->add($item->dividend_gain);
+                }
+            }
+            for ($month = 1; $month <= 12; $month++) {
+                $dividends[$key][$month] = $portfolio->convertMoneyToDecimal(
+                    $dividends[$key][$month] ?? Money::TRY(0)
+                );
+            }
+            $dividends[$key]['total'] = $portfolio->convertMoneyToDecimal($dividends[$key]['total']);
+        }
+
+        return response()->json(collect($dividends)->unique('name')->values()->all());
+    }
+
+    /**
+     * Get portfolio transactions by type then list transactions by type and year.
+     *
+     * @param int    $id
+     * @param string $type
+     * @param int    $year
+     *
+     * @return JsonResponse
+     */
+    public function getTransactionsOfTypeAndYear($id, $type, $year)
+    {
+        $portfolio = Portfolio::findOrFail($id);
+
+        $this->authorize('view', $portfolio);
+
+        $transactions = $portfolio->transactions()
+                                  ->with('share.symbol:id,code,last_price')
+                                  ->selectRaw("transactions.*, MONTH(date_at) AS month")
+                                  ->whereType(TransactionTypes::getTypeId($type))
+                                  ->whereYear('date_at', $year)
+                                  ->orderBy('date_at')
+                                  ->get();
+
+        if (! count($transactions)) {
+            return response()->json();
+        }
+
+        foreach ($transactions as $key => $transaction) {
+            $dividends[$key]['name'] = $transaction->share->symbol->code;
+            $dividends[$key]['total'] = Money::TRY(0);
+            foreach ($transactions as $item) {
+                if ($item->share_id == $transaction->share_id) {
+                    $dividends[$key]['total'] = $dividends[$key]['total']->add($item->dividend_gain);
+                    $dividends[$key][$item->month] = $item->dividend_gain;
+                }
+            }
+            for ($month = 1; $month <= 12; $month++) {
+                $dividends[$key][$month] = $portfolio->convertMoneyToDecimal(
+                    $dividends[$key][$month] ?? Money::TRY(0)
+                );
+            }
+            $dividends[$key]['total'] = $portfolio->convertMoneyToDecimal($dividends[$key]['total']);
+        }
+
+        return response()->json(collect($dividends)->unique('name')->values()->all());
     }
 }

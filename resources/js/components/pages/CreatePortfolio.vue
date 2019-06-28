@@ -1,7 +1,7 @@
 <script>
 
 import PortfolioForm from '../partials/PortfolioForm.vue';
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   /**

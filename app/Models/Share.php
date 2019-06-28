@@ -110,10 +110,14 @@ class Share extends BaseModel
 
     /**
      * Get the share's transactions by type.
+     * 
+     * @param  mixed $type
+     * 
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function getTransactionsByType(array $type)
+    public function transactionsOfType($type)
     {
-        return $this->transactions->whereIn('type', $type);
+        return $this->transactions()->whereIn('type', $type);
     }
 
     /**
@@ -121,7 +125,7 @@ class Share extends BaseModel
      */
     public function getBuyingTransactionsByNotSold()
     {
-        return $this->getTransactionsByType([TransactionTypes::BUYING, TransactionTypes::BONUS])->where('remaining', '!=', 0);
+        return $this->transactionsOfType([TransactionTypes::BUYING, TransactionTypes::BONUS])->where('remaining', '!=', 0)->get();
     }
 
     /**
