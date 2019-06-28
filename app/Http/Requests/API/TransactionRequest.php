@@ -28,8 +28,8 @@ class TransactionRequest extends Request
     public function rules()
     {
         $share = Share::findOrFail($this->share_id);
-        $addRule = ($this->type == (TransactionTypes::SALE || TransactionTypes::DIVIDEND)) ? '|lte:'.$share->lot : '';
-        $addRule .= ($this->type == (TransactionTypes::BUYING || TransactionTypes::SALE)) ? '|integer' : '';
+        $addRule = ($this->type == TransactionTypes::SALE || $this->type == TransactionTypes::DIVIDEND) ? '|lte:'.$share->lot : '';
+        $addRule .= ($this->type == TransactionTypes::BUYING || $this->type == TransactionTypes::SALE) ? '|integer' : '';
 
         return [
             'share_id' => 'required|integer|exists:shares,id,user_id,'.auth()->user()->id,
@@ -38,7 +38,7 @@ class TransactionRequest extends Request
                 Rule::in([0, 1, 2, 3]),
             ],
             'date_at'       => 'required|date|before_or_equal:'.Carbon::today()->toDateString(),
-            'lot'           => 'required|numeric'.$addRule,
+            'lot'           => 'required'.$addRule,
             'price'         => 'required',
             'commission'    => 'required|regex:/^(0(\.\d+)?)$/',
             'dividend_gain' => 'sometimes|required',
