@@ -1,5 +1,6 @@
 <script>
 
+import upperFirst from 'lodash/upperFirst';
 import { mapActions } from 'vuex';
 
 export default {
@@ -35,6 +36,12 @@ export default {
     }
   },
 
+  computed: {
+    title() {
+      return this.$t(`${upperFirst(this.$route.params.type)} Transactions`);
+    }
+  },
+
   methods: {
     ...mapActions([
       'fetchTransactionsByTypeAndYear',
@@ -42,6 +49,10 @@ export default {
 
     createLink(year) {
       return this.$route.params.year ? '' : `${this.$route.path}/${year}`;
+    },
+
+    tdItem(index, value) {
+      return index === 0 ? value : this.$n(value, this.$route.params.type == 'bonus' ? "decimal" : "currency");
     },
 
     fetchData(path) {
@@ -58,7 +69,7 @@ export default {
 
   beforeRouteUpdate (to, from, next) {
     if (to.params.year) {
-      this.headers[0].text = this.$t('Symbol');
+      this.headers[0].text = this.$t("Symbol");
       this.returnLink = from.fullPath;
     } else {
       this.returnLink = '/'
@@ -83,7 +94,7 @@ export default {
             <v-btn icon light class="ml-0" :to="returnLink" exact>
               <v-icon color="grey darken-2">arrow_back</v-icon>
             </v-btn>
-            <v-toolbar-title class="grey--text text--darken-4 ml-1">{{ $t('Dividend Transactions') }}</v-toolbar-title>
+            <v-toolbar-title class="grey--text text--darken-4 ml-1">{{ title }}</v-toolbar-title>
           </v-toolbar>
         </v-card-title>
         <v-divider></v-divider>
@@ -99,11 +110,11 @@ export default {
               <router-link tag="tr" :to="createLink(props.item.name)">
                 <td v-for="(header, index) in headers" :key="header.value"
                   :class="{
-                    'green--text': props.item[header.value] > 0 && index != 0,
-                    'text-xs-right': index != 0
+                    'green--text': props.item[header.value] > 0 && index !== 0,
+                    'text-xs-right': index !== 0
                   }"
                 >
-                  {{ index == 0 ? props.item[header.value] : $n(props.item[header.value], "currency") }}
+                  {{ tdItem(index, props.item[header.value]) }}
                 </td>
               </router-link>
             </template>

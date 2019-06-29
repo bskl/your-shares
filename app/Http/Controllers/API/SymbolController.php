@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Portfolio;
 use App\Models\Symbol;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Gate;
@@ -34,7 +33,7 @@ class SymbolController extends Controller
             );
         }
 
-        return response()->json("", Response::HTTP_UNPROCESSABLE_ENTITY);
+        return response()->json('', Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /**

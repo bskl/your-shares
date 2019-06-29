@@ -172,8 +172,8 @@ export default {
                 v-model="form.date_at"
               >
                 <v-spacer></v-spacer>
-                <v-btn flat color="primary" @click="menu = false">{{ $t('Close') }}</v-btn>
-                <v-btn flat color="primary" @click="$refs.menu.save(form.date_at)">{{ $t('Ok') }}</v-btn>
+                <v-btn flat color="primary" @click="menu = false">{{ $t("Close") }}</v-btn>
+                <v-btn flat color="primary" @click="$refs.menu.save(form.date_at)">{{ $t("Ok") }}</v-btn>
               </v-date-picker>
             </v-menu>
             <v-text-field type="number" name="lot" id="lot" required

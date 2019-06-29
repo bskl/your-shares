@@ -34,6 +34,7 @@ export const ITEM_DETAILS = {
     key: 'total_bonus_share',
     type: 'decimal',
     change_color: true,
+    link: 'transactions/bonus'
   },
   7: {
     key: 'total_gain',
@@ -51,5 +52,5 @@ export const TRANSACTION_TYPES = [
   'Buying',
   'Sale',
   'Dividend',
-  'Bonus Share',
+  'Bonus',
 ];

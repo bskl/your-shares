@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
-use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
 use Money\Parser\IntlLocalizedDecimalParser;
 
@@ -28,7 +27,7 @@ abstract class BaseModel extends Model
         $attributes = parent::attributesToArray();
 
         foreach ($this->money as $key) {
-            $attributes[$key] = $this->convertMoneyToDecimal($this->$key);
+            $attributes[$key] = convert_money_to_decimal($this->$key);
         }
 
         return $attributes;
@@ -53,22 +52,6 @@ abstract class BaseModel extends Model
         }
 
         return $collection;
-    }
-
-    /**
-     * Convert Money object to decimal.
-     *
-     * @param Money\Money $money
-     *
-     * @return string
-     */
-    public function convertMoneyToDecimal(Money $money)
-    {
-        $currencies = new ISOCurrencies();
-
-        $moneyFormatter = new DecimalMoneyFormatter($currencies);
-
-        return $moneyFormatter->format($money);
     }
 
     /**

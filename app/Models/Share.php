@@ -110,9 +110,9 @@ class Share extends BaseModel
 
     /**
      * Get the share's transactions by type.
-     * 
-     * @param  mixed $type
-     * 
+     *
+     * @param mixed $type
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function transactionsOfType($type)
@@ -133,7 +133,7 @@ class Share extends BaseModel
      */
     public function getInstantGainAttribute()
     {
-        return $this->convertMoneyToDecimal($this->gain->add($this->total_gain));
+        return convert_money_to_decimal($this->gain->add($this->total_gain));
     }
 
     /**
