@@ -23,7 +23,6 @@ export default {
   "Currency": "Currency",
   "Add Portfolio": "Add Portfolio",
   "Update Portfolio": "Update Portfolio",
-  "Delete Portfolio": "Delete Portfolio",
   "Are you sure want to delete to portfolio?" : "Are you sure want to delete to portfolio?",
   "Search Symbol": "Search Symbol",
   "Add Symbol": "Add Symbol",

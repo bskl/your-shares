@@ -107,7 +107,7 @@ export default {
                 v-if="this.portfoliosCount > 1"
                 @click="showDeletePortfolioModal({id: form.id})"
               >
-                {{ $t("Delete Portfolio") }}
+                {{ $t("Delete") }}
               </v-btn>
               <v-spacer></v-spacer>
               <v-btn :to="'/'">{{ $t("Close") }}</v-btn>

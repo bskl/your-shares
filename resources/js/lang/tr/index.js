@@ -24,7 +24,6 @@ export default {
   "Currency": "Para Birimi",
   "Add Portfolio": "Portföy Ekle",
   "Update Portfolio": "Portföy Güncelle",
-  "Delete Portfolio": "Portföy Sil",
   "Are you sure want to delete to portfolio?" : "Portföyü silmek istediğinize emin misiniz?",
   "Search Symbol": "Hisse Ara",
   "Add Symbol": "Hisse Ekle",
