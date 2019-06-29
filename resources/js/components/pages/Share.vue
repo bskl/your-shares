@@ -70,7 +70,7 @@ export default {
 
 <template>
   <v-layout row wrap v-if="!isLoading">
-    <v-flex xs10 offset-md1>
+    <v-flex xs12 sm12 md10 offset-md1>
       <v-card>
         <v-card-title class="pt-0 pb-0 elevation-3 no-wrap">
           <v-toolbar color="white" flat>
