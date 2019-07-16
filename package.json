@@ -13,7 +13,6 @@
     "dependencies": {
         "axios": "^0.18.1",
         "axios-extensions": "^3.0.6",
-        "local-storage": "^1.4.2",
         "lodash": "^4.17.11",
         "nprogress": "^0.2.0",
         "v-money": "^0.8.1",

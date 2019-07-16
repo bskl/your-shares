@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import store from '../store';
-import ls from "local-storage";
 import Home from '../components/pages/Home';
 import CreatePortfolio from '../components/pages/CreatePortfolio';
 import EditPortfolio from '../components/pages/EditPortfolio';
@@ -121,7 +120,7 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  store.dispatch('checkAuth', ls.get('access_token'))
+  store.dispatch('checkAuth', JSON.parse(localStorage.getItem('access_token')))
     .then(() => {
       if (to.matched.some(record => record.meta.requiresAuth)) {
         if (store.getters.isLoggedIn) {

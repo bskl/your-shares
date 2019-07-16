@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueI18n from "vue-i18n";
-import ls from "local-storage";
 import messages from "./map";
 
 Vue.use(VueI18n);
@@ -89,7 +88,7 @@ const getNavigatorLocale = function() {
 };
 
 const getLocale = function() {
-  return ls.get("locale") ? ls.get("locale") : getNavigatorLocale();
+  return JSON.parse(localStorage.getItem('locale')) || getNavigatorLocale();
 };
 
 // Create VueI18n instance with options

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { cacheAdapterEnhancer } from 'axios-extensions';
 import router from "../router";
-import ls from "local-storage";
 import i18n from  "../lang/";
 
 const http = axios.create({
@@ -11,7 +10,7 @@ const http = axios.create({
 
 http.interceptors.request.use(function (config) {
   NProgress.start()
-  config.headers.Authorization = `Bearer ${ls.get("access_token")}`;
+  config.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('access_token'))}`;
   return config;
 });
 
@@ -22,7 +21,7 @@ http.interceptors.response.use(function (response) {
   NProgress.done();
 
   if (error.response.status === 400 || error.response.status === 401) {
-    ls.remove("access_token");
+    localStorage.removeItem('access_token');
     router.push({ name: 'Login' });
   } else if (error.response.status === 403) {
     router.push({ name: 'Forbidden' });

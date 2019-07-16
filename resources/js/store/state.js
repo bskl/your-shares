@@ -1,8 +1,6 @@
-import ls from "local-storage";
-
 export default {
   isLoading: false,
-  isLoggedIn: !!ls.get('access_token'),
+  isLoggedIn: !!JSON.parse(localStorage.getItem('access_token')),
   user: [],
   portfolios: [],
   snackbar: {
