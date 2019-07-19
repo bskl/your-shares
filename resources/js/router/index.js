@@ -51,7 +51,7 @@ const router = new Router({
       meta: { requiresAuth: true, transitionName: 'slide-right' },
     },
     {
-      path: "/:portfolioId(\\d+)/:shareId(\\d+)/transaction/add",
+      path: "/share/:id(\\d+)/transaction/add",
       name: 'AddTransaction',
       component: AddTransaction,
       props: true,

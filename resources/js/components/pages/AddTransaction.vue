@@ -6,6 +6,21 @@ import { mapActions } from 'vuex';
 import { TRANSACTION_TYPES } from '../../store/constants.js';
 
 export default {
+  props: {
+    id: {
+      type: [Number, String],
+      required: false,
+    },
+    code: {
+      type: String,
+      required: false,
+    },
+    commission: {
+      type: Number,
+      required: false,
+    },
+  },
+
   /**
    * The component's name.
    */
@@ -20,14 +35,14 @@ export default {
    */
   data() {
     return {
-      isLoading: false,
+      loading: false,
       form: new Form({
-        share_id: this.$route.params.shareId,
+        share_id: this.id,
         type: 0,
         date_at: null,
         lot: null,
         price: null,
-        commission: null,
+        commission: this.commission,
         dividend_gain: null,
       }),
       valid: true,
@@ -37,7 +52,7 @@ export default {
         precision: 2,
       },
       menu: false,
-      symbolCode: null,
+      symbolCode: this.code,
       transactionRules: [
         (v) => !!v || this.$t("Transaction is required"),
       ],
@@ -46,7 +61,7 @@ export default {
       ],
       lotRules: [
         (v) => !!v || this.$t("Lot is required"),
-        (v) => v>0 || this.$t("Lot must be more than 0")
+        (v) => v>0 || this.$t("Lot must be more than 0"),
       ],
       priceRules: [
         (v) => !!v || this.$t("Price is required"),
@@ -60,12 +75,6 @@ export default {
     };
   },
 
-  watch: {
-    $route() {
-      this.fetchData();
-    },
-  },
-
   computed: {
     transactionTypes() {
       return TRANSACTION_TYPES.map((item, index) => ({
@@ -75,38 +84,21 @@ export default {
     },
   },
 
-  created() {
-    this.fetchData();
-  },
-
   directives: {
     money: VMoney
   },
 
   methods: {
     ...mapActions([
-      'createTransaction', 'fetchPortfolio', 'fetchShare',
+      'createTransaction',
     ]),
-
-    fetchData() {
-      this.fetchPortfolio(this.$route.params.portfolioId)
-        .then((res) => {
-          this.form.commission = res.commission;
-
-          this.fetchShare(this.$route.params.shareId)
-            .then((res) => {
-              this.symbolCode = res.code;
-            })
-        })
-        .catch();
-    },
 
     /**
      * Save the transaction.
      */
     submit() {
       if (this.$refs.form.validate()) {
-        this.isLoading = true;
+        this.loading = true;
 
         this.createTransaction(this.form)
           .then((res) => {
@@ -116,8 +108,7 @@ export default {
             this.form.onFail(error.response.data);
           })
           .finally(() => {
-            this.isLoading = false
-            this.$refs.form.reset();
+            this.loading = false;
             this.$refs.form.resetValidation();
           });
       }
@@ -127,6 +118,19 @@ export default {
      * Set the allowed dates for date time picker.
     */
     allowedDates: val => ((new Date(val)).getDay() !== 0 && (new Date(val)).getDay() !== 6 && new Date(val) <= new Date())
+  },
+
+  created() {
+    if (this.code === undefined || this.commission === undefined) {
+      const storageData = JSON.parse(localStorage.getItem('transactionData'));
+      this.symbolCode = storageData.code;
+      this.form.commission = storageData.commission;
+    } else {
+      localStorage.setItem('transactionData', JSON.stringify({
+        code: this.code,
+        commission: this.commission
+      }));
+    }
   },
 }
 </script>
@@ -208,7 +212,7 @@ export default {
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn :to="'/'">{{ $t("Close") }}</v-btn>
-            <v-btn color="primary" :loading="isLoading" @click="submit">{{ $t("Create") }}</v-btn>
+            <v-btn color="primary" :loading="loading" @click="submit">{{ $t("Create") }}</v-btn>
           </v-card-actions>
         </v-form>
       </v-card>
