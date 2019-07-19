@@ -2,14 +2,14 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito|Material+Icons');
 
-// Variables
-@import 'variables';
-
 // Vuetify
-@import 'node_modules/vuetify/dist/vuetify';
+@import url('../../node_modules/vuetify/dist/vuetify.css');
 
 // NProgress
-@import 'node_modules/nprogress/nprogress';
+@import url('../../node_modules/nprogress/nprogress.css');
+
+// Custom
+@import url('_custom.scss');
 
 // Variables
-@import 'custom';
+@import url('_variables.scss');
