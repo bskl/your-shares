@@ -23,9 +23,7 @@ export default {
     return {
       showModal: false,
       isLoading: false,
-      form: new Form({
-        id: 0,
-      }),
+      id: null,
     };
   },
 
@@ -48,8 +46,8 @@ export default {
     /**
      * Set form elements from given data and open the model.
      */
-    open(data) {
-      this.form = new Form(data);
+    open(id) {
+      this.id = id;
       this.showModal = true;
     },
 
@@ -57,7 +55,7 @@ export default {
      * Close the modal and reset form elements.
      */
     close() {
-      this.form.reset();
+      this.id = null;
       this.showModal = false;
     },
 
@@ -67,7 +65,7 @@ export default {
     submit() {
       this.isLoading = true;
 
-      this.destroyPortfolio(this.form.id)
+      this.destroyPortfolio(this.id)
         .then((res) => {
           this.close();
           this.$router.push({ name: 'Home' });
@@ -89,7 +87,7 @@ export default {
       <span class="headline">{{ $t("Delete Portfolio") }}</span>
     </modal-heading>
       <modal-body>
-        <div class="text-xs-center">{{ $t("Are you sure want to delete to portfolio?") }}</div>
+        <div class="text-xs-center">{{ $t("Are you sure you want to delete this portfolio?") }}</div>
       </modal-body>
       <modal-footer>
         <v-spacer></v-spacer>

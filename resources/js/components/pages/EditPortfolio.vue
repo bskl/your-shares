@@ -105,7 +105,7 @@ export default {
             <v-card-actions>
               <v-btn color="red"
                 v-if="this.portfoliosCount > 1"
-                @click="showDeletePortfolioModal({id: form.id})"
+                @click="showDeletePortfolioModal(form.id)"
               >
                 {{ $t("Delete") }}
               </v-btn>
