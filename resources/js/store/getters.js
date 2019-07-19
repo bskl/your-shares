@@ -33,8 +33,4 @@ export default {
   getShareIndexById: (state, getters) => (portfolioId, shareId) => {
     return _.findIndex(getters.getSharesByPortfolio(portfolioId), ['id', shareId]);
   },
-  getShareByPortfolio: (state, getters) => (portfolioId, shareId) => {
-    const portfolio = getters.getPortfolioById(portfolioId);
-    return _.find(portfolio.shares, function(share) { return share.id == shareId; });
-  },
 }
