@@ -1,7 +1,8 @@
 <script>
 
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import ItemDetail from '../partials/ItemDetail.vue';
+import DeleteTransactionModal from '../modals/DeleteTransactionModal.vue';
 import { ITEM_DETAILS, TRANSACTION_TYPES } from '../../store/constants.js';
 
 export default {
@@ -11,7 +12,7 @@ export default {
   name: 'Share',
 
   components: {
-    ItemDetail,
+    ItemDetail, DeleteTransactionModal,
   },
 
   /**
@@ -27,6 +28,10 @@ export default {
   },
 
   computed: {
+    ...mapGetters([
+      'getPortfolioById',
+    ]),
+
     indexedTransactions() {
       return this.share.transactions.map((item, index) => ({
         index: index,
@@ -37,22 +42,37 @@ export default {
     count() {
       return this.share.transactions.length;
     },
+
+    lastTransaction() {
+      return this.share.transactions[this.count - 1];
+    },
+
+    portfolio() {
+      return this.getPortfolioById(this.share.portfolio_id);
+    }
   },
 
   methods: {
     ...mapActions([
-      'fetchTransactionsByShare', 'destroyTransaction', 'setSnackbar',
+      'fetchTransactionsByShare', 'destroyShare', 'setSnackbar',
     ]),
 
-    deleteTransaction(id) {
-      this.destroyTransaction(id)
+    deleteShare() {
+      this.destroyShare({ 'id': this.share.id, 'portfolio_id': this.share.portfolio_id })
         .then((res) => {
           this.$router.push({ name: 'Home' });
         })
         .catch((error) => {
           this.setSnackbar({ color: 'error', text: error.response.data });
         });
-    }
+    },
+
+    /**
+     * Open the modal for deleting transaction.
+     */
+    showDeleteTransactionModal(id) {
+      this.$refs.deleteTransactionModal.open(id);
+    },
   },
 
   created() {
@@ -91,6 +111,39 @@ export default {
               <span>{{ $n(share.symbol.rate_of_change, "percent") }}</span>
             </v-subheader>
             <v-subheader class="pl-1 mx-0">{{ share.symbol.session_time }}</v-subheader>
+            <v-spacer></v-spacer>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn icon small class="mx-1"
+                  v-if="share.total_purchase_amount == 0"
+                  @click="deleteShare()"
+                >
+                  <v-icon color="red darken-2" v-on="on">delete</v-icon>
+                </v-btn>
+              </template>
+              <span>{{ $t("delete_share", { portfolioName: portfolio.name }) }}</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn icon small class="mx-1"
+                  v-if="count > 0 && lastTransaction.type == 0"
+                  @click="showDeleteTransactionModal(lastTransaction.id)"
+                >
+                  <v-icon color="red darken-2" v-on="on">delete</v-icon>
+                </v-btn>
+              </template>
+              <span>{{ $t("Delete last item of transactions.") }}</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn icon small class="mx-1"
+                  :to="{ name: 'AddTransaction', params: { id: share.id, code: share.symbol.code, commission: portfolio.commission }}"
+                >
+                  <v-icon color="green darken-2" v-on="on">add</v-icon>
+                </v-btn>
+              </template>
+              <span>{{ $t("Add Transaction") }}</span>
+            </v-tooltip>
           </v-toolbar>
         </v-card-title>
         <v-divider></v-divider>
@@ -105,7 +158,6 @@ export default {
               { text: $t('Transaction Amount'), value: 'transaction_amount', align: 'center', sortable: false },
               { text: $t('Commission Price'), value: 'commission_price', align: 'center', sortable: false },
               { text: $t('Gain/Loss'), value: 'gain_loss', align: 'center', sortable: false },
-              { text: $t('Actions'), value: 'actions', align: 'center', sortable: false },
             ]"
             :no-data-text="$t('You have not any transaction.')"
             :rows-per-page-text="$t('Rows per page:')"
@@ -146,14 +198,6 @@ export default {
               >
                 {{ $n(props.item.bonus, "percent") }}
               </td>
-              <td class="justify-center layout px-0">
-                <v-btn icon small class="mx-1"
-                  v-if="props.item.index == count - 1 && props.item.type == 0"
-                  @click="deleteTransaction(props.item.id)"
-                >
-                  <v-icon color="red darken-2">delete</v-icon>
-                </v-btn>
-              </td>
             </template>
             <template slot="pageText" slot-scope="props">
               {{ $t("page_text", { itemsLength: props.itemsLength, pageStart: props.pageStart, pageStop: props.pageStop }) }}
@@ -163,15 +207,16 @@ export default {
         <v-card-actions>
           <v-flex xs12>
             <v-list dense>
-              <item-detail 
-                v-for="(item, index) in itemDetails" :key="index"
+              <item-detail v-for="(item, index) in itemDetails" :key="index"
                 :item="item"
                 :value="share[item.key]"
+                :baseLink="`share/${share.id}`"
               />
             </v-list>
           </v-flex>
         </v-card-actions>
       </v-card>
     </v-flex>
+    <delete-transaction-modal ref="deleteTransactionModal" />
   </v-layout>
 </template>

@@ -54,14 +54,6 @@ export default {
       }
     },
 
-    deleteShare(share) {
-      this.destroyShare(share)
-        .then()
-        .catch((error) => {
-          this.setSnackbar({ color: 'error', text: error.response.data });
-        });
-    },
-
     getSymbolsData() {
       this.loading = true;
 
@@ -116,16 +108,26 @@ export default {
             >
               <v-icon>refresh</v-icon>
             </v-btn>
-            <v-btn icon small class="mx-1"
-              :to="`/portfolio/${portfolio.id}/edit`"
-            >
-              <v-icon color="green darken-2">edit</v-icon>
-            </v-btn>
-            <v-btn icon small class="mx-1"
-              @click="$refs.addShareModal.open(portfolio.id)"
-            >
-              <v-icon color="blue darken-2">add</v-icon>
-            </v-btn>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn icon small class="mx-1"
+                  :to="`/portfolio/${portfolio.id}/edit`"
+                >
+                  <v-icon color="green darken-2" v-on="on">edit</v-icon>
+                </v-btn>
+              </template>
+              <span>{{ $t("Update Portfolio") }}</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn icon small class="mx-1"
+                  @click="$refs.addShareModal.open(portfolio.id)"
+                >
+                  <v-icon color="blue darken-2" v-on="on">add</v-icon>
+                </v-btn>
+              </template>
+              <span>{{ $t("Add Symbol") }}</span>
+            </v-tooltip>
           </v-toolbar>
         </v-card-title>
         <v-divider></v-divider>
@@ -141,78 +143,59 @@ export default {
               { text: $t('Amount'), value: 'amount', align: 'center', sortable: false },
               { text: $t('Average Amount'), value: 'average_amount', align: 'center', sortable: false },
               { text: $t('Gain/Loss'), value: 'gain_loss', align: 'center', sortable: false },
-              { text: $t('Actions'), value: 'actions', align: 'center', sortable: false },
             ]"
             :no-data-text="$t('You have not created any symbol.')"
           >
             <template slot="items" slot-scope="props">
-              <td class="no-wrap">
-                <strong>{{ props.item.symbol.code }}</strong>
-                <span class="ml-1 caption grey--text font-weight-thin">{{ props.item.symbol.session_time }}</span>
-              </td>
-              <td class="text-xs-right darken-1"
-                :class="trendClass(props.item.symbol.trend)"
-              >
-                {{ $n(props.item.symbol.last_price, "currency") }}
-              </td>
-              <td class="text-xs-right darken-1"
-                :class="trendClass(props.item.symbol.trend)"
-              >
-                {{ $n(props.item.symbol.rate_of_change, "percent") }}
-              </td>
-              <td class="text-xs-right">
-                {{ $n(props.item.lot, "decimal") }}
-              </td>
-              <td class="text-xs-right no-wrap">
-                <span>{{ $n(props.item.average, "currency") }}</span>
-                <span class="ml-1 caption grey--text font-weight-thin">({{ $n(props.item.average_with_dividend, "currency") }})</span>
-              </td>
-              <td class="text-xs-right">
-                {{ $n(props.item.amount, "currency") }}
-              </td>
-              <td class="text-xs-right no-wrap">
-                <span>{{ $n(props.item.average_amount, "currency") }}</span>
-                <span class="ml-1 caption grey--text font-weight-thin">({{ $n(props.item.average_amount_with_dividend, "currency") }})</span>
-              </td>
-              <td class="text-xs-right no-wrap">
-                <span class="darken-1"
-                  :class="[props.item.gain < 0 ? 'red--text' : 'green--text']"
+              <router-link tag="tr" :to="`/share/${props.item.id}/transactions`">
+                <td class="no-wrap">
+                  <strong>{{ props.item.symbol.code }}</strong>
+                  <span class="ml-1 caption grey--text font-weight-thin">{{ props.item.symbol.session_time }}</span>
+                </td>
+                <td class="text-xs-right darken-1"
+                  :class="trendClass(props.item.symbol.trend)"
                 >
-                  {{ $n(props.item.gain, "currency") }}
-                </span>
-                <span class="ml-1 caption font-weight-thin darken-1"
-                  :class="[props.item.gain_with_dividend < 0 ? 'red--text' : 'green--text']"
+                  {{ $n(props.item.symbol.last_price, "currency") }}
+                </td>
+                <td class="text-xs-right darken-1"
+                  :class="trendClass(props.item.symbol.trend)"
                 >
-                  ({{ $n(props.item.gain_with_dividend, "currency") }})
-                </span>
-              </td>
-              <td class="justify-center layout px-0">
-                <v-btn icon small class="mx-1"
-                  v-if="props.item.total_purchase_amount == 0"
-                  @click="deleteShare(props.item)"
-                >
-                  <v-icon color="red darken-2">delete</v-icon>
-                </v-btn>
-                <v-btn icon small class="mx-1"
-                  v-if="props.item.total_purchase_amount != 0"
-                  :to="`/share/${props.item.id}/transactions`"
-                >
-                  <v-icon color="blue darken-2">line_weight</v-icon>
-                </v-btn>
-                <v-btn icon small class="mx-1"
-                  :to="`/${portfolio.id}/${props.item.id}/transaction/add`"
-                >
-                  <v-icon color="green darken-2">add_circle_outline</v-icon>
-                </v-btn>
-              </td>
+                  {{ $n(props.item.symbol.rate_of_change, "percent") }}
+                </td>
+                <td class="text-xs-right">
+                  {{ $n(props.item.lot, "decimal") }}
+                </td>
+                <td class="text-xs-right no-wrap">
+                  <span>{{ $n(props.item.average, "currency") }}</span>
+                  <span class="ml-1 caption grey--text font-weight-thin">({{ $n(props.item.average_with_dividend, "currency") }})</span>
+                </td>
+                <td class="text-xs-right">
+                  {{ $n(props.item.amount, "currency") }}
+                </td>
+                <td class="text-xs-right no-wrap">
+                  <span>{{ $n(props.item.average_amount, "currency") }}</span>
+                  <span class="ml-1 caption grey--text font-weight-thin">({{ $n(props.item.average_amount_with_dividend, "currency") }})</span>
+                </td>
+                <td class="text-xs-right no-wrap">
+                  <span class="darken-1"
+                    :class="[props.item.gain < 0 ? 'red--text' : 'green--text']"
+                  >
+                    {{ $n(props.item.gain, "currency") }}
+                  </span>
+                  <span class="ml-1 caption font-weight-thin darken-1"
+                    :class="[props.item.gain_with_dividend < 0 ? 'red--text' : 'green--text']"
+                  >
+                    ({{ $n(props.item.gain_with_dividend, "currency") }})
+                  </span>
+                </td>
+              </router-link>
             </template>
           </v-data-table>
         </v-card-text>
         <v-card-actions>
           <v-flex>
             <v-list dense>
-              <item-detail 
-                v-for="(item, index) in itemDetails" :key="index"
+              <item-detail v-for="(item, index) in itemDetails" :key="index"
                 :item="item"
                 :value="portfolio[item.key]"
                 :baseLink="`portfolio/${portfolio.id}`"
