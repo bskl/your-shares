@@ -62,7 +62,19 @@ export default {
   checkAuth({ commit }, data) {
     return new Promise((resolve, reject) => {
       commit('CHECK_AUTH', data);
+
       resolve();
+    });
+  },
+
+  checkState({ dispatch, getters }) {
+    return new Promise((resolve, reject) => {
+      if (getters.portfoliosCount == 0) {
+        return dispatch('fetchData')
+          .then(() => resolve());
+      } else {
+        resolve();
+      }
     });
   },
 

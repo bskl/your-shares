@@ -124,20 +124,22 @@ router.beforeEach((to, from, next) => {
     .then(() => {
       if (to.matched.some(record => record.meta.requiresAuth)) {
         if (store.getters.isLoggedIn) {
-          return next();
+          store.dispatch('checkState')
+            .then((res) => {
+              next();
+            })
         } else {
-          return next({ name: 'Login', query: { redirect: to.fullPath } });
+          next({ name: 'Login', query: { redirect: to.fullPath } });
         }
-      }
-      if (to.matched.some(record => record.meta.redirectIfAuth)) {
+      } else if (to.matched.some(record => record.meta.redirectIfAuth)) {
         if (store.getters.isLoggedIn) {
-          return next({ name: 'Home' });
+          next({ name: 'Home' });
         } else {
-          return next();
+          next();
         }
+      } else {
+        next();
       }
-
-      return next();
     })
 })
 
