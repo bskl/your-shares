@@ -129,7 +129,7 @@ export default {
                   v-if="count > 0 && lastTransaction.type == 0"
                   @click="showDeleteTransactionModal(lastTransaction.id)"
                 >
-                  <v-icon color="red darken-2" v-on="on">delete</v-icon>
+                  <v-icon color="red darken-2" v-on="on">delete_sweep</v-icon>
                 </v-btn>
               </template>
               <span>{{ $t("Delete last item of transactions.") }}</span>
