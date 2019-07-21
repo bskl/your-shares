@@ -8,6 +8,7 @@ use App\Http\Requests\API\PortfolioRequest;
 use App\Models\Portfolio;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Money\Currency;
 use Money\Money;
 
 class PortfolioController extends Controller
@@ -116,151 +117,72 @@ class PortfolioController extends Controller
     }
 
     /**
-     * Get portfolio transactions by type then list transactions by year.
+     * Get portfolio's buying transactions then list transactions by type.
      *
      * @param int    $id
-     * @param string $type
      *
      * @return JsonResponse
      */
-    public function getTransactionsOfType($id, $type)
+    public function getTransactionsByType($id, $type)
     {
         $portfolio = Portfolio::findOrFail($id);
 
         $this->authorize('view', $portfolio);
 
-        $transactions = $portfolio->transactions()
-                                  ->selectRaw('transactions.*, MONTH(date_at) AS month, YEAR(date_at) AS year')
-                                  ->whereType(TransactionTypes::getTypeId($type))
-                                  ->orderBy('date_at')
-                                  ->get();
-
-        if (!count($transactions)) {
-            return response()->json();
-        }
-
-        return response()->json($this->listTransactions($transactions, $type));
-        
-
-        foreach ($transactions as $key => $transaction) {
-            $dividends[$key]['name'] = $transaction->year;
-            $dividends[$key]['total'] = Money::TRY(0);
-            foreach ($transactions as $item) {
-                if ($item->year == $transaction->year) {
-                    $dividends[$key]['total'] = $dividends[$key]['total']->add($item->dividend_gain);
-                    $dividends[$key][$item->month] = ($dividends[$key][$item->month] ?? Money::TRY(0))->add($item->dividend_gain);
-                }
-            }
-            for ($month = 1; $month <= 12; $month++) {
-                $dividends[$key][$month] = $portfolio->convertMoneyToDecimal(
-                    $dividends[$key][$month] ?? Money::TRY(0)
-                );
-            }
-            $dividends[$key]['total'] = $portfolio->convertMoneyToDecimal($dividends[$key]['total']);
-        }
-
-        return response()->json(collect($dividends)->unique('name')->values()->all());
+        return $this->getTransactionsByModelAndType($portfolio, $type);
     }
 
     /**
-     * Get portfolio transactions by type then list transactions by type and year.
+     * Get portfolio's dividend transactions then list transactions by type and year.
      *
      * @param int    $id
-     * @param string $type
      * @param int    $year
      *
      * @return JsonResponse
      */
-    public function getTransactionsOfTypeAndYear($id, $type, $year)
+    public function getTransactionsByTypeAndYear($id, $type, $year)
     {
         $portfolio = Portfolio::findOrFail($id);
 
         $this->authorize('view', $portfolio);
 
-        $transactions = $portfolio->transactions()
-                                  ->with('share.symbol:id,code,last_price')
-                                  ->selectRaw('transactions.*, MONTH(date_at) AS month')
-                                  ->whereType(TransactionTypes::getTypeId($type))
-                                  ->whereYear('date_at', $year)
-                                  ->orderBy('date_at')
-                                  ->get();
+        $attribute = $this->getRawAttribute($type);
 
-        if (!count($transactions)) {
+        $grouped = $portfolio->transactionsOfType([TransactionTypes::getTypeId($type)])
+                             ->with('share.symbol:id,code,last_price')
+                             ->selectRaw('transactions.*, MONTH(date_at) AS month, YEAR(date_at) AS year, SUM(transactions.' . $attribute . ') AS ' . $attribute)
+                             ->whereYear('date_at', $year)
+                             ->orderBy('date_at')
+                             ->groupBy('share_id', 'month')
+                             ->get()
+                             ->groupBy(['share_id', 'month']);
+
+        if (!count($grouped)) {
             return response()->json();
         }
 
-        return response()->json($this->listTransactions($transactions, $type, $year));
+        $index = 0;
+        $condition = (TransactionTypes::getTypeId($type) === TransactionTypes::BONUS);
 
-        foreach ($transactions as $key => $transaction) {
-            $dividends[$key]['name'] = $transaction->share->symbol->code;
-            $dividends[$key]['total'] = Money::TRY(0);
-            foreach ($transactions as $item) {
-                if ($item->share_id == $transaction->share_id) {
-                    $dividends[$key]['total'] = $dividends[$key]['total']->add($item->dividend_gain);
-                    $dividends[$key][$item->month] = $item->dividend_gain;
-                }
-            }
-            for ($month = 1; $month <= 12; $month++) {
-                $dividends[$key][$month] = $portfolio->convertMoneyToDecimal(
-                    $dividends[$key][$month] ?? Money::TRY(0)
-                );
-            }
-            $dividends[$key]['total'] = $portfolio->convertMoneyToDecimal($dividends[$key]['total']);
-        }
-
-        return response()->json(collect($dividends)->unique('name')->values()->all());
-    }
-
-    public function listTransactions($transactions, $type, $year = null)
-    {
-        switch (TransactionTypes::getTypeId($type)) {
-            case TransactionTypes::DIVIDEND:
-                $attribute = 'dividend_gain';
-                break;
-            
-            case TransactionTypes::BONUS:
-                $attribute = 'lot';
-                break;
-        }
-
-        $compare = $year ? 'share_id' : 'year';
-
-        foreach ($transactions as $key => $transaction) {
-            $dividends[$key]['name'] = $year ? $transaction->share->symbol->code : $transaction->year;
-            $dividends[$key]['total'] = TransactionTypes::getTypeId($type) === TransactionTypes::BONUS ? 0 : Money::TRY(0);
-            foreach ($transactions as $item) {
-                if ($item->{$compare} == $transaction->{$compare}) {
-                    if (TransactionTypes::getTypeId($type) === TransactionTypes::BONUS) {
-                        $dividends[$key]['total'] = $dividends[$key]['total'] + $item->{$attribute};
-                    } else {
-                        $dividends[$key]['total'] = $dividends[$key]['total']->add($item->{$attribute});
-                    }
-                    
-                    if ($year) {
-                        $dividends[$key][$item->month] = $item->{$attribute};
-                    } else {
-                        if (TransactionTypes::getTypeId($type) === TransactionTypes::BONUS) {
-                            $dividends[$key][$item->month] = ($dividends[$key][$item->month] ?? 0) + $item->{$attribute};
-                        } else {
-                            $dividends[$key][$item->month] = ($dividends[$key][$item->month] ?? Money::TRY(0))->add($item->{$attribute});
-                        }
-                    }
-                }
-            }
-            for ($month = 1; $month <= 12; $month++) {
-                if (TransactionTypes::getTypeId($type) !== TransactionTypes::BONUS) {
-                    $dividends[$key][$month] = convert_money_to_decimal(
-                        $dividends[$key][$month] ?? Money::TRY(0)
-                    );
+        foreach ($grouped as $key => $transactions) {
+            $items[$index]['total'] = $condition ? 0 : new Money(0, new Currency(config('app.currency')));
+            foreach ($transactions as $month => $transaction) {
+                if ($condition === true) {
+                    $items[$index][$month] = $transaction->first()->{$attribute};
+                    $items[$index]['total'] = $items[$index]['total'] + $transaction->first()->lot;
                 } else {
-                    $dividends[$key][$month] = $dividends[$key][$month] ?? 0;
+                    $items[$index][$month] = money_formatter($transaction->first()->{$attribute});
+                    $items[$index]['total'] = $items[$index]['total']->add($transaction->first()->{$attribute});
                 }
+                $items[$index]['item'] = $transaction->first()->share->symbol->code;
+                $items[$index]['share_id'] = $transaction->first()->share_id;
+                $items[$index]['year'] = $transaction->first()->year;
+                
             }
-            if (TransactionTypes::getTypeId($type) !== TransactionTypes::BONUS) {
-                $dividends[$key]['total'] = convert_money_to_decimal($dividends[$key]['total']);
-            }
+            $condition ?: $items[$index]['total'] = money_formatter($items[$index]['total']);
+            $index++;
         }
 
-        return collect($dividends)->unique('name')->values()->all();
+        return response()->json($items);
     }
 }

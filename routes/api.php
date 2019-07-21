@@ -25,8 +25,8 @@ Route::namespace('API')->group(function () {
 
         Route::post('/portfolio', 'PortfolioController@store');
         Route::get('/portfolio/{id}', 'PortfolioController@show');
-        Route::get('/portfolio/{id}/transactions/{type}', 'PortfolioController@getTransactionsOfType');
-        Route::get('/portfolio/{id}/transactions/{type}/{year}', 'PortfolioController@getTransactionsOfTypeAndYear');
+        Route::get('/portfolio/{id}/transactions/{type}', 'PortfolioController@getTransactionsByType');
+        Route::get('/portfolio/{id}/transactions/{type}/{year}', 'PortfolioController@getTransactionsByTypeAndYear');
         Route::put('/portfolio/{id}', 'PortfolioController@update');
         Route::delete('/portfolio/{id}', 'PortfolioController@destroy');
 
@@ -34,6 +34,8 @@ Route::namespace('API')->group(function () {
         Route::get('/share/{id}', 'ShareController@show');
         Route::delete('/share/{id}', 'ShareController@destroy');
         Route::get('/share/{id}/transactions', 'ShareController@getTransactions');
+        Route::get('/share/{id}/transactions/{type}', 'ShareController@getTransactionsByType');
+        Route::get('/share/{id}/transactions/{type}/{year}', 'ShareController@getTransactionsByTypeAndYear');
 
         Route::post('/transaction', 'TransactionController@store');
         Route::delete('/transaction/{id}', 'TransactionController@destroy');

@@ -6,7 +6,9 @@ import CreatePortfolio from '../components/pages/CreatePortfolio';
 import EditPortfolio from '../components/pages/EditPortfolio';
 import AddTransaction from '../components/pages/AddTransaction';
 import Share from '../components/pages/Share';
-import TransactionListingByType from '../components/pages/TransactionListingByType';
+import ListTransactionByTypeYearAndShare from '../components/pages/ListTransactionByTypeYearAndShare';
+import ListTransactionByTypeAndYear from '../components/pages/ListTransactionByTypeAndYear';
+import ListTransactionByType from '../components/pages/ListTransactionByType';
 import Login from '../components/pages/Login';
 import Register from '../components/pages/Register';
 import ForgotPassword from '../components/pages/ForgotPassword';
@@ -65,9 +67,27 @@ const router = new Router({
       meta: { requiresAuth: true, transitionName: 'slide-right' },
     },
     {
-      path: "/portfolio/:id(\\d+)/transactions/:type/:year(\\d+)?",
-      name: 'TransactionListingByType',
-      component: TransactionListingByType,
+      path: "/portfolio/:id(\\d+)/transactions/:type",
+      name: 'ListPortfolioTransactionByType',
+      component: ListTransactionByType,
+      meta: { requiresAuth: true, transitionName: 'slide-right' },
+    },
+    {
+      path: "/portfolio/:id(\\d+)/transactions/:type/:year(\\d+)",
+      name: 'ListPortfolioTransactionByTypeAndYear',
+      component: ListTransactionByTypeAndYear,
+      meta: { requiresAuth: true, transitionName: 'slide-right' },
+    },
+    {
+      path: "/share/:id(\\d+)/transactions/:type",
+      name: 'ListShareTransactionByType',
+      component: ListTransactionByType,
+      meta: { requiresAuth: true, transitionName: 'slide-right' },
+    },
+    {
+      path: "/share/:id(\\d+)/transactions/:type/:year(\\d+)",
+      name: 'ListTransactionByTypeYearAndShare',
+      component: ListTransactionByTypeYearAndShare,
       meta: { requiresAuth: true, transitionName: 'slide-right' },
     },
     {
@@ -124,10 +144,7 @@ router.beforeEach((to, from, next) => {
     .then(() => {
       if (to.matched.some(record => record.meta.requiresAuth)) {
         if (store.getters.isLoggedIn) {
-          store.dispatch('checkState')
-            .then((res) => {
-              next();
-            })
+          next();
         } else {
           next({ name: 'Login', query: { redirect: to.fullPath } });
         }

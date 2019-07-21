@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Enums\TransactionTypes;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\ShareRequest;
 use App\Models\Share;
@@ -111,5 +112,43 @@ class ShareController extends Controller
         $share = $share->refresh()->load('transactions');
 
         return response()->json($share);
+    }
+
+    /**
+     * Get share's transactions by type.
+     *
+     * @param int    $id
+     * @param string $type
+     *
+     * @return JsonResponse
+     */
+    public function getTransactionsByType($id, $type)
+    {
+        $share = Share::findOrFail($id);
+
+        $this->authorize('view', $share);
+
+        return $this->getTransactionsByModelAndType($share, $type);
+    }
+
+    /**
+     * Get share's all transactions.
+     *
+     * @param int $id
+     *
+     * @return JsonResponse
+     */
+    public function getTransactionsByTypeAndYear($id, $type, $year)
+    {
+        $share = Share::findOrFail($id);
+
+        $this->authorize('view', $share);
+
+        $transactions = $share->transactions()
+                              ->whereType(TransactionTypes::getTypeId($type))
+                              ->whereYear('date_at', $year)
+                              ->get();
+
+        return response()->json($transactions);
     }
 }

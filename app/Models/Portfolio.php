@@ -88,6 +88,18 @@ class Portfolio extends BaseModel
     }
 
     /**
+     * Get the portfolio's transactions by type.
+     *
+     * @param mixed $type
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function transactionsOfType($type)
+    {
+        return $this->transactions()->whereIn('type', $type);
+    }
+
+    /**
      * Get the commission attribute with remove zeros from end of number ie. 0,18800 becomes 0,188.
      */
     public function getCommissionAttribute()
