@@ -1,7 +1,7 @@
 <?php
 
 use Money\Currencies\ISOCurrencies;
-use Money\Formatter\DecimalMoneyFormatter;
+use Money\Formatter\IntlMoneyFormatter;
 use Money\Money;
 
 /**
@@ -11,11 +11,12 @@ use Money\Money;
  *
  * @return string
  */
-function convert_money_to_decimal(Money $money)
+function money_formatter(Money $money)
 {
     $currencies = new ISOCurrencies();
 
-    $moneyFormatter = new DecimalMoneyFormatter($currencies);
+    $numberFormatter = new \NumberFormatter(config('app.locale'), \NumberFormatter::CURRENCY);
+    $moneyFormatter = new IntlMoneyFormatter($numberFormatter, $currencies);
 
     return $moneyFormatter->format($money);
 }

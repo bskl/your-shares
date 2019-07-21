@@ -133,7 +133,7 @@ class Share extends BaseModel
      */
     public function getInstantGainAttribute()
     {
-        return convert_money_to_decimal($this->gain->add($this->total_gain));
+        return money_formatter($this->gain->add($this->total_gain));
     }
 
     /**

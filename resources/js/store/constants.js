@@ -1,32 +1,28 @@
 export const ITEM_DETAILS = {
   0:{
     key: 'total_sale_amount',
-    type: 'currency',
     change_color: false,
+    link: 'transactions/sale'
   },
   1: {
     key: 'total_purchase_amount',
-    type: 'currency',
     change_color: false,
+    link: 'transactions/buying'
   },
   2: {
     key: 'paid_amount',
-    type: 'currency',
     change_color: false,
   },
   3: {
     key: 'gain_loss',
-    type: 'currency',
     change_color: true,
   },
   4: {
     key: 'total_commission_amount',
-    type: 'currency',
     change_color: false,
   },
   5: {
     key: 'total_dividend_gain',
-    type: 'currency',
     change_color: true,
     link: 'transactions/dividend'
   },
@@ -38,12 +34,10 @@ export const ITEM_DETAILS = {
   },
   7: {
     key: 'total_gain',
-    type: 'currency',
     change_color: true,
   },
   8: {
     key: 'instant_gain',
-    type: 'currency',
     change_color: true,
   },
 };

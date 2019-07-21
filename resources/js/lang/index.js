@@ -6,12 +6,6 @@ Vue.use(VueI18n);
 
 const numberFormats = {
   en: {
-    currency: {
-      style: "currency",
-      currency: "USD",
-      currencyDisplay: "symbol",
-      minimumFractionDigits: 2
-    },
     percent: {
       style: "percent",
       minimumFractionDigits: 2
@@ -23,12 +17,6 @@ const numberFormats = {
     }
   },
   tr: {
-    currency: {
-      style: "currency",
-      currency: "TRY",
-      currencyDisplay: "symbol",
-      minimumFractionDigits: 2
-    },
     percent: {
       style: "percent",
       minimumFractionDigits: 2

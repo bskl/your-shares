@@ -26,12 +26,6 @@ export default {
     }
   },
 
-  watch: {
-    $route() {
-      this.fetchData();
-    },
-  },
-
   computed: {
     ...mapState([
       'portfolios',
@@ -155,7 +149,7 @@ export default {
                 <td class="text-xs-right darken-1"
                   :class="trendClass(props.item.symbol.trend)"
                 >
-                  {{ $n(props.item.symbol.last_price, "currency") }}
+                  {{ props.item.symbol.last_price }}
                 </td>
                 <td class="text-xs-right darken-1"
                   :class="trendClass(props.item.symbol.trend)"
@@ -166,26 +160,26 @@ export default {
                   {{ $n(props.item.lot, "decimal") }}
                 </td>
                 <td class="text-xs-right no-wrap">
-                  <span>{{ $n(props.item.average, "currency") }}</span>
-                  <span class="ml-1 caption grey--text font-weight-thin">({{ $n(props.item.average_with_dividend, "currency") }})</span>
+                  <span>{{ props.item.average }}</span>
+                  <span class="ml-1 caption grey--text font-weight-thin">({{ props.item.average_with_dividend }})</span>
                 </td>
                 <td class="text-xs-right">
-                  {{ $n(props.item.amount, "currency") }}
+                  {{ props.item.amount }}
                 </td>
                 <td class="text-xs-right no-wrap">
-                  <span>{{ $n(props.item.average_amount, "currency") }}</span>
-                  <span class="ml-1 caption grey--text font-weight-thin">({{ $n(props.item.average_amount_with_dividend, "currency") }})</span>
+                  <span>{{ props.item.average_amount }}</span>
+                  <span class="ml-1 caption grey--text font-weight-thin">({{ props.item.average_amount_with_dividend }})</span>
                 </td>
                 <td class="text-xs-right no-wrap">
                   <span class="darken-1"
                     :class="[props.item.gain < 0 ? 'red--text' : 'green--text']"
                   >
-                    {{ $n(props.item.gain, "currency") }}
+                    {{ props.item.gain }}
                   </span>
                   <span class="ml-1 caption font-weight-thin darken-1"
                     :class="[props.item.gain_with_dividend < 0 ? 'red--text' : 'green--text']"
                   >
-                    ({{ $n(props.item.gain_with_dividend, "currency") }})
+                    ({{ props.item.gain_with_dividend }})
                   </span>
                 </td>
               </router-link>

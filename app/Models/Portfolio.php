@@ -108,7 +108,7 @@ class Portfolio extends BaseModel
             $sharesGain = $sharesGain->add($share->gain);
         });
 
-        return convert_money_to_decimal($sharesGain->add($this->total_gain));
+        return money_formatter($sharesGain->add($this->total_gain));
     }
 
     /**

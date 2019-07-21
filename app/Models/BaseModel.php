@@ -27,7 +27,7 @@ abstract class BaseModel extends Model
         $attributes = parent::attributesToArray();
 
         foreach ($this->money as $key) {
-            $attributes[$key] = convert_money_to_decimal($this->$key);
+            $attributes[$key] = money_formatter($this->$key);
         }
 
         return $attributes;
@@ -63,7 +63,7 @@ abstract class BaseModel extends Model
      */
     public function getMoneyAttribute($key)
     {
-        return new Money($this->attributes[$key], new Currency('TRY'));
+        return new Money($this->attributes[$key], new Currency(config('app.currency')));
     }
 
     /**
