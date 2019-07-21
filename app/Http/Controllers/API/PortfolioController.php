@@ -117,9 +117,9 @@ class PortfolioController extends Controller
     }
 
     /**
-     * Get portfolio's buying transactions then list transactions by type.
+     * Get portfolio's transactions by type.
      *
-     * @param int    $id
+     * @param int $id
      *
      * @return JsonResponse
      */
@@ -133,10 +133,10 @@ class PortfolioController extends Controller
     }
 
     /**
-     * Get portfolio's dividend transactions then list transactions by type and year.
+     * Get portfolio's transactions by type and year.
      *
-     * @param int    $id
-     * @param int    $year
+     * @param int $id
+     * @param int $year
      *
      * @return JsonResponse
      */
@@ -150,7 +150,7 @@ class PortfolioController extends Controller
 
         $grouped = $portfolio->transactionsOfType([TransactionTypes::getTypeId($type)])
                              ->with('share.symbol:id,code,last_price')
-                             ->selectRaw('transactions.*, MONTH(date_at) AS month, YEAR(date_at) AS year, SUM(transactions.' . $attribute . ') AS ' . $attribute)
+                             ->selectRaw('transactions.*, MONTH(date_at) AS month, YEAR(date_at) AS year, SUM(transactions.'.$attribute.') AS '.$attribute)
                              ->whereYear('date_at', $year)
                              ->orderBy('date_at')
                              ->groupBy('share_id', 'month')
@@ -177,7 +177,6 @@ class PortfolioController extends Controller
                 $items[$index]['item'] = $transaction->first()->share->symbol->code;
                 $items[$index]['share_id'] = $transaction->first()->share_id;
                 $items[$index]['year'] = $transaction->first()->year;
-                
             }
             $condition ?: $items[$index]['total'] = money_formatter($items[$index]['total']);
             $index++;

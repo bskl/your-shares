@@ -15,7 +15,7 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /**
-     * Get transactions by model then list transactions by type.
+     * Get transactions by model and type.
      *
      * @param mixed  $model
      * @param string $type
@@ -24,10 +24,10 @@ class Controller extends BaseController
      */
     public function getTransactionsByModelAndType($model, $type)
     {
-        $attribute = $this->getRawAttribute($type);        
+        $attribute = $this->getRawAttribute($type);
 
         $grouped = $model->transactionsOfType([TransactionTypes::getTypeId($type)])
-                         ->selectRaw('transactions.*, MONTH(date_at) AS month, YEAR(date_at) AS year, SUM(transactions.' . $attribute . ') AS ' . $attribute)
+                         ->selectRaw('transactions.*, MONTH(date_at) AS month, YEAR(date_at) AS year, SUM(transactions.'.$attribute.') AS '.$attribute)
                          ->orderBy('date_at')
                          ->groupBy('year', 'month')
                          ->get()
@@ -42,7 +42,7 @@ class Controller extends BaseController
 
         foreach ($grouped as $key => $transactions) {
             $items[$index]['item'] = $key;
-            $items[$index]['total'] = $condition ? 0 :new Money(0, new Currency(config('app.currency')));
+            $items[$index]['total'] = $condition ? 0 : new Money(0, new Currency(config('app.currency')));
             foreach ($transactions as $month => $transaction) {
                 if ($condition === true) {
                     $items[$index][$month] = $transaction->first()->{$attribute};
@@ -77,7 +77,7 @@ class Controller extends BaseController
             case TransactionTypes::DIVIDEND:
                 $attribute = 'dividend_gain';
                 break;
-            
+
             case TransactionTypes::BONUS:
                 $attribute = 'lot';
                 break;
