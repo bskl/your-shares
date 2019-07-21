@@ -11,11 +11,11 @@ export default {
   getPortfolioByIndex: (state) => (index) => {
     return state.portfolios[index];
   },
-  getPortfolioIndexById: (state) => (portfolioId) => {
-    return _.findIndex(state.portfolios, function(portfolio) { return portfolio.id == portfolioId; });
+  getPortfolioIndexById: (state) => (id) => {
+    return state.portfolios.findIndex(portfolio => portfolio.id === id);
   },
-  getPortfolioById: (state) => (portfolioId) => {
-    return _.find(state.portfolios, function(portfolio) { return portfolio.id == portfolioId; });
+  getPortfolioById: (state) => (id) => {
+    return state.portfolios.find(portfolio => portfolio.id === id);
   },
   getPortfolioWithKey: (state, getters) => (portfolio, keys) => {
     const arr = [];
@@ -26,11 +26,11 @@ export default {
 
     return arr;
   },
-  getSharesByPortfolio: (state, getters) => (portfolioId) => {
-    const portfolio = getters.getPortfolioById(portfolioId);
+  getSharesByPortfolio: (state, getters) => (id) => {
+    const portfolio = getters.getPortfolioById(id);
     return portfolio.shares;
   },
   getShareIndexById: (state, getters) => (portfolioId, shareId) => {
-    return _.findIndex(getters.getSharesByPortfolio(portfolioId), ['id', shareId]);
+    return getters.getSharesByPortfolio(portfolioId).findIndex(share => share.id === shareId);
   },
 }

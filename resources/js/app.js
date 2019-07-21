@@ -7,7 +7,6 @@ import i18n from "./lang/";
 import Form from "./utilities/Form.js";
 import NProgress from "nprogress";
 import App from "./App.vue";
-window._ = require("lodash");
 
 sync(store, router)
 Vue.use(Vuetify);

@@ -1,3 +1,5 @@
+import isEmpty from 'lodash/isEmpty';
+
 class Errors {
   /**
    * Create a new Errors instance.
@@ -19,7 +21,7 @@ class Errors {
    * Determine if we have any errors.
    */
   any() {
-    return !_.isEmpty(this.errors);
+    return !isEmpty(this.errors);
   }
 
   /**

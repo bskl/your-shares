@@ -1,9 +1,11 @@
+import has from 'lodash/has';
+
 export default {
   TOGGLE_LOADING(state) {
     state.isLoading = !state.isLoading;
   },
   LOGGED_IN(state, data) {
-    if (_.has(data, 'access_token') && data.access_token) {
+    if (has(data, 'access_token') && data.access_token) {
       localStorage.setItem('access_token', JSON.stringify(data.access_token));
       state.isLoggedIn = true;
     }
