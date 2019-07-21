@@ -1,19 +1,8 @@
-<template>
-  <transition
-    :name="transitionName"
-    :mode="transitionMode"
-    :enter-active-class="transitionEnterActiveClass"
-    @beforeLeave="beforeLeave"
-    @enter="enter"
-    @afterEnter="afterEnter"
-  >
-    <slot/>
-  </transition>
-</template>
-
 <script>
+
 const DEFAULT_TRANSITION = `fade`;
 const DEFAULT_TRANSITION_MODE = `out-in`;
+
 export default {
   name: `TransitionPage`,
   data() {
@@ -68,6 +57,19 @@ export default {
   },
 };
 </script>
+
+<template>
+  <transition
+    :name="transitionName"
+    :mode="transitionMode"
+    :enter-active-class="transitionEnterActiveClass"
+    @beforeLeave="beforeLeave"
+    @enter="enter"
+    @afterEnter="afterEnter"
+  >
+    <slot/>
+  </transition>
+</template>
 
 <style lang="scss">
 .fade-enter-active,

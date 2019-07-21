@@ -1,7 +1,11 @@
 <script>
 
 export default {
-  props: ['errors'],
+  props: {
+    errors: {
+      type: Object,
+    },
+  },
 
   /**
    * The component's name.

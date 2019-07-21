@@ -1,9 +1,10 @@
 <script>
 
 import { mapActions, mapGetters } from 'vuex';
+import TransactionItem from '../partials/TransactionItem.vue';
 import ItemDetail from '../partials/ItemDetail.vue';
 import DeleteTransactionModal from '../modals/DeleteTransactionModal.vue';
-import { ITEM_DETAILS, TRANSACTION_TYPES } from '../../store/constants.js';
+import { ITEM_DETAILS } from '../../store/constants.js';
 
 export default {
   /**
@@ -12,7 +13,7 @@ export default {
   name: 'Share',
 
   components: {
-    ItemDetail, DeleteTransactionModal,
+    TransactionItem, ItemDetail, DeleteTransactionModal,
   },
 
   /**
@@ -23,7 +24,6 @@ export default {
       isLoading: false,
       share: null,
       itemDetails: ITEM_DETAILS,
-      transactionTypes: TRANSACTION_TYPES,
     }
   },
 
@@ -31,13 +31,6 @@ export default {
     ...mapGetters([
       'getPortfolioById',
     ]),
-
-    indexedTransactions() {
-      return this.share.transactions.map((item, index) => ({
-        index: index,
-        ...item
-      }))
-    },
 
     count() {
       return this.share.transactions.length;
@@ -54,7 +47,7 @@ export default {
 
   methods: {
     ...mapActions([
-      'fetchTransactionsByShare', 'destroyShare', 'setSnackbar',
+      'fetchTransactionsByParams', 'destroyShare', 'setSnackbar',
     ]),
 
     deleteShare() {
@@ -67,9 +60,6 @@ export default {
         });
     },
 
-    /**
-     * Open the modal for deleting transaction.
-     */
     showDeleteTransactionModal(id) {
       this.$refs.deleteTransactionModal.open(id);
     },
@@ -78,7 +68,7 @@ export default {
   created() {
     this.isLoading = true;
 
-    this.fetchTransactionsByShare(this.$route.params.id)
+    this.fetchTransactionsByParams(this.$route.path)
       .then((res) => {
         this.share = res;
         this.isLoading = false;
@@ -107,7 +97,7 @@ export default {
               <i class="material-icons" v-if="share.symbol.trend == -1">trending_down</i>
               <i class="material-icons" v-else-if="share.symbol.trend == 0">trending_flat</i>
               <i class="material-icons" v-else>trending_up</i>
-              <span class="px-2">{{ $n(share.symbol.last_price, "currency") }}</span>
+              <span class="px-2">{{ share.symbol.last_price }}</span>
               <span>{{ $n(share.symbol.rate_of_change, "percent") }}</span>
             </v-subheader>
             <v-subheader class="pl-1 mx-0">{{ share.symbol.session_time }}</v-subheader>
@@ -115,7 +105,7 @@ export default {
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
                 <v-btn icon small class="mx-1"
-                  v-if="share.total_purchase_amount == 0"
+                  v-if="share.transactions.length === 0"
                   @click="deleteShare()"
                 >
                   <v-icon color="red darken-2" v-on="on">delete</v-icon>
@@ -148,61 +138,9 @@ export default {
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-          <v-data-table item-key="id"
-            :items="indexedTransactions"
-            :headers="[
-              { text: $t('Transaction Date'), value: 'transaction_date', align: 'left', sortable: false },
-              { text: $t('Transaction'), value: 'transaction', align: 'center', sortable: false },
-              { text: $t('Lots'), value: 'lots', align: 'center', sortable: false },
-              { text: $t('Transaction Price'), value: 'transaction_price', align: 'center', sortable: false },
-              { text: $t('Transaction Amount'), value: 'transaction_amount', align: 'center', sortable: false },
-              { text: $t('Commission Price'), value: 'commission_price', align: 'center', sortable: false },
-              { text: $t('Gain/Loss'), value: 'gain_loss', align: 'center', sortable: false },
-            ]"
-            :no-data-text="$t('You have not any transaction.')"
-            :rows-per-page-text="$t('Rows per page:')"
-            :rows-per-page-items="[5, 10, 25, { text: $t('All'), value: -1 }]"
-          >
-            <template slot="items" slot-scope="props">
-              <td class="text-xs-left">
-                {{ $d(new Date(props.item.date_at), "short") }}
-              </td>
-              <td class="text-xs-right">
-                {{ $t(transactionTypes[props.item.type]) }}
-              </td>
-              <td class="text-xs-right">
-                {{ $n(props.item.lot, "decimal") }}
-              </td>
-              <td class="text-xs-right">
-                {{ $n(props.item.price, "currency") }}
-              </td>
-              <td class="text-xs-right">
-                {{ $n(props.item.amount, "currency") }}
-              </td>
-              <td class="text-xs-right">
-                {{ $n(props.item.commission_price, "currency") }}
-              </td>
-              <td class="text-xs-right darken-1"
-                :class="[props.item.sale_gain < 0 ? 'red--text' : 'green--text']"
-                v-if="props.item.type == 0 || props.item.type == 1"
-              >
-                {{ $n(props.item.sale_gain, "currency") }}
-              </td>
-              <td class="text-xs-right green--text darken-1"
-                v-if="props.item.type == 2"
-              >
-                {{ $n(props.item.dividend_gain, "currency") }}
-              </td>
-              <td class="text-xs-right green--text darken-1"
-                v-if="props.item.type == 3"
-              >
-                {{ $n(props.item.bonus, "percent") }}
-              </td>
-            </template>
-            <template slot="pageText" slot-scope="props">
-              {{ $t("page_text", { itemsLength: props.itemsLength, pageStart: props.pageStart, pageStop: props.pageStop }) }}
-            </template>
-          </v-data-table>
+          <transaction-item
+            :items="share.transactions"
+          />
         </v-card-text>
         <v-card-actions>
           <v-flex xs12>

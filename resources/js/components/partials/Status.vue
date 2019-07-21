@@ -1,7 +1,14 @@
 <script>
 
 export default {
-  props: ['status', 'color'],
+  props: {
+    status: {
+      type: String,
+    },
+    color: {
+      type: String,
+    },
+  },
 
   /**
    * The component's name.

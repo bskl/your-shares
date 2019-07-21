@@ -3,7 +3,7 @@
 export default {
   props: {
     item: {
-      type: [Object],
+      type: Object,
       required: true,
     },
     value: {
@@ -27,7 +27,8 @@ export default {
     classObject() {
       return (this.item.change_color) ? (this.value < 0) ? 'red--text' : 'green--text' : '';
     },
-    createLink() {
+
+    itemLink() {
       return this.item.link ? `/${this.baseLink}/${this.item.link}` : undefined;
     }
   },
@@ -36,7 +37,7 @@ export default {
 
 <template>
   <v-list-tile
-    :to="createLink"
+    :to="itemLink"
   >
     <v-list-tile-content>
       <v-list-tile-title>
@@ -49,7 +50,7 @@ export default {
     <v-list-tile-action class="darken-1"
       :class="classObject"
     >
-      <strong>{{ $n(value, item.type) }}</strong>
+      <strong>{{ item.type ? $n(value, item.type) : value }}</strong>
     </v-list-tile-action>
   </v-list-tile>
 </template>

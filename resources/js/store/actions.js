@@ -1,11 +1,9 @@
 import axios from "axios";
-import { cacheAdapterEnhancer } from 'axios-extensions';
 import router from "../router";
 import i18n from  "../lang/";
 
 const http = axios.create({
   baseURL: '/api',
-  adapter: cacheAdapterEnhancer(axios.defaults.adapter),
 });
 
 http.interceptors.request.use(function (config) {
@@ -46,7 +44,7 @@ export default {
       .then((res) => {
         commit('LOGGED_IN', res.data);
 
-        return dispatch('fetchData');
+        return res.data;
       });
   },
 
@@ -153,10 +151,10 @@ export default {
       });
   },
 
-  destroyPortfolio({ commit, getters }, portfolioId) {
-    return http.delete(`/portfolio/${portfolioId}`)
+  destroyPortfolio({ commit, getters }, id) {
+    return http.delete(`/portfolio/${id}`)
       .then((res) => {
-        const index = getters.getPortfolioIndexById(portfolioId);
+        const index = getters.getPortfolioIndexById(id);
         commit('DESTROY_PORTFOLIO', index);
 
         return res.data;
@@ -217,14 +215,7 @@ export default {
       });
   },
 
-  fetchTransactionsByShare(_, id) {
-    return http.get(`/share/${id}/transactions`)
-      .then((res) => {
-        return res.data;
-      });
-  },
-
-  fetchTransactionsByTypeAndYear(_, path) {
+  fetchTransactionsByParams(_, path) {
     return http.get(path)
       .then((res) => {
         return res.data;
