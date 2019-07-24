@@ -14,7 +14,6 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\SetSymbols::class,
-        Commands\SetNewAttrs::class,
     ];
 
     /**
