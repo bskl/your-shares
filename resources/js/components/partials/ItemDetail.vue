@@ -50,7 +50,7 @@ export default {
     <v-list-tile-action class="darken-1"
       :class="classObject"
     >
-      <strong>{{ item.type ? $n(value, item.type) : value }}</strong>
+      <strong>{{ value }}</strong>
     </v-list-tile-action>
   </v-list-tile>
 </template>

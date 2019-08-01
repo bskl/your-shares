@@ -45,14 +45,14 @@ class Controller extends BaseController
             $items[$index]['total'] = $condition ? 0 : new Money(0, new Currency(config('app.currency')));
             foreach ($transactions as $month => $transaction) {
                 if ($condition === true) {
-                    $items[$index][$month] = $transaction->first()->{$attribute};
+                    $items[$index][$month] = decimal_formatter($transaction->first()->{$attribute});
                     $items[$index]['total'] = $items[$index]['total'] + $transaction->first()->lot;
                 } else {
                     $items[$index][$month] = money_formatter($transaction->first()->{$attribute});
                     $items[$index]['total'] = $items[$index]['total']->add($transaction->first()->{$attribute});
                 }
             }
-            $condition ?: $items[$index]['total'] = money_formatter($items[$index]['total']);
+            $items[$index]['total'] = $condition ? decimal_formatter($items[$index]['total']) : money_formatter($items[$index]['total']);
             $index++;
         }
 
@@ -60,7 +60,7 @@ class Controller extends BaseController
     }
 
     /**
-     * Get attribute by type for use raw statemnet.
+     * Get attribute by type for use raw statement.
      *
      * @param string $type
      *

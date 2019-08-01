@@ -44,13 +44,13 @@ export default {
   >
     <template slot="items" slot-scope="props">
       <td class="text-xs-left">
-        {{ $d(new Date(props.item.date_at), "short") }}
+        {{ props.item.date_at }}
       </td>
       <td class="text-xs-right">
         {{ $t(transactionTypes[props.item.type]) }}
       </td>
       <td class="text-xs-right">
-        {{ $n(props.item.lot, "decimal") }}
+        {{ props.item.lot }}
       </td>
       <td class="text-xs-right">
         {{ props.item.price }}
@@ -75,7 +75,7 @@ export default {
       <td class="text-xs-right green--text darken-1"
         v-if="props.item.type == 3"
       >
-        {{ $n(props.item.bonus, "percent") }}
+        {{ props.item.bonus }}
       </td>
     </template>
     <template slot="pageText" slot-scope="props">

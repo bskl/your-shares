@@ -18,6 +18,20 @@ abstract class BaseModel extends Model
     protected $money = [];
 
     /**
+     * The attributes that are format percentages.
+     *
+     * @var array
+     */
+    protected $percent = [];
+
+    /**
+     * The attributes that are format decimal.
+     *
+     * @var array
+     */
+    protected $decimal = [];
+
+    /**
      * Convert the model's money attributes to decimal in attributes.
      *
      * @return array
@@ -28,6 +42,14 @@ abstract class BaseModel extends Model
 
         foreach ($this->money as $key) {
             $attributes[$key] = money_formatter($this->$key);
+        }
+
+        foreach ($this->percent as $key) {
+            $attributes[$key] = percent_formatter($this->$key);
+        }
+
+        foreach ($this->decimal as $key) {
+            $attributes[$key] = decimal_formatter($this->$key);
         }
 
         return $attributes;

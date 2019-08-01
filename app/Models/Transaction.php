@@ -35,6 +35,24 @@ class Transaction extends BaseModel
     ];
 
     /**
+     * The attributes that are format percentages.
+     *
+     * @var array
+     */
+    protected $percent = [
+        'bonus',
+    ];
+
+    /**
+     * The attributes that are format decimal.
+     *
+     * @var array
+     */
+    protected $decimal = [
+        'lot', 'bonus'
+    ];
+
+    /**
      * The attributes that should be mutated to dates.
      *
      * @var array
@@ -76,7 +94,7 @@ class Transaction extends BaseModel
     public function getDateAtAttribute($value)
     {
         if ($value) {
-            return Carbon::createFromFormat('Y-m-d H:i:s', $value)->format('Y-m-d');
+            return Carbon::createFromFormat('Y-m-d H:i:s', $value)->format('d.m.Y');
         }
     }
 

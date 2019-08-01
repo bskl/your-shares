@@ -35,6 +35,15 @@ class Symbol extends BaseModel
     ];
 
     /**
+     * The attributes that are format percentages.
+     *
+     * @var array
+     */
+    protected $percent = [
+        'rate_of_change',
+    ];
+
+    /**
      * The attributes that should be mutated to dates.
      *
      * @var array

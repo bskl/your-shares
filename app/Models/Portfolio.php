@@ -37,6 +37,15 @@ class Portfolio extends BaseModel
     ];
 
     /**
+     * The attributes that are format decimal.
+     *
+     * @var array
+     */
+    protected $decimal = [
+        'total_bonus_share',
+    ];
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array

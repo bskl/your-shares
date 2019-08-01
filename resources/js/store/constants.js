@@ -1,17 +1,14 @@
 export const ITEM_DETAILS = {
   0:{
     key: 'total_sale_amount',
-    change_color: false,
     link: 'transactions/sale'
   },
   1: {
     key: 'total_purchase_amount',
-    change_color: false,
     link: 'transactions/buying'
   },
   2: {
     key: 'paid_amount',
-    change_color: false,
   },
   3: {
     key: 'gain_loss',
@@ -19,7 +16,6 @@ export const ITEM_DETAILS = {
   },
   4: {
     key: 'total_commission_amount',
-    change_color: false,
   },
   5: {
     key: 'total_dividend_gain',
@@ -28,7 +24,6 @@ export const ITEM_DETAILS = {
   },
   6: {
     key: 'total_bonus_share',
-    type: 'decimal',
     change_color: true,
     link: 'transactions/bonus'
   },

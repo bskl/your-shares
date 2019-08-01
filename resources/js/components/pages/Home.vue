@@ -154,7 +154,7 @@ export default {
                 <td class="text-xs-right darken-1"
                   :class="trendClass(props.item.symbol.trend)"
                 >
-                  {{ $n(props.item.symbol.rate_of_change, "percent") }}
+                  {{ props.item.symbol.rate_of_change }}
                 </td>
                 <td class="text-xs-right">
                   {{ $n(props.item.lot, "decimal") }}

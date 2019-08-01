@@ -98,7 +98,7 @@ export default {
               <i class="material-icons" v-else-if="share.symbol.trend == 0">trending_flat</i>
               <i class="material-icons" v-else>trending_up</i>
               <span class="px-2">{{ share.symbol.last_price }}</span>
-              <span>{{ $n(share.symbol.rate_of_change, "percent") }}</span>
+              <span>{{ share.symbol.rate_of_change }}</span>
             </v-subheader>
             <v-subheader class="pl-1 mx-0">{{ share.symbol.session_time }}</v-subheader>
             <v-spacer></v-spacer>

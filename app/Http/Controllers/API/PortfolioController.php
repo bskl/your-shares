@@ -168,7 +168,7 @@ class PortfolioController extends Controller
             $items[$index]['total'] = $condition ? 0 : new Money(0, new Currency(config('app.currency')));
             foreach ($transactions as $month => $transaction) {
                 if ($condition === true) {
-                    $items[$index][$month] = $transaction->first()->{$attribute};
+                    $items[$index][$month] = decimal_formatter($transaction->first()->{$attribute});
                     $items[$index]['total'] = $items[$index]['total'] + $transaction->first()->lot;
                 } else {
                     $items[$index][$month] = money_formatter($transaction->first()->{$attribute});
@@ -178,7 +178,7 @@ class PortfolioController extends Controller
                 $items[$index]['share_id'] = $transaction->first()->share_id;
                 $items[$index]['year'] = $transaction->first()->year;
             }
-            $condition ?: $items[$index]['total'] = money_formatter($items[$index]['total']);
+            $items[$index]['total'] = $condition ? decimal_formatter($items[$index]['total']) : money_formatter($items[$index]['total']);
             $index++;
         }
 
