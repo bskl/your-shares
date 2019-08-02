@@ -103,7 +103,7 @@ class Transaction extends BaseModel
     public function getDateAtAttribute($value)
     {
         if ($value) {
-            return Carbon::createFromFormat('Y-m-d H:i:s', $value)->format('d.m.Y');
+            return Carbon::createFromFormat('Y-m-d H:i:s', $value)->formatLocalized('%d %b %Y');
         }
     }
 
