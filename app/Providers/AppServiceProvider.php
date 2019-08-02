@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        setlocale(LC_ALL, 'tr_TR.UTF-8', 'tr_TR', 'tr', 'turkish');
+        setlocale(LC_ALL, 'tr_TR');
         Carbon::setLocale(app()->getLocale());
 
         Blade::if('env', function ($environment) {
