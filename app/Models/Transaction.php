@@ -49,7 +49,7 @@ class Transaction extends BaseModel
      * @var array
      */
     protected $decimal = [
-        'lot', 'bonus'
+        'lot', 'bonus',
     ];
 
     /**
@@ -68,6 +68,15 @@ class Transaction extends BaseModel
      */
     protected $hidden = [
         'created_at', 'updated_at',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'sale_gain_trend',
     ];
 
     /**
@@ -96,6 +105,14 @@ class Transaction extends BaseModel
         if ($value) {
             return Carbon::createFromFormat('Y-m-d H:i:s', $value)->format('d.m.Y');
         }
+    }
+
+    /**
+     * Get sale gain trend.
+     */
+    public function getSaleGainTrendAttribute()
+    {
+        return ($this->sale_gain->getAmount() > 0 ? 1 : ($this->sale_gain->getAmount() < 0 ? -1 : 0));
     }
 
     /**

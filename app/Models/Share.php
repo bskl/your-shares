@@ -41,7 +41,7 @@ class Share extends BaseModel
      * @var array
      */
     protected $decimal = [
-        'total_bonus_share',
+        'lot', 'total_bonus_share',
     ];
 
     /**
@@ -59,7 +59,7 @@ class Share extends BaseModel
      * @var array
      */
     protected $appends = [
-        'instant_gain',
+        'instant_gain', 'gain_trend', 'gain_with_dividend_trend',
     ];
 
     /**
@@ -143,6 +143,22 @@ class Share extends BaseModel
     public function getInstantGainAttribute()
     {
         return money_formatter($this->gain->add($this->total_gain));
+    }
+
+    /**
+     * Get instant gain trend.
+     */
+    public function getGainTrendAttribute()
+    {
+        return ($this->gain->getAmount() > 0 ? 1 : ($this->gain->getAmount() < 0 ? -1 : 0));
+    }
+
+    /**
+     * Get instant gain with dividend trend.
+     */
+    public function getGainWithDividendTrendAttribute()
+    {
+        return ($this->gain_with_dividend->getAmount() > 0 ? 1 : ($this->gain_with_dividend->getAmount() < 0 ? -1 : 0));
     }
 
     /**

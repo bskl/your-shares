@@ -157,7 +157,7 @@ export default {
                   {{ props.item.symbol.rate_of_change }}
                 </td>
                 <td class="text-xs-right">
-                  {{ $n(props.item.lot, "decimal") }}
+                  {{ props.item.lot }}
                 </td>
                 <td class="text-xs-right no-wrap">
                   <span>{{ props.item.average }}</span>
@@ -172,12 +172,12 @@ export default {
                 </td>
                 <td class="text-xs-right no-wrap">
                   <span class="darken-1"
-                    :class="[props.item.gain < 0 ? 'red--text' : 'green--text']"
+                    :class="trendClass(props.item.gain_trend)"
                   >
                     {{ props.item.gain }}
                   </span>
                   <span class="ml-1 caption font-weight-thin darken-1"
-                    :class="[props.item.gain_with_dividend < 0 ? 'red--text' : 'green--text']"
+                    :class="trendClass(props.item.gain_with_dividend_trend)"
                   >
                     ({{ props.item.gain_with_dividend }})
                   </span>

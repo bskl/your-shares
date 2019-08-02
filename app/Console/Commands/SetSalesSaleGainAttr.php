@@ -15,12 +15,14 @@ class SetSalesSaleGainAttr extends Command
      * @var string
      */
     protected $signature = 'yourshares:set-sales-gain';
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Set symbols with xml file from web service.';
+
     /**
      * Create a new instance.
      *
@@ -30,6 +32,7 @@ class SetSalesSaleGainAttr extends Command
     {
         parent::__construct();
     }
+
     /**
      * Execute the console command.
      *
@@ -42,6 +45,7 @@ class SetSalesSaleGainAttr extends Command
 
         $buyingTransactions = $_buyingTransactions->map(function (&$_buyingTransaction) {
             $_buyingTransaction->remaining = (int) $_buyingTransaction->lot;
+
             return $_buyingTransaction;
         });
 

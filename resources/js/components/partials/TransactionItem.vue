@@ -62,7 +62,10 @@ export default {
         {{ props.item.commission_price }}
       </td>
       <td class="text-xs-right darken-1"
-        :class="[props.item.sale_gain < 0 ? 'red--text' : 'green--text']"
+        :class="{
+          'red--text': props.item.sale_gain_trend == -1,
+          'green--text': props.item.sale_gain_trend == 1
+        }"
         v-if="props.item.type == 0 || props.item.type == 1"
       >
         {{ props.item.sale_gain }}
