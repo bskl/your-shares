@@ -13,12 +13,15 @@ use Money\Money;
  */
 function money_formatter(Money $money)
 {
+    /**
     $currencies = new ISOCurrencies();
 
     $numberFormatter = new \NumberFormatter(config('app.locale'), \NumberFormatter::CURRENCY);
     $moneyFormatter = new IntlMoneyFormatter($numberFormatter, $currencies);
 
     return $moneyFormatter->format($money);
+    */
+    return $money->getAmount();
 }
 
 /**
