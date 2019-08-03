@@ -112,7 +112,7 @@ class Transaction extends BaseModel
      */
     public function getSaleGainTrendAttribute()
     {
-        return ($this->sale_gain->getAmount() > 0 ? 1 : ($this->sale_gain->getAmount() < 0 ? -1 : 0));
+        return $this->sale_gain->getAmount() > 0 ? 1 : ($this->sale_gain->getAmount() < 0 ? -1 : 0);
     }
 
     /**

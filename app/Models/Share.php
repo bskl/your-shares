@@ -150,7 +150,7 @@ class Share extends BaseModel
      */
     public function getGainTrendAttribute()
     {
-        return ($this->gain->getAmount() > 0 ? 1 : ($this->gain->getAmount() < 0 ? -1 : 0));
+        return $this->gain->getAmount() > 0 ? 1 : ($this->gain->getAmount() < 0 ? -1 : 0);
     }
 
     /**
@@ -158,7 +158,7 @@ class Share extends BaseModel
      */
     public function getGainWithDividendTrendAttribute()
     {
-        return ($this->gain_with_dividend->getAmount() > 0 ? 1 : ($this->gain_with_dividend->getAmount() < 0 ? -1 : 0));
+        return $this->gain_with_dividend->getAmount() > 0 ? 1 : ($this->gain_with_dividend->getAmount() < 0 ? -1 : 0);
     }
 
     /**
