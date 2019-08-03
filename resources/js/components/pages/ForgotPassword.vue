@@ -83,7 +83,7 @@ export default {
             </v-form>
           </v-card>
         </v-flex>
-        <v-flex xs12 sm6 md4>
+        <v-flex xs12>
           <v-card>
             <v-card-text>
               <span>{{ $t("You don't have an account?") }}</span>

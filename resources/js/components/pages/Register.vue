@@ -93,7 +93,7 @@ export default {
             </v-card-actions>
           </v-card>
         </v-flex>
-        <v-flex xs12 sm6 md4>
+        <v-flex xs12>
           <v-card>
             <v-card-text>
               <span>{{ $t("Already have an account?") }}</span>
