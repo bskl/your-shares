@@ -66,6 +66,7 @@ trait LoginUsers
                 'username'      => $credentials[$this->username()],
                 'password'      => $credentials['password'],
                 'scope'         => '*',
+                'verify'        => false,
                 ],
             ]);
 
