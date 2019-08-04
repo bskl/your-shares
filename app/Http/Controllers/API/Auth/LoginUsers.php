@@ -55,14 +55,14 @@ trait LoginUsers
      */
     public function passportLogin(Request $request)
     {
-        $url = env('APP_URL').'/oauth/token';
+        $url = config('app.url').'/oauth/token';
         $credentials = $this->credentials($request);
 
         $response = $this->getHttp()->post($url, [
             'form_params' => [
                 'grant_type'    => 'password',
-                'client_id'     => env('PASSWORD_CLIENT_ID'),
-                'client_secret' => env('PASSWORD_CLIENT_SECRET'),
+                'client_id'     => config('auth.client.id'),
+                'client_secret' => config('auth.client.secret'),
                 'username'      => $credentials[$this->username()],
                 'password'      => $credentials['password'],
                 'scope'         => '*',
