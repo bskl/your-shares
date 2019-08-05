@@ -53,7 +53,7 @@ class RegisterController extends Controller
             'name'     => $request->name,
             'email'    => $request->email,
             'password' => Hash::make($request->password),
-            'locale'   => $request->getPreferredLanguage(['en', 'tr']),
+            'locale'   => config('app.locale'), //$request->getPreferredLanguage(['tr', 'en']),
         ]);
 
         $user->confirmation_code = hash_hmac('sha256', Str::random(60), config('app.key'));

@@ -21,7 +21,7 @@ class SetLocale
         if (Auth::check() && !empty(Auth::user()->locale)) {
             $locale = Auth::user()->locale;
         } else {
-            $locale = $request->getPreferredLanguage(['en', 'tr']);
+            $locale = config('app.locale'); //$request->getPreferredLanguage(['tr', 'en']);
         }
 
         app()->setLocale($locale);
