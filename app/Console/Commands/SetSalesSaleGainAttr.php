@@ -41,12 +41,17 @@ class SetSalesSaleGainAttr extends Command
     public function handle()
     {
         $_buyingTransactions = Transaction::whereIn('type', [TransactionTypes::BUYING, TransactionTypes::BONUS])->orderBy('date_at')->get();
-        $saleTransactions = Transaction::whereIn('type', [TransactionTypes::SALE])->orderBy('date_at', 'asc')->get();
+        $_saleTransactions = Transaction::whereIn('type', [TransactionTypes::SALE])->orderBy('date_at', 'asc')->get();
 
         $buyingTransactions = $_buyingTransactions->map(function (&$_buyingTransaction) {
             $_buyingTransaction->remaining = (int) $_buyingTransaction->lot;
-
             return $_buyingTransaction;
+        });
+
+        $saleTransactions = $_saleTransactions->map(function (&$_saleTransaction) {
+            $_saleTransaction->sale_gain = 0;
+
+            return $_saleTransaction;
         });
 
         foreach ($saleTransactions as $saleTransaction) {
@@ -57,6 +62,7 @@ class SetSalesSaleGainAttr extends Command
                 if ($salebuyingTransaction->remaining < $saleTransactionLot) {
                     $soldLot = $salebuyingTransaction->remaining;
                     $salebuyingTransaction->remaining = 0;
+                    $buyingTransactions->where('id', $salebuyingTransaction->id)->first()->remaining = 0;
 
                     $buyingAmount = $salebuyingTransaction->price->multiply($soldLot);
                     if ($salebuyingTransaction->type == TransactionTypes::BONUS) {
@@ -84,8 +90,6 @@ class SetSalesSaleGainAttr extends Command
                     $saleTransaction->update();
 
                     $saleTransactionLot = 0;
-
-                    return false;
                 }
             }
         }
