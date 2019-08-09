@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\Auth;
 
+use App\Enums\UserType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\RegisterRequest;
 use App\Models\User;
@@ -76,7 +77,7 @@ class RegisterController extends Controller
     public function verifyConfirmationCode(Request $request, $token)
     {
         $user = User::where('confirmation_code', $token)->firstOrFail();
-        $user->confirmed = \App\Enums\UserType::Accepted;
+        $user->confirmed = UserType::Accepted;
         $user->confirmation_code = null;
         $user->save();
 
