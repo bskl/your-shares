@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Enums\TransactionTypes;
+use App\Enums\TransactionType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\ShareRequest;
 use App\Models\Share;
@@ -145,7 +145,7 @@ class ShareController extends Controller
         $this->authorize('view', $share);
 
         $transactions = $share->transactions()
-                              ->whereType(TransactionTypes::getTypeId($type))
+                              ->whereType(TransactionType::getValue(ucfirst($type)))
                               ->whereYear('date_at', $year)
                               ->get();
 

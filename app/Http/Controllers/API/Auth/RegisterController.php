@@ -76,7 +76,7 @@ class RegisterController extends Controller
     public function verifyConfirmationCode(Request $request, $token)
     {
         $user = User::where('confirmation_code', $token)->firstOrFail();
-        $user->confirmed = \App\Enums\User::ACCEPTED;
+        $user->confirmed = \App\Enums\UserType::Accepted;
         $user->confirmation_code = null;
         $user->save();
 

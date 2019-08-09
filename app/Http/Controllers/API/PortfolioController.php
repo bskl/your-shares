@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Enums\TransactionTypes;
+use App\Enums\TransactionType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\PortfolioRequest;
 use App\Models\Portfolio;
@@ -146,9 +146,10 @@ class PortfolioController extends Controller
 
         $this->authorize('view', $portfolio);
 
-        $attribute = $this->getRawAttribute($type);
+        $transactionType = TransactionType::getInstance(TransactionType::getValue(ucfirst($type)));
+        $attribute = $this->getRawAttribute($transactionType);
 
-        $grouped = $portfolio->transactionsOfType([TransactionTypes::getTypeId($type)])
+        $grouped = $portfolio->transactionsOfType([$transactionType->value])
                              ->with('share.symbol:id,code,last_price')
                              ->selectRaw('transactions.*, MONTH(date_at) AS month, YEAR(date_at) AS year, SUM(transactions.'.$attribute.') AS '.$attribute)
                              ->whereYear('date_at', $year)
@@ -162,7 +163,7 @@ class PortfolioController extends Controller
         }
 
         $index = 0;
-        $condition = (TransactionTypes::getTypeId($type) === TransactionTypes::BONUS);
+        $condition = $transactionType->is(TransactionType::Bonus);
 
         foreach ($grouped as $key => $transactions) {
             $items[$index]['total'] = $condition ? 0 : new Money(0, new Currency(config('app.currency')));

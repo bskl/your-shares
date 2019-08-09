@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\TransactionTypes;
+use App\Enums\TransactionType;
 use Illuminate\Database\Eloquent\Builder;
 use Money\Money;
 
@@ -134,7 +134,7 @@ class Share extends BaseModel
      */
     public function getBuyingTransactionsByNotSold()
     {
-        return $this->transactionsOfType([TransactionTypes::BUYING, TransactionTypes::BONUS])->where('remaining', '!=', 0)->get();
+        return $this->transactionsOfType([TransactionType::Buying, TransactionType::Bonus])->where('remaining', '!=', 0)->get();
     }
 
     /**

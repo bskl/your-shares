@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Enums\UserType;
 use Carbon\Carbon;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -43,7 +44,7 @@ class AuthServiceProvider extends ServiceProvider
     public function registerGates()
     {
         Gate::define('is_admin', function ($user) {
-            return $user->isAdmin();
+            return $user->role->is(UserType::Admin);
         });
     }
 }

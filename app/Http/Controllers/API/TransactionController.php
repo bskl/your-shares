@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Enums\TransactionTypes;
+use App\Enums\TransactionType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\TransactionRequest;
 use App\Models\Share;
@@ -34,7 +34,7 @@ class TransactionController extends Controller
             $transaction->save();
             $transaction->refresh()->load('share');
 
-            $event = 'App\\Events\\'.TransactionTypes::getTypeName($transaction->type).'TransactionCreated';
+            $event = 'App\\Events\\'.$transaction->type->key.'TransactionCreated';
             event(new $event($transaction));
 
             $transaction->share->load('portfolio');
@@ -74,7 +74,7 @@ class TransactionController extends Controller
         $this->authorize($transaction);
 
         try {
-            $event = 'App\\Events\\'.TransactionTypes::getTypeName($transaction->type).'TransactionDeleted';
+            $event = 'App\\Events\\'.$transaction->type->key.'TransactionDeleted';
             event(new $event($transaction));
 
             $transaction->refresh()->load('share');

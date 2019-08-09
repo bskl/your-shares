@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Enums\TransactionTypes;
+use App\Enums\TransactionType;
 use App\Models\Share;
 use Money\Money;
 
@@ -80,7 +80,7 @@ class TransactionEventSubscriber
                 $item->update();
 
                 $buyingAmount = $item->price->multiply($soldLot);
-                if ($item->type == TransactionTypes::BONUS) {
+                if ($item->type->is(TransactionType::Bonus)) {
                     $buyingAmount = Money::TRY(0);
                 }
                 $soldAmount = $transaction->price->multiply($soldLot);
@@ -119,7 +119,7 @@ class TransactionEventSubscriber
                 $item->update();
 
                 $buyingAmount = $item->price->multiply($soldLot);
-                if ($item->type == TransactionTypes::BONUS) {
+                if ($item->type->is(TransactionType::Bonus)) {
                     $buyingAmount = Money::TRY(0);
                 }
                 $soldAmount = $transaction->price->multiply($soldLot);

@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use App\Enums\UserType;
 use App\Notifications\ResetPassword as PasswordResetNotification;
+use BenSampo\Enum\Traits\CastsEnums;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable, CastsEnums;
 
     /**
      * The attributes that are mass assignable.
@@ -30,6 +32,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * The attributes that should be mutated to enum class.
+     *
+     * @var array
+     */
+    protected $enumCasts = [
+        'role' => UserType::class,
+    ];
+
+    /**
      * Get the portfolios for the user.
      */
     public function portfolios()
@@ -47,15 +58,5 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new PasswordResetNotification($token));
-    }
-
-    /**
-     * Check if the user is an admin.
-     *
-     * @return bool
-     */
-    public function isAdmin()
-    {
-        return $this->role == \App\Enums\User::ADMIN;
     }
 }

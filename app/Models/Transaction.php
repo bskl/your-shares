@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use App\Enums\TransactionType;
+use BenSampo\Enum\Traits\CastsEnums;
 use Carbon\Carbon;
 use Money\Money;
 
 class Transaction extends BaseModel
 {
+    use CastsEnums;
+
     /**
      * The attributes that aren't mass assignable.
      *
@@ -77,6 +81,15 @@ class Transaction extends BaseModel
      */
     protected $appends = [
         'sale_gain_trend',
+    ];
+
+    /**
+     * The attributes that should be mutated to enum class.
+     *
+     * @var array
+     */
+    protected $enumCasts = [
+        'type' => TransactionType::class,
     ];
 
     /**

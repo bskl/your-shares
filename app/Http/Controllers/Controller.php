@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\TransactionTypes;
+use App\Enums\TransactionType;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -24,9 +24,10 @@ class Controller extends BaseController
      */
     public function getTransactionsByModelAndType($model, $type)
     {
-        $attribute = $this->getRawAttribute($type);
+        $transactionType = TransactionType::getInstance(TransactionType::getValue(ucfirst($type)));
+        $attribute = $this->getRawAttribute($transactionType);
 
-        $grouped = $model->transactionsOfType([TransactionTypes::getTypeId($type)])
+        $grouped = $model->transactionsOfType([$transactionType->value])
                          ->selectRaw('transactions.*, MONTH(date_at) AS month, YEAR(date_at) AS year, SUM(transactions.'.$attribute.') AS '.$attribute)
                          ->orderBy('date_at')
                          ->groupBy('year', 'month')
@@ -38,7 +39,7 @@ class Controller extends BaseController
         }
 
         $index = 0;
-        $condition = (TransactionTypes::getTypeId($type) === TransactionTypes::BONUS);
+        $condition = $transactionType->is(TransactionType::Bonus);
 
         foreach ($grouped as $key => $transactions) {
             $items[$index]['item'] = $key;
@@ -66,24 +67,25 @@ class Controller extends BaseController
      *
      * @return string
      */
-    public function getRawAttribute($type)
+    public function getRawAttribute(TransactionType $transactionType)
     {
-        switch (TransactionTypes::getTypeId($type)) {
-            case TransactionTypes::BUYING:
-            case TransactionTypes::SALE:
+        switch ($transactionType->value) {
+            case TransactionType::Buying:
                 $attribute = 'amount';
                 break;
 
-            case TransactionTypes::DIVIDEND:
+            case TransactionType::Sale:
+                $attribute = 'amount';
+                break;
+
+            case TransactionType::Dividend:
                 $attribute = 'dividend_gain';
                 break;
 
-            case TransactionTypes::BONUS:
+            case TransactionType::Bonus:
                 $attribute = 'lot';
                 break;
         }
-
-        dd(TransactionTypes::getTypeId($type) . ' ' . $attribute);
 
         return $attribute;
     }
