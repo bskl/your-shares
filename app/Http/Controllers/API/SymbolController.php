@@ -33,7 +33,7 @@ class SymbolController extends Controller
             );
         }
 
-        return response()->json('', Response::HTTP_UNPROCESSABLE_ENTITY);
+        return response()->json(trans('app.auth_error'), Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
     /**
