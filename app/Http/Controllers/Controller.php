@@ -83,6 +83,8 @@ class Controller extends BaseController
                 break;
         }
 
+        dd(TransactionTypes::getTypeId($type) . ' ' . $attribute);
+
         return $attribute;
     }
 }
