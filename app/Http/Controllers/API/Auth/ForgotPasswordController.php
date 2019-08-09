@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ForgotPasswordController extends Controller
 {
@@ -55,7 +56,7 @@ class ForgotPasswordController extends Controller
     {
         return response()->json(
             ['messages' => '', 'errors' => [['email' => trans($response)]]],
-            422
+            Response::HTTP_UNPROCESSABLE_ENTITY
         );
     }
 }

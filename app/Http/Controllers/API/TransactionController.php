@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\TransactionRequest;
 use App\Models\Share;
 use App\Models\Transaction;
+use Illuminate\Http\Response;
 
 class TransactionController extends Controller
 {
@@ -43,7 +44,7 @@ class TransactionController extends Controller
         } catch (\Exception $e) {
             return response()->json(
                 ['messages' => '', 'errors' => [['transaction' => trans('app.transaction.create_error')]]],
-                422
+                Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
     }
@@ -86,7 +87,7 @@ class TransactionController extends Controller
         } catch (\Exception $e) {
             return response()->json(
                 trans('app.transaction.delete_error'),
-                422
+                Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
     }

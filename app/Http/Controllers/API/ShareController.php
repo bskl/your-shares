@@ -6,6 +6,7 @@ use App\Enums\TransactionType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\ShareRequest;
 use App\Models\Share;
+use Illuminate\Http\Response;
 
 class ShareController extends Controller
 {
@@ -47,7 +48,7 @@ class ShareController extends Controller
         } catch (\Exception $e) {
             return response()->json(
                 ['messages' => '', 'errors' => [['share' => trans('app.share.create_error')]]],
-                422
+                Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
     }
@@ -80,7 +81,7 @@ class ShareController extends Controller
         if ($share->total_amount != 0) {
             return response()->json(
                 trans('app.share.delete_error'),
-                401
+                Response::HTTP_UNAUTHORIZED
             );
         }
 
@@ -91,7 +92,7 @@ class ShareController extends Controller
         } catch (\Exception $e) {
             return response()->json(
                 trans('app.share.delete_error'),
-                422
+                Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
     }

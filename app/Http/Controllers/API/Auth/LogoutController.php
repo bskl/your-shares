@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class LogoutController extends Controller
@@ -34,9 +35,9 @@ class LogoutController extends Controller
 
         $json = [
             'success' => true,
-            'code'    => 200,
+            'code'    => Response::HTTP_OK,
         ];
 
-        return response()->json($json, '200');
+        return response()->json($json, Response::HTTP_OK);
     }
 }
