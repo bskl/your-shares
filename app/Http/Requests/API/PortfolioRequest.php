@@ -26,7 +26,7 @@ class PortfolioRequest extends Request
         return [
             'name'       => 'required|string',
             'currency'   => 'required|string',
-            'commission' => 'required|regex:"^0\.\d+?$"',
+            'commission' => 'required|regex:/^0\.\d+$/',
         ];
     }
 }
