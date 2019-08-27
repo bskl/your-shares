@@ -6,7 +6,6 @@ use App\Enums\TransactionType;
 use App\Http\Requests\Request;
 use App\Models\Share;
 use Carbon\Carbon;
-use Illuminate\Validation\Rule;
 
 class TransactionRequest extends Request
 {
@@ -32,8 +31,8 @@ class TransactionRequest extends Request
         $addRule .= ($this->type == TransactionType::Buying || $this->type == TransactionType::Sale) ? '|integer' : '';
 
         return [
-            'share_id' => 'required|integer|exists:shares,id,user_id,'.auth()->user()->id,
-            'type'     => 'required|integer|enum_value:'.TransactionType::class,
+            'share_id'      => 'required|integer|exists:shares,id,user_id,'.auth()->user()->id,
+            'type'          => 'required|integer|enum_value:'.TransactionType::class,
             'date_at'       => 'required|date|before_or_equal:'.Carbon::today()->toDateString(),
             'lot'           => 'required'.$addRule,
             'price'         => 'required',
