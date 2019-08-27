@@ -22,13 +22,20 @@ class TransactionController extends Controller
         $share = Share::findOrFail($request->share_id);
         $this->authorize('create', $share);
 
-        $data = $request->all();
-        $transaction = new Transaction();
-        $transaction->fill($data);
+        try {
+            $data = $request->all();
+            $transaction = new Transaction();
+            $transaction->fill($data);
 
-        $transaction->user_id = auth()->user()->id;
-        $transaction->price = $data['price'];
-        $transaction->dividend_gain = $data['dividend_gain'];
+            $transaction->user_id = auth()->user()->id;
+            $transaction->price = $data['price'];
+            $transaction->dividend_gain = $data['dividend_gain'];
+        } catch (\Exception $e) {
+            return response()->json(
+                ['messages' => '', 'errors' => [['transaction' => trans('app.transaction.create_error')]]],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
 
         try {
             $transaction->save();
