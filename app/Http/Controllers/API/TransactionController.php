@@ -69,9 +69,9 @@ class TransactionController extends Controller
     }
 
     /**
-     * Delete a portfolio.
+     * Delete a transaction.
      *
-     * @param Transaction $transaction
+     * @param Transaction $id
      *
      * @return JsonResponse
      */
