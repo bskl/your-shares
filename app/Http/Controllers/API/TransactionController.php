@@ -7,6 +7,7 @@ use App\Http\Requests\API\TransactionRequest;
 use App\Models\Share;
 use App\Models\Transaction;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Lang;
 
 class TransactionController extends Controller
 {
@@ -32,7 +33,7 @@ class TransactionController extends Controller
             $transaction->dividend_gain = $data['dividend_gain'];
         } catch (\Exception $e) {
             return response()->json(
-                ['messages' => '', 'errors' => [['transaction' => trans('app.transaction.create_error')]]],
+                ['messages' => '', 'errors' => [['transaction' => Lang::get('app.transaction.create_error')]]],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
@@ -49,7 +50,7 @@ class TransactionController extends Controller
             return response()->json($transaction->share->portfolio);
         } catch (\Exception $e) {
             return response()->json(
-                ['messages' => '', 'errors' => [['transaction' => trans('app.transaction.create_error')]]],
+                ['messages' => '', 'errors' => [['transaction' => Lang::get('app.transaction.create_error')]]],
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
@@ -92,7 +93,7 @@ class TransactionController extends Controller
             return response()->json($portfolio);
         } catch (\Exception $e) {
             return response()->json(
-                trans('app.transaction.delete_error'),
+                Lang::get('app.transaction.delete_error'),
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
