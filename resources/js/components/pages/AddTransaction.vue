@@ -1,7 +1,7 @@
 <script>
 
 import FormErrors from '../partials/FormErrors.vue';
-import { VMoney } from 'v-money';
+import { CurrencyDirective } from 'vue-currency-input'
 import { mapActions } from 'vuex';
 import { TRANSACTION_TYPES } from '../../store/constants.js';
 
@@ -27,7 +27,7 @@ export default {
   name: 'AddTransaction',
 
   components: {
-    FormErrors, VMoney,
+    FormErrors, CurrencyDirective,
   },
 
   /**
@@ -46,11 +46,6 @@ export default {
         dividend_gain: null,
       }),
       valid: true,
-      money: {
-        decimal: ',',
-        thousands: '.',
-        precision: 2,
-      },
       menu: false,
       symbolCode: this.code,
       transactionRules: [
@@ -85,7 +80,7 @@ export default {
   },
 
   directives: {
-    money: VMoney
+    currency: CurrencyDirective
   },
 
   methods: {
@@ -190,8 +185,8 @@ export default {
               v-show="this.form.type == 0 || this.form.type == 1"
               v-model.lazy="form.price"
               :label="$t('Enter Share Price')"
-              :rules="priceRules"
-              v-money="money"
+              :rules="(this.form.type == 0 || this.form.type == 1) ? priceRules : [(v) => true]"
+              v-currency="{currency: 'TRY', locale: 'tr', autoDecimalMode: true, distractionFree: false}"
             ></v-text-field>
             <v-text-field type="number" name="commission" id="commission" required
               v-show="this.form.type == 0 || this.form.type == 1"
@@ -205,8 +200,8 @@ export default {
               v-show="this.form.type == 2"
               v-model.lazy="form.dividend_gain"
               :label="$t('Enter Dividend Gain Price')"
-              :rules="dividendGainRules"
-              v-money="money"
+              :rules="(this.form.type == 2) ? dividendGainRules : [(v) => true]"
+              v-currency="{currency: 'TRY', locale: 'tr', autoDecimalMode: true, distractionFree: false}"
             ></v-text-field>
           </v-card-text>
           <v-card-actions>
