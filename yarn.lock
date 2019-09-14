@@ -5591,6 +5591,11 @@ vm-browserify@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.0.tgz#bd76d6a23323e2ca8ffa12028dc04559c75f9019"
 
+vue-currency-input@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/vue-currency-input/-/vue-currency-input-1.9.0.tgz#df83d382116dc69e96546bd9cd842bf7b9c89675"
+  integrity sha512-PxwkZDPuTQ8pF5SrlHLv/bmP6u6JF+6Xt3p/9ovkAC/R7nae8t/zDe1LsufNkLj0KEUUMmQGvZa1hF/aai6YkA==
+
 vue-hot-reload-api@^2.3.0:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.3.tgz#2756f46cb3258054c5f4723de8ae7e87302a1ccf"
