@@ -35,9 +35,9 @@ class TransactionRequest extends Request
             'type'          => 'required|integer|enum_value:'.TransactionType::class,
             'date_at'       => 'required|date|before_or_equal:'.Carbon::today()->toDateString(),
             'lot'           => 'required'.$addRule,
-            'price'         => 'required',
+            'price'         => 'required_if:type,'.TransactionType::Buying,
             'commission'    => 'required|numeric',
-            'dividend_gain' => 'sometimes|required',
+            'dividend_gain' => 'required_if:type,'.TransactionType::Dividend,
         ];
     }
 }

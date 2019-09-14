@@ -104,7 +104,6 @@ abstract class BaseModel extends Model
             $currencies = new ISOCurrencies();
 
             $numberFormatter = new \NumberFormatter(config('app.locale'), \NumberFormatter::DECIMAL);
-            dd($numberFormatter);
             $moneyParser = new IntlLocalizedDecimalParser($numberFormatter, $currencies);
 
             $money = $moneyParser->parse($value, new Currency(config('app.currency')));
