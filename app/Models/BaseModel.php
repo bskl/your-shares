@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Money;
-use Money\Parser\IntlMoneyParser;
+use Money\Parser\DecimalMoneyParser;
 
 abstract class BaseModel extends Model
 {
@@ -103,10 +103,9 @@ abstract class BaseModel extends Model
         } else {
             $currencies = new ISOCurrencies();
 
-            $numberFormatter = new \NumberFormatter(config('app.locale'), \NumberFormatter::CURRENCY);
-            $moneyParser = new IntlMoneyParser($numberFormatter, $currencies);
+            $moneyParser = new DecimalMoneyParser($currencies);
 
-            $money = $moneyParser->parse($value);
+            $money = $moneyParser->parse($value, config('app.currency'));
         }
 
         $this->attributes[$key] = $money->getAmount();
