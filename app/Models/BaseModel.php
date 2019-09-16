@@ -103,12 +103,10 @@ abstract class BaseModel extends Model
             $money = $value;
         } else {
             $currencies = new ISOCurrencies();
-            $numberFormatter = new \NumberFormatter('tr_TR', \NumberFormatter::DECIMAL);
-            $moneyParser = new IntlLocalizedDecimalParser($numberFormatter, $currencies);
 
-            //$moneyParser = new DecimalMoneyParser($currencies);
+            $moneyParser = new DecimalMoneyParser($currencies);
 
-            $money = $moneyParser->parse($value, config('app.currency'));
+            $money = $moneyParser->parse(str_replace(',', '.', $value), config('app.currency'));
         }
 
         $this->attributes[$key] = $money->getAmount();
