@@ -7,6 +7,7 @@ use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Money;
 use Money\Parser\DecimalMoneyParser;
+use Money\Parser\IntlLocalizedDecimalParser;
 
 abstract class BaseModel extends Model
 {
@@ -102,8 +103,10 @@ abstract class BaseModel extends Model
             $money = $value;
         } else {
             $currencies = new ISOCurrencies();
+            $numberFormatter = new \NumberFormatter('tr_TR', \NumberFormatter::DECIMAL);
+            $moneyParser = new IntlLocalizedDecimalParser($numberFormatter, $currencies);
 
-            $moneyParser = new DecimalMoneyParser($currencies);
+            //$moneyParser = new DecimalMoneyParser($currencies);
 
             $money = $moneyParser->parse($value, config('app.currency'));
         }
