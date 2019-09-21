@@ -53,7 +53,7 @@ class Transaction extends BaseModel
      * @var array
      */
     protected $decimal = [
-        'lot', 'bonus',
+        'lot',
     ];
 
     /**
