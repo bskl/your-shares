@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\TransactionType;
+
 return [
 
     /*
@@ -43,7 +45,7 @@ return [
     'file'                 => ':Attribute bir dosya olmalıdır.',
     'filled'               => ':Attribute alanının bir değeri olmalıdır.',
     'gt'                   => [
-        'numeric' => 'The :attribute must be greater than :value.',
+        'numeric' => ':Attribute alanı :value değerinden büyük olmalıdır.',
         'file'    => 'The :attribute must be greater than :value kilobytes.',
         'string'  => 'The :attribute must be greater than :value characters.',
         'array'   => 'The :attribute must have more than :value items.',
@@ -151,6 +153,16 @@ return [
         'price'      => 'Fiyat',
         'name'       => 'Portföy Adı',
         'commission' => 'Komisyon',
+    ],
+
+    'values' => [
+        'type' => [
+            TransactionType::Buying   => 'Alım',
+            TransactionType::Sale     => 'Satım',
+            TransactionType::Dividend => 'Temettü',
+            TransactionType::Bonus    => 'Bedelsiz',
+            TransactionType::Rights   => 'Bedelli',
+        ],
     ],
 
 ];

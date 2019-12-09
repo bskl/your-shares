@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\TransactionType;
+
 return [
 
     /*
@@ -151,6 +153,16 @@ return [
         'price'      => 'Price',
         'name'       => 'Portfolio Name',
         'commission' => 'Commission',
+    ],
+
+    'values' => [
+        'type' => [
+            TransactionType::Buying   => 'Buying',
+            TransactionType::Sale     => 'Sale',
+            TransactionType::Dividend => 'Dividend',
+            TransactionType::Bonus    => 'Bonus',
+            TransactionType::Rights   => 'Rights',
+        ],
     ],
 
 ];
