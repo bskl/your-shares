@@ -7,6 +7,7 @@ export default {
   "Sign In": "Giriş Yap",
   "Signing In": "Giriş Yapılıyor...",
   "Logout": "Çıkış",
+  "Home": "Ana Sayfa",
   "Forgot password?": "Şifreni mi unuttun?",
   "You don't have an account?": "Hesabın yok mu?",
   "Already have an account?": "Zaten hesabın var mı?",
@@ -45,6 +46,7 @@ export default {
   "Dividend Transactions": "Temettü İşlemleri",
   "Bonus": "Bedelsiz",
   "Bonus Transactions": "Bedelsiz İşlemleri",
+  "Rights": "Bedelli",
   "Symbol": "Hisse",
   "Last Price": "Son Fiyat",
   "Change": "Değişim",
@@ -63,6 +65,7 @@ export default {
   "Delete last item of transactions.": "Son İşlemi Sil",
   "Privacy Policy": "Gizlilik Sözleşmesi",
   "Terms of Use": "Kullanım Koşulları",
+  "This field is required": "Bu alan zorunludur",
   "E-mail is required": "E-Posta adresi girin",
   "E-mail must be valid": "Geçerli bir E-Posta adresi girin",
   "Password is required": "Şifrenizi girin",
@@ -99,6 +102,7 @@ export default {
   "Sum of bonus shares.": "Bedelsiz hisselerin toplamı.",
   "Total gain. [(gain/loss + dividend) - commission amount]": "Toplam kazanç. [(kar/zarar + temettü) - komisyon tutarı]",
   "Gain on the instant stock price.": "Hisse son fiyatı karları ile kazanç toplamı.",
+  "You must write your bonus shares.": "Bedelsiz dağıtılan hisse miktarını yazmalısınız.",
   "For example; Garanti Bank: 0,188": "Örneğin; Garanti Bankası: 0,188",
   "Rows per page:": "Sayfa başına satır:",
   "All": "Hepsi",
@@ -107,6 +111,7 @@ export default {
   "Your portfolio commission rate has not been recorded.": "Portföy komisyon oranınız kayıt edilmemiş.",
   "Page not found.": "Aradığınız sayfa bulunamadı.",
   "Return Home Page": "Ana Sayfaya Dön",
+  "An error occured when the locale updated. Please try again later.": "Site dili güncellenirken hata oluştu. Lütfen daha sonra tekrar deneyiniz.",
   "Year": "Yıl",
   "January": "Ocak",
   "February": "Şubat",
@@ -157,6 +162,13 @@ export default {
   "instant_gain": {
     "title": "Anlık Kazanç",
     "description": "Hisse son fiyatı karları ile kazanç toplamı.",
+  },
+
+  "rules": {
+    "required": "Bu alan zorunlu.",
+    "email": "Bu alan geçerli bir email adresine sahip olmalı.",
+    "confirmed": "Şifre tekrarı eşleşmiyor.",
+    "gte": "Bu alanın değeri {length} değerinden büyük veya eşit olmalıdır.",
   },
 
   "delete_share": "Hisseyi {portfolioName} İsimli Portföyden Sil",

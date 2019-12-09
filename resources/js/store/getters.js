@@ -5,6 +5,9 @@ export default {
   isAdmin (state) {
     return state.user.role == 'admin';
   },
+  user (state) {
+    return state.user;
+  },
   portfoliosCount (state) {
     return state.portfolios.length;
   },

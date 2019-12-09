@@ -1,81 +1,85 @@
 <script>
 
-import { languages as list } from '../../lang/map';
+import { mapActions, mapGetters } from "vuex";
+import { languages as list } from "../../lang/map";
 
 export default {
   /**
    * The component's name.
    */
-  name: 'MainFooter',
+  name: "MainFooter",
 
   /**
    * The component's data.
    */
   data() {
-    return { }
+    return {};
   },
 
   computed: {
+    ...mapGetters(["isLoggedIn"]),
+
     languages() {
       return list;
     },
 
     currentLanguage() {
       return this.languages.find(l => l.locale === this.$i18n.locale);
-    },
+    }
   },
 
   methods: {
+    ...mapActions(["setLocale"]),
     /**
      * Change the language.
-     
-    setLocale(locale) {
+     */
+    translateI18n(locale) {
       setTimeout(() => {
-        ls.set('locale', locale);
         this.$i18n.locale = locale;
+        this.$vuetify.lang.current = locale;
 
-        if (userStore.isAuthenticated()) {
-          return new Promise((resolve, reject) => {
-            http.get('/locale/' + locale, response => {
-              resolve(response);
-            }, error => {
-              reject(error);
-            });
-          });
+        if (this.isLoggedIn) {
+          this.setLocale(locale);
         }
-      }, 500);
-    },
-    */
+      }, 1000);
+    }
   }
-}
+};
 </script>
 
 <template>
-  <v-footer app height="auto" class="pr-3">
-    <v-layout row wrap>
-      <v-menu open-on-hover top offset-y>
-        <v-btn flat slot="activator" style="min-width: 64px">
-          <img width="32px"
+  <v-footer app fixed padless class="pl-4 caption font-weight-light">
+    <v-menu offset-y right top max-height="calc(100% - 16px)" transition="slide-y-reverse-transition">
+      <template v-slot:activator="{ attrs, on }">
+        <v-btn icon small class="text--secondary text-capitalize mr-3"
+          v-bind="attrs" v-on="on"
+        >
+          <v-img max-width="18px"
             :src="`./img/flags/${currentLanguage.country}-32.png`"
           />
         </v-btn>
-        <v-list dense light>
-          <v-list-tile avatar
-            v-for="language in languages"
-            :key="language.locale"
-            @click="setLocale(language.locale)"
-          >
-            <v-list-tile-avatar class="avatar--tile" size="24px">
-              <img width="24px"
-                :src="`./img/flags/${language.country}-r32.png`"
-              />
-            </v-list-tile-avatar>
-            <v-list-tile-title>{{ language.title }}</v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-menu>
-    </v-layout>
-    <v-spacer></v-spacer>
-    <div>&copy; {{ new Date().getFullYear() }} — yourshares</div>
+      </template>
+
+      <v-list dense nav>
+        <v-list-item
+          v-for="language in languages"
+          :key="language.locale"
+          @click="translateI18n(language.locale)"
+        >
+          <v-list-item-avatar tile size="20px">
+            <v-img width="20px"
+              :src="`./img/flags/${language.country}-r32.png`"
+            />
+          </v-list-item-avatar>
+          <v-list-item-title
+            v-text="language.title"
+          />
+        </v-list-item>
+      </v-list>
+    </v-menu>
+    <v-col class="text-right">
+      &copy; {{ new Date().getFullYear() }} —
+      <strong>yourshares</strong>
+    </v-col>
   </v-footer>
 </template>

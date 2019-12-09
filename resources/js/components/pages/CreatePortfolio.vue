@@ -1,7 +1,8 @@
 <script>
 
-import PortfolioForm from '../partials/PortfolioForm.vue';
 import { mapActions } from 'vuex';
+import FormErrors from '../partials/FormErrors.vue';
+import validationHandler from '../../mixins/validationHandler';
 
 export default {
   /**
@@ -9,8 +10,10 @@ export default {
    */
   name: 'CreatePortfolio',
 
+  mixins: [validationHandler],
+
   components: {
-    PortfolioForm,
+    FormErrors,
   },
 
   /**
@@ -19,11 +22,11 @@ export default {
   data() {
     return {
       isLoading: false,
-      form: new Form({
+      form: {
         name: '',
         currency: '',
         commission: '',
-      }),
+      },
       valid: true,
     }
   },
@@ -42,15 +45,17 @@ export default {
 
         this.createPortfolio(this.form)
           .then(() => {
+            this.clearErrors();
             this.$router.push({ name: 'Home' });
           })
           .catch((error) => {
-            this.form.onFail(error.response.data);
+            this.syncErrors(error);
           })
           .finally(() => {
             this.isLoading = false;
-            this.$refs.form.resetValidation();
           });
+      } else {
+        this.focusFirstErrorInput();
       }
     },
   },
@@ -58,23 +63,65 @@ export default {
 </script>
 
 <template>
-  <v-layout row wrap justify-center>
-    <v-flex xs12 sm6 md4>
+  <v-row align="center" justify="center">
+    <v-col cols="12" sm="8" md="4">
       <v-card>
-        <v-form ref="form" v-model="valid" lazy-validation @keyup.native.enter="submit">
-          <v-card-title>
-            <div class="headline mb-0">{{ $t("Add Portfolio") }}</div>
-          </v-card-title>
-          <portfolio-form 
-            :form="this.form"
-          ></portfolio-form>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn :to="'/'">{{ $t("Close") }}</v-btn>
-            <v-btn color="primary" :loading="isLoading" @click="submit">{{ $t("Create") }}</v-btn>
-          </v-card-actions>
-        </v-form>
+        <v-toolbar flat class="pl-2">
+          <v-toolbar-title>{{ $t("Add Portfolio") }}</v-toolbar-title>
+        </v-toolbar>
+        <v-card-text>
+          <v-form v-model="valid" ref="form" lazy-validation
+            @keyup.native.enter="submit"
+            @keydown.native="clearError($event.target.name)"
+          >
+            <form-errors :errors="errors" />
+            <v-text-field type="text" name="name" ref="name" id="name" outlined autofocus
+              prepend-icon="person"
+              v-model="form.name"
+              :disabled="isLoading"
+              :label="$t('Portfolio Name')"
+              :rules="[rules.required]"
+              :error-messages="getError('name')"
+            ></v-text-field>
+            <v-select type="select" name="currency" ref="currency" id="currency" outlined
+              prepend-icon="person"
+              v-model="form.currency"
+              :disabled="isLoading"
+              :items="['TRY']"
+              :label="$t('Currency')"
+              :rules="[rules.required]"
+              :error-messages="getError('currency')"
+            ></v-select>
+            <v-text-field type="number" name="commission" ref="commission" id="commission" outlined
+              prepend-icon="person"
+              step="0.0001"
+              v-model="form.commission"
+              :disabled="isLoading"
+              :label="$t('Enter Commission Rate')"
+              :rules="[rules.required]"
+              :error-messages="getError('commission')"
+              :hint="$t('For example; Garanti Bank: 0,188')"
+            ></v-text-field>
+          </v-form>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions class="pa-4">
+          <v-spacer></v-spacer>
+          <v-progress-circular v-show="isLoading" indeterminate color="rgba(89, 135, 209, 1)" width="3" size="30" />
+          <v-btn class="btn-custom"
+            :disabled="isLoading"
+            :to="'/'"
+          >
+            {{ $t("Close") }}
+          </v-btn>
+          <v-btn class="btn-custom"
+            :disabled="isLoading"
+            @click="submit"
+          >
+            {{ $t("Create") }}
+          </v-btn>
+        </v-card-actions>
       </v-card>
-    </v-flex>
-  </v-layout>
+    </v-col>
+  </v-row>
 </template>

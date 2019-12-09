@@ -1,8 +1,9 @@
 <script>
 
-import FormErrors from '../partials/FormErrors.vue';
 import { mapActions } from 'vuex';
 import { TRANSACTION_TYPES } from '../../store/constants.js';
+import validationHandler from '../../mixins/validationHandler';
+import FormErrors from '../partials/FormErrors.vue';
 
 export default {
   props: {
@@ -25,6 +26,8 @@ export default {
    */
   name: 'AddTransaction',
 
+  mixins: [validationHandler],
+
   components: {
     FormErrors,
   },
@@ -34,8 +37,8 @@ export default {
    */
   data() {
     return {
-      loading: false,
-      form: new Form({
+      isLoading: false,
+      form: {
         share_id: this.id,
         type: 0,
         date_at: null,
@@ -43,29 +46,11 @@ export default {
         price: null,
         commission: this.commission,
         dividend_gain: null,
-      }),
+      },
+      date: null,
       valid: true,
       menu: false,
       symbolCode: this.code,
-      transactionRules: [
-        (v) => !!v || this.$t("Transaction is required"),
-      ],
-      dateAtRules: [
-        (v) => !!v || this.$t("Date is required"),
-      ],
-      lotRules: [
-        (v) => !!v || this.$t("Lot is required"),
-        (v) => v>0 || this.$t("Lot must be more than 0"),
-      ],
-      priceRules: [
-        (v) => !!v || this.$t("Price is required"),
-      ],
-      commissionRules: [
-        (v) => !!v || this.$t("Commission is required"),
-      ],
-      dividendGainRules: [
-        (v) => !!v || this.$t("Dividend Gain Price is required"),
-      ],
       priceCurrency: null,
       dividendGainCurrency: null
     };
@@ -81,6 +66,9 @@ export default {
   },
 
   watch: {
+    date: function (val) {
+      this.form.date_at = this.formatDate(val)
+    },
     priceCurrency: function (val) {
       this.form.price = this.$parseCurrency(val)
     },
@@ -94,24 +82,33 @@ export default {
       'createTransaction',
     ]),
 
+    formatDate (date) {
+      if (!date) return null
+
+      const [year, month, day] = date.split('-')
+      return `${day}.${month}.${year}`
+    },
+
     /**
      * Save the transaction.
      */
     submit() {
       if (this.$refs.form.validate()) {
-        this.loading = true;
+        this.isLoading = true;
 
         this.createTransaction(this.form)
           .then((res) => {
+            this.clearErrors();
             this.$router.push({ name: 'Home' });
           })
           .catch((error) => {
-            this.form.onFail(error.response.data);
+            this.syncErrors(error);
           })
           .finally(() => {
-            this.loading = false;
-            this.$refs.form.resetValidation();
+            this.isLoading = false;
           });
+      } else {
+        this.focusFirstErrorInput();
       }
     },
 
@@ -137,86 +134,117 @@ export default {
 </script>
 
 <template>
-  <v-layout row wrap justify-center>
-    <v-flex xs12 sm6 md4>
+  <v-row align="center" justify="center">
+    <v-col cols="12" sm="8" md="4">
       <v-card>
-        <v-form ref="form" v-model="valid" lazy-validation @keyup.native.enter="submit">
-          <v-card-title>
-            <div class="headline mb-0">
-              <span class="red--text darken-4">{{ symbolCode }}</span>
-              {{ $t("Add Transaction") }}
-            </div>
-          </v-card-title>
-          <v-card-text>
-            <form-errors :errors="form.errors" />
-            <v-select autofocus single-line required
+        <v-toolbar flat class="pl-2">
+          <v-toolbar-title>{{ symbolCode }}</v-toolbar-title>
+        </v-toolbar>
+        <v-card-text>
+          <v-form ref="form" v-model="valid" lazy-validation
+            @keyup.native.enter="submit"
+            @keydown.native="clearError($event.target.name)"
+          >
+            <form-errors :errors="errors" />
+            <v-input type="hidden" name="share_id" ref="share_id" id="share_id" readonly hide-details dense
+              v-model="form.share_id"
+            />
+            <v-select name="type" ref="type" id="type" autofocus single-line outlined clearable
+              prepend-icon="person"
+              v-model="form.type"
+              :disabled="isLoading"
               :items="transactionTypes"
+              :label="$t('Select Transaction')"
+              :rules="[rules.required]"
+              :error-messages="getError('type')"
               item-text="label"
               item-value="id"
-              v-model="form.type"
-              :label="$t('Select Transaction')"
               menu-props="bottom"
             ></v-select>
-            <v-menu lazy offset-y full-width min-width="290px" transition="scale-transition"
-              ref="menu"
-              :close-on-content-click="false"
+            <v-menu ref="menu" offset-y min-width="290px" transition="scale-transition"
               v-model="menu"
+              :close-on-content-click="false"
               :nudge-right="40"
               :return-value.sync="form.date_at"
             >
-              <v-text-field prepend-icon="event" readonly required
-                slot="activator"
-                :label="$t('Select Date')"
-                v-model="form.date_at"
-                :rules="dateAtRules"
-              ></v-text-field>
+              <template v-slot:activator="{ on }">
+                <v-text-field name="date_at" ref="date_at" id="date_at" readonly outlined clearable
+                  prepend-icon="event"
+                  v-model="form.date_at"
+                  :disabled="isLoading"
+                  :label="$t('Select Date')"
+                  :rules="[rules.required]"
+                  :error-messages="getError('date_at')"
+                  v-on="on"
+                ></v-text-field>
+              </template>
               <v-date-picker no-title scrollable
+                v-model="date"
                 :allowed-dates="allowedDates"
                 :first-day-of-week="1"
-                :locale="this.$i18n.locale"
-                v-model="form.date_at"
               >
-                <v-spacer></v-spacer>
-                <v-btn flat color="primary" @click="menu = false">{{ $t("Close") }}</v-btn>
-                <v-btn flat color="primary" @click="$refs.menu.save(form.date_at)">{{ $t("Ok") }}</v-btn>
+              <v-spacer></v-spacer>
+                <v-btn class="btn-custom" @click="menu = false">{{ $t("Close") }}</v-btn>
+                <v-btn class="btn-custom" @click="$refs.menu.save(form.date_at)">{{ $t("Ok") }}</v-btn>
               </v-date-picker>
             </v-menu>
-            <v-text-field type="number" name="lot" id="lot" required
+            <v-text-field type="number" name="lot" ref="lot" id="lot" outlined clearable
               step="1"
+              prepend-icon="event"
               v-model="form.lot"
+              :disabled="isLoading"
               :label="$t('Enter Share Amount')"
-              :rules="lotRules"
+              :rules="[rules.required]"
+              :error-messages="getError('lot')"
+              :hint="this.form.type != 3 ? '' : $t('You must write your bonus shares.')"
             ></v-text-field>
-            <v-text-field type="text" name="price" id="price" required
-              v-show="this.form.type == 0 || this.form.type == 1"
+            <v-text-field type="text" name="price" ref="price" id="price" outlined clearable
+              v-if="this.form.type == 0 || this.form.type == 1"
+              prepend-icon="event"
               v-model.lazy="priceCurrency"
               :label="$t('Enter Share Price')"
-              :rules="(this.form.type == 0 || this.form.type == 1) ? priceRules : [(v) => true]"
+              :rules="[rules.required]"
+              :error-messages="getError('price')"
               v-currency
             ></v-text-field>
-            <v-text-field type="number" name="commission" id="commission" required
-              v-show="this.form.type == 0 || this.form.type == 1"
+            <v-text-field type="number" name="commission" ref="commission" id="commission" outlined clearable
+              v-if="this.form.type == 0 || this.form.type == 1"
               step="0.0001"
+              prepend-icon="event"
               v-model="form.commission"
               :label="$t('Enter Commission Rate')"
-              :rules="commissionRules"
+              :rules="[rules.required]"
+              :error-messages="getError('commission')"
               :hint="$t('For example; Garanti Bank: 0,188')"
             ></v-text-field>
-            <v-text-field type="text" name="dividend_gain" id="dividend_gain" required
-              v-show="this.form.type == 2"
+            <v-text-field type="text" name="dividend_gain" ref="dividend_gain" id="dividend_gain" outlined clearable
+              v-if="this.form.type == 2"
+              prepend-icon="event"
               v-model.lazy="dividendGainCurrency"
               :label="$t('Enter Dividend Gain Price')"
-              :rules="(this.form.type == 2) ? dividendGainRules : [(v) => true]"
+              :rules="[rules.required]"
+              :error-messages="getError('dividend_gain')"
               v-currency
             ></v-text-field>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn :to="'/'">{{ $t("Close") }}</v-btn>
-            <v-btn color="primary" :loading="loading" @click="submit">{{ $t("Create") }}</v-btn>
-          </v-card-actions>
-        </v-form>
+          </v-form>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions class="pa-4">
+          <v-spacer></v-spacer>
+          <v-progress-circular v-show="isLoading" indeterminate color="rgba(89, 135, 209, 1)" width="3" size="30" />
+          <v-btn class="btn-custom" to="/"
+            :disabled="isLoading"
+          >
+            {{ $t("Close") }}
+          </v-btn>
+          <v-btn class="btn-custom"
+            :disabled="isLoading" 
+            @click="submit"
+          >
+            {{ $t("Create") }}
+          </v-btn>
+        </v-card-actions>
       </v-card>
-    </v-flex>
-  </v-layout>
+    </v-col>
+  </v-row>
 </template>

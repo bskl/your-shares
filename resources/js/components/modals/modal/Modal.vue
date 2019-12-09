@@ -15,11 +15,9 @@ export default {
 </script>
 
 <template>
-  <v-layout row justify-center>
     <v-dialog v-model="dialog" persistent :max-width="dialogWidth">
       <v-card>
         <slot />
       </v-card>
     </v-dialog>
-  </v-layout>
 </template>

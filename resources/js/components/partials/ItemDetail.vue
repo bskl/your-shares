@@ -24,33 +24,34 @@ export default {
   name: 'ItemDetail',
 
   computed: {
-    classObject() {
+    getTextColor() {
       return (this.item.change_color) ? (this.value < 0) ? 'red--text' : 'green--text' : '';
     },
 
     itemLink() {
       return this.item.link ? `/${this.baseLink}/${this.item.link}` : undefined;
+    },
+
+    disabled() {
+      return (typeof this.itemLink == 'undefined') ? true : false;
     }
   },
 };
 </script>
 
 <template>
-  <v-list-tile
+  <v-list-item dense
+    :disabled="disabled"
     :to="itemLink"
   >
-    <v-list-tile-content>
-      <v-list-tile-title>
-        {{ $t(`${item.key}.title`) }}
-        <span class="grey--text text--lighten-1">
-          - <i>{{ $t(`${item.key}.description`) }}</i>
-        </span>
-      </v-list-tile-title>
-    </v-list-tile-content>
-    <v-list-tile-action class="darken-1"
-      :class="classObject"
+    <v-list-item-content>
+      <v-list-item-title v-text="$t(`${item.key}.title`)"></v-list-item-title>
+      <v-list-item-subtitle v-html="$t(`${item.key}.description`)"></v-list-item-subtitle>
+    </v-list-item-content>
+    <v-list-item-action class="body-2 font-weight-medium"
+      :class="getTextColor"
+      v-text="value"
     >
-      <strong>{{ value }}</strong>
-    </v-list-tile-action>
-  </v-list-tile>
+    </v-list-item-action>
+  </v-list-item>
 </template>

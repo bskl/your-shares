@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito|Material+Icons');
 
 // Vuetify
-@import url('../../node_modules/vuetify/dist/vuetify.css');
+@import url('../../node_modules/vuetify/dist/vuetify.min.css');
 
 // NProgress
 @import url('../../node_modules/nprogress/nprogress.css');
@@ -12,4 +12,4 @@
 @import url('_custom.scss');
 
 // Variables
-@import url('_variables.scss');
+//@import url('_variables.scss');

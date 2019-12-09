@@ -4,6 +4,9 @@ export default {
   TOGGLE_LOADING(state) {
     state.isLoading = !state.isLoading;
   },
+  TOGGLE_NAV_DRAWER(state) {
+    state.navDrawer = !state.navDrawer;
+  },
   LOGGED_IN(state, data) {
     if (has(data, 'access_token') && data.access_token) {
       localStorage.setItem('access_token', JSON.stringify(data.access_token));
@@ -21,14 +24,18 @@ export default {
     state.user = data;
     localStorage.setItem('locale', JSON.stringify(data.locale));
   },
+  SET_LOCALE(state, locale) {
+    state.user.locale = locale;
+    localStorage.setItem('locale', JSON.stringify(locale));
+  },
   SET_PORTFOLIOS(state, data) {
     state.portfolios = data;
   },
   ADD_PORTFOLIO(state, portfolio) {
     state.portfolios.push(portfolio);
   },
-  UPDATE_PORTFOLIO(state, { index, data }) {
-    state.portfolios[index] = data;
+  UPDATE_PORTFOLIO(state, { index, res }) {
+    state.portfolios[index] = res.data;
   },
   DESTROY_PORTFOLIO(state, index) {
     state.portfolios.splice(index, 1);

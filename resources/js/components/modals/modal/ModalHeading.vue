@@ -1,5 +1,5 @@
 <template>
-  <v-card-title>
+  <v-toolbar flat class="pl-2">
     <slot />
-  </v-card-title>
+  </v-toolbar>
 </template>

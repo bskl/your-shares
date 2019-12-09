@@ -1,7 +1,6 @@
 <script>
 
 import MainLayout from './components/layout/MainLayout.vue';
-import TransitionPage from './components/partials/TransitionPage.vue';
 import Snackbar from './components/partials/Snackbar.vue';
 
 export default {
@@ -11,7 +10,13 @@ export default {
   name: 'App',
 
   components: {
-    MainLayout, TransitionPage, Snackbar,
+    MainLayout, Snackbar,
+  },
+
+  watch: {
+    '$route.path' () {
+      typeof window !== 'undefined' && window.scrollTo(0, 0)
+    },
   },
 }
 </script>
@@ -19,8 +24,8 @@ export default {
 <template>
   <main-layout>
     <snackbar></snackbar>
-    <transition-page>
+    <v-scroll-x-transition mode="out-in">
       <router-view></router-view>
-    </transition-page>
+    </v-scroll-x-transition>
   </main-layout>
 </template>

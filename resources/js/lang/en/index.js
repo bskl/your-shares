@@ -7,6 +7,7 @@ export default {
   "Sign In": "Sign In",
   "Signing In": "Signing In...",
   "Logout": "Logout",
+  "Home": "Home",
   "Forgot password?": "Forgot password?",
   "You don't have an account?": "You don't have an account?",
   "Already have an account?": "Already have an account?",
@@ -44,6 +45,7 @@ export default {
   "Dividend Transactions": "Dividend Transactions",
   "Bonus": "Bonus",
   "Bonus Transactions": "Bonus Transactions",
+  "Rights": "Rights",
   "Symbol": "Symbol",
   "Last Price": "Last Price",
   "Change": "Change",
@@ -62,6 +64,7 @@ export default {
   "Delete last item of transactions.": "Delete the last item of the transactions.",
   "Privacy Policy": "Privacy Policy",
   "Terms of Use": "Terms of Use",
+  "This field is required": "This field is required",
   "E-mail is required": "E-mail is required",
   "E-mail must be valid": "E-mail must be valid",
   "Password is required": "Password is required",
@@ -98,6 +101,7 @@ export default {
   "Sum of bonus shares.": "Sum of bonus shares.",
   "Total gain. [(gain/loss + dividend) - commission amount]": "Total gain. [(gain/loss + dividend) - commission amount]",
   "Gain on the instant stock price.": "Gain on the instant stock price.",
+  "You must write your bonus shares.": "You must write your bonus shares.",
   "For example; Garanti Bank: 0,188": "For example; Garanti Bank: 0,188",
   "Rows per page:": "Rows per page:",
   "All": "All",
@@ -106,6 +110,7 @@ export default {
   "Your portfolio commission rate has not been recorded.": "Your portfolio commission rate has not been recorded.",
   "Page not found.": "Page not found.",
   "Return Home Page": "Return Home Page",
+  "An error occured when the locale updated. Please try again later.": "An error occured when the locale updated. Please try again later.",
   "Year": "Yıl",
   "January": "January",
   "February": "February",
@@ -156,6 +161,13 @@ export default {
   "instant_gain": {
     "title": "Anlık Kazanç",
     "description": "Hisse son fiyatı karları ile kazanç toplamı.",
+  },
+
+  "rules": {
+    "required": "This field is required.",
+    "confirmed": "The password confirmation does not match.",
+    "email": "The field must be a valid email address.",
+    "gte": "The field must be greater than or equal {length}.",
   },
 
   "delete_share": "Delete share from {portfolioName} portfolio.",

@@ -1,6 +1,8 @@
 <script>
 
 import MainHeader from './MainHeader.vue';
+import MainNavigation from './MainNavigation.vue';
+import MainFooter from './MainFooter.vue';
 
 export default {
   /**
@@ -9,21 +11,27 @@ export default {
   name: 'MainLayout',
 
   components: {
-    MainHeader,
+    MainHeader, MainNavigation, MainFooter
   },
 }
 </script>
 
 <template>
-  <v-app light>
+  <v-app>
     <main-header />
-
-    <main>
-      <v-content>
-        <v-container fluid grid-list-md>
-          <slot />
+    <main-navigation />
+    <v-content>
+      <v-responsive class="mx-auto overflow-visible">
+        <v-container class="fill-height" fluid>
+          <v-responsive
+            class="overflow-visible"
+            min-height="90vh"
+          >
+            <slot />
+          </v-responsive>
         </v-container>
-      </v-content>
-    </main>
+      </v-responsive>
+    </v-content>
+    <main-footer />
   </v-app>
 </template>

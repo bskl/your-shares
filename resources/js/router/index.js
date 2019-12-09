@@ -38,57 +38,57 @@ const router = new Router({
       path: "/",
       name: 'Home',
       component: Home,
-      meta: { requiresAuth: true, transitionName: 'slide-left' },
+      meta: { requiresAuth: true, skipScrollBehavior: true },
     },
     {
       path: "/portfolio/create",
       name: 'CreatePortfolio',
       component: CreatePortfolio,
-      meta: { requiresAuth: true, transitionName: 'slide-right' },
+      meta: { requiresAuth: true },
     },
     {
       path: "/portfolio/:id(\\d+)/edit",
       name: 'EditPortfolio',
       component: EditPortfolio,
-      meta: { requiresAuth: true, transitionName: 'slide-right' },
+      meta: { requiresAuth: true },
     },
     {
       path: "/share/:id(\\d+)/transaction/add",
       name: 'AddTransaction',
       component: AddTransaction,
       props: true,
-      meta: { requiresAuth: true, transitionName: 'slide-right' },
+      meta: { requiresAuth: true },
     },
     {
       path: "/share/:id(\\d+)/transactions",
       name: 'Share',
       component: Share,
       props: true,
-      meta: { requiresAuth: true, transitionName: 'slide-right' },
+      meta: { requiresAuth: true },
     },
     {
       path: "/portfolio/:id(\\d+)/transactions/:type",
       name: 'ListPortfolioTransactionByType',
       component: ListTransactionByType,
-      meta: { requiresAuth: true, transitionName: 'slide-right' },
+      meta: { requiresAuth: true },
     },
     {
       path: "/portfolio/:id(\\d+)/transactions/:type/:year(\\d+)",
       name: 'ListPortfolioTransactionByTypeAndYear',
       component: ListTransactionByTypeAndYear,
-      meta: { requiresAuth: true, transitionName: 'slide-right' },
+      meta: { requiresAuth: true },
     },
     {
       path: "/share/:id(\\d+)/transactions/:type",
       name: 'ListShareTransactionByType',
       component: ListTransactionByType,
-      meta: { requiresAuth: true, transitionName: 'slide-right' },
+      meta: { requiresAuth: true },
     },
     {
       path: "/share/:id(\\d+)/transactions/:type/:year(\\d+)",
       name: 'ListTransactionByTypeYearAndShare',
       component: ListTransactionByTypeYearAndShare,
-      meta: { requiresAuth: true, transitionName: 'slide-right' },
+      meta: { requiresAuth: true },
     },
     {
       path: "/confirm/:confirmation_code",
@@ -99,25 +99,25 @@ const router = new Router({
       path: "/login",
       name: 'Login',
       component: Login,
-      meta: { redirectIfAuth: true, transitionName: 'slide-left' },
+      meta: { redirectIfAuth: true },
     },
     {
       path: "/register",
       name: 'Register',
       component: Register,
-      meta: { redirectIfAuth: true, transitionName: 'slide-right' },
+      meta: { redirectIfAuth: true },
     },
     {
       path: "/password/reset",
       name: 'Reset',
       component: ForgotPassword,
-      meta: { redirectIfAuth: true, transitionName: 'slide-right' },
+      meta: { redirectIfAuth: true },
     },
     {
       path: "/password/reset/:reset_password_code",
       name: 'PasswordReset',
       component: PasswordReset,
-      meta: { redirectIfAuth: true, transitionName: 'fade' },
+      meta: { redirectIfAuth: true },
     },
     {
       path: '/404',
@@ -134,7 +134,11 @@ const router = new Router({
       redirect: '/404',
     },
   ],
-  scrollBehavior () {
+  scrollBehavior (to, from, savedPosition) {
+    if (to.meta.skipScrollBehavior) {
+      return {};
+    }
+
     return { x: 0, y: 0 }
   }
 });

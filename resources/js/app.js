@@ -1,5 +1,5 @@
 import Vue from "vue";
-import Vuetify from "vuetify";
+import vuetify from "./plugins/vuetify";
 import { sync } from 'vuex-router-sync'
 import router from "./router";
 import store from "./store";
@@ -9,8 +9,9 @@ import NProgress from "nprogress";
 import VueCurrencyInput from 'vue-currency-input'
 import App from "./App.vue";
 
-sync(store, router)
-Vue.use(Vuetify);
+sync(store, router);
+
+Vue.config.productionTip = false;
 
 window.Form = Form;
 window.NProgress = NProgress;
@@ -30,6 +31,7 @@ Vue.use(VueCurrencyInput, {
 
 new Vue({
   el: "#app",
+  vuetify,
   router,
   store,
   i18n,

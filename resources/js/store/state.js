@@ -1,6 +1,7 @@
 export default {
   isLoading: false,
   isLoggedIn: !!JSON.parse(localStorage.getItem('access_token')),
+  navDrawer: false,
   user: [],
   portfolios: [],
   snackbar: {

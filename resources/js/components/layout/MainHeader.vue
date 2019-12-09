@@ -1,26 +1,35 @@
 <script>
 
-import UserBadge from '../partials/UserBadge.vue';
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   /**
    * The component's name.
    */
-  name: 'MainHeader',
+  name: "MainHeader",
 
-  components: {
-    UserBadge,
+  computed: {
+    ...mapGetters([
+      'isLoggedIn',
+    ])
   },
-}
+
+  methods: {
+    ...mapActions([
+      'toggleNavDrawer',
+    ]),
+  }
+};
 </script>
 
 <template>
-  <v-toolbar app fixed dark class="elevation-0" style="background-color: #247BA0;">
-    <v-toolbar-title style="letter-spacing: 0em;">
-      <b>Your Shares</b>
-    </v-toolbar-title>
-    <v-spacer></v-spacer>
-
-    <user-badge />
-  </v-toolbar>
+  <v-app-bar app clipped-right elevate-on-scroll class="seperator-line">
+    <v-toolbar-title>Your Shares</v-toolbar-title>
+    <v-spacer />
+    <v-app-bar-nav-icon 
+      @click.stop="toggleNavDrawer()" 
+      v-if="isLoggedIn" 
+    />
+    <v-btn class="btn-custom" to="/register" v-else>{{ $t("Register") }}</v-btn>
+  </v-app-bar>
 </template>

@@ -39,6 +39,10 @@ export default {
     commit('SET_SNACKBAR', data);
   },
 
+  toggleNavDrawer({ commit }) {
+    commit('TOGGLE_NAV_DRAWER');
+  },
+
   register({ dispatch, commit }, data) {
     return http.post('/register', data)
       .then((res) => {
@@ -76,10 +80,25 @@ export default {
     });
   },
 
+  setLocale({ commit }, locale) {
+    return http.get(`/locale/${locale}`)
+      .then((res) => {
+        commit('SET_LOCALE', locale);
+
+        return res.data;
+      })
+      .catch((error) => {
+        commit('SET_SNACKBAR', { color: 'error', text: i18n.t('An error occured when the locale updated. Please try again later.') });
+
+        return error;
+      });
+  },
+
   logout({ commit }) {
     return http.post('/logout')
       .then((res) => {
         commit('LOGGED_OUT');
+        commit('TOGGLE_NAV_DRAWER');
 
         return res.data;
     });
@@ -141,11 +160,11 @@ export default {
       });
   },
 
-  updatePortfolio({ commit, getters }, data) {
-    return http.put(`/portfolio/${data.id}`, data)
+  updatePortfolio({ commit, getters }, { id, data }) {
+    return http.put(`/portfolio/${id}`, data)
       .then((res) => {
-        const index = getters.getPortfolioIndexById(data.id);
-        commit('UPDATE_PORTFOLIO', { index, data });
+        const index = getters.getPortfolioIndexById(id);
+        commit('UPDATE_PORTFOLIO', { index, res });
 
         return res.data;
       });
@@ -172,8 +191,7 @@ export default {
     return http.post('/transaction', data)
       .then((res) => {
         const index = getters.getPortfolioIndexById(res.data.id);
-        const data = res.data;
-        commit('UPDATE_PORTFOLIO', { index, data }); 
+        commit('UPDATE_PORTFOLIO', { index, res }); 
 
         return res.data;
       });
@@ -226,8 +244,7 @@ export default {
     return http.delete(`/transaction/${id}`)
       .then((res) => {
         const index = getters.getPortfolioIndexById(res.data.id);
-        const data = res.data;
-        commit('UPDATE_PORTFOLIO', { index, data });
+        commit('UPDATE_PORTFOLIO', { index, res });
 
         return res.data;
       });

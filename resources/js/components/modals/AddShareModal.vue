@@ -1,17 +1,20 @@
 <script>
 
+import { mapActions } from 'vuex';
 import Modal from '../modals/modal/Modal.vue';
 import ModalHeading from '../modals/modal/ModalHeading.vue';
 import ModalBody from '../modals/modal/ModalBody.vue';
 import ModalFooter from '../modals/modal/ModalFooter.vue';
 import FormErrors from '../partials/FormErrors.vue';
-import { mapActions } from 'vuex';
+import validationHandler from '../../mixins/validationHandler';
 
 export default {
   /**
    * The component's name.
    */
   name: 'AddShareModal',
+
+  mixins: [validationHandler],
 
   components: {
     Modal, ModalHeading, ModalBody, ModalFooter, FormErrors,
@@ -28,13 +31,10 @@ export default {
       valid: true,
       search: null,
       symbols: [],
-      form: new Form({
-        symbol_id: '',
-        portfolio_id: '',
-      }),
-      symbolRules: [
-        (v) => !!v || this.$t("Symbol is required"),
-      ],
+      form: {
+        symbol_id: 0,
+        portfolio_id: 0,
+      },
     };
   },
 
@@ -69,10 +69,7 @@ export default {
      * Open the model.
      */
     open(portfolioId) {
-      this.form = new Form({
-        symbol_id: '',
-        portfolio_id: portfolioId,
-      });
+      this.form.portfolio_id = portfolioId;
       this.showModal = true;
     },
 
@@ -81,8 +78,8 @@ export default {
      */
     close() {
       this.searching = false;
+      this.clearErrors();
       this.$refs.form.reset();
-      this.$refs.form.resetValidation();
       this.showModal = false;
     },
 
@@ -98,11 +95,13 @@ export default {
             this.close();
           })
           .catch((error) => {
-            this.form.onFail(error.response.data);
+            this.syncErrors(error);
           })
           .finally(() => {
             this.isLoading = false
           });
+      } else {
+        this.focusFirstErrorInput();
       }
     },
   },
@@ -110,32 +109,47 @@ export default {
 </script>
 
 <template>
-  <modal width="360" :dialog="showModal">
+  <modal :width="460" :dialog="showModal">
     <modal-heading>
-      <span class="headline">{{ $t("Add Symbol") }}</span>
+      <v-toolbar-title>{{ $t("Add Symbol") }}</v-toolbar-title>
     </modal-heading>
-    <v-form ref="form" v-model="valid" lazy-validation
-      @keyup.native.enter="submit"
-    >
-      <modal-body>
-        <form-errors :errors="form.errors" />
-        <v-autocomplete clearable required autofocus
+    <modal-body>
+      <v-form ref="form" v-model="valid" lazy-validation
+        @keyup.native.enter="submit"
+        @keydown.native="clearError($event.target.name)"
+      >
+        <form-errors :errors="errors" />
+        <v-autocomplete name="symbol_id" ref="symbol_id" id="symbol_id" outlined clearable
+          v-model="form.symbol_id"
+          :items="symbols"
+          :loading="searching"
+          :search-input.sync="search"
+          :rules="[rules.required]"
           :label="$t('Search Symbol')"
           :no-data-text="$t('No data available')"
-          :loading="searching"
-          :items="symbols"
+          :error-messages="getError('symbol_id')"
+          :disabled="isLoading"
           item-text="code"
           item-value="id"
-          :rules="symbolRules"
-          :search-input.sync="search"
-          v-model="form.symbol_id"
-        ></v-autocomplete>
-      </modal-body>
-      <modal-footer>
-        <v-spacer></v-spacer>
-        <v-btn color="grey darken-1" flat @click="close">{{ $t("Close") }}</v-btn>
-        <v-btn color="blue darken-1" flat :loading="isLoading" @click="submit">{{ $t("Create") }}</v-btn>
-      </modal-footer>
-    </v-form>
+        />
+      </v-form>
+    </modal-body>
+    <v-divider></v-divider>
+    <modal-footer>
+      <v-spacer></v-spacer>
+      <v-progress-circular v-show="isLoading" indeterminate color="rgba(89, 135, 209, 1)" width="3" size="30" />
+      <v-btn class="btn-custom"
+        :disabled="isLoading"
+        @click="close"
+      >
+        {{ $t("Close") }}
+      </v-btn>
+      <v-btn class="btn-custom"
+        :disabled="isLoading"
+        @click="submit"
+      >
+        {{ $t("Create") }}
+      </v-btn>
+    </modal-footer>
   </modal>
 </template>

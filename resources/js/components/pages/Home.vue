@@ -41,11 +41,16 @@ export default {
       'fetchData', 'destroyShare', 'fetchSymbolsData', 'setSnackbar',
     ]),
 
-    trendClass(trend) {
-      return {
-        'red--text': trend == -1,
-        'green--text': trend == 1
-      }
+    getColor(trend) {
+      if (trend == -1) return 'red lighten-1';
+      else if (trend == 1) return 'green lighten-1';
+      else return '';
+    },
+
+    getTextColor(trend) {
+      if (trend == -1) return 'red--text';
+      else if (trend == 1) return 'green--text';
+      else return 'grey--text';
     },
 
     getSymbolsData() {
@@ -73,133 +78,170 @@ export default {
     for (let index = 0, count = this.portfoliosCount; index <  count; ++index) {
       let portfolio = this.getPortfolioByIndex(index);
       if (portfolio.commission == null) {
-        this.SET_SNACKBAR({ color: 'error', text: this.$t('Your portfolio commission rate has not been recorded.') });
+        this.setSnackbar({ color: 'error', text: this.$t('Your portfolio commission rate has not been recorded.') });
         this.$router.push({ name: 'EditPortfolio', params: { id: portfolio.id } });
         break;
       }
     }
   },
+  //
 }
 </script>
 
 <template>
-  <v-layout row wrap v-if="!isLoading">
-    <v-flex xs12 sm12 md10 offset-md1 mt-4
+  <v-row align="center" justify="center" v-if="!isLoading">
+    <add-share-modal ref="addShareModal" />
+    <v-col cols="12" sm="8" md="4" lg="10"
       v-for="portfolio in portfolios" :key="portfolio.id"
     >
       <v-card>
-        <v-card-title class="pt-0 pb-0 elevation-3">
-          <v-toolbar color="white" flat>
-            <v-btn icon light disabled class="ml-0">
-              <v-icon color="grey darken-2">home</v-icon>
-            </v-btn>
-            <v-toolbar-title class="grey--text text--darken-4 ml-1">{{ portfolio.name }}</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-btn icon small class="mx-1"
-              v-if="isAdmin"
-              :loading="loading"
-              @click="getSymbolsData()"
-            >
-              <v-icon>refresh</v-icon>
-            </v-btn>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on }">
-                <v-btn icon small class="mx-1"
-                  :to="`/portfolio/${portfolio.id}/edit`"
-                >
-                  <v-icon color="green darken-2" v-on="on">edit</v-icon>
-                </v-btn>
-              </template>
-              <span>{{ $t("Update Portfolio") }}</span>
-            </v-tooltip>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on }">
-                <v-btn icon small class="mx-1"
-                  @click="$refs.addShareModal.open(portfolio.id)"
-                >
-                  <v-icon color="blue darken-2" v-on="on">add</v-icon>
-                </v-btn>
-              </template>
-              <span>{{ $t("Add Symbol") }}</span>
-            </v-tooltip>
-          </v-toolbar>
-        </v-card-title>
+        <v-toolbar flat class="pl-2">
+          <v-icon>home</v-icon>
+          <v-toolbar-title>{{ portfolio.name }}</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn icon small class="mx-1" v-if="isAdmin"
+            :loading="loading"
+            @click="getSymbolsData()"
+          >
+            <v-icon>refresh</v-icon>
+          </v-btn>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-btn icon small class="mx-1"
+                v-on="on"
+                :to="`/portfolio/${portfolio.id}/edit`"
+              >
+                <v-icon color="green darken-2">edit</v-icon>
+              </v-btn>
+            </template>
+            <span>{{ $t("Update Portfolio") }}</span>
+          </v-tooltip>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-btn icon small class="mx-1"
+                v-on="on"
+                @click="$refs.addShareModal.open(portfolio.id)"
+              >
+                <v-icon color="blue darken-2">add</v-icon>
+              </v-btn>
+            </template>
+            <span>{{ $t("Add Symbol") }}</span>
+          </v-tooltip>
+        </v-toolbar>
         <v-divider></v-divider>
         <v-card-text>
-          <v-data-table item-key="id" hide-actions
+          <v-data-table item-key="id" hide-default-footer disable-sort
+            :mobile-breakpoint="0"
             :items="portfolio.shares"
-            :headers="[
-              { text: $t('Symbol'), value: 'symbol', align: 'left', sortable: false },
-              { text: $t('Last Price'), value: 'last_price', align: 'center', sortable: false },
-              { text: $t('Change'), value: 'change', align: 'center', sortable: false },
-              { text: $t('Lots'), value: 'lots', align: 'center', sortable: false },
-              { text: $t('Average Cost'), value: 'average_cost', align: 'center', sortable: false },
-              { text: $t('Amount'), value: 'amount', align: 'center', sortable: false },
-              { text: $t('Average Amount'), value: 'average_amount', align: 'center', sortable: false },
-              { text: $t('Gain/Loss'), value: 'gain_loss', align: 'center', sortable: false },
-            ]"
             :no-data-text="$t('You have not created any symbol.')"
+            :headers="[
+              { text: $t('Symbol'), value: 'code', align: 'start' },
+              { text: $t('Last Price'), value: 'last_price', align: 'center' },
+              { text: $t('Change'), value: 'rate_of_change', align: 'center' },
+              { text: $t('Lots'), value: 'lot', align: 'center' },
+              { text: $t('Average Cost'), value: 'average', align: 'center' },
+              { text: $t('Amount'), value: 'amount', align: 'center' },
+              { text: $t('Average Amount'), value: 'average_amount', align: 'center' },
+              { text: $t('Gain/Loss'), value: 'gain', align: 'center' },
+            ]"
           >
-            <template slot="items" slot-scope="props">
-              <router-link tag="tr" :to="`/share/${props.item.id}/transactions`">
-                <td class="no-wrap">
-                  <strong>{{ props.item.symbol.code }}</strong>
-                  <span class="ml-1 caption grey--text font-weight-thin">{{ props.item.symbol.session_time }}</span>
-                </td>
-                <td class="text-xs-right darken-1"
-                  :class="trendClass(props.item.symbol.trend)"
+            <template v-slot:item.code="{ item }">
+              <v-btn text left class="font-weight-bold"
+                :to="`/share/${item.id}/transactions`"
+              >
+                {{ item.symbol.code }}
+                <v-icon right>add</v-icon>
+              </v-btn>
+            </template>
+            <template v-slot:item.last_price="{ item }">
+              <div class="text--darken-1 text-right"
+                :class="getTextColor(item.symbol.trend)"
+              >
+                {{ item.symbol.last_price }}
+              </div>
+            </template>
+            <template v-slot:item.rate_of_change="{ item }">
+              <v-chip label small
+                  :color="getColor(item.symbol.trend)"
                 >
-                  {{ props.item.symbol.last_price }}
-                </td>
-                <td class="text-xs-right darken-1"
-                  :class="trendClass(props.item.symbol.trend)"
+                  {{ item.symbol.rate_of_change }}
+              </v-chip>
+            </template>
+            <template v-slot:item.lot="{ item }">
+              <div class="text-right">
+                {{ item.lot }}
+              </div>
+            </template>
+            <template v-slot:item.average="{ item }">
+              <div class="d-flex align-center justify-center">
+                <v-col cols="auto" class="pr-0 text-right">
+                  {{ item.average }}
+                </v-col>
+                <v-col cols="auto" class="text-right overline font-weight-thin">
+                  ({{ item.average_with_dividend }})
+                </v-col>
+              </div>
+            </template>
+            <template v-slot:item.amount="{ item }">
+              <div class="text-right">
+                {{ item.amount }}
+              </div>
+            </template>
+            <template v-slot:item.average_amount="{ item }">
+              <div class="d-flex align-center justify-center">
+                <v-col cols="auto" class="pr-0 text-right">
+                  {{ item.average_amount }}
+                </v-col>
+                <v-col cols="auto" class="text-right overline font-weight-thin">
+                  ({{ item.average_amount_with_dividend }})
+                </v-col>
+              </div>
+            </template>
+            <template v-slot:item.gain="{ item }">
+              <div class="d-flex align-center justify-center">
+                <v-col cols="auto" class="pr-0 text-right"
+                  :class="getTextColor(item.gain_trend)"
                 >
-                  {{ props.item.symbol.rate_of_change }}
-                </td>
-                <td class="text-xs-right">
-                  {{ props.item.lot }}
-                </td>
-                <td class="text-xs-right no-wrap">
-                  <span>{{ props.item.average }}</span>
-                  <span class="ml-1 caption grey--text font-weight-thin">({{ props.item.average_with_dividend }})</span>
-                </td>
-                <td class="text-xs-right">
-                  {{ props.item.amount }}
-                </td>
-                <td class="text-xs-right no-wrap">
-                  <span>{{ props.item.average_amount }}</span>
-                  <span class="ml-1 caption grey--text font-weight-thin">({{ props.item.average_amount_with_dividend }})</span>
-                </td>
-                <td class="text-xs-right no-wrap">
-                  <span class="darken-1"
-                    :class="trendClass(props.item.gain_trend)"
-                  >
-                    {{ props.item.gain }}
-                  </span>
-                  <span class="ml-1 caption font-weight-thin darken-1"
-                    :class="trendClass(props.item.gain_with_dividend_trend)"
-                  >
-                    ({{ props.item.gain_with_dividend }})
-                  </span>
-                </td>
-              </router-link>
+                  {{ item.gain }}
+                </v-col>
+                <v-col cols="auto" class="text-right overline font-weight-thin"
+                  :class="getTextColor(item.gain_with_dividend_trend)"
+                >
+                  ({{ item.gain_with_dividend }})
+                </v-col>
+              </div>
             </template>
           </v-data-table>
+          <div class="ma-4">
+            <v-icon dense>clock</v-icon>
+            <span class="mx-2 caption font-weight-thin">Son güncelleme {{ portfolios[0].shares[0].symbol.session_time }}. Hisse fiyatları 15 dakika gecikmeli gelmektedir.</span>
+          </div>
         </v-card-text>
-        <v-card-actions>
-          <v-flex>
-            <v-list dense>
-              <item-detail v-for="(item, index) in itemDetails" :key="index"
-                :item="item"
-                :value="portfolio[item.key]"
-                :baseLink="`portfolio/${portfolio.id}`"
-              />
+        <v-divider></v-divider>
+        <v-card-actions style="background-color: #323639;">
+          <v-flex class="px-2">
+            <v-list dense color="#323639">
+              <template v-for="(item, index) in itemDetails">
+                <item-detail :key="item.key"
+                  :item="item"
+                  :value="portfolio[item.key]"
+                  :baseLink="`portfolio/${portfolio.id}`"
+                />
+                <v-divider
+                  v-if="index + 1 < itemDetails.length"
+                  :key="index"
+                ></v-divider>
+              </template>
             </v-list>
           </v-flex>
         </v-card-actions>
       </v-card>
-    </v-flex>
-
-    <add-share-modal ref="addShareModal" />
-  </v-layout>
+    </v-col>
+  </v-row>
 </template>
+
+<style scoped>
+  table.v-data-table thead tr:last-child th {
+    font-size: 0.9rem !important;
+  }
+</style>

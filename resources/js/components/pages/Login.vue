@@ -1,6 +1,7 @@
 <script>
 
 import FormErrors from '../partials/FormErrors.vue';
+import validationHandler from '../../mixins/validationHandler';
 import { mapActions } from 'vuex';
 
 export default {
@@ -9,6 +10,8 @@ export default {
    */
   name: 'Login',
 
+  mixins: [validationHandler],
+  
   components: {
     FormErrors,
   },
@@ -19,19 +22,11 @@ export default {
   data() {
     return {
       isLoading: false,
-      form: new Form({
+      form: {
         email: '',
         password: '',
-      }),
+      },
       valid: true,
-      emailRules: [
-        (v) => !!v || this.$t("E-mail is required"),
-        (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t("E-mail must be valid")
-      ],
-      passwordRules: [
-        (v) => !!v || this.$t("Password is required"),
-        (v) => !!v || v.length >= 6 || this.$t("Password must be more than 6 characters")
-      ],
     }
   },
 
@@ -57,14 +52,17 @@ export default {
 
         this.login(this.form)
           .then(() => {
+            this.clearErrors();
             this.$router.push(this.sendTo);
           })
           .catch((error) => {
-            this.form.onFail(error.response.data);
+            this.syncErrors(error);
           })
           .finally(() => {
             this.isLoading = false;
           });
+      } else {
+        this.focusFirstErrorInput();
       }
     },
   },
@@ -72,47 +70,57 @@ export default {
 </script>
 
 <template>
-  <v-layout row wrap justify-center>
-    <v-flex xs12 sm6 md4>
-      <v-layout row wrap>
-        <v-flex xs12>
-          <v-card>
-            <v-card-title>
-              <div class="headline mb-0">{{ $t("Sign In") }}</div>
-            </v-card-title>
-            <v-form v-model="valid" ref="form" @keyup.native.enter="submit">
-              <v-card-text>
-                <form-errors :errors="form.errors" />
-                <v-text-field type="email" name="email" id="email" required
-                  v-model="form.email"
-                  :label="$t('E-Mail Address')"
-                  :rules="emailRules"
-                ></v-text-field>
-                <v-text-field type="password" name="password" id="password" required
-                  v-model="form.password"
-                  :label="$t('Password')"
-                  :rules="passwordRules"
-                ></v-text-field>
-                <div class="text-sm-right">
-                  <v-btn flat small to="/password/reset" class="ma-0">{{ $t("Forgot password?") }}</v-btn>
-                </div>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="primary" :loading="isLoading" @click="submit">{{ $t("Sign In") }}</v-btn>
-              </v-card-actions>
-            </v-form>
-          </v-card>
-        </v-flex>
-        <v-flex xs12>
-          <v-card>
-            <v-card-text>
-              <span>{{ $t("You don't have an account?") }}</span>
-              <router-link to="/register">{{ $t("Register") }}</router-link>
+  <v-row align="center" justify="center">
+    <v-col cols="12" sm="8" md="4">
+      <v-card>
+        <v-toolbar flat class="pl-2">
+          <v-toolbar-title>{{ $t("Sign In") }}</v-toolbar-title>
+        </v-toolbar>
+        <v-card-text>
+          <v-form v-model="valid" ref="form" lazy-validation
+            @keyup.native.enter="submit"
+            @keydown.native="clearError($event.target.name)"
+          >
+            <form-errors :errors="errors" />
+            <v-text-field type="email" name="email" ref="email" id="email" outlined clearable
+              prepend-icon="person"
+              v-model="form.email"
+              :disabled="isLoading"
+              :label="$t('E-Mail Address')"
+              :rules="[rules.required, rules.email]"
+              :error-messages="getError('email')"
+            />
+            <v-text-field type="password" name="password" ref="password" id="password" outlined clearable
+              prepend-icon="lock"
+              v-model="form.password"
+              :disabled="isLoading"
+              :label="$t('Password')"
+              :rules="[rules.required, rules.gte(6)]"
+              :error-messages="getError('password')"
+            />
+          </v-form>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions class="pa-4">
+          <router-link to="/password/reset" class="link-custom">{{ $t("Forgot password?") }}</router-link>
+          <v-spacer></v-spacer>
+          <v-progress-circular v-show="isLoading" indeterminate color="rgba(89, 135, 209, 1)" width="3" size="30" />
+          <v-btn class="btn-custom"
+            :disabled="isLoading" 
+            @click="submit"
+          >
+            {{ $t("Sign In") }}
+          </v-btn>
+        </v-card-actions>
+        <v-expand-transition>
+          <div style="background-color: #323639;">
+            <v-card-text class="pl-4 pa-6">
+              {{ $t("You don't have an account?") }}
+              <router-link to="/register" class="link-custom">{{ $t("Register") }}</router-link>
             </v-card-text>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </v-flex>
-  </v-layout>
+          </div>
+        </v-expand-transition>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>

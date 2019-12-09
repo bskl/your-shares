@@ -3,7 +3,7 @@
 import { TRANSACTION_TYPES } from '../../store/constants.js';
 
 export default {
-  props: {
+   props: {
     items: {
       type: Array,
       required: true,
@@ -27,62 +27,48 @@ export default {
 </script>
 
 <template>
-  <v-data-table item-key="id"
+  <v-data-table item-key="id" disable-sort
+    :mobile-breakpoint="0"
     :items="items"
     :headers="[
-      { text: $t('Transaction Date'), value: 'transaction_date', align: 'left', sortable: false },
-      { text: $t('Transaction'), value: 'transaction', align: 'center', sortable: false },
-      { text: $t('Lots'), value: 'lots', align: 'center', sortable: false },
-      { text: $t('Transaction Price'), value: 'transaction_price', align: 'center', sortable: false },
-      { text: $t('Transaction Amount'), value: 'transaction_amount', align: 'center', sortable: false },
-      { text: $t('Commission Price'), value: 'commission_price', align: 'center', sortable: false },
-      { text: $t('Gain/Loss'), value: 'gain_loss', align: 'center', sortable: false },
+      { text: $t('Transaction Date'), value: 'date_at', align: 'left' },
+      { text: $t('Transaction'), value: 'type', align: 'center' },
+      { text: $t('Lots'), value: 'lot', align: 'center' },
+      { text: $t('Transaction Price'), value: 'price', align: 'center' },
+      { text: $t('Transaction Amount'), value: 'amount', align: 'center' },
+      { text: $t('Commission Price'), value: 'commission_price', align: 'center' },
+      { text: $t('Gain/Loss'), value: 'gain_loss', align: 'center' },
     ]"
     :no-data-text="$t('You have not any transaction.')"
-    :rows-per-page-text="$t('Rows per page:')"
-    :rows-per-page-items="[5, 10, 25, { text: $t('All'), value: -1 }]"
   >
-    <template slot="items" slot-scope="props">
-      <td class="text-xs-left">
-        {{ props.item.date_at }}
-      </td>
-      <td class="text-xs-right">
-        {{ $t(transactionTypes[props.item.type]) }}
-      </td>
-      <td class="text-xs-right">
-        {{ props.item.lot }}
-      </td>
-      <td class="text-xs-right">
-        {{ props.item.price }}
-      </td>
-      <td class="text-xs-right">
-        {{ props.item.amount }}
-      </td>
-      <td class="text-xs-right">
-        {{ props.item.commission_price }}
-      </td>
-      <td class="text-xs-right darken-1"
-        :class="{
-          'red--text': props.item.sale_gain_trend == -1,
-          'green--text': props.item.sale_gain_trend == 1
-        }"
-        v-if="props.item.type == 0 || props.item.type == 1"
-      >
-        {{ props.item.sale_gain }}
-      </td>
-      <td class="text-xs-right green--text darken-1"
-        v-if="props.item.type == 2"
-      >
-        {{ props.item.dividend_gain }}
-      </td>
-      <td class="text-xs-right green--text darken-1"
-        v-if="props.item.type == 3"
-      >
-        {{ props.item.bonus }}
-      </td>
+    <template v-slot:item.date_at="{ item }">
+      <v-row class="absolute">
+        {{ item.date_at }}
+      </v-row>
     </template>
-    <template slot="pageText" slot-scope="props">
-      {{ $t("page_text", { itemsLength: props.itemsLength, pageStart: props.pageStart, pageStop: props.pageStop }) }}
+    <template v-slot:item.type="{ item }">
+      {{ $t(transactionTypes[item.type]) }}
+    </template>
+    <template v-slot:item.gain_loss="{ item }">
+      <div class="text--darken-1 text-right"
+        :class="{
+          'red--text': item.sale_gain_trend == -1,
+          'green--text': item.sale_gain_trend == 1
+        }"
+        v-if="item.type == 0 || item.type == 1"
+      >
+        {{ item.sale_gain }}
+      </div>
+      <div class="text--darken-1 text-right"
+        v-if="item.type == 2"
+      >
+        {{ item.dividend_gain }}
+      </div>
+      <div class="text--darken-1 text-right"
+        v-if="item.type == 3"
+      >
+        {{ item.bonus }}
+      </div>
     </template>
   </v-data-table>
 </template>

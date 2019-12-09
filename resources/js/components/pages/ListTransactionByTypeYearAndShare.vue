@@ -57,19 +57,17 @@ export default {
 </script>
 
 <template>
-  <v-layout row wrap v-if="!isLoading">
-    <v-flex xs12 sm12 md10 offset-md1>
+  <v-row align="center" justify="center" v-if="!isLoading">
+    <v-col cols="12" sm="8" md="4" lg="10">
       <v-card>
-        <v-card-title class="pt-0 pb-0 elevation-3 no-wrap">
-          <v-toolbar color="white" flat>
-            <v-btn icon light class="ml-0" exact
-              :to="returnLink"
-            >
-              <v-icon color="grey darken-2">arrow_back</v-icon>
-            </v-btn>
-            <v-toolbar-title class="grey--text text--darken-4 ml-1">{{ title }}</v-toolbar-title>
-          </v-toolbar>
-        </v-card-title>
+        <v-toolbar flat class="pl-2">
+          <v-btn icon exact
+            :to="returnLink"
+          >
+            <v-icon color="grey darken-2">arrow_back</v-icon>
+          </v-btn>
+          <v-toolbar-title class="ml-1">{{ title }}</v-toolbar-title>
+        </v-toolbar>
         <v-divider></v-divider>
         <v-card-text>
           <transaction-item
@@ -77,6 +75,6 @@ export default {
           />
         </v-card-text>
       </v-card>
-    </v-flex>
-  </v-layout>
+    </v-col>
+  </v-row>
 </template>

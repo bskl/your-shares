@@ -1,10 +1,10 @@
 <script>
 
+import { mapActions } from 'vuex';
 import Modal from '../modals/modal/Modal.vue';
 import ModalHeading from '../modals/modal/ModalHeading.vue';
 import ModalBody from '../modals/modal/ModalBody.vue';
 import ModalFooter from '../modals/modal/ModalFooter.vue';
-import { mapActions } from 'vuex';
 
 export default {
   /**
@@ -78,21 +78,33 @@ export default {
         });
     }
   },
-}
+};
 </script>
 
 <template>
-  <modal width="360" :dialog="showModal">
+  <modal :width="460" :dialog="showModal">
     <modal-heading>
-      <span class="headline">{{ $t("Delete Portfolio") }}</span>
+      <v-toolbar-title>{{ $t("Delete Portfolio") }}</v-toolbar-title>
     </modal-heading>
-      <modal-body>
-        <div class="text-xs-center">{{ $t("Are you sure you want to delete this portfolio?") }}</div>
-      </modal-body>
-      <modal-footer>
-        <v-spacer></v-spacer>
-        <v-btn color="grey darken-1" flat @click="close">{{ $t("Close") }}</v-btn>
-        <v-btn color="red darken-1" flat :loading="isLoading" @click="submit">{{ $t("Delete") }}</v-btn>
-      </modal-footer>
+    <modal-body>
+      <div class="text-xs-center">{{ $t("Are you sure you want to delete this portfolio?") }}</div>
+    </modal-body>
+    <v-divider></v-divider>
+    <modal-footer>
+      <v-spacer></v-spacer>
+      <v-progress-circular v-show="isLoading" indeterminate color="rgba(89, 135, 209, 1)" width="3" size="30" />
+      <v-btn class="btn-custom"
+        :disabled="isLoading"
+        @click="close"
+      >
+        {{ $t("Close") }}
+      </v-btn>
+      <v-btn class="btn-custom"
+        :disabled="isLoading"
+        @click="submit"
+      >
+        {{ $t("Delete") }}
+      </v-btn>
+    </modal-footer>
   </modal>
 </template>

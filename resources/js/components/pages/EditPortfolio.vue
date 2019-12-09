@@ -1,8 +1,9 @@
 <script>
 
-import PortfolioForm from '../partials/PortfolioForm.vue';
-import DeletePortfolioModal from '../modals/DeletePortfolioModal.vue';
 import { mapActions, mapGetters } from 'vuex';
+import DeletePortfolioModal from '../modals/DeletePortfolioModal.vue';
+import FormErrors from '../partials/FormErrors.vue';
+import validationHandler from '../../mixins/validationHandler';
 
 export default {
   /**
@@ -10,8 +11,10 @@ export default {
    */
   name: 'EditPortfolio',
 
+  mixins: [validationHandler],
+
   components: {
-    PortfolioForm, DeletePortfolioModal,
+    FormErrors, DeletePortfolioModal,
   },
 
   /**
@@ -20,12 +23,11 @@ export default {
   data() {
     return {
       isLoading: false,
-      form: new Form({
-        id: 0,
+      form: {
         name: '',
         currency: '',
         commission: '',
-      }),
+      },
       valid: true,
     }
   },
@@ -54,7 +56,7 @@ export default {
     fetchData() {
       this.fetchPortfolio(this.$route.params.id)
         .then((res) => {
-          this.form = new Form(res);
+          this.form = res;
         })
         .catch();
     },
@@ -66,57 +68,91 @@ export default {
       if (this.$refs.form.validate()) {
         this.isLoading = true;
 
-        this.updatePortfolio(this.form)
+        this.updatePortfolio({ id: this.$route.params.id, data: this.form })
           .then(() => {
+            this.clearErrors();
             this.$router.push({ name: 'Home' });
           })
           .catch((error) => {
-            this.form.onFail(error.response.data);
+            this.syncErrors(error);
           })
           .finally(() => {
-            this.isLoading = false
-            this.$refs.form.resetValidation();
+            this.isLoading = false;
           });
+      } else {
+        this.focusFirstErrorInput();
       }
-    },
-
-    /**
-     * Open the modal for deleting portfolio.
-     */
-    showDeletePortfolioModal(id) {
-      this.$refs.deletePortfolioModal.open(id);
     },
   },
 }
 </script>
 
 <template>
-  <div>
-    <v-layout row wrap justify-center>
-      <v-flex xs12 sm6 md4>
-        <v-card>
-          <v-form ref="form" v-model="valid" lazy-validation @keyup.native.enter="submit">
-            <v-card-title>
-              <div class="headline mb-0">{{ $t("Update Portfolio") }}</div>
-            </v-card-title>
-            <portfolio-form
-              :form="form"
-            ></portfolio-form>
-            <v-card-actions>
-              <v-btn color="red"
-                v-if="this.portfoliosCount > 1"
-                @click="showDeletePortfolioModal(form.id)"
-              >
-                {{ $t("Delete") }}
-              </v-btn>
-              <v-spacer></v-spacer>
-              <v-btn :to="'/'">{{ $t("Close") }}</v-btn>
-              <v-btn color="primary" :loading="isLoading" @click="submit">{{ $t("Update") }}</v-btn>
-            </v-card-actions>
-          </v-form>
-        </v-card>
-      </v-flex>
-    </v-layout>
+  <v-row align="center" justify="center">
     <delete-portfolio-modal ref="deletePortfolioModal" />
-  </div>
+    <v-col cols="12" sm="8" md="4">
+      <v-card>
+        <v-toolbar flat class="pl-2">
+          <v-toolbar-title>{{ $t("Update Portfolio") }}</v-toolbar-title>
+        </v-toolbar>
+        <v-card-text>
+          <v-form v-model="valid" ref="form" lazy-validation
+            @keyup.native.enter="submit"
+            @keydown.native="clearError($event.target.name)"
+          >
+            <form-errors :errors="errors" />
+            <v-text-field type="text" name="name" ref="name" id="name" outlined autofocus
+              prepend-icon="person"
+              v-model="form.name"
+              :disabled="isLoading"
+              :label="$t('Portfolio Name')"
+              :rules="[rules.required]"
+              :error-messages="getError('name')"
+            ></v-text-field>
+            <v-select type="select" name="currency" ref="currency" id="currency" outlined
+              prepend-icon="person"
+              v-model="form.currency"
+              :disabled="isLoading"
+              :items="['TRY']"
+              :label="$t('Currency')"
+              :rules="[rules.required]"
+              :error-messages="getError('currency')"
+            ></v-select>
+            <v-text-field type="number" name="commission" ref="commission" id="commission" outlined
+              prepend-icon="person"
+              step="0.0001"
+              v-model="form.commission"
+              :disabled="isLoading"
+              :label="$t('Enter Commission Rate')"
+              :rules="[rules.required]"
+              :error-messages="getError('commission')"
+              :hint="$t('For example; Garanti Bank: 0,188')"
+            ></v-text-field>
+          </v-form>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions class="pa-4">
+          <v-btn class="btn-custom"
+            v-if="this.portfoliosCount > 1"
+            @click="$refs.deletePortfolioModal.open(form.id)"
+          >
+            {{ $t("Delete") }}
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-progress-circular v-show="isLoading" indeterminate color="rgba(89, 135, 209, 1)" width="3" size="30" />
+          <v-btn class="btn-custom" to="/"
+            :disabled="isLoading"
+          >
+            {{ $t("Close") }}
+          </v-btn>
+          <v-btn class="btn-custom"
+            :disabled="isLoading"
+            @click="submit"
+          >
+            {{ $t("Update") }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
