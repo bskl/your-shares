@@ -106,7 +106,7 @@ class Transaction extends BaseModel
     public function setDateAtAttribute($value)
     {
         if ($value) {
-            $this->attributes['date_at'] = Carbon::createFromFormat('Y-m-d', $value)->toDateTimeString();
+            $this->attributes['date_at'] = Carbon::createFromFormat('d.m.Y', $value)->toDateTimeString();
         }
     }
 
@@ -116,7 +116,7 @@ class Transaction extends BaseModel
     public function getDateAtAttribute($value)
     {
         if ($value) {
-            return Carbon::createFromFormat('Y-m-d H:i:s', $value)->formatLocalized('%d %b %Y');
+            return Carbon::createFromFormat('Y-m-d H:i:s', $value)->formatLocalized('%d.%m.%Y');
         }
     }
 
