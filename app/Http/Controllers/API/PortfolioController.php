@@ -26,7 +26,7 @@ class PortfolioController extends Controller
 
         $this->authorize($portfolio);
 
-        return response()->json($portfolio->only('id', 'name', 'currency', 'commission'));
+        return response()->json($portfolio->only('name', 'currency', 'commission'));
     }
 
     /**

@@ -34,7 +34,7 @@ class TransactionRequest extends Request
             'share_id'      => 'required|integer|exists:shares,id,user_id,'.auth()->user()->id,
             'type'          => 'required|integer|enum_value:'.TransactionType::class,
             'date_at'       => 'required|date|before_or_equal:'.Carbon::today()->toDateString(),
-            'lot'           => 'required'.$addRule,
+            'lot'           => 'required|gt:0'.$addRule,
             'price'         => 'required_if:type,'.TransactionType::Buying,
             'commission'    => 'required|numeric',
             'dividend_gain' => 'required_if:type,'.TransactionType::Dividend,
