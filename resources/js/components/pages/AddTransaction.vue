@@ -196,7 +196,9 @@ export default {
               :label="$t('Enter Share Amount')"
               :rules="[rules.required]"
               :error-messages="getError('lot')"
-              :hint="this.form.type != 3 ? '' : $t('You must write your bonus shares.')"
+              :hint="
+                this.form.type == 3 ? $t('You must write your bonus shares.') : 
+                this.form.type == 4 ? $t('You must write your rights shares.') : ''"
             ></v-text-field>
             <v-text-field type="text" name="price" ref="price" id="price" outlined clearable
               v-if="this.form.type == 0 || this.form.type == 1"

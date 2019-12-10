@@ -103,6 +103,7 @@ export default {
   "Total gain. [(gain/loss + dividend) - commission amount]": "Toplam kazanç. [(kar/zarar + temettü) - komisyon tutarı]",
   "Gain on the instant stock price.": "Hisse son fiyatı karları ile kazanç toplamı.",
   "You must write your bonus shares.": "Bedelsiz dağıtılan hisse miktarını yazmalısınız.",
+  "You must write your rights shares.": "Rüçhan hakkı ile alınan hisse miktarını yazmalısınız.",
   "For example; Garanti Bank: 0,188": "Örneğin; Garanti Bankası: 0,188",
   "Rows per page:": "Sayfa başına satır:",
   "All": "Hepsi",
@@ -154,6 +155,10 @@ export default {
   "total_bonus_share": {
     "title": "Bedelsiz Hisse Kazancı",
     "description": "Bedelsiz hisselerin toplamı.",
+  },
+  "total_rights_share": {
+    "title": "Bedelli Hisse Toplamı",
+    "description": "Rüçhan hakkı ile alınan hisselerin toplamı.",
   },
   "total_gain": {
     "title": "Kazanç",

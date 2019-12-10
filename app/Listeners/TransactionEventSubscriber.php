@@ -180,7 +180,7 @@ class TransactionEventSubscriber
     /**
      * Handle user's share for giving bonus share.
      */
-    public function onShareBonus($event)
+    public function onShareBonusPaid($event)
     {
         $transaction = $event->transaction;
         $share = $transaction->share;
@@ -203,9 +203,45 @@ class TransactionEventSubscriber
     }
 
     /**
-     * Handle user's share for deleting transaction.
+     * Handle user's share for use rights.
      */
-    public function onShareDeleted($event)
+    public function onShareUseRights($event)
+    {
+        $transaction = $event->transaction;
+        $share = $transaction->share;
+
+        $transaction->rights = ($transaction->lot * 100) / $share->lot;
+        $transaction->remaining = $transaction->lot;
+        $transaction->price = Money::TRY(100);
+        $transaction->amount = $transaction->price->multiply($transaction->lot);
+        $transaction->update();
+
+        $share->lot += $transaction->lot;
+        $share->average_amount = $share->average_amount->add($transaction->amount);
+        $share->average_amount_with_dividend = $share->average_amount_with_dividend->add($transaction->amount);
+        $share->average = $share->average_amount->divide($share->lot);
+        $share->average_with_dividend = $share->average_amount_with_dividend->divide($share->lot);
+
+
+        $share->total_rights_share += $transaction->lot;
+        $share->setAmount();
+        $share->setGain();
+        $share->setGainWithDividend();
+        $share->total_purchase_amount = $share->total_purchase_amount->add($transaction->amount);
+        $share->paid_amount = $share->paid_amount->add($transaction->amount);
+        $share->update();
+
+        $share->portfolio->total_purchase_amount = $share->portfolio->total_purchase_amount->add($transaction->amount);
+        $share->portfolio->paid_amount = $share->portfolio->paid_amount->add($transaction->amount);
+        $share->portfolio->calculateMoneyAttributes();
+        $share->portfolio->update();
+    }
+
+
+    /**
+     * Handle user's share for deleting buying transaction.
+     */
+    public function onShareBuyingDeleted($event)
     {
         $transaction = $event->transaction;
         $share = $transaction->share;
@@ -256,12 +292,17 @@ class TransactionEventSubscriber
 
         $events->listen(
             'App\Events\BonusTransactionCreated',
-            'App\Listeners\TransactionEventSubscriber@onShareBonus'
+            'App\Listeners\TransactionEventSubscriber@onShareBonusPaid'
+        );
+
+        $events->listen(
+            'App\Events\RightsTransactionCreated',
+            'App\Listeners\TransactionEventSubscriber@onShareUseRights'
         );
 
         $events->listen(
             'App\Events\BuyingTransactionDeleted',
-            'App\Listeners\TransactionEventSubscriber@onShareDeleted'
+            'App\Listeners\TransactionEventSubscriber@onShareBuyingDeleted'
         );
     }
 }

@@ -42,7 +42,7 @@ class Portfolio extends BaseModel
      * @var array
      */
     protected $decimal = [
-        'total_bonus_share',
+        'total_bonus_share', 'total_rights_share',
     ];
 
     /**
@@ -138,17 +138,19 @@ class Portfolio extends BaseModel
     public function calculateMoneyAttributes()
     {
         $totalCommission = $totalDividend = Money::TRY(0);
-        $totalBonus = 0;
+        $totalBonus = $totalRights = 0;
 
-        $this->shares->each(function ($share) use (&$totalCommission, &$totalDividend, &$totalBonus) {
+        $this->shares->each(function ($share) use (&$totalCommission, &$totalDividend, &$totalBonus, &$totalRights) {
             $totalCommission = $totalCommission->add($share->total_commission_amount);
             $totalDividend = $totalDividend->add($share->total_dividend_gain);
             $totalBonus = $totalBonus + $share->total_bonus_share;
+            $totalRights = $totalRights + $share->total_rights_share;
         });
 
         $this->total_commission_amount = $totalCommission;
         $this->total_dividend_gain = $totalDividend;
         $this->total_bonus_share = $totalBonus;
+        $this->total_rights_share = $totalRights;
         $this->update();
     }
 }

@@ -41,7 +41,7 @@ class Share extends BaseModel
      * @var array
      */
     protected $decimal = [
-        'lot', 'total_bonus_share',
+        'lot', 'total_bonus_share', 'total_rights_share',
     ];
 
     /**
@@ -134,7 +134,7 @@ class Share extends BaseModel
      */
     public function getBuyingTransactionsByNotSold()
     {
-        return $this->transactionsOfType([TransactionType::Buying, TransactionType::Bonus])->where('remaining', '!=', 0)->get();
+        return $this->transactionsOfType([TransactionType::Buying, TransactionType::Bonus, TransactionType::Rights])->where('remaining', '!=', 0)->get();
     }
 
     /**

@@ -102,6 +102,7 @@ export default {
   "Total gain. [(gain/loss + dividend) - commission amount]": "Total gain. [(gain/loss + dividend) - commission amount]",
   "Gain on the instant stock price.": "Gain on the instant stock price.",
   "You must write your bonus shares.": "You must write your bonus shares.",
+  "You must write your rights shares.": "You must write your rights shares.",
   "For example; Garanti Bank: 0,188": "For example; Garanti Bank: 0,188",
   "Rows per page:": "Rows per page:",
   "All": "All",
@@ -153,6 +154,10 @@ export default {
   "total_bonus_share": {
     "title": "Bedelsiz Hisse Kazancı",
     "description": "Bedelsiz hisselerin toplamı.",
+  },
+  "total_rights_share": {
+    "title": "Bedelli Hisse Toplamı",
+    "description": "Rüçhan hakkı ile alınan hisselerin toplamı.",
   },
   "total_gain": {
     "title": "Kazanç",

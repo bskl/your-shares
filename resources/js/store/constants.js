@@ -28,6 +28,9 @@ export const ITEM_DETAILS = [
     link: 'transactions/bonus'
   },
   {
+    key: 'total_rights_share',
+  },
+  {
     key: 'total_gain',
     change_color: true,
   },

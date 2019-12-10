@@ -134,7 +134,7 @@ export default {
         <v-card-actions class="pa-4">
           <v-btn class="btn-custom"
             v-if="this.portfoliosCount > 1"
-            @click="$refs.deletePortfolioModal.open(form.id)"
+            @click="$refs.deletePortfolioModal.open($route.params.id)"
           >
             {{ $t("Delete") }}
           </v-btn>

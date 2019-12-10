@@ -44,7 +44,7 @@ class Transaction extends BaseModel
      * @var array
      */
     protected $percent = [
-        'bonus',
+        'bonus', 'rights',
     ];
 
     /**
@@ -135,6 +135,16 @@ class Transaction extends BaseModel
     {
         if ($value) {
             return (float) $this->attributes['bonus'] = ($value / 100);
+        }
+    }
+
+    /**
+     * Set the rights attribute with divided 100.
+     */
+    public function setRightsAttribute($value)
+    {
+        if ($value) {
+            return (float) $this->attributes['rights'] = ($value / 100);
         }
     }
 }

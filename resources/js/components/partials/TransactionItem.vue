@@ -69,6 +69,11 @@ export default {
       >
         {{ item.bonus }}
       </div>
+      <div class="text--darken-1 text-right"
+        v-if="item.type == 4"
+      >
+        {{ item.rights }}
+      </div>
     </template>
   </v-data-table>
 </template>
