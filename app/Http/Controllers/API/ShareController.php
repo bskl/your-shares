@@ -145,8 +145,10 @@ class ShareController extends Controller
 
         $this->authorize('view', $share);
 
+        $transactionType = $this->getTransactionType($type);
+
         $transactions = $share->transactions()
-                              ->whereType(TransactionType::getValue(ucfirst($type)))
+                              ->whereIn('type', $transactionType['value'])
                               ->whereYear('date_at', $year)
                               ->get();
 

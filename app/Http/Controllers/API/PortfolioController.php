@@ -146,10 +146,10 @@ class PortfolioController extends Controller
 
         $this->authorize('view', $portfolio);
 
-        $transactionType = TransactionType::getInstance(TransactionType::getValue(ucfirst($type)));
+        $transactionType = $this->getTransactionType($type);
         $attribute = $this->getRawAttribute($transactionType);
 
-        $grouped = $portfolio->transactionsOfType([$transactionType->value])
+        $grouped = $portfolio->transactionsOfType($transactionType['value'])
                              ->with('share.symbol:id,code,last_price')
                              ->selectRaw('transactions.*, MONTH(date_at) AS month, YEAR(date_at) AS year, SUM(transactions.'.$attribute.') AS '.$attribute)
                              ->whereYear('date_at', $year)
@@ -163,12 +163,11 @@ class PortfolioController extends Controller
         }
 
         $index = 0;
-        $condition = $transactionType->is(TransactionType::Bonus);
 
         foreach ($grouped as $key => $transactions) {
-            $items[$index]['total'] = $condition ? 0 : new Money(0, new Currency(config('app.currency')));
+            $items[$index]['total'] = $transactionType['condition'] ? 0 : new Money(0, new Currency(config('app.currency')));
             foreach ($transactions as $month => $transaction) {
-                if ($condition === true) {
+                if ($transactionType['condition']) {
                     $items[$index][$month] = decimal_formatter($transaction->first()->{$attribute});
                     $items[$index]['total'] = $items[$index]['total'] + $transaction->first()->lot;
                 } else {
@@ -179,7 +178,7 @@ class PortfolioController extends Controller
                 $items[$index]['share_id'] = $transaction->first()->share_id;
                 $items[$index]['year'] = $transaction->first()->year;
             }
-            $items[$index]['total'] = $condition ? decimal_formatter($items[$index]['total']) : money_formatter($items[$index]['total']);
+            $items[$index]['total'] = $transactionType['condition'] ? decimal_formatter($items[$index]['total']) : money_formatter($items[$index]['total']);
             $index++;
         }
 

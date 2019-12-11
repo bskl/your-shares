@@ -24,10 +24,10 @@ class Controller extends BaseController
      */
     public function getTransactionsByModelAndType($model, $type)
     {
-        $transactionType = TransactionType::getInstance(TransactionType::getValue(ucfirst($type)));
+        $transactionType = $this->getTransactionType($type);
         $attribute = $this->getRawAttribute($transactionType);
 
-        $grouped = $model->transactionsOfType([$transactionType->value])
+        $grouped = $model->transactionsOfType($transactionType['value'])
                          ->selectRaw('transactions.*, MONTH(date_at) AS month, YEAR(date_at) AS year, SUM(transactions.'.$attribute.') AS '.$attribute)
                          ->orderBy('date_at')
                          ->groupBy('year', 'month')
@@ -39,13 +39,12 @@ class Controller extends BaseController
         }
 
         $index = 0;
-        $condition = $transactionType->is(TransactionType::Bonus);
 
         foreach ($grouped as $key => $transactions) {
             $items[$index]['item'] = $key;
-            $items[$index]['total'] = $condition ? 0 : new Money(0, new Currency(config('app.currency')));
+            $items[$index]['total'] = $transactionType['condition'] ? 0 : new Money(0, new Currency(config('app.currency')));
             foreach ($transactions as $month => $transaction) {
-                if ($condition === true) {
+                if ($transactionType['condition']) {
                     $items[$index][$month] = decimal_formatter($transaction->first()->{$attribute});
                     $items[$index]['total'] = $items[$index]['total'] + $transaction->first()->lot;
                 } else {
@@ -53,7 +52,7 @@ class Controller extends BaseController
                     $items[$index]['total'] = $items[$index]['total']->add($transaction->first()->{$attribute});
                 }
             }
-            $items[$index]['total'] = $condition ? decimal_formatter($items[$index]['total']) : money_formatter($items[$index]['total']);
+            $items[$index]['total'] = $transactionType['condition'] ? decimal_formatter($items[$index]['total']) : money_formatter($items[$index]['total']);
             $index++;
         }
 
@@ -67,9 +66,9 @@ class Controller extends BaseController
      *
      * @return string
      */
-    public function getRawAttribute(TransactionType $transactionType)
+    public function getRawAttribute($transactionType)
     {
-        switch ($transactionType->value) {
+        switch ($transactionType['value'][0]) {
             case TransactionType::Buying:
                 $attribute = 'amount';
                 break;
@@ -85,8 +84,34 @@ class Controller extends BaseController
             case TransactionType::Bonus:
                 $attribute = 'lot';
                 break;
+
+            case TransactionType::Rights:
+                $attribute = 'amount';
+                break;
         }
 
         return $attribute;
+    }
+
+    /**
+     * Get transaction type attributes by type.
+     *
+     * @param string $type
+     *
+     * @return void
+     */
+    public function getTransactionType($value)
+    {
+        $type = TransactionType::getInstance(TransactionType::getValue(ucfirst($value)));
+
+        $transactionType = collect();
+        $transactionType->put('value', 
+            $type->is(TransactionType::Buying)
+                ? [TransactionType::Buying, TransactionType::Rights]
+                : [$type->value]
+        );
+        $transactionType->put('condition', $type->is(TransactionType::Bonus));
+
+        return $transactionType->all();
     }
 }
