@@ -12,7 +12,6 @@ export const ITEM_DETAILS = [
   },
   {
     key: 'gain_loss',
-    change_color: true,
   },
   {
     key: 'total_commission_amount',
@@ -32,11 +31,9 @@ export const ITEM_DETAILS = [
   },
   {
     key: 'total_gain',
-    change_color: true,
   },
   {
     key: 'instant_gain',
-    change_color: true,
   },
 ];
 

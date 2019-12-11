@@ -83,24 +83,24 @@ export default {
           <v-btn icon to="/" exact>
             <v-icon color="grey darken-2">arrow_back</v-icon>
           </v-btn>
-          <v-toolbar-title class="ml-1">{{ share.symbol.code }}</v-toolbar-title>
+          <v-toolbar-title class="pl-2">{{ share.symbol.code }}</v-toolbar-title>
           <v-subheader class="px-1"
             :class="{
               'red--text darken-1': share.symbol.trend == -1,
               'green--text darken-1': share.symbol.trend == 1
             }"
           >
-            <i class="material-icons" v-if="share.symbol.trend == -1">trending_down</i>
-            <i class="material-icons" v-else-if="share.symbol.trend == 0">trending_</i>
-            <i class="material-icons" v-else>trending_up</i>
-            <span class="px-2">{{ share.symbol.last_price }}</span>
-            <span>{{ share.symbol.rate_of_change }}</span>
+            <v-icon small v-if="share.symbol.trend == -1">trending_down</v-icon>
+            <v-icon small v-else-if="share.symbol.trend == 0">trending_flat</v-icon>
+            <v-icon small v-else>trending_up</v-icon>
+            <span class="px-1 font-weight-thin caption">{{ share.symbol.last_price }}</span>
+            <span class="font-weight-thin caption">{{ share.symbol.rate_of_change }}</span>
           </v-subheader>
           <v-spacer></v-spacer>
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
               <v-btn icon small class="mx-1"
-                v-if="share.transactions.length === 0"
+                v-if="!count"
                 @click="deleteShare()"
               >
                 <v-icon color="red darken-2" v-on="on">delete</v-icon>
@@ -111,10 +111,10 @@ export default {
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
               <v-btn icon small class="mx-1"
-                v-if="count > 0 && lastTransaction.type == 0"
+                v-if="count && (lastTransaction.type == 0 || lastTransaction.type == 1)"
                 @click="$refs.deleteTransactionModal.open(lastTransaction.id)"
               >
-                <v-icon color="red darken-2" v-on="on">delete_sweep</v-icon>
+                <v-icon small color="red darken-2" v-on="on">backspace</v-icon>
               </v-btn>
             </template>
             <span>{{ $t("Delete last item of transactions.") }}</span>
@@ -136,8 +136,8 @@ export default {
             :items="share.transactions"
           />
           <div class="ma-4">
-            <v-icon dense>clock</v-icon>
-            <span class="mx-2 caption font-weight-thin">Son güncelleme {{ share.symbol.session_time }}. Hisse fiyatları 15 dakika gecikmeli gelmektedir.</span>
+            <v-icon x-small dense>access_time</v-icon>
+            <span class="mx-1 caption font-weight-thin">SG: {{ share.symbol.session_time }}</span>
           </div>
         </v-card-text>
         <v-card-actions style="background-color: #323639;">

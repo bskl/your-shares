@@ -75,7 +75,7 @@ export default {
           >
             <form-errors :errors="errors" />
             <v-text-field type="email" name="email" ref="email" id="email" outlined clearable
-              prepend-icon="person"
+              prepend-inner-icon="person"
               v-model="form.email"
               :disabled="isLoading"
               :label="$t('E-Mail Address')"
@@ -83,7 +83,7 @@ export default {
               :error-messages="getError('email')"
             />
             <v-text-field type="password" name="password" ref="password" id="password" outlined clearable
-              prepend-icon="lock"
+              prepend-inner-icon="lock"
               v-model="form.password"
               :disabled="isLoading"
               :label="$t('Password')"

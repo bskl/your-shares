@@ -81,7 +81,7 @@ export default {
               v-model="form.token"
             />
             <v-text-field type="email" name="email" ref="email" id="email" outlined
-              prepend-icon="person"
+              prepend-inner-icon="person"
               v-model="form.email"
               :disabled="isLoading"
               :label="$t('E-Mail Address')"
@@ -89,7 +89,7 @@ export default {
               :error-messages="getError('email')"
             />
             <v-text-field type="password" name="password" ref="password" id="password" outlined
-              prepend-icon="lock"
+              prepend-inner-icon="lock"
               v-model="form.password"
               :disabled="isLoading"
               :label="$t('Password')"
@@ -97,7 +97,7 @@ export default {
               :error-messages="getError('password')"
             />
             <v-text-field type="password" name="password_confirmation" ref="password_confirmation" id="password_confirmation" outlined
-              prepend-icon="lock"
+              prepend-inner-icon="lock"
               v-model="form.password_confirmation"
               :disabled="isLoading"
               :label="$t('Confirm Password')"

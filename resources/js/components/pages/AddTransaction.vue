@@ -138,7 +138,11 @@ export default {
     <v-col cols="12" sm="8" md="4">
       <v-card>
         <v-toolbar flat class="pl-2">
-          <v-toolbar-title>{{ symbolCode }}</v-toolbar-title>
+          <v-toolbar-title>
+            {{ symbolCode }}
+            <v-icon small>keyboard_arrow_right</v-icon>
+            {{ $t("Add Transaction") }}
+          </v-toolbar-title>
         </v-toolbar>
         <v-card-text>
           <v-form ref="form" v-model="valid" lazy-validation
@@ -150,7 +154,7 @@ export default {
               v-model="form.share_id"
             />
             <v-select name="type" ref="type" id="type" autofocus single-line outlined clearable
-              prepend-icon="person"
+              prepend-inner-icon="format_list_bulleted"
               v-model="form.type"
               :disabled="isLoading"
               :items="transactionTypes"
@@ -169,7 +173,7 @@ export default {
             >
               <template v-slot:activator="{ on }">
                 <v-text-field name="date_at" ref="date_at" id="date_at" readonly outlined clearable
-                  prepend-icon="event"
+                  prepend-inner-icon="calendar_today"
                   v-model="form.date_at"
                   :disabled="isLoading"
                   :label="$t('Select Date')"
@@ -190,7 +194,7 @@ export default {
             </v-menu>
             <v-text-field type="number" name="lot" ref="lot" id="lot" outlined clearable
               step="1"
-              prepend-icon="event"
+              prepend-inner-icon="format_list_numbered"
               v-model="form.lot"
               :disabled="isLoading"
               :label="$t('Enter Share Amount')"
@@ -202,7 +206,7 @@ export default {
             ></v-text-field>
             <v-text-field type="text" name="price" ref="price" id="price" outlined clearable
               v-if="this.form.type == 0 || this.form.type == 1"
-              prepend-icon="event"
+              prepend-inner-icon="money"
               v-model.lazy="priceCurrency"
               :label="$t('Enter Share Price')"
               :rules="[rules.required]"
@@ -212,7 +216,7 @@ export default {
             <v-text-field type="number" name="commission" ref="commission" id="commission" outlined clearable
               v-if="this.form.type == 0 || this.form.type == 1"
               step="0.0001"
-              prepend-icon="event"
+              prepend-inner-icon="donut_large"
               v-model="form.commission"
               :label="$t('Enter Commission Rate')"
               :rules="[rules.required]"
@@ -221,7 +225,7 @@ export default {
             ></v-text-field>
             <v-text-field type="text" name="dividend_gain" ref="dividend_gain" id="dividend_gain" outlined clearable
               v-if="this.form.type == 2"
-              prepend-icon="event"
+              prepend-inner-icon="money"
               v-model.lazy="dividendGainCurrency"
               :label="$t('Enter Dividend Gain Price')"
               :rules="[rules.required]"

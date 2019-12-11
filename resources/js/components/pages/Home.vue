@@ -96,11 +96,14 @@ export default {
     >
       <v-card>
         <v-toolbar flat class="pl-2">
-          <v-icon>home</v-icon>
-          <v-toolbar-title>{{ portfolio.name }}</v-toolbar-title>
+          <v-btn icon disabled>
+            <v-icon>home</v-icon>
+          </v-btn>
+          <v-toolbar-title class="pl-2">{{ portfolio.name }}</v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-btn icon small class="mx-1" v-if="isAdmin"
-            :loading="loading"
+          <v-btn icon small class="mx-1"
+            v-if="isAdmin"
+            :disabled="loading"
             @click="getSymbolsData()"
           >
             <v-icon>refresh</v-icon>
@@ -109,6 +112,7 @@ export default {
             <template v-slot:activator="{ on }">
               <v-btn icon small class="mx-1"
                 v-on="on"
+                :disabled="loading"
                 :to="`/portfolio/${portfolio.id}/edit`"
               >
                 <v-icon color="green darken-2">edit</v-icon>
@@ -120,6 +124,7 @@ export default {
             <template v-slot:activator="{ on }">
               <v-btn icon small class="mx-1"
                 v-on="on"
+                :disabled="loading"
                 @click="$refs.addShareModal.open(portfolio.id)"
               >
                 <v-icon color="blue darken-2">add</v-icon>
@@ -146,11 +151,13 @@ export default {
             ]"
           >
             <template v-slot:item.code="{ item }">
-              <v-btn text left class="font-weight-bold"
+              <v-btn text block class="font-weight-bold"
                 :to="`/share/${item.id}/transactions`"
+                :disabled="loading"
               >
                 {{ item.symbol.code }}
-                <v-icon right>add</v-icon>
+                <v-spacer></v-spacer>
+                <v-icon>horizontal_split</v-icon>
               </v-btn>
             </template>
             <template v-slot:item.last_price="{ item }">
@@ -162,9 +169,9 @@ export default {
             </template>
             <template v-slot:item.rate_of_change="{ item }">
               <v-chip label small
-                  :color="getColor(item.symbol.trend)"
-                >
-                  {{ item.symbol.rate_of_change }}
+                :color="getColor(item.symbol.trend)"
+              >
+                {{ item.symbol.rate_of_change }}
               </v-chip>
             </template>
             <template v-slot:item.lot="{ item }">
@@ -213,8 +220,8 @@ export default {
             </template>
           </v-data-table>
           <div class="ma-4">
-            <v-icon dense>clock</v-icon>
-            <span class="mx-2 caption font-weight-thin">Son güncelleme {{ portfolios[0].shares[0].symbol.session_time }}. Hisse fiyatları 15 dakika gecikmeli gelmektedir.</span>
+            <v-icon x-small dense>access_time</v-icon>
+            <span class="mx-1 caption font-weight-thin">SG: {{ portfolios[0].shares[0].symbol.session_time }}</span>
           </div>
         </v-card-text>
         <v-divider></v-divider>

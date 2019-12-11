@@ -76,7 +76,7 @@ export default {
           >
             <form-errors :errors="errors" />
             <v-text-field type="text" name="name" ref="name" id="name" outlined autofocus
-              prepend-icon="person"
+              prepend-inner-icon="text_fields"
               v-model="form.name"
               :disabled="isLoading"
               :label="$t('Portfolio Name')"
@@ -84,7 +84,7 @@ export default {
               :error-messages="getError('name')"
             ></v-text-field>
             <v-select type="select" name="currency" ref="currency" id="currency" outlined
-              prepend-icon="person"
+              prepend-inner-icon="money"
               v-model="form.currency"
               :disabled="isLoading"
               :items="['TRY']"
@@ -93,7 +93,7 @@ export default {
               :error-messages="getError('currency')"
             ></v-select>
             <v-text-field type="number" name="commission" ref="commission" id="commission" outlined
-              prepend-icon="person"
+              prepend-inner-icon="donut_large"
               step="0.0001"
               v-model="form.commission"
               :disabled="isLoading"

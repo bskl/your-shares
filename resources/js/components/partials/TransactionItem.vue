@@ -50,7 +50,7 @@ export default {
       {{ $t(transactionTypes[item.type]) }}
     </template>
     <template v-slot:item.gain_loss="{ item }">
-      <div class="text--darken-1 text-right"
+      <div class="text-right"
         :class="{
           'red--text': item.sale_gain_trend == -1,
           'green--text': item.sale_gain_trend == 1
@@ -59,20 +59,30 @@ export default {
       >
         {{ item.sale_gain }}
       </div>
-      <div class="text--darken-1 text-right"
+      <div class="text-right"
         v-if="item.type == 2"
       >
         {{ item.dividend_gain }}
       </div>
-      <div class="text--darken-1 text-right"
+      <div class="d-flex align-center justify-end"
         v-if="item.type == 3"
       >
-        {{ item.bonus }}
+        <v-col cols="auto" class="pr-0 text-right">
+          {{ item.bonus }}
+        </v-col>
+        <v-col cols="auto" class="pr-0 text-right">
+          ({{ item.sale_gain }})
+        </v-col>
       </div>
-      <div class="text--darken-1 text-right"
+      <div class="d-flex align-center justify-end"
         v-if="item.type == 4"
       >
-        {{ item.rights }}
+        <v-col cols="auto" class="pr-0 text-right">
+          {{ item.rights }}
+        </v-col>
+        <v-col cols="auto" class="pr-0 text-right">
+          ({{ item.sale_gain }})
+        </v-col>
       </div>
     </template>
   </v-data-table>

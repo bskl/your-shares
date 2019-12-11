@@ -13,12 +13,12 @@ export default {
       items: [
         { to: "/",
           title: this.$t("Home"),
-          icon: "mdi-home-city"
+          icon: "home"
         },
         {
           to: "/portfolio/create",
           title: this.$t("Add Portfolio"),
-          icon: "mdi-account"
+          icon: "add_circle_outline"
         },
       ],
     };
@@ -57,7 +57,7 @@ export default {
     <template v-slot:prepend>
       <v-list-item two-line>
         <v-list-item-avatar>
-          <v-icon>{{  }}</v-icon>
+          <v-icon medium>account_circle</v-icon>
         </v-list-item-avatar>
 
         <v-list-item-content>

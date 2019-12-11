@@ -66,7 +66,7 @@ export default {
           >
             <v-icon color="grey darken-2">arrow_back</v-icon>
           </v-btn>
-          <v-toolbar-title class="ml-1">{{ title }}</v-toolbar-title>
+          <v-toolbar-title class="pl-2">{{ title }}</v-toolbar-title>
         </v-toolbar>
         <v-divider></v-divider>
         <v-card-text>
