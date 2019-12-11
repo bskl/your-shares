@@ -84,17 +84,15 @@ export default {
             <v-icon color="grey darken-2">arrow_back</v-icon>
           </v-btn>
           <v-toolbar-title class="pl-2">{{ share.symbol.code }}</v-toolbar-title>
-          <v-subheader class="px-1"
-            :class="{
-              'red--text darken-1': share.symbol.trend == -1,
-              'green--text darken-1': share.symbol.trend == 1
-            }"
-          >
-            <v-icon small v-if="share.symbol.trend == -1">trending_down</v-icon>
-            <v-icon small v-else-if="share.symbol.trend == 0">trending_flat</v-icon>
-            <v-icon small v-else>trending_up</v-icon>
-            <span class="px-1 font-weight-thin caption">{{ share.symbol.last_price }}</span>
-            <span class="font-weight-thin caption">{{ share.symbol.rate_of_change }}</span>
+          <v-subheader>
+            <span class="pr-3 font-weight-thin">{{ share.symbol.last_price }}</span>
+            <v-chip label small class="font-weight-thin"
+              :color="
+                (share.symbol.trend == -1) ? 'red lighten-1' :
+                (share.symbol.trend == 1) ? 'green lighten-1' : ''"
+            >
+              {{ share.symbol.rate_of_change }}
+            </v-chip>
           </v-subheader>
           <v-spacer></v-spacer>
           <v-tooltip bottom>
