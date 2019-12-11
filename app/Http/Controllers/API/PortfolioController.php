@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Enums\TransactionType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\PortfolioRequest;
 use App\Models\Portfolio;

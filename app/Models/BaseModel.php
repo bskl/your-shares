@@ -7,7 +7,6 @@ use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Money;
 use Money\Parser\DecimalMoneyParser;
-use Money\Parser\IntlLocalizedDecimalParser;
 
 abstract class BaseModel extends Model
 {

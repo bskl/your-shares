@@ -21,7 +21,7 @@ class TransactionController extends Controller
     {
         $share = Share::findOrFail($request->share_id);
         $this->authorize('create', $share);
-        
+
         try {
             $data = $request->all();
             $transaction = new Transaction();
