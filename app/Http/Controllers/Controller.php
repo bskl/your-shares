@@ -105,7 +105,7 @@ class Controller extends BaseController
         $type = TransactionType::getInstance(TransactionType::getValue(ucfirst($value)));
 
         $transactionType = collect();
-        $transactionType->put('value', 
+        $transactionType->put('value',
             $type->is(TransactionType::Buying)
                 ? [TransactionType::Buying, TransactionType::Rights]
                 : [$type->value]

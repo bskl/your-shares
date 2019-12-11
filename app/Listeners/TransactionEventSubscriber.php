@@ -222,7 +222,6 @@ class TransactionEventSubscriber
         $share->average = $share->average_amount->divide($share->lot);
         $share->average_with_dividend = $share->average_amount_with_dividend->divide($share->lot);
 
-
         $share->total_rights_share += $transaction->lot;
         $share->setAmount();
         $share->setGain();
@@ -236,7 +235,6 @@ class TransactionEventSubscriber
         $share->portfolio->calculateMoneyAttributes();
         $share->portfolio->update();
     }
-
 
     /**
      * Handle user's share for deleting buying transaction.
@@ -295,7 +293,7 @@ class TransactionEventSubscriber
 
             $item->sale_average_amount = $item->sale_average_amount->subtract($transaction->price->multiply($soldLot));
             $itemSoldLot = (int) ($item->lot - $item->remaining);
-            $item->sale_average = ($itemSoldLot == 0) ? '0' :  $item->sale_average_amount->divide($itemSoldLot);
+            $item->sale_average = ($itemSoldLot == 0) ? '0' : $item->sale_average_amount->divide($itemSoldLot);
             $item->sale_gain = ($item->sale_average_amount->equals(Money::TRY(0))) ? '0' : $item->sale_average_amount->subtract($item->amount);
             $item->update();
 
