@@ -132,9 +132,17 @@ class Share extends BaseModel
     /**
      * Get the share's buying and bonus transactions by remaining.
      */
-    public function getBuyingTransactionsByNotSold()
+    public function getTransactionsByTypeAndNotSold()
     {
         return $this->transactionsOfType([TransactionType::Buying, TransactionType::Bonus, TransactionType::Rights])->where('remaining', '!=', 0)->get();
+    }
+
+    /**
+     * Get the share's buying and bonus transactions by remaining.
+     */
+    public function getTransactionsByTypeAndSold()
+    {
+        return $this->transactionsOfType([TransactionType::Buying, TransactionType::Bonus, TransactionType::Rights])->where('lot', '!=', 'remaining')->get();
     }
 
     /**
