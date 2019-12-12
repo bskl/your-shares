@@ -36,7 +36,7 @@ export default {
 
   methods: {
     ...mapActions([
-      'logout'
+      'logout', 'toggleNavDrawer',
     ]),
 
     submit() {
@@ -74,6 +74,7 @@ export default {
         v-for="item in items"
         :key="item.title"
         :to="item.to"
+        @click="toggleNavDrawer"
       >
         <v-list-item-icon>
           <v-icon>{{ item.icon }}</v-icon>

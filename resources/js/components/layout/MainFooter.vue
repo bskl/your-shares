@@ -48,7 +48,7 @@ export default {
 </script>
 
 <template>
-  <v-footer app fixed padless class="pl-4 caption font-weight-light">
+  <v-footer app absolute padless class="pl-4 caption font-weight-light">
     <v-menu offset-y right top max-height="calc(100% - 16px)" transition="slide-y-reverse-transition">
       <template v-slot:activator="{ attrs, on }">
         <v-btn icon small class="text--secondary text-capitalize mr-3"
