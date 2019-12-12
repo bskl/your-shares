@@ -43,7 +43,9 @@ export default {
   >
     <template v-slot:item.date_at="{ item }">
       <v-row class="absolute">
-        {{ item.date_at }}
+        <v-col>
+          {{ item.date_at }}
+        </v-col>
       </v-row>
     </template>
     <template v-slot:item.type="{ item }">

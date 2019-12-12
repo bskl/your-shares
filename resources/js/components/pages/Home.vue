@@ -151,14 +151,20 @@ export default {
             ]"
           >
             <template v-slot:item.code="{ item }">
-              <v-btn text block class="font-weight-bold"
-                :to="`/share/${item.id}/transactions`"
-                :disabled="loading"
-              >
-                {{ item.symbol.code }}
+              <div class="d-flex align-center justify-start">
+                <v-col cols="auto" class="px-0 text-left font-weight-bold">
+                  {{ item.symbol.code }}
+                </v-col>
                 <v-spacer></v-spacer>
-                <v-icon>horizontal_split</v-icon>
-              </v-btn>
+                <v-col cols="auto pr-0">
+                  <v-btn text block small
+                    :to="`/share/${item.id}/transactions`"
+                    :disabled="loading"
+                  >
+                    <v-icon small>horizontal_split</v-icon>
+                  </v-btn>
+                </v-col>
+              </div>
             </template>
             <template v-slot:item.last_price="{ item }">
               <div class="text--darken-1 text-right"
