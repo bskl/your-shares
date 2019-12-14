@@ -267,7 +267,7 @@ class TransactionEventSubscriber
     }
 
     /**
-     * Handle user's share for sale transaction.
+     * Handle user's share for deleting sale transaction.
      */
     public function onShareSaleDeleted($event)
     {
@@ -336,6 +336,51 @@ class TransactionEventSubscriber
     }
 
     /**
+     * Handle user's share for deleting dividend transaction.
+     */
+    public function onShareDividendDeleted($event)
+    {
+        $transaction = $event->transaction;
+        $share = $transaction->share;
+
+        $share->total_dividend_gain = $share->total_dividend_gain->subtract($transaction->dividend_gain);
+        $share->total_gain = $share->total_gain->subtract($transaction->dividend_gain);
+        $share->average_amount_with_dividend = $share->average_amount_with_dividend->add($transaction->dividend_gain);
+        $share->average_with_dividend = $share->average_amount_with_dividend->divide($share->lot);
+        $share->setGainWithDividend();
+        $share->update();
+
+        $share->portfolio->total_gain = $share->portfolio->total_gain->subtract($transaction->dividend_gain);
+        $share->portfolio->calculateMoneyAttributes();
+        $share->portfolio->update();
+    }
+
+    /**
+     * Handle user's share for deleting giving bonus share.
+     */
+    public function onShareBonusDeleted($event)
+    {
+        $transaction = $event->transaction;
+        $share = $transaction->share;
+
+        //$transaction->bonus = ($transaction->lot * 100) / $share->lot;
+        //$transaction->remaining = $transaction->lot;
+        //$transaction->update();
+
+        $share->lot -= $transaction->lot;
+        $share->average = $share->average_amount->divide($share->lot);
+        $share->average_with_dividend = $share->average_amount_with_dividend->divide($share->lot);
+        $share->total_bonus_share += $transaction->lot;
+        $share->setAmount();
+        $share->setGain();
+        $share->setGainWithDividend();
+        $share->update();
+
+        $share->portfolio->calculateMoneyAttributes();
+        $share->portfolio->update();
+    }
+
+    /**
      * Register the listeners for the subscriber.
      *
      * @param Dispatcher $events
@@ -375,6 +420,11 @@ class TransactionEventSubscriber
         $events->listen(
             'App\Events\SaleTransactionDeleted',
             'App\Listeners\TransactionEventSubscriber@onShareSaleDeleted'
+        );
+
+        $events->listen(
+            'App\Events\DividendTransactionDeleted',
+            'App\Listeners\TransactionEventSubscriber@onShareDividendDeleted'
         );
     }
 }
