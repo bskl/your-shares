@@ -109,7 +109,7 @@ export default {
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
               <v-btn icon small class="mx-1"
-                v-if="count && (lastTransaction.type == 0 || lastTransaction.type == 1 || lastTransaction.type == 2)"
+                v-if="count"
                 @click="$refs.deleteTransactionModal.open(lastTransaction.id)"
               >
                 <v-icon small color="red darken-2" v-on="on">backspace</v-icon>
