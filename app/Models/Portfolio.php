@@ -24,7 +24,7 @@ class Portfolio extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'user_id', 'name', 'currency', 'commission', 'order', 'total_bonus_share',
+        'user_id', 'name', 'currency', 'commission', 'order', 'total_bonus_share', 'total_rights_share',
     ];
 
     /**
@@ -33,7 +33,8 @@ class Portfolio extends BaseModel
      * @var array
      */
     protected $money = [
-        'total_sale_amount', 'total_purchase_amount', 'paid_amount', 'gain_loss', 'total_commission_amount', 'total_dividend_gain', 'total_gain',
+        'total_sale_amount', 'total_purchase_amount', 'paid_amount', 'gain_loss', 'total_commission_amount', 'total_dividend_gain',
+        'total_gain',
     ];
 
     /**
@@ -70,6 +71,16 @@ class Portfolio extends BaseModel
      */
     protected $with = [
         'shares',
+    ];
+
+    /**
+     * The attributes that should be encrypted/decrypted.
+     * 
+     * @var array
+     */
+    protected $encryptable = [
+        'total_sale_amount', 'total_purchase_amount', 'paid_amount', 'gain_loss', 'total_dividend_gain', 'total_bonus_share',
+        'total_rights_share', 'total_gain',
     ];
 
     /**

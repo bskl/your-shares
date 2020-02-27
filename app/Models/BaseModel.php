@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Crypt;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Money;
@@ -32,27 +34,156 @@ abstract class BaseModel extends Model
     protected $decimal = [];
 
     /**
-     * Convert the model's money attributes to decimal in attributes.
+     * The attributes that are encryptable.
      *
+     * @var array
+     */
+    protected $encryptable = [];
+
+    /**
+     * @param string $key
+     *
+     * @return mixed
+     */
+    public function getAttribute($key)
+    {
+        $value = parent::getAttribute($key);
+
+        if (is_null($value) || $value === '') {
+            return $value;
+        }
+
+        if (in_array($key, $this->encryptable)) {
+            $value = $this->decrypt($value);
+        }
+
+        if (in_array($key, $this->money)) {
+            $value = $this->getMoneyAttribute($value);
+        }
+
+        return $value;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return mixed
+     */
+    public function setAttribute($key, $value)
+    {
+        if (is_null($value)) {
+            return parent::setAttribute($key, $value);
+        }
+
+        if (in_array($key, $this->money)) {
+            $value = $this->setMoneyAttribute($value);
+        }
+
+        if (in_array($key, $this->encryptable)) {
+            $value = $this->encrypt($value);
+        }
+
+        return parent::setAttribute($key, $value);
+    }
+
+    /**
      * @return array
      */
-    public function attributesToArray()
+    public function attributesToArray(): array
     {
         $attributes = parent::attributesToArray();
 
-        foreach ($this->money as $key) {
-            $attributes[$key] = money_formatter($this->$key);
+        if (empty($attributes)) {
+            return $attributes;
         }
 
-        foreach ($this->percent as $key) {
-            $attributes[$key] = percent_formatter($this->$key);
-        }
+        foreach ($attributes as $key => $value) {
+            if (is_null($value) || $value === '') {
+                continue;
+            }
 
-        foreach ($this->decimal as $key) {
-            $attributes[$key] = decimal_formatter($this->$key);
+            if (in_array($key, $this->encryptable)) {
+                $value = $this->decrypt($value);
+            }
+
+            if (in_array($key, $this->money)) {
+                $attributes[$key] = money_formatter(
+                    $this->getMoneyAttribute($value));
+            }
+
+            if (in_array($key, $this->percent)) {
+                $attributes[$key] = percent_formatter($value);
+            }
+
+            if (in_array($key, $this->decimal)) {
+                $attributes[$key] = decimal_formatter($value);
+            }
         }
 
         return $attributes;
+    }
+
+    /**
+     * Get money object for given attribute from the model.
+     *
+     * @param string $value
+     *
+     * @return Money
+     */
+    public function getMoneyAttribute($value)
+    {
+        return new Money($value, new Currency(config('app.currency')));
+    }
+
+    /**
+     * Set a given attribute on the model.
+     *
+     * @param mixed  $value
+     *
+     * @return $this
+     */
+    public function setMoneyAttribute($value)
+    {
+        if ($value instanceof Money) {
+            $money = $value;
+        } else {
+            $currencies = new ISOCurrencies();
+
+            $moneyParser = new DecimalMoneyParser($currencies);
+
+            $money = $moneyParser->parse(str_replace(',', '.', $value), config('app.currency'));
+        }
+
+        return $money->getAmount();
+    }
+
+    /**
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    private function encrypt($value)
+    {
+        try {
+            $value = Crypt::encrypt($value);
+        } catch (Exception $e) {}
+
+        return $value;
+    }
+
+    /**
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    private function decrypt($value)
+    {
+        try {
+            $value = Crypt::decrypt($value);
+        } catch (Exception $e) {}
+
+        return $value;
     }
 
     /**
@@ -74,79 +205,5 @@ abstract class BaseModel extends Model
         }
 
         return $collection;
-    }
-
-    /**
-     * Get money object for given attribute from the model.
-     *
-     * @param string $key
-     *
-     * @return Money
-     */
-    public function getMoneyAttribute($key)
-    {
-        return new Money($this->attributes[$key], new Currency(config('app.currency')));
-    }
-
-    /**
-     * Set a given attribute on the model.
-     *
-     * @param string $key
-     * @param mixed  $value
-     *
-     * @return $this
-     */
-    public function setMoneyAttribute($key, $value)
-    {
-        if ($value instanceof Money) {
-            $money = $value;
-        } else {
-            $currencies = new ISOCurrencies();
-
-            $moneyParser = new DecimalMoneyParser($currencies);
-
-            $money = $moneyParser->parse(str_replace(',', '.', $value), config('app.currency'));
-        }
-
-        $this->attributes[$key] = $money->getAmount();
-
-        return $this;
-    }
-
-    /**
-     * Dynamically retrieve attributes on the model.
-     *
-     * @param string $key
-     *
-     * @return mixed
-     */
-    public function __get($key)
-    {
-        if (!$key) {
-            return;
-        }
-
-        if (in_array($key, $this->money)) {
-            return $this->getMoneyAttribute($key);
-        }
-
-        return parent::__get($key);
-    }
-
-    /**
-     * Dynamically set attributes on the model.
-     *
-     * @param string $key
-     * @param mixed  $value
-     *
-     * @return void
-     */
-    public function __set($key, $value)
-    {
-        if ($value && in_array($key, $this->money)) {
-            return $this->setMoneyAttribute($key, $value);
-        }
-
-        return parent::__set($key, $value);
     }
 }

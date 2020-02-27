@@ -23,7 +23,7 @@ class Share extends BaseModel
      * @var array
      */
     protected $fillable = [
-        'user_id', 'portfolio_id', 'symbol_id', 'lot', 'total_bonus_share',
+        'user_id', 'portfolio_id', 'symbol_id', 'lot', 'total_bonus_share', 'total_rights_share',
     ];
 
     /**
@@ -32,7 +32,9 @@ class Share extends BaseModel
      * @var array
      */
     protected $money = [
-        'average', 'average_with_dividend', 'average_amount', 'average_amount_with_dividend', 'amount', 'gain', 'gain_with_dividend', 'total_sale_amount', 'total_purchase_amount', 'paid_amount', 'gain_loss', 'total_commission_amount', 'total_dividend_gain', 'total_gain',
+        'average', 'average_with_dividend', 'average_amount', 'average_amount_with_dividend', 'amount', 'gain', 'gain_with_dividend',
+        'total_sale_amount', 'total_purchase_amount', 'paid_amount', 'gain_loss', 'total_commission_amount', 'total_dividend_gain',
+        'total_gain',
     ];
 
     /**
@@ -42,6 +44,17 @@ class Share extends BaseModel
      */
     protected $decimal = [
         'lot', 'total_bonus_share', 'total_rights_share',
+    ];
+
+    /**
+     * The attributes that should be encrypted/decrypted.
+     * 
+     * @var array
+     */
+    protected $encryptable = [
+        'lot', 'average', 'average_with_dividend', 'average_amount', 'average_amount_with_dividend', 'amount', 'gain', 'gain_with_dividend',
+        'total_sale_amount', 'total_purchase_amount', 'paid_amount', 'gain_loss', 'total_dividend_gain', 'total_bonus_share',
+        'total_rights_share', 'total_gain',
     ];
 
     /**
@@ -134,7 +147,9 @@ class Share extends BaseModel
      */
     public function getTransactionsByTypeAndNotSold()
     {
-        return $this->transactionsOfType([TransactionType::Buying, TransactionType::Bonus, TransactionType::Rights])->where('remaining', '!=', 0)->get();
+        return $this->transactionsOfType([TransactionType::Buying, TransactionType::Bonus, TransactionType::Rights])
+                    ->where('remaining', '!=', 0)
+                    ->get();
     }
 
     /**
@@ -142,7 +157,9 @@ class Share extends BaseModel
      */
     public function getTransactionsByTypeAndSold()
     {
-        return $this->transactionsOfType([TransactionType::Buying, TransactionType::Bonus, TransactionType::Rights])->where('lot', '!=', 'remaining')->get();
+        return $this->transactionsOfType([TransactionType::Buying, TransactionType::Bonus, TransactionType::Rights])
+                    ->where('lot', '!=', 'remaining')
+                    ->get();
     }
 
     /**
