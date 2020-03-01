@@ -1,9 +1,11 @@
+import { USER_TYPES } from './constants';
+
 export default {
   isLoggedIn (state) {
     return state.isLoggedIn;
   },
   isAdmin (state) {
-    return state.user.role == 'admin';
+    return state.user.role == USER_TYPES.admin;
   },
   user (state) {
     return state.user;

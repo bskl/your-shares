@@ -44,3 +44,8 @@ export const TRANSACTION_TYPES = [
   'Bonus',
   'Rights'
 ];
+
+export const USER_TYPES = {
+  user: 2,
+  admin: 9,
+}
