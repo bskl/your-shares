@@ -4,7 +4,6 @@ import { sync } from 'vuex-router-sync'
 import router from "./router";
 import store from "./store";
 import i18n from "./lang/";
-import Form from "./utilities/Form.js";
 import NProgress from "nprogress";
 import VueCurrencyInput from 'vue-currency-input'
 import App from "./App.vue";
@@ -13,7 +12,6 @@ sync(store, router);
 
 Vue.config.productionTip = false;
 
-window.Form = Form;
 window.NProgress = NProgress;
 
 NProgress.configure({
