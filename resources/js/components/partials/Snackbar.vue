@@ -29,6 +29,12 @@ export default {
     :color="snackbar.color"
   >
     {{ snackbar.text }}
-    <v-btn class="btn-custom" @click.native="snackbar.show = false">{{ $t("Close") }}</v-btn>
+    <v-btn class="ml-4" icon
+      :aria-label="$t('Close')"
+      :ripple="false"
+      @click.native="snackbar.show = false"
+    >
+      <v-icon>cancel</v-icon>
+    </v-btn>
   </v-snackbar>
 </template>
