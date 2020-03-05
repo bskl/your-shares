@@ -20,7 +20,7 @@ class SharePolicy
      */
     public function view(User $user, Share $share)
     {
-        return $user->id === $share->portfolio->user_id;
+        return $user->id === $share->user_id;
     }
 
     /**
@@ -45,7 +45,7 @@ class SharePolicy
      */
     public function update(User $user, Share $share)
     {
-        return $user->id === $share->portfolio->user_id;
+        return $user->id === $share->user_id;
     }
 
     /**
@@ -58,6 +58,6 @@ class SharePolicy
      */
     public function delete(User $user, Share $share)
     {
-        return $user->id === $share->portfolio->user_id;
+        return $user->id === $share->user_id;
     }
 }
