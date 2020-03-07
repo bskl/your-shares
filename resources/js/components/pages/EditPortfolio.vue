@@ -56,7 +56,7 @@ export default {
     fetchData() {
       this.fetchPortfolio(this.$route.params.id)
         .then((res) => {
-          this.form = res;
+          this.form = res.data;
         })
         .catch();
     },

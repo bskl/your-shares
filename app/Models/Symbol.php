@@ -58,7 +58,7 @@ class Symbol extends BaseModel
      * @var array
      */
     protected $hidden = [
-        'created_at', 'updated_at',
+        'name', 'title', 'created_at', 'updated_at',
     ];
 
     /**

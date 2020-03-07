@@ -2,6 +2,7 @@
 
 import { mapActions, mapGetters } from 'vuex';
 import { ITEM_DETAILS } from '../../store/constants.js';
+import { parseErrors } from '../../utilities/helpers.js';
 import TransactionItem from '../partials/TransactionItem.vue';
 import ItemDetail from '../partials/ItemDetail.vue';
 import DeleteTransactionModal from '../modals/DeleteTransactionModal.vue';
@@ -56,7 +57,7 @@ export default {
           this.$router.push({ name: 'Home' });
         })
         .catch((error) => {
-          this.setSnackbar({ color: 'error', text: error.response.data });
+          this.setSnackbar({ color: 'error', text: parseErrors(error) });
         });
     },
   },
@@ -66,7 +67,7 @@ export default {
 
     this.fetchTransactionsByParams(this.$route.path)
       .then((res) => {
-        this.share = res;
+        this.share = res.data;
         this.isLoading = false;
       })
       .catch();

@@ -1,6 +1,6 @@
 import axios from "axios";
 import router from "../router";
-import i18n from  "../lang/";
+import { parseErrors } from '../utilities/helpers.js';
 
 const http = axios.create({
   baseURL: '/api',
@@ -86,11 +86,6 @@ export default {
         commit('SET_LOCALE', locale);
 
         return res.data;
-      })
-      .catch((error) => {
-        commit('SET_SNACKBAR', { color: 'error', text: i18n.t('An error occured when the locale updated. Please try again later.') });
-
-        return error;
       });
   },
 
@@ -107,12 +102,12 @@ export default {
   confirmUserMail({ commit }, data) {
     return http.get(`/confirm/${data}`)
       .then((res) => {
-        commit('SET_SNACKBAR', { text: i18n.t('Your email account has been verified.') });
+        commit('SET_SNACKBAR', { text: res.data.data });
 
         return res.data;
       })
       .catch((error) => {
-        commit('SET_SNACKBAR', { color: 'error', text: i18n.t('Your activation code is invalid or your e-mail address verified before.') });
+        commit('SET_SNACKBAR', { color: 'error', text: parseErrors(error) });
 
         return error;
       });
@@ -145,7 +140,7 @@ export default {
   fetchSymbolsData({ commit }) {
     return http.get('/symbol/data')
       .then((res) => {
-        commit('SET_PORTFOLIOS', res.data);
+        commit('SET_PORTFOLIOS', res.data.data);
 
         return res.data;
       });
@@ -154,17 +149,18 @@ export default {
   createPortfolio({ commit }, data) {
     return http.post('/portfolio', data)
       .then((res) => {
-        commit('ADD_PORTFOLIO', res.data);
+        commit('ADD_PORTFOLIO', res.data.data);
 
         return res.data;
       });
   },
 
-  updatePortfolio({ commit, getters }, { id, data }) {
-    return http.put(`/portfolio/${id}`, data)
+  updatePortfolio({ commit, getters }, { id, form}) {
+    return http.put(`/portfolio/${id}`, form)
       .then((res) => {
         const index = getters.getPortfolioIndexById(id);
-        commit('UPDATE_PORTFOLIO', { index, res });
+        const data = res.data.data;
+        commit('UPDATE_PORTFOLIO', { index, data });
 
         return res.data;
       });
@@ -187,28 +183,29 @@ export default {
       });
   },
 
-  createTransaction({ commit, getters }, data) {
-    return http.post('/transaction', data)
+  createTransaction({ commit, getters }, form) {
+    return http.post('/transaction', form)
       .then((res) => {
-        const index = getters.getPortfolioIndexById(res.data.id);
-        commit('UPDATE_PORTFOLIO', { index, res }); 
+        const data = res.data.data;
+        const index = getters.getPortfolioIndexById(data.id);
+        commit('UPDATE_PORTFOLIO', { index, data }); 
 
         return res.data;
       });
   },
 
-  fetchSymbols(_, data) {
+  fetchSymbols() {
     return http.get('/symbol')
       .then((res) => {
         return res.data;
       });
   },
 
-  addShare({ commit, getters }, data) {
-    return http.post('/share', data)
+  addShare({ commit, getters }, form) {
+    return http.post('/share', form)
       .then((res) => {
-        const index = getters.getPortfolioIndexById(res.data.portfolio_id);
-        const data = res.data;
+        const index = getters.getPortfolioIndexById(form.portfolio_id);
+        const data = res.data.data;
         commit('ADD_SHARE', { index, data });     
 
         return res.data;
@@ -243,8 +240,9 @@ export default {
   destroyTransaction({ commit, getters }, id) {
     return http.delete(`/transaction/${id}`)
       .then((res) => {
-        const index = getters.getPortfolioIndexById(res.data.id);
-        commit('UPDATE_PORTFOLIO', { index, res });
+        const data = res.data.data;
+        const index = getters.getPortfolioIndexById(data.id);
+        commit('UPDATE_PORTFOLIO', { index, data });
 
         return res.data;
       });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\PortfolioRequest;
+use App\Http\Resources\Portfolio as PortfolioResource;
 use App\Models\Portfolio;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -13,19 +14,33 @@ use Money\Money;
 class PortfolioController extends Controller
 {
     /**
-     * Show the profile for the given user.
+     * List the portfolios for the auth user.
+     *
+     * @return \App\Http\Resources\Portfolio $portfolios
+     */
+    public function index()
+    {
+        $this->authorize(Portfolio::class);
+
+        $portfolios = Portfolio::byCurrentUser()->get();
+
+        return PortfolioResource::collection($portfolios);
+    }
+
+    /**
+     * Show the portfolio for the given id.
      *
      * @param int $id
      *
-     * @return View
+     * @return \App\Http\Resources\Portfolio $portfolio
      */
-    public function show($id)
+    public function show(int $id)
     {
         $portfolio = Portfolio::findOrFail($id);
 
         $this->authorize($portfolio);
 
-        return response()->json($portfolio->only('name', 'currency', 'commission'));
+        return new PortfolioResource($portfolio->only('name', 'currency', 'commission'));
     }
 
     /**
@@ -33,7 +48,7 @@ class PortfolioController extends Controller
      *
      * @param PortfolioRequest $request
      *
-     * @return App\Models\Portfolio $portfolio
+     * @return \App\Http\Resources\Portfolio $portfolio
      */
     public function store(PortfolioRequest $request)
     {
@@ -48,11 +63,11 @@ class PortfolioController extends Controller
             $portfolio = Portfolio::create($data);
             $portfolio->refresh()->load('shares');
 
-            return response()->json($portfolio);
+            return new PortfolioResource($portfolio);
         } catch (\Exception $e) {
-            return response()->json(
-                ['messages' => '', 'errors' => [['portfolio' => trans('app.portfolio.create_error')]]],
-                Response::HTTP_UNPROCESSABLE_ENTITY
+            return $this->respondError(
+                Response::HTTP_UNPROCESSABLE_ENTITY,
+                ['portfolio' => trans('app.portfolio.create_error')]
             );
         }
     }
@@ -63,9 +78,9 @@ class PortfolioController extends Controller
      * @param PortfolioRequest $request
      * @param int              $id
      *
-     * @return App\Models\Portfolio $portfolio
+     * @return \App\Http\Resources\Portfolio $portfolio
      */
-    public function update(PortfolioRequest $request, $id)
+    public function update(PortfolioRequest $request, int $id)
     {
         $portfolio = Portfolio::findOrFail($id);
 
@@ -74,55 +89,56 @@ class PortfolioController extends Controller
         try {
             $portfolio->update($request->all());
 
-            return response()->json($portfolio);
+            return new PortfolioResource($portfolio);
         } catch (\Exception $e) {
-            return response()->json(
-                ['messages' => '', 'errors' => [['portfolio' => trans('app.portfolio.update_error')]]],
-                Response::HTTP_UNPROCESSABLE_ENTITY
+            return $this->respondError(
+                Response::HTTP_UNPROCESSABLE_ENTITY,
+                ['portfolio' => trans('app.portfolio.update_error')]
             );
         }
     }
 
     /**
-     * Delete a portfolio.
+     * Delete a portfolio instance.
      *
      * @param int $id
      *
-     * @return JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         $portfolio = Portfolio::findOrFail($id);
 
         $this->authorize($portfolio);
 
         if (Portfolio::byCurrentUser()->count() <= 1) {
-            return response()->json(
-                trans('app.portfolio.destroy_error'),
-                Response::HTTP_UNPROCESSABLE_ENTITY
+            return $this->respondError(
+                Response::HTTP_UNPROCESSABLE_ENTITY,
+                [trans('app.portfolio.destroy_error')]
             );
         }
 
         try {
             $portfolio->delete();
 
-            return response()->json();
+            return $this->respondSuccess([]);
         } catch (\Exception $e) {
-            return response()->json(
-                trans('app.portfolio.delete_error'),
-                Response::HTTP_UNPROCESSABLE_ENTITY
+            return $this->respondError(
+                Response::HTTP_UNPROCESSABLE_ENTITY,
+                [trans('app.portfolio.delete_error')]
             );
         }
     }
 
     /**
-     * Get portfolio's transactions by type.
+     * Get portfolio instance with transactions by type.
      *
-     * @param int $id
+     * @param int    $id
+     * @param string $type
      *
-     * @return JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function getTransactionsByType($id, $type)
+    public function getTransactionsByType(int $id, string $type)
     {
         $portfolio = Portfolio::findOrFail($id);
 
@@ -132,14 +148,15 @@ class PortfolioController extends Controller
     }
 
     /**
-     * Get portfolio's transactions by type and year.
+     * Get portfolio instance transactions by type and year.
      *
-     * @param int $id
-     * @param int $year
+     * @param int    $id
+     * @param string $type
+     * @param int    $year
      *
-     * @return JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function getTransactionsByTypeAndYear($id, $type, $year)
+    public function getTransactionsByTypeAndYear(int $id, string $type, int $year)
     {
         $portfolio = Portfolio::findOrFail($id);
 
@@ -158,7 +175,7 @@ class PortfolioController extends Controller
                              ->groupBy(['share_id', 'month']);
 
         if (!count($grouped)) {
-            return response()->json();
+            return $this->respondSuccess([]);
         }
 
         $index = 0;
@@ -177,10 +194,12 @@ class PortfolioController extends Controller
                 $items[$index]['share_id'] = $transaction->first()->share_id;
                 $items[$index]['year'] = $transaction->first()->year;
             }
-            $items[$index]['total'] = $transactionType['condition'] ? decimal_formatter($items[$index]['total']) : money_formatter($items[$index]['total']);
+            $items[$index]['total'] = $transactionType['condition']
+                ? decimal_formatter($items[$index]['total'])
+                : money_formatter($items[$index]['total']);
             $index++;
         }
 
-        return response()->json($items);
+        return $this->respondSuccess($items);
     }
 }

@@ -34,7 +34,7 @@ class Share extends BaseModel
     protected $money = [
         'average', 'average_with_dividend', 'average_amount', 'average_amount_with_dividend', 'amount', 'gain', 'gain_with_dividend',
         'total_sale_amount', 'total_purchase_amount', 'paid_amount', 'gain_loss', 'total_commission_amount', 'total_dividend_gain',
-        'total_gain',
+        'total_gain', 'instant_gain',
     ];
 
     /**
@@ -48,7 +48,7 @@ class Share extends BaseModel
 
     /**
      * The attributes that should be encrypted/decrypted.
-     * 
+     *
      * @var array
      */
     protected $encryptable = [
@@ -63,7 +63,7 @@ class Share extends BaseModel
      * @var array
      */
     protected $hidden = [
-        'created_at', 'updated_at',
+        'user_id', 'symbol_id', 'created_at', 'updated_at',
     ];
 
     /**
@@ -137,7 +137,7 @@ class Share extends BaseModel
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function transactionsOfType($type)
+    public function transactionsOfType(array $type)
     {
         return $this->transactions()->whereIn('type', $type);
     }
@@ -167,7 +167,7 @@ class Share extends BaseModel
      */
     public function getInstantGainAttribute()
     {
-        return money_formatter($this->gain->add($this->total_gain));
+        return $this->gain->add($this->total_gain);
     }
 
     /**

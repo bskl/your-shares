@@ -1,6 +1,7 @@
 <script>
 
 import { mapActions } from 'vuex';
+import { parseErrors } from '../../utilities/helpers';
 import Modal from '../modals/modal/Modal.vue';
 import ModalHeading from '../modals/modal/ModalHeading.vue';
 import ModalBody from '../modals/modal/ModalBody.vue';
@@ -71,7 +72,7 @@ export default {
           this.$router.push({ name: 'Home' });
         })
         .catch((error) => {
-          this.setSnackbar({ color: 'error', text: error.response.data });
+          this.setSnackbar({ color: 'error', text: parseErrors(error) });
         })
         .finally(() => {
           this.isLoading = false;

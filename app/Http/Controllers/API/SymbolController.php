@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Portfolio as PortfolioResource;
+use App\Http\Resources\Symbol as SymbolResource;
 use App\Models\Portfolio;
 use App\Models\Symbol;
 use Illuminate\Http\Response;
@@ -14,7 +16,7 @@ class SymbolController extends Controller
     /**
      * Run set symbols command and get portfolios data.
      *
-     * @return JsonResponse
+     * @return \App\Http\Resources\Portfolio $portfolios
      */
     public function getData()
     {
@@ -22,33 +24,33 @@ class SymbolController extends Controller
             try {
                 Artisan::call('yourshares:set-symbols');
             } catch (\Exception $e) {
-                return response()->json(
-                    trans('app.service_error'),
-                    Response::HTTP_SERVICE_UNAVAILABLE
+                return $this->respondError(
+                    Response::HTTP_SERVICE_UNAVAILABLE,
+                    [trans('app.service_error')]
                 );
             }
 
-            return response()->json(
-                Portfolio::byCurrentUser()->get()
-            );
+            $portfolios = Portfolio::byCurrentUser()->get();
+
+            return PortfolioResource::collection($portfolios);
         }
 
-        return response()->json(
-            trans('app.auth_error'),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+        return $this->respondError(
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            [trans('app.auth_error')]
         );
     }
 
     /**
      * Get all symbols.
      *
-     * @return App\Models\Symbol $symbols
+     * @return \App\Http\Resources\Symbol $symbols
      */
     public function getSymbols()
     {
         $symbols = Symbol::select('id', 'code', 'last_price')
-                          ->get();
+                         ->get();
 
-        return response()->json($symbols);
+        return SymbolResource::collection($symbols);
     }
 }

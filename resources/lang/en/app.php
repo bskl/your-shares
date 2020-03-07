@@ -11,6 +11,11 @@ return [
     |
     */
 
+    'user' => [
+        'verified'       => 'Your email account has been verified.',
+        'verified_error' => 'Your activation code is invalid or your e-mail address verified before.',
+        'update_error'   => 'Kullanıcı güncelleme sırasında hata oluştu. Lütfen daha sonra tekrar deneyiniz.',
+    ],
     'portfolio' => [
         'default'       => 'My Portfolio',
         'destroy_error' => 'Hesabınıza bağlı son portföy silinemez!',
@@ -19,8 +24,9 @@ return [
         'delete_error'  => 'Portföy silme sırasında hata oluştu. Lütfen daha sonra tekrar deneyiniz.',
     ],
     'share' => [
-        'create_error' => 'Hisse oluşturulurken hata oluştu. Lütfen daha sonra tekrar deneyiniz.',
-        'delete_error' => 'Hisse silme sırasında hata oluştu. Lütfen daha sonra tekrar deneyiniz.',
+        'create_error'   => 'Hisse oluşturulurken hata oluştu. Lütfen daha sonra tekrar deneyiniz.',
+        'delete_error'   => 'Hisse silme sırasında hata oluştu. Lütfen daha sonra tekrar deneyiniz.',
+        'cannot_deleted' => 'Hisse alım tutarı 0\'dan büyük olduğu için silinemez!',
     ],
     'transaction' => [
         'create_error' => 'İşlem oluşturulurken hata oluştu. Lütfen daha sonra tekrar deneyiniz.',

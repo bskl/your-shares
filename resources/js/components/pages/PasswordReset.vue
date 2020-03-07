@@ -47,7 +47,7 @@ export default {
         this.passwordReset(this.form)
           .then((res) => {
             this.clearErrors();
-            this.setSnackbar({ text: res });
+            this.setSnackbar({ text: res.data });
             this.$router.push({ name: 'Login' });
           })
           .catch((error) => {

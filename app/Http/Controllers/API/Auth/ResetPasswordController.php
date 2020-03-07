@@ -44,11 +44,11 @@ class ResetPasswordController extends Controller
      *
      * @param string $response
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     protected function sendResetResponse($response)
     {
-        return response()->json(trans($response));
+        return $this->respondSuccess([trans($response)]);
     }
 
     /**
@@ -57,13 +57,13 @@ class ResetPasswordController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param string                   $response
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     protected function sendResetFailedResponse(Request $request, $response)
     {
-        return response()->json(
-            ['messages' => '', 'errors' => ['email' => [trans($response)]]],
-            Response::HTTP_UNPROCESSABLE_ENTITY
+        return $this->respondError(
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            ['email' => trans($response)]
         );
     }
 }

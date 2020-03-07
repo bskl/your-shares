@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class LogoutController extends Controller
@@ -19,11 +18,11 @@ class LogoutController extends Controller
     */
 
     /**
-     * Login a request to the OAuth server.
+     * Logout a request to the OAuth server.
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return json $response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function logout(Request $request)
     {
@@ -33,11 +32,6 @@ class LogoutController extends Controller
             $token->revoke();
         });
 
-        $json = [
-            'success' => true,
-            'code'    => Response::HTTP_OK,
-        ];
-
-        return response()->json($json, Response::HTTP_OK);
+        return $this->respondSuccess([]);
     }
 }

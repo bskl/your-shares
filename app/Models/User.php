@@ -14,6 +14,15 @@ class User extends Authenticatable
     use HasApiTokens, Notifiable, CastsEnums;
 
     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [
+        'id', 'logon_at', 'logon_host', 'user_agent', 'confirmed', 'confirmation_code', 'remember_token',
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -28,7 +37,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'created_at', 'updated_at',
+        'password', 'logon_at', 'logon_host', 'confirmed', 'confirmation_code', 'remember_token', 'created_at', 'updated_at',
     ];
 
     /**

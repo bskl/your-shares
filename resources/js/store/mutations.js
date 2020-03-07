@@ -34,8 +34,8 @@ export default {
   ADD_PORTFOLIO(state, portfolio) {
     state.portfolios.push(portfolio);
   },
-  UPDATE_PORTFOLIO(state, { index, res }) {
-    state.portfolios[index] = res.data;
+  UPDATE_PORTFOLIO(state, { index, data }) {
+    state.portfolios[index] = data;
   },
   DESTROY_PORTFOLIO(state, index) {
     state.portfolios.splice(index, 1);

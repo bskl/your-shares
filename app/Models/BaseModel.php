@@ -90,7 +90,7 @@ abstract class BaseModel extends Model
     /**
      * @return array
      */
-    public function attributesToArray(): array
+    public function attributesToArray()
     {
         $attributes = parent::attributesToArray();
 
@@ -109,7 +109,8 @@ abstract class BaseModel extends Model
 
             if (in_array($key, $this->money)) {
                 $attributes[$key] = money_formatter(
-                    $this->getMoneyAttribute($value));
+                    $this->getMoneyAttribute($value)
+                );
             }
 
             if (in_array($key, $this->percent)) {
@@ -133,6 +134,10 @@ abstract class BaseModel extends Model
      */
     public function getMoneyAttribute($value)
     {
+        if ($value instanceof Money) {
+            return $value;
+        }
+
         return new Money($value, new Currency(config('app.currency')));
     }
 
@@ -167,7 +172,8 @@ abstract class BaseModel extends Model
     {
         try {
             $value = Crypt::encrypt($value);
-        } catch (Exception $e) {}
+        } catch (Exception $e) {
+        }
 
         return $value;
     }
@@ -181,7 +187,8 @@ abstract class BaseModel extends Model
     {
         try {
             $value = Crypt::decrypt($value);
-        } catch (Exception $e) {}
+        } catch (Exception $e) {
+        }
 
         return $value;
     }

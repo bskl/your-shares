@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Enums\TransactionType;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
 use Money\Currency;
 use Money\Money;
@@ -15,14 +17,45 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /**
+     * Return response success with JSON.
+     *
+     * @param array $data
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function respondSuccess(array $data)
+    {
+        return response()->json([
+            'data' => $data
+        ], Response::HTTP_OK);
+    }
+
+    /**
+     * Return response error with JSON.
+     *
+     * @param int    $status
+     * @param array  $errors
+     * @param string $messages
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function respondError(int $status, array $errors, string $messages = '')
+    {
+        return response()->json([
+            'messages' => $messages,
+            'errors' => [$errors]
+        ], $status);
+    }
+
+    /**
      * Get transactions by model and type.
      *
      * @param mixed  $model
      * @param string $type
      *
-     * @return JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function getTransactionsByModelAndType($model, $type)
+    public function getTransactionsByModelAndType(Model $model, string $type)
     {
         $transactionType = $this->getTransactionType($type);
         $attribute = $this->getRawAttribute($transactionType);
@@ -35,7 +68,7 @@ class Controller extends BaseController
                          ->groupBy(['year', 'month']);
 
         if (!count($grouped)) {
-            return response()->json();
+            return $this->respondSuccess([]);
         }
 
         $index = 0;
@@ -52,21 +85,23 @@ class Controller extends BaseController
                     $items[$index]['total'] = $items[$index]['total']->add($transaction->first()->{$attribute});
                 }
             }
-            $items[$index]['total'] = $transactionType['condition'] ? decimal_formatter($items[$index]['total']) : money_formatter($items[$index]['total']);
+            $items[$index]['total'] = $transactionType['condition']
+                ? decimal_formatter($items[$index]['total'])
+                : money_formatter($items[$index]['total']);
             $index++;
         }
 
-        return response()->json($items);
+        return $this->respondSuccess($items);
     }
 
     /**
      * Get attribute by type for use raw statement.
      *
-     * @param string $type
+     * @param array $transactionType
      *
      * @return string
      */
-    public function getRawAttribute($transactionType)
+    public function getRawAttribute(array $transactionType)
     {
         switch ($transactionType['value'][0]) {
             case TransactionType::Buying:
@@ -98,14 +133,15 @@ class Controller extends BaseController
      *
      * @param string $type
      *
-     * @return void
+     * @return array
      */
-    public function getTransactionType($value)
+    public function getTransactionType(string $type)
     {
-        $type = TransactionType::getInstance(TransactionType::getValue(ucfirst($value)));
+        $type = TransactionType::getInstance(TransactionType::getValue(ucfirst($type)));
 
         $transactionType = collect();
-        $transactionType->put('value',
+        $transactionType->put(
+            'value',
             $type->is(TransactionType::Buying)
                 ? [TransactionType::Buying, TransactionType::Rights]
                 : [$type->value]

@@ -34,7 +34,7 @@ class Portfolio extends BaseModel
      */
     protected $money = [
         'total_sale_amount', 'total_purchase_amount', 'paid_amount', 'gain_loss', 'total_commission_amount', 'total_dividend_gain',
-        'total_gain',
+        'total_gain', 'instant_gain',
     ];
 
     /**
@@ -52,7 +52,7 @@ class Portfolio extends BaseModel
      * @var array
      */
     protected $hidden = [
-        'user_id', 'created_at', 'updated_at',
+        'user_id', 'order', 'created_at', 'updated_at',
     ];
 
     /**
@@ -75,7 +75,7 @@ class Portfolio extends BaseModel
 
     /**
      * The attributes that should be encrypted/decrypted.
-     * 
+     *
      * @var array
      */
     protected $encryptable = [
@@ -114,13 +114,15 @@ class Portfolio extends BaseModel
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function transactionsOfType($type)
+    public function transactionsOfType(array $type)
     {
         return $this->transactions()->whereIn('type', $type);
     }
 
     /**
      * Get the commission attribute with remove zeros from end of number ie. 0,18800 becomes 0,188.
+     *
+     * @return float
      */
     public function getCommissionAttribute()
     {
@@ -131,6 +133,8 @@ class Portfolio extends BaseModel
 
     /**
      * Get instant gains to all shares based on instant prices.
+     *
+     * @return \Money\Money $instant_gain
      */
     public function getInstantGainAttribute()
     {
@@ -140,7 +144,7 @@ class Portfolio extends BaseModel
             $sharesGain = $sharesGain->add($share->gain);
         });
 
-        return money_formatter($sharesGain->add($this->total_gain));
+        return $sharesGain->add($this->total_gain);
     }
 
     /**

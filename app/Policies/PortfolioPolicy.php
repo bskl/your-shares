@@ -11,6 +11,17 @@ class PortfolioPolicy
     use HandlesAuthorization;
 
     /**
+     * Determine whether the user can list the portfolios.
+     *
+     * @param  \App\Models\User  $user
+     * @return mixed
+     */
+    public function viewAny(User $user)
+    {
+        return true;
+    }
+
+    /**
      * Determine whether the user can view the portfolio.
      *
      * @param \App\Models\User      $user

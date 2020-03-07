@@ -12,8 +12,6 @@
 */
 
 // Catch-all Route...
-Route::get('/{view?}', function () {
+Route::any('/{view?}', function () {
     return view('index');
 })->where('view', '[\/\w\.-]*');
-
-Route::get('password/reset/{token}', 'Auth\LoginController@login')->name('password.reset');

@@ -23,6 +23,7 @@ Route::namespace('API')->group(function () {
 
         Route::get('/data', 'DataController@getData');
 
+        Route::get('/portfolios', 'PortfolioController@index');
         Route::post('/portfolio', 'PortfolioController@store');
         Route::get('/portfolio/{id}', 'PortfolioController@show');
         Route::get('/portfolio/{id}/transactions/{type}', 'PortfolioController@getTransactionsByType');

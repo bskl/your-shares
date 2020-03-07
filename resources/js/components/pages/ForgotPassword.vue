@@ -44,7 +44,7 @@ export default {
         this.sendPasswordResetEmail(this.form)
           .then((res) => {
             this.clearErrors();
-            this.setSnackbar({ text: res });
+            this.setSnackbar({ text: res.data });
           })
           .catch((error) => {
             this.syncErrors(error);

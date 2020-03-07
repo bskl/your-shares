@@ -58,7 +58,7 @@ class Transaction extends BaseModel
 
     /**
      * The attributes that should be encrypted/decrypted.
-     * 
+     *
      * @var array
      */
     protected $encryptable = [
@@ -71,7 +71,7 @@ class Transaction extends BaseModel
      * @var array
      */
     protected $dates = [
-        'date_at', 'created_at', 'updated_at',
+        'created_at', 'updated_at',
     ];
 
     /**

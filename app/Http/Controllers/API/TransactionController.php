@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\TransactionRequest;
+use App\Http\Resources\Portfolio as PortfolioResource;
 use App\Models\Share;
 use App\Models\Transaction;
 use Illuminate\Http\Response;
@@ -15,7 +16,7 @@ class TransactionController extends Controller
      *
      * @param TransactionRequest $request
      *
-     * @return App\Models\Transaction $transaction
+     * @return \App\Http\Resources\Portfolio $portfolio
      */
     public function store(TransactionRequest $request)
     {
@@ -31,50 +32,35 @@ class TransactionController extends Controller
             $transaction->price = (string) $data['price'];
             $transaction->dividend_gain = (string) $data['dividend_gain'];
         } catch (\Exception $e) {
-            return response()->json(
-                ['messages' => '', 'errors' => [['transaction' => trans('app.transaction.create_error')]]],
-                Response::HTTP_INTERNAL_SERVER_ERROR
+            return $this->respondError(
+                Response::HTTP_INTERNAL_SERVER_ERROR,
+                ['transaction' => trans('app.transaction.create_error')]
             );
         }
 
         try {
             $transaction->save();
-            $transaction->refresh()->load('share');
 
             $event = 'App\\Events\\'.$transaction->type->key.'TransactionCreated';
             event(new $event($transaction));
 
-            $transaction->share->load('portfolio');
-
-            return response()->json($transaction->share->portfolio);
+            return new PortfolioResource($transaction->share->portfolio);
         } catch (\Exception $e) {
-            return response()->json(
-                ['messages' => '', 'errors' => [['transaction' => trans('app.transaction.create_error')]]],
-                Response::HTTP_UNPROCESSABLE_ENTITY
+            return $this->respondError(
+                Response::HTTP_UNPROCESSABLE_ENTITY,
+                ['transaction' => trans('app.transaction.create_error')]
             );
         }
     }
 
     /**
-     * Update given transaction instance after a valid request.
+     * Delete a transaction instance.
      *
-     * @param TransactionRequest     $request
-     * @param App\Models\Transaction $transaction
+     * @param int $id
      *
-     * @return App\Models\Transaction $transaction
+     * @return \App\Http\Resources\Portfolio $portfolio
      */
-    public function update()
-    {
-    }
-
-    /**
-     * Delete a transaction.
-     *
-     * @param Transaction $id
-     *
-     * @return JsonResponse
-     */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         $transaction = Transaction::findOrFail($id);
 
@@ -84,16 +70,14 @@ class TransactionController extends Controller
             $event = 'App\\Events\\'.$transaction->type->key.'TransactionDeleted';
             event(new $event($transaction));
 
-            $transaction->refresh()->load('share');
-            $transaction->share->load('portfolio');
             $portfolio = $transaction->share->portfolio;
             $transaction->delete();
 
-            return response()->json($portfolio);
+            return new PortfolioResource($portfolio);
         } catch (\Exception $e) {
-            return response()->json(
-                trans('app.transaction.delete_error'),
-                Response::HTTP_UNPROCESSABLE_ENTITY
+            return $this->respondError(
+                Response::HTTP_UNPROCESSABLE_ENTITY,
+                [trans('app.transaction.delete_error')]
             );
         }
     }

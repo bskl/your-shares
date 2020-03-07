@@ -46,7 +46,7 @@ export default {
 
       this.fetchSymbols()
         .then((res) => {
-          this.symbols = res;
+          this.symbols = res.data;
           this.searching = false
         });
     }

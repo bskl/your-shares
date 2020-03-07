@@ -4,25 +4,27 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\ShareRequest;
+use App\Http\Resources\Share as ShareResource;
+use App\Http\Resources\Transaction as TransactionResource;
 use App\Models\Share;
 use Illuminate\Http\Response;
 
 class ShareController extends Controller
 {
     /**
-     * Show the profile for the given user.
+     * Show the share instance for the given id.
      *
      * @param int $id
      *
-     * @return View
+     * @return \App\Http\Resources\Share $share
      */
-    public function show($id)
+    public function show(int $id)
     {
         $share = Share::findOrFail($id);
 
         $this->authorize($share);
 
-        return response()->json($share->symbol->only('id', 'code'));
+        return new ShareResource($share);
     }
 
     /**
@@ -30,7 +32,7 @@ class ShareController extends Controller
      *
      * @param ShareRequest $request
      *
-     * @return App\Models\Portfolio $portfolio
+     * @return \App\Http\Resources\Share $share
      */
     public function store(ShareRequest $request)
     {
@@ -43,86 +45,72 @@ class ShareController extends Controller
             $share = Share::create($data);
             $share->refresh()->load('symbol');
 
-            return response()->json($share);
+            return new ShareResource($share);
         } catch (\Exception $e) {
-            return response()->json(
-                ['messages' => '', 'errors' => [['share' => trans('app.share.create_error')]]],
-                Response::HTTP_UNPROCESSABLE_ENTITY
+            return $this->respondError(
+                Response::HTTP_UNPROCESSABLE_ENTITY,
+                ['share' => trans('app.share.create_error')]
             );
         }
     }
 
     /**
-     * Update given share instance after a valid request.
-     *
-     * @param ShareRequest     $request
-     * @param App\Models\Sahre $portfolio
-     *
-     * @return App\Models\Share $portfolio
-     */
-    public function update()
-    {
-    }
-
-    /**
-     * Delete a share.
+     * Delete a share instance.
      *
      * @param int $id
      *
-     * @return JsonResponse
+     * @return \App\Http\Resources\Share $share
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         $share = Share::findOrFail($id);
 
         $this->authorize($share);
 
-        if ($share->total_amount != 0) {
-            return response()->json(
-                trans('app.share.delete_error'),
-                Response::HTTP_UNAUTHORIZED
+        if ($share->total_purchase_amount->isPositive()) {
+            return $this->respondError(
+                Response::HTTP_UNPROCESSABLE_ENTITY,
+                [trans('app.share.cannot_deleted')]
             );
         }
 
         try {
             $share->delete();
 
-            return response()->json();
+            return new ShareResource([]);
         } catch (\Exception $e) {
-            return response()->json(
-                trans('app.share.delete_error'),
-                Response::HTTP_UNPROCESSABLE_ENTITY
+            return $this->respondError(
+                Response::HTTP_UNPROCESSABLE_ENTITY,
+                [trans('app.share.delete_error')]
             );
         }
     }
 
     /**
-     * Get share's all transactions.
+     * Get share instance with all transactions.
      *
      * @param int $id
      *
-     * @return JsonResponse
+     * @return \App\Http\Resources\Share $share
      */
-    public function getTransactions($id)
+    public function getTransactions(int $id)
     {
-        $share = Share::findOrFail($id);
+        $share = Share::with('transactions')->findOrFail($id);
 
         $this->authorize('view', $share);
 
-        $share = $share->refresh()->load('transactions');
-
-        return response()->json($share);
+        return new ShareResource($share);
     }
 
     /**
-     * Get share's transactions by type.
+     * Get share instance with transactions by type.
      *
      * @param int    $id
      * @param string $type
      *
-     * @return JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function getTransactionsByType($id, $type)
+    public function getTransactionsByType(int $id, string $type)
     {
         $share = Share::findOrFail($id);
 
@@ -132,13 +120,15 @@ class ShareController extends Controller
     }
 
     /**
-     * Get share's all transactions.
+     * Get share instance with transactions by type and year.
      *
-     * @param int $id
+     * @param int    $id
+     * @param string $type
+     * @param int    $year
      *
-     * @return JsonResponse
+     * @return \App\Http\Resources\Transaction $transactions
      */
-    public function getTransactionsByTypeAndYear($id, $type, $year)
+    public function getTransactionsByTypeAndYear(int $id, string $type, int $year)
     {
         $share = Share::findOrFail($id);
 
@@ -151,6 +141,6 @@ class ShareController extends Controller
                               ->whereYear('date_at', $year)
                               ->get();
 
-        return response()->json($transactions);
+        return TransactionResource::collection($transactions);
     }
 }

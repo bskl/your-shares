@@ -71,16 +71,25 @@ class RegisterController extends Controller
      * Handle a registration request for the application.
      *
      * @param \Illuminate\Http\Request $request
+     * @param string                   $token
      *
      * @return JsonResponse
      */
-    public function verifyConfirmationCode(Request $request, $token)
+    public function verifyConfirmationCode(Request $request, string $token)
     {
         $user = User::where('confirmation_code', $token)->firstOrFail();
         $user->confirmed = UserType::Accepted;
         $user->confirmation_code = null;
-        $user->save();
 
-        return response()->json();
+        try {
+            $user->save();
+
+            return $this->respondSuccess([trans('app.user.verified')]);
+        } catch (\Exception $e) {
+            return $this->respondError(
+                Response::HTTP_UNPROCESSABLE_ENTITY,
+                [trans('app.user.verified_error')]
+            );
+        }
     }
 }

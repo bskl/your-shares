@@ -2,6 +2,7 @@
 
 import { mapActions, mapGetters } from "vuex";
 import { languages as list } from "../../lang/map";
+import { parseErrors } from '../../utilities/helpers.js';
 
 export default {
   /**
@@ -39,7 +40,11 @@ export default {
         this.$vuetify.lang.current = locale;
 
         if (this.isLoggedIn) {
-          this.setLocale(locale);
+          this.setLocale(locale)
+            .then()
+            .catch((error) => {
+              this.setSnackbar({ color: 'error', text: parseErrors(error) });
+            });
         }
       }, 1000);
     }

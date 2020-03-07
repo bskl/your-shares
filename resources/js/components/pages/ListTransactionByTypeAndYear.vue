@@ -65,7 +65,7 @@ export default {
 
     this.fetchTransactionsByParams(this.$route.path)
       .then((res) => {
-        this.transactions = res;
+        this.transactions = res.data;
         this.isLoading = false;
       })
       .catch();

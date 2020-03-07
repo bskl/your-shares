@@ -1,9 +1,10 @@
 <script type="text/ecmascript-6">
 
 import { mapState, mapActions, mapGetters } from 'vuex';
+import { ITEM_DETAILS } from '../../store/constants.js';
+import { parseErrors } from '../../utilities/helpers.js';
 import AddShareModal from '../modals/AddShareModal.vue';
 import ItemDetail from '../partials/ItemDetail.vue';
-import { ITEM_DETAILS } from '../../store/constants.js';
 
 export default {
   /**
@@ -38,7 +39,7 @@ export default {
 
   methods: {
     ...mapActions([
-      'fetchData', 'destroyShare', 'fetchSymbolsData', 'setSnackbar',
+      'fetchData', 'fetchSymbolsData', 'setSnackbar',
     ]),
 
     getColor(trend) {
@@ -59,7 +60,7 @@ export default {
       this.fetchSymbolsData()
         .then()
         .catch((error) => {
-          this.setSnackbar({ color: 'error', text: error.response.data });
+          this.setSnackbar({ color: 'error', text: parseErrors(error) });
         })
         .finally(() => {
           this.loading = false;
