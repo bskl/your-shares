@@ -15,6 +15,7 @@ class AddColumnUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->boolean('role')->unsigned()->default(App\Enums\UserType::User)->after('locale');
+            $table->string('user_agent', 1023)->nullable()->after('logon_host');
         });
     }
 

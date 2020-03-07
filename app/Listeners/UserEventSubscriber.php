@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Models\Portfolio;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Request;
 
 class UserEventSubscriber
 {
@@ -27,6 +28,11 @@ class UserEventSubscriber
      */
     public function onUserLogin($event)
     {
+        $event->user->logon_at = now();
+        $event->user->logon_host = Request::ip();
+        $event->user->user_agent = Request::header('User-Agent');
+
+        $event->user->save();
     }
 
     /**
