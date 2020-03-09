@@ -188,8 +188,8 @@ export default {
                 :first-day-of-week="1"
               >
               <v-spacer></v-spacer>
-                <v-btn class="btn-custom" @click="menu = false">{{ $t("Close") }}</v-btn>
-                <v-btn class="btn-custom" @click="$refs.menu.save(form.date_at)">{{ $t("Ok") }}</v-btn>
+                <v-btn class="btn-close" @click="menu = false">{{ $t("Close") }}</v-btn>
+                <v-btn class="btn-action" @click="$refs.menu.save(form.date_at)">{{ $t("Ok") }}</v-btn>
               </v-date-picker>
             </v-menu>
             <v-text-field type="number" name="lot" ref="lot" id="lot" outlined clearable
@@ -238,12 +238,12 @@ export default {
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
           <v-progress-circular v-show="isLoading" indeterminate color="rgba(89, 135, 209, 1)" width="3" size="30" />
-          <v-btn class="btn-custom" to="/"
+          <v-btn class="btn-close" to="/"
             :disabled="isLoading"
           >
             {{ $t("Close") }}
           </v-btn>
-          <v-btn class="btn-custom"
+          <v-btn class="btn-action"
             :disabled="isLoading" 
             @click="submit"
           >

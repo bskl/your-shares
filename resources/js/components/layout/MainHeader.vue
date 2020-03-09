@@ -30,6 +30,6 @@ export default {
       @click.stop="toggleNavDrawer()" 
       v-if="isLoggedIn" 
     />
-    <v-btn class="btn-custom" to="/register" v-else>{{ $t("Register") }}</v-btn>
+    <v-btn class="btn-action" to="/register" v-else>{{ $t("Register") }}</v-btn>
   </v-app-bar>
 </template>

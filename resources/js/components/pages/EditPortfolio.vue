@@ -132,7 +132,7 @@ export default {
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions class="pa-4">
-          <v-btn class="btn-custom"
+          <v-btn class="btn-close"
             v-if="this.portfoliosCount > 1"
             @click="$refs.deletePortfolioModal.open($route.params.id)"
           >
@@ -140,12 +140,12 @@ export default {
           </v-btn>
           <v-spacer></v-spacer>
           <v-progress-circular v-show="isLoading" indeterminate color="rgba(89, 135, 209, 1)" width="3" size="30" />
-          <v-btn class="btn-custom" to="/"
+          <v-btn class="btn-close" to="/"
             :disabled="isLoading"
           >
             {{ $t("Close") }}
           </v-btn>
-          <v-btn class="btn-custom"
+          <v-btn class="btn-action"
             :disabled="isLoading"
             @click="submit"
           >

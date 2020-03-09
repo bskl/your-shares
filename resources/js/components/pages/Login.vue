@@ -105,7 +105,7 @@ export default {
           <router-link to="/password/reset" class="link-custom">{{ $t("Forgot password?") }}</router-link>
           <v-spacer></v-spacer>
           <v-progress-circular v-show="isLoading" indeterminate color="rgba(89, 135, 209, 1)" width="3" size="30" />
-          <v-btn class="btn-custom"
+          <v-btn class="btn-action"
             :disabled="isLoading" 
             @click="submit"
           >

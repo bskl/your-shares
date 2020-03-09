@@ -96,7 +96,7 @@ export default {
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
           <v-progress-circular v-show="isLoading" indeterminate color="rgba(89, 135, 209, 1)" width="3" size="30" />
-          <v-btn class="btn-custom"
+          <v-btn class="btn-action"
             :disabled="isLoading" 
             @click="submit"
           >

@@ -88,7 +88,7 @@ export default {
 
     <template v-slot:append>
       <div class="pa-2">
-        <v-btn block class="btn-custom" @click="submit()">{{ $t('Logout')}}</v-btn>
+        <v-btn block class="btn-action" @click="submit()">{{ $t('Logout')}}</v-btn>
       </div>
     </template>
   </v-navigation-drawer>

@@ -10,17 +10,32 @@
   background: transparent !important;
 }
 
-.btn-custom {
+.btn-close {
   color: rgba(138, 180, 248, 1) !important;
-  background-color: transparent !important;
+  background-color: rgb(66, 66, 66) !important;
   border: thin solid rgba(255, 255, 255, .3) !important;
   font-weight: 600 !important;
   text-transform: capitalize !important;
   letter-spacing: normal !important;
 }
 
-.btn-custom::before {
+.btn-close::before {
   border-radius: 0 !important;
+}
+
+.btn-action {
+  background-color: rgb(138, 180, 248) !important;
+  border: none !important;
+  color: rgb(32, 33, 36) !important;
+  font-weight: 600 !important;
+  text-transform: capitalize !important;
+  letter-spacing: normal !important;
+  padding: 8px 16px !important;
+}
+
+.btn-action:hover {
+  color: rgb(138, 180, 248)
+  linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08)) !important;
 }
 
 .seperator-line {
