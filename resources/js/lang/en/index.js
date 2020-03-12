@@ -108,6 +108,7 @@ export default {
   "This action is unauthorized.": "This action is unauthorized.",
   "Your portfolio commission rate has not been recorded.": "Your portfolio commission rate has not been recorded.",
   "Page not found.": "Page not found.",
+  "The page timed out while loading. Are you sure you're still connected to the Internet?": "The page timed out while loading. Are you sure you're still connected to the Internet?",
   "Return Home Page": "Return Home Page",
   "Year": "Yıl",
   "January": "January",

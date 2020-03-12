@@ -55,7 +55,7 @@ export default {
     ]),
 
     itemLink(id, year) {
-      return `/share/${id}/transactions/${this.$route.params.type}/${year}`
+      return `/shares/${id}/transactions/${this.$route.params.type}/${year}`
     }
   },
 

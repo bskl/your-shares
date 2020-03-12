@@ -114,7 +114,7 @@ export default {
               <v-btn icon small class="mx-1"
                 v-on="on"
                 :disabled="loading"
-                :to="`/portfolio/${portfolio.id}/edit`"
+                :to="`/portfolios/${portfolio.id}/edit`"
               >
                 <v-icon color="green darken-2">edit</v-icon>
               </v-btn>
@@ -159,7 +159,7 @@ export default {
                 <v-spacer></v-spacer>
                 <v-col cols="auto pr-0">
                   <v-btn text block small
-                    :to="`/share/${item.id}/transactions`"
+                    :to="`/shares/${item.id}/transactions`"
                     :disabled="loading"
                   >
                     <v-icon small>horizontal_split</v-icon>
@@ -239,7 +239,7 @@ export default {
                 <item-detail :key="item.key"
                   :item="item"
                   :value="portfolio[item.key]"
-                  :baseLink="`portfolio/${portfolio.id}`"
+                  :baseLink="`portfolios/${portfolio.id}`"
                 />
                 <v-divider
                   v-if="index + 1 < itemDetails.length"

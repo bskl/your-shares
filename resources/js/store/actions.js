@@ -1,4 +1,5 @@
 import axios from "axios";
+import NProgress from "nprogress";
 import router from "../router";
 import { parseErrors } from '../utilities/helpers.js';
 
@@ -138,7 +139,7 @@ export default {
   },
 
   fetchSymbolsData({ commit }) {
-    return http.get('/symbol/data')
+    return http.get('/symbols/data')
       .then((res) => {
         commit('SET_PORTFOLIOS', res.data.data);
 
@@ -147,7 +148,7 @@ export default {
   },
 
   createPortfolio({ commit }, data) {
-    return http.post('/portfolio', data)
+    return http.post('/portfolios', data)
       .then((res) => {
         commit('ADD_PORTFOLIO', res.data.data);
 
@@ -156,7 +157,7 @@ export default {
   },
 
   updatePortfolio({ commit, getters }, { id, form}) {
-    return http.put(`/portfolio/${id}`, form)
+    return http.put(`/portfolios/${id}`, form)
       .then((res) => {
         const index = getters.getPortfolioIndexById(id);
         const data = res.data.data;
@@ -167,7 +168,7 @@ export default {
   },
 
   destroyPortfolio({ commit, getters }, id) {
-    return http.delete(`/portfolio/${id}`)
+    return http.delete(`/portfolios/${id}`)
       .then((res) => {
         const index = getters.getPortfolioIndexById(id);
         commit('DESTROY_PORTFOLIO', index);
@@ -177,14 +178,14 @@ export default {
   },
 
   fetchPortfolio(_, id) {
-    return http.get(`/portfolio/${id}`)
+    return http.get(`/portfolios/${id}`)
       .then((res) => {
         return res.data;
       });
   },
 
   createTransaction({ commit, getters }, form) {
-    return http.post('/transaction', form)
+    return http.post('/transactions', form)
       .then((res) => {
         const data = res.data.data;
         const index = getters.getPortfolioIndexById(data.id);
@@ -195,14 +196,14 @@ export default {
   },
 
   fetchSymbols() {
-    return http.get('/symbol')
+    return http.get('/symbols')
       .then((res) => {
         return res.data;
       });
   },
 
   addShare({ commit, getters }, form) {
-    return http.post('/share', form)
+    return http.post('/shares', form)
       .then((res) => {
         const index = getters.getPortfolioIndexById(form.portfolio_id);
         const data = res.data.data;
@@ -213,7 +214,7 @@ export default {
   },
 
   destroyShare({ commit, getters }, data) {
-    return http.delete(`/share/${data.id}`)
+    return http.delete(`/shares/${data.id}`)
       .then((res) => {
         const portfolioIndex = getters.getPortfolioIndexById(data.portfolio_id);
         const index = getters.getShareIndexById(data.portfolio_id, data.id);
@@ -224,7 +225,7 @@ export default {
   },
 
   fetchShare(_, id) {
-    return http.get(`/share/${id}`)
+    return http.get(`/shares/${id}`)
       .then((res) => {
         return res.data;
       });
@@ -238,7 +239,7 @@ export default {
   },
 
   destroyTransaction({ commit, getters }, id) {
-    return http.delete(`/transaction/${id}`)
+    return http.delete(`/transactions/${id}`)
       .then((res) => {
         const data = res.data.data;
         const index = getters.getPortfolioIndexById(data.id);

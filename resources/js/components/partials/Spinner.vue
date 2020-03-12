@@ -1,7 +1,11 @@
 <template>
-  <div class="spinner" role="spinner">
-    <div class="spinner-icon"></div>
-  </div>
+  <v-container class="fill-height">
+    <v-row align="center" justify="center">
+      <div class="spinner" role="spinner">
+        <div class="spinner-icon"></div>
+        </div>
+    </v-row>
+  </v-container>
 </template>
 
 <style>
@@ -11,8 +15,8 @@
   z-index: 1031;
 }
 .spinner-icon {
-  width: 18px;
-  height: 18px;
+  width: 32px;
+  height: 32px;
   box-sizing: border-box;
 
   border: solid 2px transparent;

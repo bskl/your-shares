@@ -16,7 +16,7 @@ export default {
           icon: "home"
         },
         {
-          to: "/portfolio/create",
+          to: "/portfolios/create",
           title: this.$t("Add Portfolio"),
           icon: "add_circle_outline"
         },
@@ -36,15 +36,8 @@ export default {
 
   methods: {
     ...mapActions([
-      'logout', 'toggleNavDrawer',
+      'toggleNavDrawer',
     ]),
-
-    submit() {
-      this.logout()
-        .then(res => {
-          this.$router.push({ name: "Login" });
-        });
-    }
   }
 };
 </script>
@@ -88,7 +81,7 @@ export default {
 
     <template v-slot:append>
       <div class="pa-2">
-        <v-btn block class="btn-action" @click="submit()">{{ $t('Logout')}}</v-btn>
+        <v-btn block class="btn-action" to="/logout">{{ $t('Logout')}}</v-btn>
       </div>
     </template>
   </v-navigation-drawer>

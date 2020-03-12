@@ -109,6 +109,7 @@ export default {
   "This action is unauthorized.": "Bu işlem için yetkiniz yok.", 
   "Your portfolio commission rate has not been recorded.": "Portföy komisyon oranınız kayıt edilmemiş.",
   "Page not found.": "Aradığınız sayfa bulunamadı.",
+  "The page timed out while loading. Are you sure you're still connected to the Internet?": "Sayfa yüklenirken zaman aşımına uğradı. Hala internete bağlı olduğundan emin misin?",
   "Return Home Page": "Ana Sayfaya Dön",
   "Year": "Yıl",
   "January": "Ocak",

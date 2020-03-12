@@ -42,7 +42,7 @@ export default {
         .split('/')
         .filter(item => item.trim().length);
       
-      return (items[0] === 'share') ? `/share/${this.$route.params.id}/transactions` : '/';
+      return (items[0] === 'shares') ? `/shares/${this.$route.params.id}/transactions` : '/';
     }
   },
 

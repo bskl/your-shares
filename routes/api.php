@@ -24,24 +24,24 @@ Route::namespace('API')->group(function () {
         Route::get('/data', 'DataController@getData');
 
         Route::get('/portfolios', 'PortfolioController@index');
-        Route::post('/portfolio', 'PortfolioController@store');
-        Route::get('/portfolio/{id}', 'PortfolioController@show');
-        Route::get('/portfolio/{id}/transactions/{type}', 'PortfolioController@getTransactionsByType');
-        Route::get('/portfolio/{id}/transactions/{type}/{year}', 'PortfolioController@getTransactionsByTypeAndYear');
-        Route::put('/portfolio/{id}', 'PortfolioController@update');
-        Route::delete('/portfolio/{id}', 'PortfolioController@destroy');
+        Route::post('/portfolios', 'PortfolioController@store');
+        Route::get('/portfolios/{id}', 'PortfolioController@show');
+        Route::get('/portfolios/{id}/transactions/{type}', 'PortfolioController@getTransactionsByType');
+        Route::get('/portfolios/{id}/transactions/{type}/{year}', 'PortfolioController@getTransactionsByTypeAndYear');
+        Route::put('/portfolios/{id}', 'PortfolioController@update');
+        Route::delete('/portfolios/{id}', 'PortfolioController@destroy');
 
-        Route::post('/share', 'ShareController@store');
-        Route::get('/share/{id}', 'ShareController@show');
-        Route::delete('/share/{id}', 'ShareController@destroy');
-        Route::get('/share/{id}/transactions', 'ShareController@getTransactions');
-        Route::get('/share/{id}/transactions/{type}', 'ShareController@getTransactionsByType');
-        Route::get('/share/{id}/transactions/{type}/{year}', 'ShareController@getTransactionsByTypeAndYear');
+        Route::post('/shares', 'ShareController@store');
+        Route::get('/shares/{id}', 'ShareController@show');
+        Route::delete('/shares/{id}', 'ShareController@destroy');
+        Route::get('/shares/{id}/transactions', 'ShareController@getTransactions');
+        Route::get('/shares/{id}/transactions/{type}', 'ShareController@getTransactionsByType');
+        Route::get('/shares/{id}/transactions/{type}/{year}', 'ShareController@getTransactionsByTypeAndYear');
 
-        Route::post('/transaction', 'TransactionController@store');
-        Route::delete('/transaction/{id}', 'TransactionController@destroy');
+        Route::post('/transactions', 'TransactionController@store');
+        Route::delete('/transactions/{id}', 'TransactionController@destroy');
 
-        Route::get('/symbol/data', 'SymbolController@getData');
-        Route::get('/symbol', 'SymbolController@getSymbols');
+        Route::get('/symbols/data', 'SymbolController@getData');
+        Route::get('/symbols', 'SymbolController@getSymbols');
     });
 });

@@ -146,7 +146,7 @@ export default {
                 <item-detail :key="item.key"
                   :item="item"
                   :value="share[item.key]"
-                  :baseLink="`share/${share.id}`"
+                  :baseLink="`shares/${share.id}`"
                 />
                 <v-divider
                   v-if="index + 1 < itemDetails.length"
