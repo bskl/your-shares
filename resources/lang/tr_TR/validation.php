@@ -152,6 +152,7 @@ return [
         'lot'        => 'Lot',
         'price'      => 'Fiyat',
         'name'       => 'Portföy Adı',
+        'currency'   => 'Para Birimi',
         'commission' => 'Komisyon',
     ],
 

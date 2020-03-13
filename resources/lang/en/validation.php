@@ -152,6 +152,7 @@ return [
         'lot'        => 'Lot',
         'price'      => 'Price',
         'name'       => 'Portfolio Name',
+        'currency'   => 'Currency',
         'commission' => 'Commission',
     ],
 
