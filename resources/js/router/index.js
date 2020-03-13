@@ -10,14 +10,11 @@ const router = new Router({
   base: __dirname,
   routes,
   scrollBehavior (to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition;
-    }
     if (to.meta.skipScrollBehavior) {
       return {};
     }
 
-    return { x: 0, y: 0 };
+    return savedPosition || { x: 0, y: 0 };
   }
 });
 
