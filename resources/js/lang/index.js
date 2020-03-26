@@ -6,9 +6,10 @@ import { languages } from "./map";
 Vue.use(VueI18n);
 
 const fallbackLocale = "tr";
+const hasDocument = typeof document !== 'undefined';
 
 const getNavigatorLocale = function() {
-  if (typeof document !== 'undefined') {
+  if (hasDocument) {
     let locale = document.documentElement.lang;
 
     if (locale.includes("-") || locale.includes("_")) {
@@ -20,7 +21,7 @@ const getNavigatorLocale = function() {
 }
 
 const userLocale = function() {
-  let locale = JSON.parse(localStorage.getItem('locale'));
+  const locale = JSON.parse(localStorage.getItem('locale'));
 
   if (locale !== 'undefined') {
     return locale;
@@ -30,14 +31,15 @@ const userLocale = function() {
 }
 
 const getLocale = function() {
-  let locale = userLocale() || getNavigatorLocale();
-  let { lang } = languages.find(l => locale === l.alternate || locale === l.locale) || {}
-  
-  if (lang) {
-    return locale;
+  const lang = userLocale() || getNavigatorLocale();
+
+  const { locale } = languages.find(l => lang === l.alternate || lang === l.locale) || { locale: fallbackLocale };
+
+  if (hasDocument) {
+    document.querySelector('html').setAttribute('lang', locale)
   }
 
-  return fallbackLocale;
+  return locale;
 }
 
 // Create VueI18n instance with options
