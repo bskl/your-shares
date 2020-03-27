@@ -66,8 +66,8 @@ trait LoginUsers
                 'username'      => $credentials[$this->username()],
                 'password'      => $credentials['password'],
                 'scope'         => '*',
-                ],
-            ]);
+            ],
+        ]);
 
         $this->clearLoginAttempts($request);
 

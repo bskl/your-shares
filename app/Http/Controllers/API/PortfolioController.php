@@ -64,7 +64,7 @@ class PortfolioController extends Controller
             $portfolio->refresh()->load('shares');
 
             return (new PortfolioResource($portfolio))->additional([
-                'message' => trans('app.portfolio.create_success')
+                'message' => trans('app.portfolio.create_success'),
             ]);
         } catch (\Exception $e) {
             return $this->respondError(
@@ -92,7 +92,7 @@ class PortfolioController extends Controller
             $portfolio->update($request->all());
 
             return (new PortfolioResource([]))->additional([
-                'message' => trans('app.portfolio.update_success')
+                'message' => trans('app.portfolio.update_success'),
             ]);
         } catch (\Exception $e) {
             return $this->respondError(
@@ -126,10 +126,11 @@ class PortfolioController extends Controller
             $portfolio->delete();
 
             return (new PortfolioResource([]))->additional([
-                'message' => trans('app.portfolio.delete_success')
+                'message' => trans('app.portfolio.delete_success'),
             ]);
         } catch (\Exception $e) {
             dd($e->getMessage());
+
             return $this->respondError(
                 Response::HTTP_UNPROCESSABLE_ENTITY,
                 [trans('app.portfolio.delete_error')]

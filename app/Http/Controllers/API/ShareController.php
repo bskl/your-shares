@@ -46,7 +46,7 @@ class ShareController extends Controller
             $share->refresh()->load('symbol');
 
             return (new ShareResource($share))->additional([
-                'message' => trans('app.share.create_success')
+                'message' => trans('app.share.create_success'),
             ]);
         } catch (\Exception $e) {
             return $this->respondError(
@@ -80,7 +80,7 @@ class ShareController extends Controller
             $share->delete();
 
             return (new ShareResource([]))->additional([
-                'message' => trans('app.share.delete_success')
+                'message' => trans('app.share.delete_success'),
             ]);
         } catch (\Exception $e) {
             return $this->respondError(

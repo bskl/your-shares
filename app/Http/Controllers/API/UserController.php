@@ -17,6 +17,7 @@ class UserController extends Controller
     public function setLocale(string $locale)
     {
         Auth::user()->locale = $locale;
+
         try {
             Auth::user()->update();
 

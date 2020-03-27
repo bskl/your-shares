@@ -51,9 +51,9 @@ class TransactionController extends Controller
             $transaction = $transaction->makeHidden('share')->refresh();
 
             return $this->respondSuccess([
-                'portfolio' => new PortfolioResource($portfolio),
-                'share' => new ShareResource($share),
-                'transaction' => new TransactionResource($transaction)
+                'portfolio'   => new PortfolioResource($portfolio),
+                'share'       => new ShareResource($share),
+                'transaction' => new TransactionResource($transaction),
             ], trans('app.transaction.create_success'));
         } catch (\Exception $e) {
             return $this->respondError(
@@ -87,7 +87,7 @@ class TransactionController extends Controller
 
             return $this->respondSuccess([
                 'portfolio' => new PortfolioResource($portfolio),
-                'share' => new ShareResource($share),
+                'share'     => new ShareResource($share),
             ], trans('app.transaction.delete_success'));
         } catch (\Exception $e) {
             return $this->respondError(
