@@ -1,16 +1,14 @@
+import { DEFAULT_SNACKBAR } from './constants';
+
 export default {
-  isLoading: false,
+  loading: [],
   isLoggedIn: !!JSON.parse(localStorage.getItem('access_token')),
   navDrawer: false,
+  showModal: false,
   user: [],
   portfolios: [],
+  showSnackbar: false,
   snackbar: {
-    show: false,
-    timeout: 3000,
-    position_y: 'top',
-    position_x: null,
-    mode: '',
-    color: '',
-    text: '',
+    ...DEFAULT_SNACKBAR,
   },
 }

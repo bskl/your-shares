@@ -48,4 +48,13 @@ export const TRANSACTION_TYPES = [
 export const USER_TYPES = {
   user: 2,
   admin: 9,
-}
+};
+
+export const DEFAULT_SNACKBAR = Object.freeze({
+  position_y: 'top',
+  position_x: null,
+  color: 'success',
+  mode: '',
+  msg: '',
+  timeout: 6000,
+});

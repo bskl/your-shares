@@ -38,10 +38,29 @@
   linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08)) !important;
 }
 
+.btn-warning {
+  background-color: rgb(250, 110, 110) !important;
+  border: none !important;
+  color: rgb(32, 33, 36) !important;
+  font-weight: 600 !important;
+  text-transform: capitalize !important;
+  letter-spacing: normal !important;
+  padding: 8px 16px !important;
+}
+
+.btn-warning:hover {
+  color: rgb(250, 110, 110)
+  linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08)) !important;
+}
+
 .seperator-line {
   border-bottom: 1px solid rgba(255, 255, 255, .1) !important;
 }
 
 .v-progress-circular {
+  height: 30px !important;
+  width: 30px !important;
+  color: rgb(89, 135, 209) !important;
+  caret-color: rgb(89, 135, 209) !important;
   margin-right: 1rem !important;
 }

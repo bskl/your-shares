@@ -1,7 +1,8 @@
 <script>
 
-import { mapActions } from 'vuex';
-import { parseErrors } from '../../utilities/helpers';
+import { mapState, mapActions } from 'vuex';
+import { parseSuccessMessage, parseErrorMessage } from '../../utilities/helpers.js';
+import loadingHandler from '../../mixins/loadingHandler.js';
 import Modal from '../modals/modal/Modal.vue';
 import ModalHeading from '../modals/modal/ModalHeading.vue';
 import ModalBody from '../modals/modal/ModalBody.vue';
@@ -13,6 +14,10 @@ export default {
    */
   name: 'DeletePortfolioModal',
 
+  mixins: [
+    loadingHandler
+  ],
+
   components: {
     Modal, ModalHeading, ModalBody, ModalFooter,
 },
@@ -22,10 +27,15 @@ export default {
    */
   data() {
     return {
-      showModal: false,
-      isLoading: false,
+      waitFor: 'destroy_portfolio',
       id: null,
     };
+  },
+
+  computed: {
+    ...mapState([
+      'showModal',
+    ]),
   },
 
   /**
@@ -41,7 +51,7 @@ export default {
 
   methods: {
     ...mapActions([
-      'destroyPortfolio', 'setSnackbar',
+      'destroyPortfolio', 'setShowModal',
     ]),
 
     /**
@@ -49,7 +59,7 @@ export default {
      */
     open(id) {
       this.id = id;
-      this.showModal = true;
+      this.setShowModal(true);
     },
 
     /**
@@ -57,25 +67,26 @@ export default {
      */
     close() {
       this.id = null;
-      this.showModal = false;
+      this.setShowModal(false);
     },
 
     /**
      * Delete selected portfolio.
      */
     submit() {
-      this.isLoading = true;
+      this.startLoading();
 
       this.destroyPortfolio(this.id)
         .then((res) => {
-          this.close();
+          parseSuccessMessage(res)
           this.$router.push({ name: 'Home' });
         })
         .catch((error) => {
-          this.setSnackbar({ color: 'error', text: parseErrors(error) });
+          parseErrorMessage(error);
         })
         .finally(() => {
-          this.isLoading = false;
+          this.stopLoading();
+          this.close();
         });
     }
   },
@@ -93,14 +104,14 @@ export default {
     <v-divider></v-divider>
     <modal-footer>
       <v-spacer></v-spacer>
-      <v-progress-circular v-show="isLoading" indeterminate color="rgba(89, 135, 209, 1)" width="3" size="30" />
+      <v-progress-circular v-show="isLoading" indeterminate />
       <v-btn class="btn-close"
         :disabled="isLoading"
         @click="close"
       >
         {{ $t("Close") }}
       </v-btn>
-      <v-btn class="btn-action"
+      <v-btn class="btn-warning"
         :disabled="isLoading"
         @click="submit"
       >

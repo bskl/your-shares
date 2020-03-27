@@ -1,12 +1,14 @@
 <script>
 
-import { mapActions } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
+import { parseSuccessMessage } from '../../utilities/helpers.js';
+import validationHandler from '../../mixins/validationHandler.js';
+import loadingHandler from '../../mixins/loadingHandler.js';
 import Modal from '../modals/modal/Modal.vue';
 import ModalHeading from '../modals/modal/ModalHeading.vue';
 import ModalBody from '../modals/modal/ModalBody.vue';
 import ModalFooter from '../modals/modal/ModalFooter.vue';
 import FormErrors from '../partials/FormErrors.vue';
-import validationHandler from '../../mixins/validationHandler';
 
 export default {
   /**
@@ -14,7 +16,10 @@ export default {
    */
   name: 'AddShareModal',
 
-  mixins: [validationHandler],
+  mixins: [
+    validationHandler,
+    loadingHandler
+  ],
 
   components: {
     Modal, ModalHeading, ModalBody, ModalFooter, FormErrors,
@@ -25,9 +30,8 @@ export default {
    */
   data() {
     return {
-      isLoading: false,
+      waitFor: 'store_share',
       searching: false,
-      showModal: false,
       valid: true,
       search: null,
       symbols: [],
@@ -36,6 +40,12 @@ export default {
         portfolio_id: 0,
       },
     };
+  },
+
+  computed: {
+    ...mapState([
+      'showModal',
+    ]),
   },
 
   watch: {
@@ -47,7 +57,7 @@ export default {
       this.fetchSymbols()
         .then((res) => {
           this.symbols = res.data;
-          this.searching = false
+          this.searching = false;
         });
     }
   },
@@ -62,15 +72,15 @@ export default {
 
   methods: {
     ...mapActions([
-      'fetchSymbols', 'addShare',
+      'fetchSymbols', 'storeShare', 'setShowModal',
     ]),
 
     /**
-     * Open the model.
+     * Open the modal.
      */
     open(portfolioId) {
       this.form.portfolio_id = portfolioId;
-      this.showModal = true;
+      this.setShowModal(true);
     },
 
     /**
@@ -80,7 +90,7 @@ export default {
       this.searching = false;
       this.clearErrors();
       this.$refs.form.reset();
-      this.showModal = false;
+      this.setShowModal(false);
     },
 
     /**
@@ -88,17 +98,18 @@ export default {
      */
     submit() {
       if (this.$refs.form.validate()) {
-        this.isLoading = true;
+        this.startLoading();
 
-        this.addShare(this.form)
-          .then(() => {
+        this.storeShare(this.form)
+          .then((res) => {
+            parseSuccessMessage(res);
             this.close();
           })
           .catch((error) => {
             this.syncErrors(error);
           })
           .finally(() => {
-            this.isLoading = false
+            this.stopLoading();
           });
       } else {
         this.focusFirstErrorInput();
@@ -137,7 +148,7 @@ export default {
     <v-divider></v-divider>
     <modal-footer>
       <v-spacer></v-spacer>
-      <v-progress-circular v-show="isLoading" indeterminate color="rgba(89, 135, 209, 1)" width="3" size="30" />
+      <v-progress-circular v-show="isLoading" indeterminate />
       <v-btn class="btn-close"
         :disabled="isLoading"
         @click="close"

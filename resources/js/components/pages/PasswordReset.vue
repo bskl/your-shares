@@ -1,8 +1,10 @@
 <script>
 
-import FormErrors from '../partials/FormErrors.vue';
-import validationHandler from '../../mixins/validationHandler';
 import { mapActions } from 'vuex';
+import { parseSuccessMessage } from '../../utilities/helpers.js';
+import validationHandler from '../../mixins/validationHandler.js';
+import loadingHandler from '../../mixins/loadingHandler.js';
+import FormErrors from '../partials/FormErrors.vue';
 
 export default {
   /**
@@ -10,7 +12,10 @@ export default {
    */
   name: 'PasswordReset',
 
-  mixins: [validationHandler],
+  mixins: [
+    validationHandler,
+    loadingHandler,
+  ],
 
   components: {
     FormErrors,
@@ -21,7 +26,7 @@ export default {
    */
   data() {
     return {
-      isLoading: false,
+      waitFor: 'password_reset',
       form: {
         email: '',
         password: '',
@@ -34,7 +39,7 @@ export default {
 
   methods: {
     ...mapActions([
-      'passwordReset', 'setSnackbar',
+      'passwordReset',
     ]),
 
     /**
@@ -42,19 +47,19 @@ export default {
      */
     submit() {
       if (this.$refs.form.validate()) {
-        this.isLoading = true;
+        this.startLoading();
 
         this.passwordReset(this.form)
           .then((res) => {
             this.clearErrors();
-            this.setSnackbar({ text: res.data });
+            parseSuccessMessage(res);
             this.$router.push({ name: 'Login' });
           })
           .catch((error) => {
             this.syncErrors(error);
           })
           .finally(() => {
-            this.isLoading = false;
+            this.stopLoading();
           });
       } else {
         this.focusFirstErrorInput();
@@ -109,7 +114,7 @@ export default {
         <v-divider></v-divider>
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
-          <v-progress-circular v-show="isLoading" indeterminate color="rgba(89, 135, 209, 1)" width="3" size="30" />
+          <v-progress-circular v-show="isLoading" indeterminate />
           <v-btn class="btn-action"
             :disabled="isLoading" 
             @click="submit"

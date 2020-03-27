@@ -1,8 +1,10 @@
 <script>
 
-import { mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
+import { parseSuccessMessage } from '../../utilities/helpers.js';
+import validationHandler from '../../mixins/validationHandler.js';
+import loadingHandler from '../../mixins/loadingHandler.js';
 import FormErrors from '../partials/FormErrors.vue';
-import validationHandler from '../../mixins/validationHandler';
 
 export default {
   /**
@@ -10,7 +12,10 @@ export default {
    */
   name: 'CreatePortfolio',
 
-  mixins: [validationHandler],
+  mixins: [
+    validationHandler,
+    loadingHandler,
+  ],
 
   components: {
     FormErrors,
@@ -21,7 +26,7 @@ export default {
    */
   data() {
     return {
-      isLoading: false,
+      waitFor: 'store_portfolio',
       form: {
         name: '',
         currency: '',
@@ -33,7 +38,7 @@ export default {
 
   methods: {
     ...mapActions([
-      'createPortfolio',
+      'storePortfolio',
     ]),
 
     /**
@@ -41,18 +46,19 @@ export default {
      */
     submit() {
       if (this.$refs.form.validate()) {
-        this.isLoading = true;
+        this.startLoading();
 
-        this.createPortfolio(this.form)
-          .then(() => {
+        this.storePortfolio(this.form)
+          .then((res) => {
             this.clearErrors();
+            parseSuccessMessage(res);
             this.$router.push({ name: 'Home' });
           })
           .catch((error) => {
             this.syncErrors(error);
           })
           .finally(() => {
-            this.isLoading = false;
+            this.stopLoading();
           });
       } else {
         this.focusFirstErrorInput();
@@ -107,7 +113,7 @@ export default {
         <v-divider></v-divider>
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
-          <v-progress-circular v-show="isLoading" indeterminate color="rgba(89, 135, 209, 1)" width="3" size="30" />
+          <v-progress-circular v-show="isLoading" indeterminate />
           <v-btn class="btn-close"
             :disabled="isLoading"
             :to="'/'"

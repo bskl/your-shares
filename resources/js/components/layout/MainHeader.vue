@@ -6,7 +6,7 @@ export default {
   /**
    * The component's name.
    */
-  name: "MainHeader",
+  name: 'MainHeader',
 
   computed: {
     ...mapGetters([

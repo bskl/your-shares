@@ -2,13 +2,15 @@
 
 import { mapActions } from 'vuex';
 import { TRANSACTION_TYPES } from '../../store/constants.js';
-import validationHandler from '../../mixins/validationHandler';
+import { parseSuccessMessage } from '../../utilities/helpers.js';
+import validationHandler from '../../mixins/validationHandler.js';
+import loadingHandler from '../../mixins/loadingHandler.js';
 import FormErrors from '../partials/FormErrors.vue';
 
 export default {
   props: {
-    id: {
-      type: [Number, String],
+    shareId: {
+      type: Number,
       required: false,
     },
     code: {
@@ -24,9 +26,12 @@ export default {
   /**
    * The component's name.
    */
-  name: 'AddTransaction',
+  name: 'CreateTransaction',
 
-  mixins: [validationHandler],
+  mixins: [
+    validationHandler,
+    loadingHandler,
+  ],
 
   components: {
     FormErrors,
@@ -37,9 +42,9 @@ export default {
    */
   data() {
     return {
-      isLoading: false,
+      waitFor: 'store_transaction',
       form: {
-        share_id: this.id,
+        share_id: this.shareId,
         type: 0,
         date_at: null,
         lot: null,
@@ -79,14 +84,20 @@ export default {
 
   methods: {
     ...mapActions([
-      'createTransaction',
+      'storeTransaction',
     ]),
 
-    formatDate (date) {
+    formatDate(date) {
       if (!date) return null
 
       const [year, month, day] = date.split('-')
       return `${day}.${month}.${year}`
+    },
+
+    goBack() {
+      (window.history.length > 1)
+        ? this.$router.go(-1)
+        : this.$router.push({ name: 'Home' });
     },
 
     /**
@@ -94,18 +105,19 @@ export default {
      */
     submit() {
       if (this.$refs.form.validate()) {
-        this.isLoading = true;
+        this.startLoading();
 
-        this.createTransaction(this.form)
+        this.storeTransaction(this.form)
           .then((res) => {
+            parseSuccessMessage(res);
             this.clearErrors();
-            this.$router.push({ name: 'Home' });
+            this.goBack();
           })
           .catch((error) => {
             this.syncErrors(error);
           })
           .finally(() => {
-            this.isLoading = false;
+            this.stopLoading();
           });
       } else {
         this.focusFirstErrorInput();
@@ -115,19 +127,30 @@ export default {
     /**
      * Set the allowed dates for date time picker.
     */
-    allowedDates: val => ((new Date(val)).getDay() !== 0 && (new Date(val)).getDay() !== 6 && new Date(val) <= new Date())
+    allowedDates: val => ((new Date(val)).getDay() !== 0 && (new Date(val)).getDay() !== 6 && new Date(val) <= new Date()),
+
+    saveToLocalStorage() {
+      const storageData = {
+        share_id: this.shareId,
+        code: this.code,
+        commission: this.commission
+      }
+      localStorage.setItem('transactionData', JSON.stringify(storageData));
+    },
+
+    readFromLocalStorage() {
+      const storageData = JSON.parse(localStorage.getItem('transactionData'));
+      this.form.share_id = storageData.share_id;
+      this.form.commission = storageData.commission;
+      this.symbolCode = storageData.code;
+    }
   },
 
   created() {
-    if (this.code === undefined || this.commission === undefined) {
-      const storageData = JSON.parse(localStorage.getItem('transactionData'));
-      this.symbolCode = storageData.code;
-      this.form.commission = storageData.commission;
+    if (typeof this.shareId === 'undefined') {
+      this.readFromLocalStorage();
     } else {
-      localStorage.setItem('transactionData', JSON.stringify({
-        code: this.code,
-        commission: this.commission
-      }));
+      this.saveToLocalStorage();
     }
   },
 }
@@ -201,13 +224,14 @@ export default {
               :rules="[rules.required]"
               :error-messages="getError('lot')"
               :hint="
-                this.form.type == 3 ? $t('You must write your bonus shares.') : 
+                this.form.type == 3 ? $t('You must write your bonus shares.') :
                 this.form.type == 4 ? $t('You must write your rights shares.') : ''"
             ></v-text-field>
             <v-text-field type="text" name="price" ref="price" id="price" outlined clearable
               v-if="this.form.type == 0 || this.form.type == 1"
               prepend-inner-icon="money"
               v-model.lazy="priceCurrency"
+              :disabled="isLoading"
               :label="$t('Enter Share Price')"
               :rules="[rules.required]"
               :error-messages="getError('price')"
@@ -218,6 +242,7 @@ export default {
               step="0.0001"
               prepend-inner-icon="donut_large"
               v-model="form.commission"
+              :disabled="isLoading"
               :label="$t('Enter Commission Rate')"
               :rules="[rules.required]"
               :error-messages="getError('commission')"
@@ -227,6 +252,7 @@ export default {
               v-if="this.form.type == 2"
               prepend-inner-icon="money"
               v-model.lazy="dividendGainCurrency"
+              :disabled="isLoading"
               :label="$t('Enter Dividend Gain Price')"
               :rules="[rules.required]"
               :error-messages="getError('dividend_gain')"
@@ -237,9 +263,10 @@ export default {
         <v-divider></v-divider>
         <v-card-actions class="pa-4">
           <v-spacer></v-spacer>
-          <v-progress-circular v-show="isLoading" indeterminate color="rgba(89, 135, 209, 1)" width="3" size="30" />
-          <v-btn class="btn-close" to="/"
+          <v-progress-circular v-show="isLoading" indeterminate />
+          <v-btn class="btn-close"
             :disabled="isLoading"
+            @click="$router.go(-1)"
           >
             {{ $t("Close") }}
           </v-btn>

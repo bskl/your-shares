@@ -1,17 +1,29 @@
 <script>
 
 import { mapActions, mapGetters } from 'vuex';
+import { parseSuccessMessage } from '../../utilities/helpers.js';
+import validationHandler from '../../mixins/validationHandler.js';
+import loadingHandler from '../../mixins/loadingHandler.js';
 import DeletePortfolioModal from '../modals/DeletePortfolioModal.vue';
 import FormErrors from '../partials/FormErrors.vue';
-import validationHandler from '../../mixins/validationHandler';
 
 export default {
+  props: {
+    portfolio: {
+      type: Object,
+      required: true,
+    },
+  },
+
   /**
    * The component's name.
    */
   name: 'EditPortfolio',
 
-  mixins: [validationHandler],
+  mixins: [
+    validationHandler,
+    loadingHandler
+  ],
 
   components: {
     FormErrors, DeletePortfolioModal,
@@ -22,20 +34,14 @@ export default {
    */
   data() {
     return {
-      isLoading: false,
+      waitFor: 'update_portfolio',
       form: {
-        name: '',
-        currency: '',
-        commission: '',
+        name: this.portfolio.name,
+        currency: this.portfolio.currency,
+        commission: this.portfolio.commission,
       },
       valid: true,
     }
-  },
-
-  watch: {
-    $route() {
-      this.fetchData();
-    },
   },
 
   computed: {
@@ -44,40 +50,29 @@ export default {
     ]),
   },
 
-  created() {
-    this.fetchData();
-  },
-
   methods: {
     ...mapActions([
-      'updatePortfolio', 'fetchPortfolio',
+      'updatePortfolio',
     ]),
-
-    fetchData() {
-      this.fetchPortfolio(this.$route.params.id)
-        .then((res) => {
-          this.form = res.data;
-        })
-        .catch();
-    },
 
     /**
      * Update Portfolio.
      */
     submit() {
       if (this.$refs.form.validate()) {
-        this.isLoading = true;
+        this.startLoading();
 
-        this.updatePortfolio({ id: this.$route.params.id, data: this.form })
-          .then(() => {
+        this.updatePortfolio({ id: this.$route.params.id, form: this.form })
+          .then((res) => {
             this.clearErrors();
+            parseSuccessMessage(res);
             this.$router.push({ name: 'Home' });
           })
           .catch((error) => {
             this.syncErrors(error);
           })
           .finally(() => {
-            this.isLoading = false;
+            this.stopLoading();
           });
       } else {
         this.focusFirstErrorInput();
@@ -132,14 +127,14 @@ export default {
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions class="pa-4">
-          <v-btn class="btn-close"
+          <v-btn class="btn-warning"
             v-if="this.portfoliosCount > 1"
             @click="$refs.deletePortfolioModal.open($route.params.id)"
           >
             {{ $t("Delete") }}
           </v-btn>
           <v-spacer></v-spacer>
-          <v-progress-circular v-show="isLoading" indeterminate color="rgba(89, 135, 209, 1)" width="3" size="30" />
+          <v-progress-circular v-show="isLoading" indeterminate />
           <v-btn class="btn-close" to="/"
             :disabled="isLoading"
           >

@@ -21,6 +21,7 @@ export default {
   data() {
     return {
       transactionTypes: TRANSACTION_TYPES,
+      pageCount: 1,
     }
   },
 };
@@ -40,6 +41,8 @@ export default {
       { text: $t('Gain/Loss'), value: 'gain_loss', align: 'center' },
     ]"
     :no-data-text="$t('You have not any transaction.')"
+    @page-count="pageCount = $event"
+    :page="pageCount"
   >
     <template v-slot:item.date_at="{ item }">
       <v-row class="absolute">

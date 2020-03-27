@@ -24,10 +24,6 @@ export default {
   name: 'ItemDetail',
 
   computed: {
-    getTextColor() {
-      return (this.item.change_color) ? (this.value < 0) ? 'red--text' : 'green--text' : '';
-    },
-
     itemLink() {
       return this.item.link ? `/${this.baseLink}/${this.item.link}` : undefined;
     },
@@ -49,7 +45,6 @@ export default {
       <v-list-item-subtitle v-html="$t(`${item.key}.description`)"></v-list-item-subtitle>
     </v-list-item-content>
     <v-list-item-action class="body-2 font-weight-medium"
-      :class="getTextColor"
       v-text="value"
     >
     </v-list-item-action>

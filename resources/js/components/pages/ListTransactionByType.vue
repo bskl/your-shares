@@ -1,22 +1,33 @@
 <script>
 
+import { mapGetters } from 'vuex';
 import upperFirst from 'lodash/upperFirst';
-import { mapActions } from 'vuex';
+import loadingHandler from '../../mixins/loadingHandler.js';
 
 export default {
+  props: {
+    initialTransactions: {
+      type: [Array, Object],
+      required: true,
+    },
+  },
+
   /**
    * The component's name.
    */
   name: 'ListTransactionByType',
+
+  mixins: [
+    loadingHandler,
+  ],
 
   /**
    * The component's data.
    */
   data() {
     return {
-      isLoading: false,
-      transactions: [],
-      title: this.$t(`${upperFirst(this.$route.params.type)} Transactions`),
+      waitFor: 'fetch_transactions_by_params',
+      transactions: this.initialTransactions,
       headers: [
         { text: this.$t('Year'), value: 'item', align: 'left' },
         { text: this.$t('January'), value: '1', align: 'center' },
@@ -37,34 +48,35 @@ export default {
   },
 
   computed: {
-    returnLink() {
-      const items = this.$route.path
-        .split('/')
-        .filter(item => item.trim().length);
-      
-      return (items[0] === 'shares') ? `/shares/${this.$route.params.id}/transactions` : '/';
-    }
+    ...mapGetters([
+      'getShareById',
+    ]),
+
+    title() {
+      const preTitle = (this.$route.params.model === 'shares') ? this.code() : this.$t('Portfolio');
+
+      return this.$t('list_by_type_year_title', {
+        code: preTitle,
+        type: this.$t(upperFirst(this.$route.params.type))
+      })
+      .trim();
+    },
   },
 
   methods: {
-    ...mapActions([
-      'fetchTransactionsByParams',
-    ]),
+    code() {
+      return this.getShareById(this.$route.params.id).symbol.code;
+    },
 
     itemLink(year) {
       return `${this.$route.path}/${year}`;
     },
-  },
 
-  created() {
-    this.isLoading = true;
-
-    this.fetchTransactionsByParams(this.$route.path)
-      .then((res) => {
-        this.transactions = res.data;
-        this.isLoading = false;
-      })
-      .catch();
+    goBack() {
+      (window.history.length > 1)
+        ? this.$router.go(-1)
+        : this.$router.push({ name: 'Home' });
+    }
   },
 }
 </script>
@@ -75,7 +87,7 @@ export default {
       <v-card>
         <v-toolbar flat class="pl-2">
           <v-btn icon exact
-            :to="returnLink"
+            @click="goBack()"
           >
             <v-icon color="grey darken-2">arrow_back</v-icon>
           </v-btn>
@@ -97,7 +109,10 @@ export default {
                     {{ $t('You have not any transaction.') }}
                   </td>
                 </tr>
-                <router-link tag="tr" v-for="item in items" :key="item.item" :to="itemLink(item.item)">
+                <router-link tag="tr"
+                  v-for="item in items" :key="item.item"
+                  :to="itemLink(item.item)"
+                >
                   <td class="text-center"
                     v-for="(header, index) in headers" :key="index"
                   >

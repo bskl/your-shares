@@ -1,21 +1,32 @@
 <script>
 
 import upperFirst from 'lodash/upperFirst';
-import { mapActions } from 'vuex';
+import loadingHandler from '../../mixins/loadingHandler.js';
 
 export default {
+  props: {
+    initialTransactions: {
+      type: [Array, Object],
+      required: true,
+    },
+  },
+
   /**
    * The component's name.
    */
   name: 'ListTransactionByTypeAndYear',
+
+  mixins: [
+    loadingHandler,
+  ],
 
   /**
    * The component's data.
    */
   data() {
     return {
-      isLoading: false,
-      transactions: [],
+      waitFor: 'fetch_transactions_by_params',
+      transactions: this.initialTransactions,
       headers: [
         { text: this.$t('Symbol'), value: 'item', align: 'left' },
         { text: this.$t('January'), value: '1', align: 'center' },
@@ -37,38 +48,24 @@ export default {
 
   computed: {
     title() {
-      return this.$t(`${upperFirst(this.$route.params.type)} Transactions`);
+      return this.$t('list_by_type_year_title', { 
+        year: this.$route.params.year,
+        code: this.$t('Portfolio'),
+        type: this.$t(upperFirst(this.$route.params.type))
+      });
     },
-
-    returnLink() {
-      const items = this.$route.path
-        .split('/')
-        .filter(item => item.trim().length);
-      
-      return `/${items[0]}/${this.$route.params.id}/transactions/${this.$route.params.type}`;
-    }
   },
 
   methods: {
-    ...mapActions([
-      'fetchTransactionsByParams',
-    ]),
-
     itemLink(id, year) {
       return `/shares/${id}/transactions/${this.$route.params.type}/${year}`
+    },
+
+    goBack() {
+      (window.history.length > 1)
+        ? this.$router.go(-1)
+        : this.$router.push({ name: 'Home' });
     }
-  },
-
-  created() {
-    this.link;
-    this.isLoading = true;
-
-    this.fetchTransactionsByParams(this.$route.path)
-      .then((res) => {
-        this.transactions = res.data;
-        this.isLoading = false;
-      })
-      .catch();
   },
 }
 </script>
@@ -79,7 +76,7 @@ export default {
       <v-card>
         <v-toolbar flat class="pl-2">
           <v-btn icon exact
-            :to="returnLink"
+            @click="goBack()"
           >
             <v-icon color="grey darken-2">arrow_back</v-icon>
           </v-btn>

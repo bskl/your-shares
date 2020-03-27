@@ -1,11 +1,15 @@
 import store from '../store';
+import { redirectError } from '../utilities/helpers.js';
 
 export default [
   {
     path: "/",
     name: 'Home',
     component: () => lazyLoadView(import('../components/pages/Home')),
-    meta: { requiresAuth: true, skipScrollBehavior: true },
+    meta: {
+      requiresAuth: true,
+      skipScrollBehavior: true,
+    },
   },
   {
     path: "/portfolios/create",
@@ -17,45 +21,118 @@ export default [
     path: "/portfolios/:id(\\d+)/edit",
     name: 'EditPortfolio',
     component: () => lazyLoadView(import('../components/pages/EditPortfolio')),
-    meta: { requiresAuth: true },
+    meta: {
+      requiresAuth: true,
+      tmp: {},
+      beforeResolve(to, from, next) {
+        store.dispatch('fetchPortfolio', to.params.id)
+          .then((portfolio) => {
+            to.meta.tmp.portfolio = { 
+              name: portfolio.name, 
+              currency: portfolio.currency,
+              commission: portfolio.commission,
+            };
+
+            next();
+          })
+          .catch((error) => {
+            next({ name: redirectError(error) });
+          });
+      },
+    },
+    props: (route) => ({ portfolio: route.meta.tmp.portfolio }),
   },
   {
     path: "/shares/:id(\\d+)/transactions",
     name: 'Share',
     component: () => lazyLoadView(import('../components/pages/Share')),
     props: true,
-    meta: { requiresAuth: true },
+    meta: {
+      requiresAuth: true,
+      tmp: {},
+      beforeResolve(to, from, next) {
+        store.dispatch('fetchShareTransactions', { path: to.fullPath, id: to.params.id })
+          .then((share) => {
+            to.meta.tmp.share = share;
+
+            next();
+          })
+          .catch((error) => {
+            next({ name: redirectError(error) });
+          });
+      },
+    },
+    props: (route) => ({ initialShare: route.meta.tmp.share }),
   },
   {
-    path: "/shares/:id(\\d+)/transaction/add",
-    name: 'AddTransaction',
-    component: () => lazyLoadView(import('../components/pages/AddTransaction')),
+    path: "/transactions/create",
+    name: 'CreateTransaction',
+    component: () => lazyLoadView(import('../components/pages/CreateTransaction')),
     props: true,
     meta: { requiresAuth: true },
   },
   {
-    path: "/portfolios/:id(\\d+)/transactions/:type",
-    name: 'ListPortfolioTransactionByType',
+    path: "/:model/:id(\\d+)/transactions/:type",
+    name: 'ListTransactionByType',
     component: () => lazyLoadView(import('../components/pages/ListTransactionByType')),
-    meta: { requiresAuth: true },
+    meta: {
+      requiresAuth: true,
+      tmp: {},
+      beforeResolve(to, from, next) {
+        store.dispatch('fetchTransactionsByParams', to.fullPath)
+          .then((transactions) => {
+            to.meta.tmp.transactions = transactions;
+
+            next();
+          })
+          .catch((error) => {
+            next({ name: redirectError(error) });
+          });
+      },
+    },
+    props: (route) => ({ initialTransactions: route.meta.tmp.transactions }),
   },
   {
     path: "/portfolios/:id(\\d+)/transactions/:type/:year(\\d+)",
     name: 'ListPortfolioTransactionByTypeAndYear',
     component: () => lazyLoadView(import('../components/pages/ListTransactionByTypeAndYear')),
-    meta: { requiresAuth: true },
-  },
-  {
-    path: "/shares/:id(\\d+)/transactions/:type",
-    name: 'ListShareTransactionByType',
-    component: () => lazyLoadView(import('../components/pages/ListTransactionByType')),
-    meta: { requiresAuth: true },
+    meta: {
+      requiresAuth: true,
+      tmp: {},
+      beforeResolve(to, from, next) {
+        store.dispatch('fetchTransactionsByParams', to.fullPath)
+          .then((transactions) => {
+            to.meta.tmp.transactions = transactions;
+
+            next();
+          })
+          .catch((error) => {
+            next({ name: redirectError(error) });
+          });
+      },
+    },
+    props: (route) => ({ initialTransactions: route.meta.tmp.transactions }),
   },
   {
     path: "/shares/:id(\\d+)/transactions/:type/:year(\\d+)",
     name: 'ListTransactionByTypeYearAndShare',
     component: () => lazyLoadView(import('../components/pages/ListTransactionByTypeYearAndShare')),
-    meta: { requiresAuth: true },
+    meta: {
+      requiresAuth: true,
+      tmp: {},
+      beforeResolve(to, from, next) {
+        store.dispatch('fetchTransactionsByParams', to.fullPath)
+          .then((transactions) => {
+            to.meta.tmp.transactions = transactions;
+
+            next();
+          })
+          .catch((error) => {
+            next({ name: redirectError(error) });
+          });
+      },
+    },
+    props: (route) => ({ initialTransactions: route.meta.tmp.transactions }),
   },
   {
     path: "/confirm/:confirmation_code",
@@ -63,11 +140,13 @@ export default [
       requiresAuth: true,
       beforeResolve(to, from, next) {
         if (to.params.confirmation_code) {
-          store.dispatch('confirmUserMail', to.params.confirmation_code);
-          next({
-            name: 'Home',
-            query: { redirect: to.fullPath }
-          })
+          store.dispatch('confirmUserMail', to.params.confirmation_code)
+            .then(() => {
+              next({ name: 'Home', query: { redirect: to.fullPath } });
+            })
+            .catch((error) => {
+              next({ name: redirectError(error) });
+            });
         } else {
           next();
         }
@@ -81,9 +160,9 @@ export default [
     meta: {
       beforeResolve(to, from, next) {
         if (store.getters.isLoggedIn) {
-          next({ name: 'Home' })
+          next({ name: 'Home' });
         } else {
-          next()
+          next();
         }
       },
     },
@@ -95,9 +174,9 @@ export default [
     meta: {
       beforeResolve(to, from, next) {
         if (store.getters.isLoggedIn) {
-          next({ name: 'Home' })
+          next({ name: 'Home' });
         } else {
-          next()
+          next();
         }
       },
     },
@@ -107,10 +186,13 @@ export default [
     name: 'Logout',
     meta: {
       requiresAuth: true,
-      beforeResolve(routeTo, routeFrom, next) {
+      beforeResolve(to, from, next) {
         store.dispatch('logout')
-          .then(res => {
-            next({ name: 'Login' })
+          .then((res) => {
+            next({ name: 'Login' });
+          })
+          .catch((error) => {
+            next({ name: redirectError(error) });
           })
       },
     },
@@ -122,9 +204,9 @@ export default [
     meta: {
       beforeResolve(to, from, next) {
         if (store.getters.isLoggedIn) {
-          next({ name: 'Home' })
+          next({ name: 'Home' });
         } else {
-          next()
+          next();
         }
       },
     },
@@ -136,9 +218,9 @@ export default [
     meta: {
       beforeResolve(to, from, next) {
         if (store.getters.isLoggedIn) {
-          next({ name: 'Home' })
+          next({ name: 'Home' });
         } else {
-          next()
+          next();
         }
       },
     },
@@ -175,7 +257,7 @@ function lazyLoadView(AsyncView) {
   return Promise.resolve({
     functional: true,
     render(h, { data, children }) {
-      return h(AsyncHandler, data, children)
+      return h(AsyncHandler, data, children);
     },
   });
 }

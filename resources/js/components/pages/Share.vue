@@ -2,16 +2,28 @@
 
 import { mapActions, mapGetters } from 'vuex';
 import { ITEM_DETAILS } from '../../store/constants.js';
-import { parseErrors } from '../../utilities/helpers.js';
+import { parseErrorMessage, parseSuccessMessage } from '../../utilities/helpers.js';
+import loadingHandler from '../../mixins/loadingHandler.js';
 import TransactionItem from '../partials/TransactionItem.vue';
 import ItemDetail from '../partials/ItemDetail.vue';
 import DeleteTransactionModal from '../modals/DeleteTransactionModal.vue';
 
 export default {
+  props: {
+    initialShare: {
+      type: Object,
+      required: true,
+    },
+  },
+
   /**
    * The component's name.
    */
   name: 'Share',
+
+  mixins: [
+    loadingHandler,
+  ],
 
   components: {
     TransactionItem, ItemDetail, DeleteTransactionModal,
@@ -22,8 +34,8 @@ export default {
    */
   data() {
     return {
-      isLoading: false,
-      share: null,
+      waitFor: 'fetch_share_transactions',
+      share: this.initialShare,
       itemDetails: ITEM_DETAILS,
     }
   },
@@ -41,36 +53,34 @@ export default {
       return this.share.transactions[this.count - 1];
     },
 
-    portfolio() {
-      return this.getPortfolioById(this.share.portfolio_id);
+    createTransactionParams() {
+      return {
+        shareId: this.share.id,
+        code: this.share.symbol.code,
+        commission: this.getPortfolioById(this.share.portfolio_id).commission
+      } 
     }
   },
 
   methods: {
     ...mapActions([
-      'fetchTransactionsByParams', 'destroyShare', 'setSnackbar',
+      'destroyShare',
     ]),
+
+    getTextColor(value) {
+      return (value == -1) ? 'red lighten-1' : (value == 1) ? 'green lighten-1' : '';
+    },
 
     deleteShare() {
       this.destroyShare({ 'id': this.share.id, 'portfolio_id': this.share.portfolio_id })
         .then((res) => {
+          parseSuccessMessage(res);
           this.$router.push({ name: 'Home' });
         })
         .catch((error) => {
-          this.setSnackbar({ color: 'error', text: parseErrors(error) });
+          parseErrorMessage(error);
         });
     },
-  },
-
-  created() {
-    this.isLoading = true;
-
-    this.fetchTransactionsByParams(this.$route.path)
-      .then((res) => {
-        this.share = res.data;
-        this.isLoading = false;
-      })
-      .catch();
   },
 }
 </script>
@@ -88,24 +98,23 @@ export default {
           <v-subheader>
             <span class="pr-3 font-weight-thin">{{ share.symbol.last_price }}</span>
             <v-chip label small class="font-weight-thin"
-              :color="
-                (share.symbol.trend == -1) ? 'red lighten-1' :
-                (share.symbol.trend == 1) ? 'green lighten-1' : ''"
+              :color="getTextColor(share.symbol.trend)"
             >
               {{ share.symbol.rate_of_change }}
             </v-chip>
           </v-subheader>
           <v-spacer></v-spacer>
-          <v-tooltip bottom>
+          <v-tooltip bottom
+            v-if="!count"
+          >
             <template v-slot:activator="{ on }">
               <v-btn icon small class="mx-1"
-                v-if="!count"
                 @click="deleteShare()"
               >
                 <v-icon color="red darken-2" v-on="on">delete</v-icon>
               </v-btn>
             </template>
-            <span>{{ $t("delete_share", { portfolioName: portfolio.name }) }}</span>
+            <span>{{ $t("Delete share from the portfolio") }}</span>
           </v-tooltip>
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
@@ -121,7 +130,7 @@ export default {
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
               <v-btn icon small class="mx-1"
-                :to="{ name: 'AddTransaction', params: { id: share.id, code: share.symbol.code, commission: portfolio.commission }}"
+                :to="{ name: 'CreateTransaction', params: createTransactionParams }"
               >
                 <v-icon color="green darken-2" v-on="on">add</v-icon>
               </v-btn>

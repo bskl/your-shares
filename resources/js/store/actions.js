@@ -1,39 +1,33 @@
 import axios from "axios";
-import NProgress from "nprogress";
-import router from "../router";
-import { parseErrors } from '../utilities/helpers.js';
+import { has, upperFirst, trimEnd } from 'lodash';
+import { parseErrorMessage, parseSuccessMessage } from '../utilities/helpers.js';
 
 const http = axios.create({
   baseURL: '/api',
 });
 
 http.interceptors.request.use(function (config) {
-  NProgress.start()
   config.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('access_token'))}`;
   return config;
 });
 
 http.interceptors.response.use(function (response) {
-  NProgress.done();
   return response;
 }, function (error) {
-  NProgress.done();
-
-  if (error.response.status === 400 || error.response.status === 401) {
-    localStorage.removeItem('access_token');
-    router.push({ name: 'Login' });
-  } else if (error.response.status === 403) {
-    router.push({ name: 'Forbidden' });
-  } else if (error.response.status === 404) {
-    router.push({ name: 'NotFound' });
-  }
-
   return Promise.reject(error);
 });
 
 export default {
-  toggleLoading({ commit }) {
-    commit('TOGGLE_LOADING');
+  startLoadingBy({ commit }, payload) {
+    commit('START_LOADING', payload);
+  },
+
+  stopLoadingBy({ commit }, payload) {
+    commit('STOP_LOADING', payload);
+  },
+
+  setShowSnackbar({ commit }, data) {
+    commit('SET_SHOW_SNACKBAR', data);
   },
 
   setSnackbar({ commit }, data) {
@@ -44,41 +38,32 @@ export default {
     commit('TOGGLE_NAV_DRAWER');
   },
 
+  setShowModal({ commit }, data) {
+    commit('SET_SHOW_MODAL', data);
+  },
+
   register({ dispatch, commit }, data) {
     return http.post('/register', data)
       .then((res) => {
         commit('LOGGED_IN', res.data);
 
-        return res.data;
+        return dispatch('fetchData')
+          .then(() => {
+            return Promise.resolve();
+          });
       });
   },
 
-  login({ commit }, data) {
+  login({ dispatch, commit }, data) {
     return http.post('/login', data)
       .then((res) => {
         commit('LOGGED_IN', res.data);
 
-        return res.data;
-      });
-  },
-
-  checkAuth({ commit }, data) {
-    return new Promise((resolve, reject) => {
-      commit('CHECK_AUTH', data);
-
-      resolve();
-    });
-  },
-
-  checkState({ dispatch, getters }) {
-    return new Promise((resolve, reject) => {
-      if (getters.portfoliosCount == 0) {
         return dispatch('fetchData')
-          .then(() => resolve());
-      } else {
-        resolve();
-      }
-    });
+          .then(() => {
+            return Promise.resolve();
+          });
+      });
   },
 
   setLocale({ commit }, locale) {
@@ -103,12 +88,12 @@ export default {
   confirmUserMail({ commit }, data) {
     return http.get(`/confirm/${data}`)
       .then((res) => {
-        commit('SET_SNACKBAR', { text: res.data.data });
+        parseSuccessMessage(res.data);
 
         return res.data;
       })
       .catch((error) => {
-        commit('SET_SNACKBAR', { color: 'error', text: parseErrors(error) });
+        parseErrorMessage(error);
 
         return error;
       });
@@ -128,13 +113,18 @@ export default {
       });
   },
 
-  fetchData({ commit }) {
+  fetchData({ commit, getters }) {
+    commit('START_LOADING', 'fetch_data');
+
     return http.get('/data')
       .then((res) => {
         commit('SET_USER', res.data.user);
         commit('SET_PORTFOLIOS', res.data.portfolios);
 
         return res.data;
+      })
+      .finally(() => {
+        commit('STOP_LOADING', 'fetch_data');
       });
   },
 
@@ -147,8 +137,8 @@ export default {
       });
   },
 
-  createPortfolio({ commit }, data) {
-    return http.post('/portfolios', data)
+  storePortfolio({ commit }, form) {
+    return http.post('/portfolios', form)
       .then((res) => {
         commit('ADD_PORTFOLIO', res.data.data);
 
@@ -156,12 +146,11 @@ export default {
       });
   },
 
-  updatePortfolio({ commit, getters }, { id, form}) {
+  updatePortfolio({ commit, getters }, { id, form }) {
     return http.put(`/portfolios/${id}`, form)
       .then((res) => {
         const index = getters.getPortfolioIndexById(id);
-        const data = res.data.data;
-        commit('UPDATE_PORTFOLIO', { index, data });
+        commit('UPDATE_PORTFOLIO', { index, portfolio: form });
 
         return res.data;
       });
@@ -177,19 +166,51 @@ export default {
       });
   },
 
-  fetchPortfolio(_, id) {
+  fetchPortfolio({ commit, getters }, id) {
+    const portfolio = getters.getPortfolioById(id);
+
+    if (portfolio) {
+      return Promise.resolve(portfolio);
+    }
+
     return http.get(`/portfolios/${id}`)
       .then((res) => {
+        return res.data.data;
+      });
+  },
+
+  storeTransaction({ commit, getters }, form) {
+    return http.post('/transactions', form)
+      .then((res) => {
+        if (getters.portfoliosCount) {
+          const data = res.data.data;
+          const portfolioIndex = getters.getPortfolioIndexById(data.portfolio.id);
+          const shareIndex = getters.getShareIndexByPortfolioIndexAndId(portfolioIndex, data.share.id);
+
+          commit('UPDATE_PORTFOLIO', { index: portfolioIndex, portfolio: data.portfolio });
+          commit('UPDATE_SHARE', { portfolioIndex, shareIndex, share: data.share });
+          commit('ADD_TRANSACTION', { portfolioIndex, shareIndex, transaction: data.transaction });
+          commit('DELETE_ITEM_DETAILS', { portfolioIndex, shareIndex, transaction: data.transaction });
+        }
+
         return res.data;
       });
   },
 
-  createTransaction({ commit, getters }, form) {
-    return http.post('/transactions', form)
+  destroyTransaction({ commit, getters }, id) {
+    return http.delete(`/transactions/${id}`)
       .then((res) => {
-        const data = res.data.data;
-        const index = getters.getPortfolioIndexById(data.id);
-        commit('UPDATE_PORTFOLIO', { index, data }); 
+        if (getters.portfoliosCount) {
+          const data = res.data.data;
+          const portfolioIndex = getters.getPortfolioIndexById(data.portfolio.id);
+          const shareIndex = getters.getShareIndexByPortfolioIndexAndId(portfolioIndex, data.share.id);
+          const transaction = getters.getLastTransaction(portfolioIndex, shareIndex);
+
+          commit('UPDATE_PORTFOLIO', { index: portfolioIndex, portfolio: data.portfolio });
+          commit('UPDATE_SHARE', { portfolioIndex, shareIndex, share: data.share });
+          commit('DESTROY_LAST_TRANSACTION', { portfolioIndex, shareIndex });
+          commit('DELETE_ITEM_DETAILS', { portfolioIndex, shareIndex, transaction });
+        }
 
         return res.data;
       });
@@ -202,7 +223,7 @@ export default {
       });
   },
 
-  addShare({ commit, getters }, form) {
+  storeShare({ commit, getters }, form) {
     return http.post('/shares', form)
       .then((res) => {
         const index = getters.getPortfolioIndexById(form.portfolio_id);
@@ -217,7 +238,7 @@ export default {
     return http.delete(`/shares/${data.id}`)
       .then((res) => {
         const portfolioIndex = getters.getPortfolioIndexById(data.portfolio_id);
-        const index = getters.getShareIndexById(data.portfolio_id, data.id);
+        const index = getters.getShareIndexByPortfolioIndexAndId(portfolioIndex, data.id);
         commit('DESTROY_SHARE', { portfolioIndex, index });
 
         return res.data;
@@ -231,21 +252,54 @@ export default {
       });
   },
 
-  fetchTransactionsByParams(_, path) {
+  fetchShareTransactions({ dispatch, commit, getters }, { path, id }) {
+    commit('START_LOADING', 'fetch_share_transactions');
+    const share = getters.getShareById(id);
+
+    if (has(share, 'transactions')) {
+      commit('STOP_LOADING', 'fetch_share_transactions');
+      return Promise.resolve(share);
+    }
+
     return http.get(path)
       .then((res) => {
-        return res.data;
+        const data = res.data.data;
+        const portfolioIndex = getters.getPortfolioIndexById(data.portfolio_id);
+        const shareIndex = getters.getShareIndexByPortfolioIndexAndId(portfolioIndex, data.id);
+        commit('ADD_TRANSACTIONS', { portfolioIndex, shareIndex, transactions: data.transactions });
+        commit('STOP_LOADING', 'fetch_share_transactions');
+  
+        return data;
       });
   },
 
-  destroyTransaction({ commit, getters }, id) {
-    return http.delete(`/transactions/${id}`)
+  fetchTransactionsByParams({ dispatch, commit, getters }, path) {
+    commit('START_LOADING', 'fetch_transactions_by_params');
+
+    const { model, id, unused, type, year } = path.split('/').filter(item => item.trim().length);
+    const key = trimEnd(upperFirst(model), 's');
+    const collection = getters[`get${key}ById`](id);
+
+    if (typeof year === 'undefined') {
+      if (has(collection, type)) {
+        commit('STOP_LOADING', 'fetch_transactions_by_params');
+
+        return Promise.resolve(collection[type]);
+      }
+    } else if (has(collection[`${type}ByYear`], year)) {
+      commit('STOP_LOADING', 'fetch_transactions_by_params');
+
+      return Promise.resolve(collection[`${type}ByYear`][year]);
+    }
+
+    return http.get(path)
       .then((res) => {
         const data = res.data.data;
-        const index = getters.getPortfolioIndexById(data.id);
-        commit('UPDATE_PORTFOLIO', { index, data });
+        const index = getters[`get${key}IndexById`](id);
+        commit('ADD_ITEM_DETAILS', { index, type, year, data });
+        commit('STOP_LOADING', 'fetch_transactions_by_params');
 
-        return res.data;
+        return data;
       });
   },
 }

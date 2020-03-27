@@ -1,8 +1,9 @@
-<script type="text/ecmascript-6">
+<script>
 
 import { mapState, mapActions, mapGetters } from 'vuex';
 import { ITEM_DETAILS } from '../../store/constants.js';
-import { parseErrors } from '../../utilities/helpers.js';
+import { parseErrorMessage, parseSuccessMessage } from '../../utilities/helpers.js';
+import loadingHandler from '../../mixins/loadingHandler.js';
 import AddShareModal from '../modals/AddShareModal.vue';
 import ItemDetail from '../partials/ItemDetail.vue';
 
@@ -11,6 +12,10 @@ export default {
    * The component's name.
    */
   name: 'Home',
+
+  mixins: [
+    loadingHandler,
+  ],
 
   components: {
     AddShareModal, ItemDetail,
@@ -21,8 +26,7 @@ export default {
    */
   data() {
     return {
-      isLoading: false,
-      loading: false,
+      waitFor: 'fetch_symbols_data',
       itemDetails: ITEM_DETAILS,
     }
   },
@@ -39,7 +43,7 @@ export default {
 
   methods: {
     ...mapActions([
-      'fetchData', 'fetchSymbolsData', 'setSnackbar',
+      'fetchSymbolsData', 'setSnackbar',
     ]),
 
     getColor(trend) {
@@ -55,42 +59,36 @@ export default {
     },
 
     getSymbolsData() {
-      this.loading = true;
+      this.startLoading();
 
       this.fetchSymbolsData()
-        .then()
+        .then((res) => {
+          parseSuccessMessage(res);
+        })
         .catch((error) => {
-          this.setSnackbar({ color: 'error', text: parseErrors(error) });
+          parseErrorMessage(error);
         })
         .finally(() => {
-          this.loading = false;
+          this.stopLoading();
         });
     },
   },
 
   created() {
-    this.isLoading = true;
-
-    this.fetchData()
-      .finally(() => {
-        this.isLoading = false;
-      });
-
-    for (let index = 0, count = this.portfoliosCount; index <  count; ++index) {
+    for (let index = 0, count = this.portfoliosCount; index < count; ++index) {
       let portfolio = this.getPortfolioByIndex(index);
       if (portfolio.commission == null) {
-        this.setSnackbar({ color: 'error', text: this.$t('Your portfolio commission rate has not been recorded.') });
+        this.setSnackbar({ color: 'error', msg: this.$t('Your portfolio commission rate has not been recorded.') });
         this.$router.push({ name: 'EditPortfolio', params: { id: portfolio.id } });
         break;
       }
     }
   },
-  //
 }
 </script>
 
 <template>
-  <v-row align="center" justify="center" v-if="!isLoading">
+  <v-row align="center" justify="center" v-if="!isInLoading('fetch_data')">
     <add-share-modal ref="addShareModal" />
     <v-col cols="12" sm="8" md="4" lg="10"
       v-for="portfolio in portfolios" :key="portfolio.id"
@@ -104,7 +102,7 @@ export default {
           <v-spacer></v-spacer>
           <v-btn icon small class="mx-1"
             v-if="isAdmin"
-            :disabled="loading"
+            :disabled="isLoading"
             @click="getSymbolsData()"
           >
             <v-icon>refresh</v-icon>
@@ -113,7 +111,7 @@ export default {
             <template v-slot:activator="{ on }">
               <v-btn icon small class="mx-1"
                 v-on="on"
-                :disabled="loading"
+                :disabled="isLoading"
                 :to="`/portfolios/${portfolio.id}/edit`"
               >
                 <v-icon color="green darken-2">edit</v-icon>
@@ -125,7 +123,7 @@ export default {
             <template v-slot:activator="{ on }">
               <v-btn icon small class="mx-1"
                 v-on="on"
-                :disabled="loading"
+                :disabled="isLoading"
                 @click="$refs.addShareModal.open(portfolio.id)"
               >
                 <v-icon color="blue darken-2">add</v-icon>
@@ -136,9 +134,10 @@ export default {
         </v-toolbar>
         <v-divider></v-divider>
         <v-card-text>
-          <v-data-table item-key="id" hide-default-footer disable-sort
+          <v-data-table item-key="id" disable-sort
             :mobile-breakpoint="0"
             :items="portfolio.shares"
+            :hide-default-footer="portfolio.shares.length < 11"
             :no-data-text="$t('You have not created any symbol.')"
             :headers="[
               { text: $t('Symbol'), value: 'code', align: 'start' },
@@ -160,7 +159,7 @@ export default {
                 <v-col cols="auto pr-0">
                   <v-btn text block small
                     :to="`/shares/${item.id}/transactions`"
-                    :disabled="loading"
+                    :disabled="isLoading"
                   >
                     <v-icon small>horizontal_split</v-icon>
                   </v-btn>

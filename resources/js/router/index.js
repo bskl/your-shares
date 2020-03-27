@@ -1,7 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import NProgress from "nprogress";
 import store from '../store';
 import routes from './routes';
+import { redirectError } from '../utilities/helpers.js';
 
 Vue.use(Router);
 
@@ -12,23 +14,37 @@ const router = new Router({
   scrollBehavior (to, from, savedPosition) {
     if (to.meta.skipScrollBehavior) {
       return {};
+    } else {
+      return savedPosition || { x: 0, y: 0 };
     }
-
-    return savedPosition || { x: 0, y: 0 };
   }
 });
 
 router.beforeEach((to, from, next) => {
+  if (from.name !== null) {
+    NProgress.start();
+  }
+
   const requiresAuth = to.matched.some((route) => route.meta.requiresAuth);
 
-  if (!requiresAuth) {
-    next();
-  } else {
-    if (store.getters.isLoggedIn) {
-      next();
-    } else {
+  if (requiresAuth) {
+    if (!to.name !== 'Login' && !store.getters.isLoggedIn) {
       next({ name: 'Login', query: { redirect: to.fullPath } });
+    } else {
+      if (!store.getters.portfoliosCount) {
+        store.dispatch('fetchData')
+          .then((res) => {
+            next();
+          })
+          .catch((error) => {
+            next({ name: redirectError(error) });
+          });
+      } else {
+        next();
+      }
     }
+  } else {
+    next();
   }
 });
 
@@ -39,6 +55,10 @@ router.beforeResolve(async (to, from, next) => {
         if (route.meta && route.meta.beforeResolve) {
           route.meta.beforeResolve(to, from, (...args) => {
             if (args.length) {
+              if (from.name === args[0].name) {
+                NProgress.done();
+              }
+
               next(...args);
               reject(new Error('Redirected'));
             } else {
@@ -56,5 +76,9 @@ router.beforeResolve(async (to, from, next) => {
 
   next();
 });
+
+router.afterEach((to, from) => {
+  NProgress.done();
+})
 
 export default router;

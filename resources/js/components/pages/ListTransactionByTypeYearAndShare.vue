@@ -1,14 +1,26 @@
 <script>
 
-import TransactionItem from '../partials/TransactionItem.vue';
+import { mapGetters } from 'vuex';
 import upperFirst from 'lodash/upperFirst';
-import { mapActions } from 'vuex';
+import loadingHandler from '../../mixins/loadingHandler.js';
+import TransactionItem from '../partials/TransactionItem.vue';
 
 export default {
+  props: {
+    initialTransactions: {
+      type: [Array, Object],
+      required: true,
+    },
+  },
+
   /**
    * The component's name.
    */
   name: 'ListTransactionByTypeYearAndShare',
+
+  mixins: [
+    loadingHandler,
+  ],
 
   components: {
     TransactionItem,
@@ -19,39 +31,35 @@ export default {
    */
   data() {
     return {
-      isLoading: false,
-      transactions: [],
-      returnLink: null,
+      waitFor: 'fetch_transactions_by_params',
+      transactions: this.initialTransactions,
     }
   },
 
   computed: {
+    ...mapGetters([
+      'getShareById',
+    ]),
+
     title() {
-      return this.$t(`${upperFirst(this.$route.params.type)} Transactions`);
+      return this.$t('list_by_type_year_title', {
+        year: this.$route.params.year,
+        code: this.code(),
+        type: this.$t(upperFirst(this.$route.params.type))
+      });
     },
   },
 
   methods: {
-    ...mapActions([
-      'fetchTransactionsByParams',
-    ]),
-  },
+    code() {
+      return this.getShareById(this.$route.params.id).symbol.code;
+    },
 
-  created() {
-    this.isLoading = true;
-
-    this.fetchTransactionsByParams(this.$route.path)
-      .then((res) => {
-        this.transactions = res.data;
-        this.isLoading = false;
-      })
-      .catch();
-  },
-
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
-      vm.returnLink = from.fullPath;
-    });
+    goBack() {
+      (window.history.length > 1)
+        ? this.$router.go(-1)
+        : this.$router.push({ name: 'Home' });
+    }
   },
 }
 </script>
@@ -62,7 +70,7 @@ export default {
       <v-card>
         <v-toolbar flat class="pl-2">
           <v-btn icon exact
-            :to="returnLink"
+            @click="goBack()"
           >
             <v-icon color="grey darken-2">arrow_back</v-icon>
           </v-btn>

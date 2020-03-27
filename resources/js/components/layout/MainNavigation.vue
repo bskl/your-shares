@@ -1,24 +1,25 @@
 <script>
 
-import { mapGetters, mapActions, mapState } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 
 export default {
   /**
    * The component's name.
    */
-  name: "MainNavigation",
+  name: 'MainNavigation',
 
   data() {
     return {
       items: [
-        { to: "/",
-          title: this.$t("Home"),
-          icon: "home"
+        {
+          to: '/',
+          title: 'Home',
+          icon: 'home',
         },
         {
-          to: "/portfolios/create",
-          title: this.$t("Add Portfolio"),
-          icon: "add_circle_outline"
+          to: '/portfolios/create',
+          title: 'Add Portfolio',
+          icon: 'add_circle_outline',
         },
       ],
     };
@@ -26,11 +27,11 @@ export default {
 
   computed: {
     ...mapState([
-      'navDrawer',
+      'user', 'navDrawer',
     ]),
 
     ...mapGetters([
-      'isLoggedIn', 'user',
+      'isLoggedIn',
     ])
   },
 
@@ -74,7 +75,7 @@ export default {
         </v-list-item-icon>
 
         <v-list-item-content>
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          <v-list-item-title>{{ $t(`${item.title}`) }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>

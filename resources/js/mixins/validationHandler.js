@@ -29,14 +29,18 @@ export default {
           if (error.response.data.hasOwnProperty('errors')) {
             this.errors = Object.assign({}, error.response.data.errors);
 
-            for (let [key, value] of Object.entries(this.errors)) {
-              this.$refs[key].valid = false;
+            for (const key of Object.entries(this.errors)) {
+              if (typeof this.$refs[key] !== 'undefined') {
+                this.$refs[key].valid = false;
+              }
             }
 
             setTimeout(() => {
               this.focusFirstErrorInput();
             }, 500);
           }
+        } else {
+          console.log(error);
         }
       }
     },

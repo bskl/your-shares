@@ -1,6 +1,6 @@
 <script>
 
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   /**
@@ -10,15 +10,36 @@ export default {
 
   computed: {
     ...mapState([
-      'snackbar',
+      'snackbar', 'showSnackbar'
     ]),
+
+    snack: {
+      get() {
+        return this.showSnackbar;
+      },
+      set(val) {
+        this.setShowSnackbar(val);
+      },
+    },
+  },
+
+  watch: {
+    snackbar: function() {
+      this.snack = true;
+    },
+  },
+
+  methods: {
+    ...mapActions([
+      'setShowSnackbar'
+    ])
   },
 }
 </script>
 
 <template>
   <v-snackbar
-    v-model="snackbar.show"
+    v-model="snack"
     :timeout="snackbar.timeout"
     :top="snackbar.position_y === 'top'"
     :bottom="snackbar.position_y === 'bottom'"
@@ -28,11 +49,12 @@ export default {
     :vertical="snackbar.mode === 'vertical'"
     :color="snackbar.color"
   >
-    {{ snackbar.text }}
+    {{ snackbar.msg }}
+    <v-spacer></v-spacer>
     <v-btn class="ml-4" icon
       :aria-label="$t('Close')"
       :ripple="false"
-      @click.native="snackbar.show = false"
+      @click.native="snack = false"
     >
       <v-icon>cancel</v-icon>
     </v-btn>
