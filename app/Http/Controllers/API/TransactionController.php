@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\TransactionRequest;
 use App\Http\Resources\Portfolio as PortfolioResource;
+use App\Http\Resources\Share as ShareResource;
+use App\Http\Resources\Transaction as TransactionResource;
 use App\Models\Share;
 use App\Models\Transaction;
 use Illuminate\Http\Response;
@@ -16,7 +18,7 @@ class TransactionController extends Controller
      *
      * @param TransactionRequest $request
      *
-     * @return \App\Http\Resources\Portfolio $portfolio
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(TransactionRequest $request)
     {
@@ -44,7 +46,15 @@ class TransactionController extends Controller
             $event = 'App\\Events\\'.$transaction->type->key.'TransactionCreated';
             event(new $event($transaction));
 
-            return new PortfolioResource($transaction->share->portfolio);
+            $portfolio = $share->portfolio->makeHidden('shares')->refresh();
+            $share = $share->makeHidden(['portfolio', 'symbol', 'transactions'])->refresh();
+            $transaction = $transaction->makeHidden('share')->refresh();
+
+            return $this->respondSuccess([
+                'portfolio' => new PortfolioResource($portfolio),
+                'share' => new ShareResource($share),
+                'transaction' => new TransactionResource($transaction)
+            ], trans('app.transaction.create_success'));
         } catch (\Exception $e) {
             return $this->respondError(
                 Response::HTTP_UNPROCESSABLE_ENTITY,
@@ -58,7 +68,7 @@ class TransactionController extends Controller
      *
      * @param int $id
      *
-     * @return \App\Http\Resources\Portfolio $portfolio
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(int $id)
     {
@@ -70,10 +80,15 @@ class TransactionController extends Controller
             $event = 'App\\Events\\'.$transaction->type->key.'TransactionDeleted';
             event(new $event($transaction));
 
-            $portfolio = $transaction->share->portfolio;
+            $portfolio = $transaction->share->portfolio->makeHidden('shares')->refresh();
+            $share = $transaction->share->makeHidden(['portfolio', 'symbol', 'transactions'])->refresh();
+
             $transaction->delete();
 
-            return new PortfolioResource($portfolio);
+            return $this->respondSuccess([
+                'portfolio' => new PortfolioResource($portfolio),
+                'share' => new ShareResource($share),
+            ], trans('app.transaction.delete_success'));
         } catch (\Exception $e) {
             return $this->respondError(
                 Response::HTTP_UNPROCESSABLE_ENTITY,

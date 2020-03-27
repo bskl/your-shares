@@ -84,7 +84,7 @@ class RegisterController extends Controller
         try {
             $user->save();
 
-            return $this->respondSuccess([trans('app.user.verified')]);
+            return $this->respondSuccess([], trans('app.user.verified'));
         } catch (\Exception $e) {
             return $this->respondError(
                 Response::HTTP_UNPROCESSABLE_ENTITY,

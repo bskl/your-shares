@@ -63,7 +63,9 @@ class PortfolioController extends Controller
             $portfolio = Portfolio::create($data);
             $portfolio->refresh()->load('shares');
 
-            return new PortfolioResource($portfolio);
+            return (new PortfolioResource($portfolio))->additional([
+                'message' => trans('app.portfolio.create_success')
+            ]);
         } catch (\Exception $e) {
             return $this->respondError(
                 Response::HTTP_UNPROCESSABLE_ENTITY,
@@ -89,7 +91,9 @@ class PortfolioController extends Controller
         try {
             $portfolio->update($request->all());
 
-            return new PortfolioResource($portfolio);
+            return (new PortfolioResource([]))->additional([
+                'message' => trans('app.portfolio.update_success')
+            ]);
         } catch (\Exception $e) {
             return $this->respondError(
                 Response::HTTP_UNPROCESSABLE_ENTITY,
@@ -121,8 +125,11 @@ class PortfolioController extends Controller
         try {
             $portfolio->delete();
 
-            return $this->respondSuccess([]);
+            return (new PortfolioResource([]))->additional([
+                'message' => trans('app.portfolio.delete_success')
+            ]);
         } catch (\Exception $e) {
+            dd($e->getMessage());
             return $this->respondError(
                 Response::HTTP_UNPROCESSABLE_ENTITY,
                 [trans('app.portfolio.delete_error')]

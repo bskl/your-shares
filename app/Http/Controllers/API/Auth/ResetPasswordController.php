@@ -48,7 +48,7 @@ class ResetPasswordController extends Controller
      */
     protected function sendResetResponse($response)
     {
-        return $this->respondSuccess([trans($response)]);
+        return $this->respondSuccess([], trans($response));
     }
 
     /**

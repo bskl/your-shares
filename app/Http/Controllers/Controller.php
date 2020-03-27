@@ -23,10 +23,11 @@ class Controller extends BaseController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function respondSuccess(array $data)
+    public function respondSuccess(array $data = [], $message = '')
     {
         return response()->json([
-            'data' => $data
+            'data' => $data,
+            'message' => $message
         ], Response::HTTP_OK);
     }
 
@@ -35,14 +36,14 @@ class Controller extends BaseController
      *
      * @param int    $status
      * @param array  $errors
-     * @param string $messages
+     * @param string $message
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function respondError(int $status, array $errors, string $messages = '')
+    public function respondError(int $status, array $errors, string $message = '')
     {
         return response()->json([
-            'messages' => $messages,
+            'message' => $message,
             'errors' => [$errors]
         ], $status);
     }
