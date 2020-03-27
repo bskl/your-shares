@@ -49,10 +49,6 @@ abstract class BaseModel extends Model
     {
         $value = parent::getAttribute($key);
 
-        if (is_null($value) || $value === '') {
-            return $value;
-        }
-
         if (in_array($key, $this->encryptable)) {
             $value = $this->decrypt($value);
         }
@@ -99,26 +95,16 @@ abstract class BaseModel extends Model
         }
 
         foreach ($attributes as $key => $value) {
-            if (is_null($value) || $value === '') {
-                continue;
-            }
-
-            if (in_array($key, $this->encryptable)) {
-                $value = $this->decrypt($value);
-            }
-
             if (in_array($key, $this->money)) {
-                $attributes[$key] = money_formatter(
-                    $this->getMoneyAttribute($value)
-                );
+                $attributes[$key] = money_formatter($this->$key);
             }
 
             if (in_array($key, $this->percent)) {
-                $attributes[$key] = percent_formatter($value);
+                $attributes[$key] = percent_formatter($this->$key);
             }
 
             if (in_array($key, $this->decimal)) {
-                $attributes[$key] = decimal_formatter($value);
+                $attributes[$key] = decimal_formatter($this->$key);
             }
         }
 
