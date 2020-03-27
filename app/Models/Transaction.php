@@ -57,15 +57,6 @@ class Transaction extends BaseModel
     ];
 
     /**
-     * The attributes that should be encrypted/decrypted.
-     *
-     * @var array
-     */
-    protected $encryptable = [
-        'lot', 'amount', 'sale_average_amount', 'sale_gain', 'dividend_gain', 'bonus', 'rights',
-    ];
-
-    /**
      * The attributes that should be mutated to dates.
      *
      * @var array
