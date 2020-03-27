@@ -12,6 +12,7 @@
     "require": {
         "php": ">=7.2",
         "bensampo/laravel-enum": "^1.22",
+        "doctrine/dbal": "^2.10",
         "fideloper/proxy": "~4.0",
         "laravel/framework": "5.8.*",
         "laravel/passport": "^7.0",
