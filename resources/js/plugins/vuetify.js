@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
-import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import tr from 'vuetify/es5/locale/tr';
 import en from 'vuetify/es5/locale/en';
 
