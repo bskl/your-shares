@@ -29,7 +29,7 @@ export default {
     },
 
     disabled() {
-      return (typeof this.itemLink == 'undefined') ? true : false;
+      return (typeof this.itemLink === 'undefined') ? true : false;
     }
   },
 };

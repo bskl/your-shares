@@ -276,7 +276,7 @@ export default {
   fetchTransactionsByParams({ dispatch, commit, getters }, path) {
     commit('START_LOADING', 'fetch_transactions_by_params');
 
-    const { model, id, unused, type, year } = path.split('/').filter(item => item.trim().length);
+    const [ model, id, unused, type, year ] = path.split('/').filter(item => item.trim().length);
     const key = trimEnd(upperFirst(model), 's');
     const collection = getters[`get${key}ById`](id);
 
