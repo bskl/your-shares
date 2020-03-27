@@ -96,7 +96,8 @@ class Portfolio extends BaseModel
      */
     public function shares()
     {
-        return $this->hasMany('App\Models\Share');
+        return $this->hasMany('App\Models\Share')
+                    ->orderBy('symbol_id', 'asc');;
     }
 
     /**

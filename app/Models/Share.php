@@ -84,19 +84,6 @@ class Share extends BaseModel
         'symbol',
     ];
 
-    /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::addGlobalScope('lot', function (Builder $builder) {
-            $builder->orderByRaw('CASE WHEN lot = 0 THEN lot END ASC, symbol_id ASC');
-        });
-    }
 
     /**
      * Get the user that owns the share.
