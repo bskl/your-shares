@@ -13,7 +13,8 @@ class PortfolioPolicy
     /**
      * Determine whether the user can list the portfolios.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
+     *
      * @return mixed
      */
     public function viewAny(User $user)

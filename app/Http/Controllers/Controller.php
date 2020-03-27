@@ -14,7 +14,9 @@ use Money\Money;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests;
+    use DispatchesJobs;
+    use ValidatesRequests;
 
     /**
      * Return response success with JSON.
@@ -26,8 +28,8 @@ class Controller extends BaseController
     public function respondSuccess(array $data = [], $message = '')
     {
         return response()->json([
-            'data' => $data,
-            'message' => $message
+            'data'    => $data,
+            'message' => $message,
         ], Response::HTTP_OK);
     }
 
@@ -44,7 +46,7 @@ class Controller extends BaseController
     {
         return response()->json([
             'message' => $message,
-            'errors' => [$errors]
+            'errors'  => [$errors],
         ], $status);
     }
 

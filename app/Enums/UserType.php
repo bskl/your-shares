@@ -6,8 +6,8 @@ use BenSampo\Enum\Enum;
 
 class UserType extends Enum
 {
-    const Waiting  = 0;
+    const Waiting = 0;
     const Accepted = 1;
-    const User     = 2;
-    const Admin    = 9;
+    const User = 2;
+    const Admin = 9;
 }

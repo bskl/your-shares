@@ -130,7 +130,7 @@ abstract class BaseModel extends Model
     /**
      * Set a given attribute on the model.
      *
-     * @param mixed  $value
+     * @param mixed $value
      *
      * @return $this
      */
