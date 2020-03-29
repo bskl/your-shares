@@ -199,4 +199,9 @@ abstract class BaseModel extends Model
 
         return $collection;
     }
+
+    public function getEncryptable()
+    {
+        return $this->encryptable;
+    }
 }
