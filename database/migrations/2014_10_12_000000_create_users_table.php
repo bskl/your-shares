@@ -21,8 +21,6 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('locale', 2)->nullable();
             $table->string('role')->default(App\Enums\UserType::User);
-            $table->timestamp('logon_at')->nullable();
-            $table->string('logon_host', 50)->nullable();
             $table->rememberToken();
             $table->boolean('confirmed')->default(App\Enums\UserType::Waiting);
             $table->string('confirmation_code', 100)->nullable();

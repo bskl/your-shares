@@ -60,6 +60,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the audits for the user.
+     */
+    public function audits()
+    {
+        return $this->hasMany('App\Models\Audit');
+    }
+
+    /**
      * Send the password reset notification.
      *
      * @param string $token

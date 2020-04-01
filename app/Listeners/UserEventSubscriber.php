@@ -28,11 +28,11 @@ class UserEventSubscriber
      */
     public function onUserLogin($event)
     {
-        $event->user->logon_at = now();
-        $event->user->logon_host = Request::ip();
-        $event->user->user_agent = Request::header('User-Agent');
-
-        $event->user->save();
+        $event->user->audits()->create([
+            'logon_at'   => now(),
+            'ip_address' => Request::ip(),
+            'user_agent' => Request::header('User-Agent'),
+        ]);
     }
 
     /**
