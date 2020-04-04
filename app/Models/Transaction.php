@@ -127,24 +127,4 @@ class Transaction extends BaseModel
     {
         return $this->sale_gain->isPositive() ? 1 : ($this->sale_gain->isNegative() ? -1 : 0);
     }
-
-    /**
-     * Set the bonus attribute with divided 100.
-     */
-    public function setBonusAttribute($value)
-    {
-        if ($value) {
-            return (float) $this->attributes['bonus'] = ($value / 100);
-        }
-    }
-
-    /**
-     * Set the rights attribute with divided 100.
-     */
-    public function setRightsAttribute($value)
-    {
-        if ($value) {
-            return (float) $this->attributes['rights'] = ($value / 100);
-        }
-    }
 }

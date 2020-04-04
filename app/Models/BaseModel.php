@@ -76,6 +76,10 @@ abstract class BaseModel extends Model
             $value = $this->setMoneyAttribute($value);
         }
 
+        if (in_array($key, $this->percent)) {
+            $value = $this->setPercentAttribute($value);
+        }
+
         if (in_array($key, $this->encryptable)) {
             $value = $this->encrypt($value);
         }
@@ -143,10 +147,22 @@ abstract class BaseModel extends Model
 
             $moneyParser = new DecimalMoneyParser($currencies);
 
-            $money = $moneyParser->parse(str_replace(',', '.', $value), config('app.currency'));
+            $money = $moneyParser->parse($this->toFloat($value), config('app.currency'));
         }
 
         return $money->getAmount();
+    }
+
+    /**
+     * Set a given attribute on the model.
+     *
+     * @param mixed $value
+     *
+     * @return float
+     */
+    public function setPercentAttribute($value)
+    {
+        return floatval($this->toFloat($value)) / 100;
     }
 
     /**
@@ -175,6 +191,21 @@ abstract class BaseModel extends Model
             $value = Crypt::decrypt($value);
         } catch (Exception $e) {
         }
+
+        return $value;
+    }
+
+    /**
+     * Convert value to float value.
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    private function toFloat($value)
+    {
+        $value = str_replace('.', '', $value);
+        $value = str_replace(',', '.', $value);
 
         return $value;
     }
