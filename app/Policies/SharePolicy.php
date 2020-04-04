@@ -11,6 +11,18 @@ class SharePolicy
     use HandlesAuthorization;
 
     /**
+     * Determine whether the user can list the shares.
+     *
+     * @param \App\Models\User $user
+     *
+     * @return mixed
+     */
+    public function viewAny(User $user)
+    {
+        return true;
+    }
+
+    /**
      * Determine whether the user can view the share.
      *
      * @param \App\Models\User  $user

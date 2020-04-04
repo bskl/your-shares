@@ -13,10 +13,10 @@ return [
     |
     */
 
-    'password' => 'Şifreler en az sekiz karakter olmalı ve onay ile eşleşmelidir.',
-    'reset'    => 'Şifreniz sıfırlandı! Şimdi giriş yapabilirsiniz.',
-    'sent'     => 'Şifre sıfırlama bağlantınızı e-posta ile gönderdik!',
-    'token'    => 'Bu şifre sıfırlama kodu geçersiz.',
-    'user'     => 'Bu e-posta adresine sahip bir kullanıcı bulamıyoruz.',
+    'reset'     => 'Şifreniz sıfırlandı! Şimdi giriş yapabilirsiniz.',
+    'sent'      => 'Şifre sıfırlama bağlantınızı e-posta ile gönderdik!',
+    'throttled' => 'Please wait before retrying.',
+    'token'     => 'Bu şifre sıfırlama kodu geçersiz.',
+    'user'      => 'Bu e-posta adresine sahip bir kullanıcı bulamıyoruz.',
 
 ];
