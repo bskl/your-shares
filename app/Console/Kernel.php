@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('yourshares:set-symbols')
                  ->weekdays()
-                 ->twiceDaily(12, 20);
+                 ->twiceDaily(11, 19);
     }
 
     /**
