@@ -11,3 +11,6 @@ pool:
 
 variables:
   phpVersion: 7.2
+
+stages:
+  - stage: deploy
