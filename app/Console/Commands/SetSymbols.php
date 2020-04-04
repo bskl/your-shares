@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
-use \DOMDocument;
-use \DOMXpath;
 use App\Models\Symbol;
 use Carbon\Carbon;
+use DOMDocument;
+use DOMXpath;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
@@ -63,7 +63,7 @@ class SetSymbols extends Command
             $response = Http::get($this->url);
         } while (!$response->successful());
 
-        $body = preg_replace("/\r|\n|\t/", "", $response->body());
+        $body = preg_replace('/\r|\n|\t/', '', $response->body());
 
         return $body;
     }
@@ -91,7 +91,7 @@ class SetSymbols extends Command
         $sessionTime = Carbon::now()->subMinutes(15);
 
         foreach ($content as $tr) {
-            $symbol['code'] = preg_replace("/[^a-zA-Z0-9]/", "", $tr->childNodes[1]->nodeValue);
+            $symbol['code'] = preg_replace('/[^a-zA-Z0-9]/', '', $tr->childNodes[1]->nodeValue);
             $symbol['data'] = [
                 'title'          => trim($tr->childNodes[1]->getAttribute('title')),
                 'trend'          => (($rateOfChange = trim($tr->childNodes[5]->nodeValue)) > 0) ? 1 : (($rateOfChange < 0) ? -1 : 0),
