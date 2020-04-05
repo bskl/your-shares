@@ -165,6 +165,7 @@ abstract class BaseModel extends Model
         if (is_string($value)) {
             $value = floatval($this->toFloat($value));
         }
+    
         return $value / 100;
     }
 
