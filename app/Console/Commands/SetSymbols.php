@@ -91,11 +91,11 @@ class SetSymbols extends Command
         $sessionTime = Carbon::now()->subMinutes(15);
 
         foreach ($content as $tr) {
-            $symbol['code'] = preg_replace('/[^a-zA-Z0-9]/', '', $tr->childNodes[1]->nodeValue);
-            $symbol['data'] = [
-                'title'          => trim($tr->childNodes[1]->getAttribute('title')),
-                'trend'          => (($rateOfChange = trim($tr->childNodes[5]->nodeValue)) > 0) ? 1 : (($rateOfChange < 0) ? -1 : 0),
-                'last_price'     => trim($tr->childNodes[3]->nodeValue),
+            $symbol = [
+                'code'           => preg_replace('/[^a-zA-Z0-9]/', '', $tr->childNodes[0]->nodeValue),
+                'title'          => $tr->childNodes[0]->hasAttribute('title') ? trim($tr->childNodes[0]->getAttribute('title')) : '',
+                'trend'          => (($rateOfChange = trim($tr->childNodes[4]->nodeValue)) > 0) ? 1 : (($rateOfChange < 0) ? -1 : 0),
+                'last_price'     => trim($tr->childNodes[2]->nodeValue),
                 'rate_of_change' => $rateOfChange,
                 'session_time'   => $sessionTime,
             ];
@@ -111,7 +111,7 @@ class SetSymbols extends Command
         foreach ($symbols as $symbol) {
             Symbol::updateOrCreate(
                 ['code' => $symbol['code']],
-                $symbol['data']
+                $symbol
             );
         }
     }
