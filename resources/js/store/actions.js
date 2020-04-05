@@ -7,7 +7,8 @@ const http = axios.create({
 });
 
 http.interceptors.request.use(function (config) {
-  config.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('access_token'))}`;
+  config.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+  config.headers.common['Authorization'] = `Bearer ${JSON.parse(localStorage.getItem('access_token'))}`;
   return config;
 });
 
