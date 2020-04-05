@@ -162,7 +162,10 @@ abstract class BaseModel extends Model
      */
     public function setPercentAttribute($value)
     {
-        return floatval($this->toFloat($value)) / 100;
+        if (is_string($value)) {
+            $value = floatval($this->toFloat($value));
+        }
+        return $value / 100;
     }
 
     /**
