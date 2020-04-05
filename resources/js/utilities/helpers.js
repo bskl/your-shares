@@ -1,5 +1,6 @@
 import store from '../store';
 import router from "../router";
+import i18n from "../lang/";
 
 export function redirectError(error) {
   if (error.response) {
@@ -36,10 +37,15 @@ export function parseErrorMessage(error) {
     }
 
     const errors = error.response.data.errors || [];
+    let message = '';
 
-    if (errors.length == 0) return '';
+    if (errors.length == 0) {
+      message = i18n.t('Undefined error! Please try again later.');
+    } else {
+      message = errors[0][0];
+    }
 
-    store.dispatch('setSnackbar', { color: 'error', msg: errors[0][0] });
+    store.dispatch('setSnackbar', { color: 'error', msg: message });
   } else {
     console.log(error);
   }

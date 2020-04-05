@@ -104,6 +104,7 @@ export default {
   "All": "All",
   "Connection error!": "Connection error!",
   "This action is unauthorized.": "This action is unauthorized.",
+  "Undefined error! Please try again later.": "Undefined error! Please try again later.",
   "Your portfolio commission rate has not been recorded.": "Your portfolio commission rate has not been recorded.",
   "Page not found.": "Page not found.",
   "The page timed out while loading. Are you sure you're still connected to the Internet?": "The page timed out while loading. Are you sure you're still connected to the Internet?",

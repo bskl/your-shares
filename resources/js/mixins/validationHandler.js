@@ -1,4 +1,5 @@
 import unset from "lodash/unset";
+import router from "../router";
 
 export default {
   data() {
@@ -26,6 +27,15 @@ export default {
     syncErrors(error) {
       if (typeof error !== 'undefined') {
         if (typeof error.response !== 'undefined' && error.hasOwnProperty('response') && error.response.hasOwnProperty('data')) {
+          if (error.response.status === 400 || error.response.status === 401) {
+            store.commit('LOGGED_OUT');
+            router.push({ name: 'Login' });
+          } else if (error.response.status === 403) {
+            router.push({ name: 'Forbidden' });
+          } else if (error.response.status === 404) {
+            router.push({ name: 'NotFound' });
+          }
+
           if (error.response.data.hasOwnProperty('errors')) {
             this.errors = Object.assign({}, error.response.data.errors);
 
