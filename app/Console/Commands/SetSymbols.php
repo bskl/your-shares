@@ -96,7 +96,7 @@ class SetSymbols extends Command
                 'title'          => $tr->childNodes[0]->hasAttribute('title') ? trim($tr->childNodes[0]->getAttribute('title')) : '',
                 'trend'          => $this->getTrend(trim($tr->childNodes[4]->nodeValue)),
                 'last_price'     => trim($tr->childNodes[2]->nodeValue),
-                'rate_of_change' => $rateOfChange,
+                'rate_of_change' => trim($tr->childNodes[4]->nodeValue),
                 'session_time'   => $sessionTime,
             ];
 
