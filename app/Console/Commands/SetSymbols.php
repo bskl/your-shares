@@ -94,7 +94,7 @@ class SetSymbols extends Command
             $symbol = [
                 'code'           => preg_replace('/[^a-zA-Z0-9]/', '', $tr->childNodes[0]->nodeValue),
                 'title'          => $tr->childNodes[0]->hasAttribute('title') ? trim($tr->childNodes[0]->getAttribute('title')) : '',
-                'trend'          => $this-getTrend(trim($tr->childNodes[4]->nodeValue)),
+                'trend'          => $this->getTrend(trim($tr->childNodes[4]->nodeValue)),
                 'last_price'     => trim($tr->childNodes[2]->nodeValue),
                 'rate_of_change' => $rateOfChange,
                 'session_time'   => $sessionTime,
