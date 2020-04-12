@@ -35,10 +35,6 @@ export default {
     commit('SET_SNACKBAR', data);
   },
 
-  toggleNavDrawer({ commit }) {
-    commit('TOGGLE_NAV_DRAWER');
-  },
-
   setShowModal({ commit }, data) {
     commit('SET_SHOW_MODAL', data);
   },

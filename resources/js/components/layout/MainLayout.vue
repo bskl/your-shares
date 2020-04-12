@@ -1,7 +1,6 @@
 <script>
 
 import MainHeader from './MainHeader.vue';
-import MainNavigation from './MainNavigation.vue';
 import MainFooter from './MainFooter.vue';
 
 export default {
@@ -11,7 +10,7 @@ export default {
   name: 'MainLayout',
 
   components: {
-    MainHeader, MainNavigation, MainFooter
+    MainHeader, MainFooter
   },
 }
 </script>
@@ -19,7 +18,6 @@ export default {
 <template>
   <v-app>
     <main-header />
-    <main-navigation />
     <v-content>
       <v-responsive class="mx-auto overflow-visible">
         <v-container class="fill-height" fluid>

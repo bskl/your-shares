@@ -8,9 +8,6 @@ export default {
   STOP_LOADING(state, payload) {
     state.loading = state.loading.filter(l => l != payload);
   },
-  TOGGLE_NAV_DRAWER(state) {
-    state.navDrawer = !state.navDrawer;
-  },
   SET_SHOW_MODAL(state, data) {
     state.showModal = data;
   },
