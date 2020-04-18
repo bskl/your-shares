@@ -186,7 +186,6 @@ export default {
 
           commit('UPDATE_PORTFOLIO', { index: portfolioIndex, portfolio: data.portfolio });
           commit('UPDATE_SHARE', { portfolioIndex, shareIndex, share: data.share });
-          commit('ADD_TRANSACTION', { portfolioIndex, shareIndex, transaction: data.transaction });
           commit('DELETE_ITEM_DETAILS', { portfolioIndex, shareIndex, transaction: data.transaction });
         }
 
@@ -205,7 +204,6 @@ export default {
 
           commit('UPDATE_PORTFOLIO', { index: portfolioIndex, portfolio: data.portfolio });
           commit('UPDATE_SHARE', { portfolioIndex, shareIndex, share: data.share });
-          commit('DESTROY_LAST_TRANSACTION', { portfolioIndex, shareIndex });
           commit('DELETE_ITEM_DETAILS', { portfolioIndex, shareIndex, transaction });
         }
 
@@ -260,13 +258,12 @@ export default {
 
     return http.get(path)
       .then((res) => {
-        const data = res.data.data;
-        const portfolioIndex = getters.getPortfolioIndexById(data.portfolio_id);
-        const shareIndex = getters.getShareIndexByPortfolioIndexAndId(portfolioIndex, data.id);
-        commit('ADD_TRANSACTIONS', { portfolioIndex, shareIndex, transactions: data.transactions });
+        const transactions = res.data.data;
+        const { portfolioIndex, index } = getters.getShareIndexById(id);
+        commit('ADD_TRANSACTIONS', { portfolioIndex, index, transactions });
         commit('STOP_LOADING', 'fetch_share_transactions');
   
-        return data;
+        return getters.getShareById(id);
       });
   },
 

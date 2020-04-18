@@ -47,21 +47,13 @@ export default {
     state.portfolios[index].shares.push(data);
   },
   UPDATE_SHARE(state, { portfolioIndex, shareIndex, share }) {
-    for (const key in share) {
-      state.portfolios[portfolioIndex].shares[shareIndex][key] = share[key];
-    }
+    state.portfolios[portfolioIndex].shares[shareIndex] = share;
   },
   DESTROY_SHARE(state, { portfolioIndex, index }) {
     state.portfolios[portfolioIndex].shares.splice(index, 1);
   },
-  ADD_TRANSACTIONS(state, { portfolioIndex, shareIndex, transactions }) {
-    state.portfolios[portfolioIndex].shares[shareIndex]['transactions'] = transactions;
-  },
-  ADD_TRANSACTION(state, { portfolioIndex, shareIndex, transaction }) {
-    state.portfolios[portfolioIndex].shares[shareIndex].transactions.push(transaction);
-  },
-  DESTROY_LAST_TRANSACTION(state, { portfolioIndex, shareIndex }) {
-    state.portfolios[portfolioIndex].shares[shareIndex].transactions.pop();
+  ADD_TRANSACTIONS(state, { portfolioIndex, index, transactions }) {
+    state.portfolios[portfolioIndex].shares[index]['transactions'] = transactions;
   },
   ADD_ITEM_DETAILS(state, { index, type, year, data }) {
     if (typeof index === 'object') {

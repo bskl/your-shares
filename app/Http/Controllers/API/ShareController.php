@@ -103,7 +103,7 @@ class ShareController extends Controller
 
         $this->authorize('view', $share);
 
-        return new ShareResource($share);
+        return TransactionResource::collection($share->transactions);
     }
 
     /**
