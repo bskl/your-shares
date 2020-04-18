@@ -10,6 +10,7 @@ use App\Http\Resources\Transaction as TransactionResource;
 use App\Models\Share;
 use App\Models\Transaction;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -41,6 +42,8 @@ class TransactionController extends Controller
         }
 
         try {
+            DB::beginTransaction();
+
             $transaction->save();
 
             $event = 'App\\Events\\'.$transaction->type->key.'TransactionCreated';
@@ -50,12 +53,16 @@ class TransactionController extends Controller
             $share = $share->makeHidden(['portfolio', 'symbol', 'transactions'])->refresh();
             $transaction = $transaction->makeHidden('share')->refresh();
 
+            DB::commit();
+
             return $this->respondSuccess([
                 'portfolio'   => new PortfolioResource($portfolio),
                 'share'       => new ShareResource($share),
                 'transaction' => new TransactionResource($transaction),
             ], trans('app.transaction.create_success'));
         } catch (\Exception $e) {
+            DB::rollBack();
+
             return $this->respondError(
                 Response::HTTP_UNPROCESSABLE_ENTITY,
                 ['transaction' => trans('app.transaction.create_error')]
@@ -77,6 +84,8 @@ class TransactionController extends Controller
         $this->authorize($transaction);
 
         try {
+            DB::beginTransaction();
+
             $event = 'App\\Events\\'.$transaction->type->key.'TransactionDeleted';
             event(new $event($transaction));
 
@@ -85,11 +94,15 @@ class TransactionController extends Controller
 
             $transaction->delete();
 
+            DB::commit();
+
             return $this->respondSuccess([
                 'portfolio' => new PortfolioResource($portfolio),
                 'share'     => new ShareResource($share),
             ], trans('app.transaction.delete_success'));
         } catch (\Exception $e) {
+            DB::rollBack();
+
             return $this->respondError(
                 Response::HTTP_UNPROCESSABLE_ENTITY,
                 [trans('app.transaction.delete_error')]
