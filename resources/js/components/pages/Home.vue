@@ -225,9 +225,9 @@ export default {
               </div>
             </template>
           </v-data-table>
-          <div class="ma-4">
+          <div class="ma-4" v-if="portfolio.shares.length">
             <v-icon x-small dense>access_time</v-icon>
-            <span class="mx-1 caption font-weight-thin">SG: {{ portfolios[0].shares[0].symbol.session_time }}</span>
+            <span class="mx-1 caption font-weight-thin">SG: {{ portfolio.shares[0].symbol.session_time }}</span>
           </div>
         </v-card-text>
         <v-divider></v-divider>

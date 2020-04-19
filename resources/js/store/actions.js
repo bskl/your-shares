@@ -76,7 +76,6 @@ export default {
     return http.post('/logout')
       .then((res) => {
         commit('LOGGED_OUT');
-        commit('TOGGLE_NAV_DRAWER');
 
         return res.data;
     });
