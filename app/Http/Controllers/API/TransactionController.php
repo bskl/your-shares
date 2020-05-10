@@ -49,16 +49,14 @@ class TransactionController extends Controller
             $event = 'App\\Events\\'.$transaction->type->key.'TransactionCreated';
             event(new $event($transaction));
 
-            $portfolio = $share->portfolio->makeHidden('shares')->refresh();
-            $share = $share->makeHidden(['portfolio', 'symbol', 'transactions'])->refresh();
-            $transaction = $transaction->makeHidden('share')->refresh();
-
             DB::commit();
+
+            $portfolio = $share->portfolio->makeHidden('shares')->refresh();
+            $share = $share->load('transactions')->makeHidden('portfolio')->refresh();
 
             return $this->respondSuccess([
                 'portfolio'   => new PortfolioResource($portfolio),
                 'share'       => new ShareResource($share),
-                'transaction' => new TransactionResource($transaction),
             ], trans('app.transaction.create_success'));
         } catch (\Exception $e) {
             DB::rollBack();

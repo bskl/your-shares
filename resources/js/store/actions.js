@@ -185,7 +185,9 @@ export default {
 
           commit('UPDATE_PORTFOLIO', { index: portfolioIndex, portfolio: data.portfolio });
           commit('UPDATE_SHARE', { portfolioIndex, shareIndex, share: data.share });
-          commit('DELETE_ITEM_DETAILS', { portfolioIndex, shareIndex, transaction: data.transaction });
+
+          const transaction = getters.getLastTransaction(portfolioIndex, shareIndex);
+          commit('DELETE_ITEM_DETAILS', { portfolioIndex, shareIndex, transaction });
         }
 
         return res.data;
