@@ -18,7 +18,7 @@ export default {
     }
   },
   LOGGED_OUT(state) {
-    localStorage.removeItem('access_token');
+    localStorage.clear();
     state.isLoggedIn = false;
   },
   SET_USER(state, data) {
