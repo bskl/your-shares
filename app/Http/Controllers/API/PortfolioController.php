@@ -129,8 +129,6 @@ class PortfolioController extends Controller
                 'message' => trans('app.portfolio.delete_success'),
             ]);
         } catch (\Exception $e) {
-            dd($e->getMessage());
-
             return $this->respondError(
                 Response::HTTP_UNPROCESSABLE_ENTITY,
                 [trans('app.portfolio.delete_error')]
