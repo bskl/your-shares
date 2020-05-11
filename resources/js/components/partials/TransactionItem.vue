@@ -64,10 +64,15 @@ export default {
       >
         {{ item.sale_gain }}
       </div>
-      <div class="text-right"
+      <div class="d-flex align-center justify-end"
         v-if="item.type == 2"
       >
-        {{ item.dividend_gain }}
+        <v-col cols="auto" class="pr-0 text-right">
+          {{ item.dividend_gain }}
+        </v-col>
+        <v-col cols="auto" class="pr-0 text-right">
+          ({{ item.dividend }})
+        </v-col>
       </div>
       <div class="d-flex align-center justify-end"
         v-if="item.type == 3"
