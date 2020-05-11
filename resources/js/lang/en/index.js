@@ -36,7 +36,7 @@ export default {
   "Select Transaction": "Select Transaction",
   "Select Date": "Select Date",
   "Enter Share Amount": "Enter Share Amount",
-  "Enter Share Price": "Enter Share Price",
+  "Enter Transaction Price": "Enter Transaction Price",
   "Enter Commission Rate": "Enter Commission Rate",
   "Enter Dividend Gain Price": "Enter Dividend Gain Price",
   "Buying": "Buying",

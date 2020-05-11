@@ -36,7 +36,7 @@ export default {
   "Select Transaction": "İşlem Seçiniz",
   "Select Date": "Tarih Seçiniz",
   "Enter Share Amount": "Hisse Miktarını Giriniz",
-  "Enter Share Price": "Hisse Fiyatını Giriniz",
+  "Enter Transaction Price": "İşlem Fiyatını Giriniz",
   "Enter Commission Rate": "Komisyon Oranını Giriniz",
   "Enter Dividend Gain Price": "Temettü Net Getiri Fiyatını Giriniz",
   "Buying": "Alım",

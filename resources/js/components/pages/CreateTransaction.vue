@@ -228,11 +228,11 @@ export default {
                 this.form.type == 4 ? $t('You must write your rights shares.') : ''"
             ></v-text-field>
             <v-text-field type="text" name="price" ref="price" id="price" outlined clearable
-              v-if="this.form.type == 0 || this.form.type == 1"
+              v-if="this.form.type == 0 || this.form.type == 1 || this.form.type == 2"
               prepend-inner-icon="money"
               v-model.lazy="priceCurrency"
               :disabled="isLoading"
-              :label="$t('Enter Share Price')"
+              :label="$t('Enter Transaction Price')"
               :rules="[rules.required]"
               :error-messages="getError('price')"
               v-currency
