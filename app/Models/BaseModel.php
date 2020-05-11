@@ -136,20 +136,18 @@ abstract class BaseModel extends Model
      *
      * @param mixed $value
      *
-     * @return $this
+     * @return string
      */
     public function setMoneyAttribute($value)
     {
         if ($value instanceof Money) {
-            $money = $value;
-        } else {
-            $currencies = new ISOCurrencies();
-
-            $numberFormatter = new \NumberFormatter(config('app.locale'), \NumberFormatter::DECIMAL);
-            $moneyParser = new IntlLocalizedDecimalParser($numberFormatter, $currencies);
-
-            $money = $moneyParser->parse(format_decimal_symbol($value), config('app.currency'));
+            return $value->getAmount();
         }
+
+        $currencies = new ISOCurrencies();
+        $numberFormatter = new \NumberFormatter(config('app.locale'), \NumberFormatter::DECIMAL);
+        $moneyParser = new IntlLocalizedDecimalParser($numberFormatter, $currencies);
+        $money = $moneyParser->parse(format_decimal_symbol($value), config('app.currency'));
 
         return $money->getAmount();
     }
