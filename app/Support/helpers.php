@@ -50,3 +50,51 @@ function decimal_formatter($value)
 
     return $decimalFormatter->format($value);
 }
+
+/**
+ * Format values by number formatter.
+ *
+ * @param  mixed  $values
+ *
+ * @return mixed
+ */
+function format_decimal_symbol($values)
+{
+    $formatted = [];
+
+    foreach (Arr::wrap($values) as $value) {
+        $dotPos = strrpos($value, '.');
+        $commaPos = strrpos($value, ',');
+        $separatorPos = (($dotPos > $commaPos) && $dotPos) ? $dotPos :
+                        ((($commaPos > $dotPos) && $commaPos) ? $commaPos : false);
+
+        if (!$separatorPos || (strlen($value) - $separatorPos) > 4) {
+            $formatted[] = strval($value);
+            continue;
+        }
+
+        $formatter = new \NumberFormatter(config('app.locale'), \NumberFormatter::DECIMAL);
+        $symbol = $formatter->getSymbol(\NumberFormatter::DECIMAL_SEPARATOR_SYMBOL);
+
+        $formatted[] = substr_replace($value, $symbol, $separatorPos, 1);
+    }
+
+    return is_array($values) ? $formatted : $formatted[0];
+}
+
+/**
+ * Convert value to float.
+ *
+ * @param  mixed $value
+ *
+ * @return float
+ */
+function to_float($value)
+{
+    if (strstr($value, ",")) {
+        $value = str_replace('.', '', $value);
+        $value = str_replace(',', '.', $value);
+    }
+
+    return floatval($value);
+}

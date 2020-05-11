@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Crypt;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Money;
-use Money\Parser\DecimalMoneyParser;
+use Money\Parser\IntlLocalizedDecimalParser;
 
 abstract class BaseModel extends Model
 {
@@ -145,9 +145,10 @@ abstract class BaseModel extends Model
         } else {
             $currencies = new ISOCurrencies();
 
-            $moneyParser = new DecimalMoneyParser($currencies);
+            $numberFormatter = new \NumberFormatter(config('app.locale'), \NumberFormatter::DECIMAL);
+            $moneyParser = new IntlLocalizedDecimalParser($numberFormatter, $currencies);
 
-            $money = $moneyParser->parse($this->toFloat($value), config('app.currency'));
+            $money = $moneyParser->parse(format_decimal_symbol($value), config('app.currency'));
         }
 
         return $money->getAmount();
@@ -162,11 +163,7 @@ abstract class BaseModel extends Model
      */
     public function setPercentAttribute($value)
     {
-        if (is_string($value)) {
-            $value = floatval($this->toFloat($value));
-        }
-
-        return $value / 100;
+        return to_float($value) / 100;
     }
 
     /**
@@ -195,21 +192,6 @@ abstract class BaseModel extends Model
             $value = Crypt::decrypt($value);
         } catch (Exception $e) {
         }
-
-        return $value;
-    }
-
-    /**
-     * Convert value to float value.
-     *
-     * @param string $value
-     *
-     * @return string
-     */
-    private function toFloat($value)
-    {
-        $value = str_replace('.', '', $value);
-        $value = str_replace(',', '.', $value);
 
         return $value;
     }
