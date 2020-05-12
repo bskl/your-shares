@@ -12,9 +12,9 @@ trait TransactionCalculator
     /**
      * Handle calculations when create a new buying transaction instance.
      *
-     * @param  \App\Models\Portfolio $portfolio
-     * @param  \App\Models\Share $share
-     * @param  \App\Models\Transaction $transaction
+     * @param \App\Models\Portfolio   $portfolio
+     * @param \App\Models\Share       $share
+     * @param \App\Models\Transaction $transaction
      *
      * @return void
      */
@@ -28,9 +28,9 @@ trait TransactionCalculator
     /**
      * Handle calculations when delete a buying transaction instance.
      *
-     * @param  \App\Models\Portfolio $portfolio
-     * @param  \App\Models\Share $share
-     * @param  \App\Models\Transaction $transaction
+     * @param \App\Models\Portfolio   $portfolio
+     * @param \App\Models\Share       $share
+     * @param \App\Models\Transaction $transaction
      *
      * @return void
      */
@@ -43,9 +43,9 @@ trait TransactionCalculator
     /**
      * Handle calculations when create a new sale transaction instance.
      *
-     * @param  \App\Models\Portfolio $portfolio
-     * @param  \App\Models\Share $share
-     * @param  \App\Models\Transaction $transaction
+     * @param \App\Models\Portfolio   $portfolio
+     * @param \App\Models\Share       $share
+     * @param \App\Models\Transaction $transaction
      *
      * @return void
      */
@@ -82,9 +82,9 @@ trait TransactionCalculator
     /**
      * Handle calculations when delete a sale transaction instance.
      *
-     * @param  \App\Models\Portfolio $portfolio
-     * @param  \App\Models\Share $share
-     * @param  \App\Models\Transaction $transaction
+     * @param \App\Models\Portfolio   $portfolio
+     * @param \App\Models\Share       $share
+     * @param \App\Models\Transaction $transaction
      *
      * @return void
      */
@@ -122,9 +122,9 @@ trait TransactionCalculator
     /**
      * Handle calculations when create a new dividend transaction instance.
      *
-     * @param  \App\Models\Portfolio $portfolio
-     * @param  \App\Models\Share $share
-     * @param  \App\Models\Transaction $transaction
+     * @param \App\Models\Portfolio   $portfolio
+     * @param \App\Models\Share       $share
+     * @param \App\Models\Transaction $transaction
      *
      * @return void
      */
@@ -139,9 +139,9 @@ trait TransactionCalculator
     /**
      * Handle calculations when delete a dividend transaction instance.
      *
-     * @param  \App\Models\Portfolio $portfolio
-     * @param  \App\Models\Share $share
-     * @param  \App\Models\Transaction $transaction
+     * @param \App\Models\Portfolio   $portfolio
+     * @param \App\Models\Share       $share
+     * @param \App\Models\Transaction $transaction
      *
      * @return void
      */
@@ -154,9 +154,9 @@ trait TransactionCalculator
     /**
      * Handle calculations when create a new bonus transaction instance.
      *
-     * @param  \App\Models\Portfolio $portfolio
-     * @param  \App\Models\Share $share
-     * @param  \App\Models\Transaction $transaction
+     * @param \App\Models\Portfolio   $portfolio
+     * @param \App\Models\Share       $share
+     * @param \App\Models\Transaction $transaction
      *
      * @return void
      */
@@ -170,9 +170,9 @@ trait TransactionCalculator
     /**
      * Handle calculations when delete a bonus transaction instance.
      *
-     * @param  \App\Models\Portfolio $portfolio
-     * @param  \App\Models\Share $share
-     * @param  \App\Models\Transaction $transaction
+     * @param \App\Models\Portfolio   $portfolio
+     * @param \App\Models\Share       $share
+     * @param \App\Models\Transaction $transaction
      *
      * @return void
      */
@@ -185,9 +185,9 @@ trait TransactionCalculator
     /**
      * Handle calculations when create a new rights transaction instance.
      *
-     * @param  \App\Models\Portfolio $portfolio
-     * @param  \App\Models\Share $share
-     * @param  \App\Models\Transaction $transaction
+     * @param \App\Models\Portfolio   $portfolio
+     * @param \App\Models\Share       $share
+     * @param \App\Models\Transaction $transaction
      *
      * @return void
      */
@@ -201,9 +201,9 @@ trait TransactionCalculator
     /**
      * Handle calculations when delete a rights transaction instance.
      *
-     * @param  \App\Models\Portfolio $portfolio
-     * @param  \App\Models\Share $share
-     * @param  \App\Models\Transaction $transaction
+     * @param \App\Models\Portfolio   $portfolio
+     * @param \App\Models\Share       $share
+     * @param \App\Models\Transaction $transaction
      *
      * @return void
      */

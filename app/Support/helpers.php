@@ -54,7 +54,7 @@ function decimal_formatter($value)
 /**
  * Format values by number formatter.
  *
- * @param  mixed  $values
+ * @param mixed $values
  *
  * @return mixed
  */
@@ -85,13 +85,13 @@ function format_decimal_symbol($values)
 /**
  * Convert value to float.
  *
- * @param  mixed $value
+ * @param mixed $value
  *
  * @return float
  */
 function to_float($value)
 {
-    if (strstr($value, ",")) {
+    if (strstr($value, ',')) {
         $value = str_replace('.', '', $value);
         $value = str_replace(',', '.', $value);
     }

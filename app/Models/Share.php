@@ -232,8 +232,8 @@ class Share extends BaseModel
      * Handle sale transaction calculations.
      *
      * @param \App\Models\Transaction $transaction
-     * @param \Money\Money $gain
-     * @param \Money\Money $amount
+     * @param \Money\Money            $gain
+     * @param \Money\Money            $amount
      */
     public function handleSaleCalculations(Transaction $transaction, Money $gain, Money $amount)
     {
@@ -254,8 +254,8 @@ class Share extends BaseModel
      * Handle deleted sale transaction calculations.
      *
      * @param \App\Models\Transaction $transaction
-     * @param \Money\Money $gain
-     * @param \Money\Money $amount
+     * @param \Money\Money            $gain
+     * @param \Money\Money            $amount
      */
     public function handleDeletedSaleCalculations(Transaction $transaction, Money $gain, Money $amount)
     {
