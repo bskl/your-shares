@@ -47,7 +47,9 @@ export default {
     state.portfolios[index].shares.push(data);
   },
   UPDATE_SHARE(state, { portfolioIndex, shareIndex, share }) {
-    state.portfolios[portfolioIndex].shares[shareIndex] = share;
+    for (const key in share) {
+      state.portfolios[portfolioIndex].shares[shareIndex][key] = share[key];
+    }
   },
   DESTROY_SHARE(state, { portfolioIndex, index }) {
     state.portfolios[portfolioIndex].shares.splice(index, 1);

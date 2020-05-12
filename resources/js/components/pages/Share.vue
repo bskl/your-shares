@@ -3,6 +3,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import { ITEM_DETAILS } from '../../store/constants.js';
 import { parseErrorMessage, parseSuccessMessage } from '../../utilities/helpers.js';
+import last from 'lodash/last';
 import loadingHandler from '../../mixins/loadingHandler.js';
 import TransactionItem from '../partials/TransactionItem.vue';
 import ItemDetail from '../partials/ItemDetail.vue';
@@ -45,14 +46,6 @@ export default {
       'getPortfolioById',
     ]),
 
-    count() {
-      return this.share.transactions.length;
-    },
-
-    lastTransaction() {
-      return this.share.transactions[this.count - 1];
-    },
-
     createTransactionParams() {
       return {
         shareId: this.share.id,
@@ -66,6 +59,14 @@ export default {
     ...mapActions([
       'destroyShare',
     ]),
+
+    count() {
+      return this.share.transactions.length;
+    },
+
+    lastTransactionId() {
+      return last(this.share.transactions).id;
+    },
 
     getTextColor(value) {
       return (value == -1) ? 'red lighten-1' : (value == 1) ? 'green lighten-1' : '';
@@ -105,7 +106,7 @@ export default {
           </v-subheader>
           <v-spacer></v-spacer>
           <v-tooltip bottom
-            v-if="!count"
+            v-if="!count()"
           >
             <template v-slot:activator="{ on }">
               <v-btn icon small class="mx-1"
@@ -119,8 +120,8 @@ export default {
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
               <v-btn icon small class="mx-1"
-                v-if="count"
-                @click="$refs.deleteTransactionModal.open(lastTransaction.id)"
+                v-if="count()"
+                @click="$refs.deleteTransactionModal.open(lastTransactionId())"
               >
                 <v-icon small color="red darken-2" v-on="on">backspace</v-icon>
               </v-btn>
