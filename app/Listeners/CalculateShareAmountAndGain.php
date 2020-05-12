@@ -19,10 +19,7 @@ class CalculateShareAmountAndGain
         $shares = Share::where('symbol_id', $event->symbol->id)->get();
 
         $shares->map(function ($share) {
-            $share->setAmount();
-            $share->setGain();
-            $share->setGainWithDividend();
-            $share->update();
+            $share->handleCommonCalculations();
         });
     }
 }

@@ -71,7 +71,7 @@ class Transaction extends BaseModel
      * @var array
      */
     protected $hidden = [
-        'created_at', 'updated_at',
+        'user_id', 'share_id', 'created_at', 'updated_at',
     ];
 
     /**
@@ -126,5 +126,57 @@ class Transaction extends BaseModel
     public function getSaleGainTrendAttribute()
     {
         return $this->sale_gain->isPositive() ? 1 : ($this->sale_gain->isNegative() ? -1 : 0);
+    }
+
+    /**
+     * Handle buying transaction calculations.
+     */
+    public function handleBuyingCalculations()
+    {
+        $this->remaining = $this->lot;
+        $this->amount = $this->price->multiply($this->lot);
+        $this->commission_price = $this->amount->multiply($this->commission)
+                                               ->divide(100);
+        $this->update();
+    }
+
+    /**
+     * Handle buying transaction calculations.
+     *
+     * @param \Money\Money $gain
+     */
+    public function handleSaleCalculations(Money $gain)
+    {
+        $this->sale_gain = $this->sale_gain->add($gain);
+        $this->amount = $this->price->multiply($this->lot);
+        $this->commission_price = $this->amount->multiply($this->commission)
+                                               ->divide(100);
+        $this->update();
+    }
+
+    /**
+     * Handle bonus transaction calculations.
+     *
+     * @param \App\Models\Share $share
+     */
+    public function handleBonusCalculations(Share $share)
+    {
+        $this->remaining = $this->lot;
+        $this->bonus = ($this->lot * 100) / $share->lot;
+        $this->update();
+    }
+
+    /**
+     * Handle rights transaction calculations.
+     *
+     * @param \App\Models\Share $share
+     */
+    public function handleRightsCalculations(Share $share)
+    {
+        $this->remaining = $this->lot;
+        $this->price = $this->getMoneyAttribute('100');
+        $this->amount = $this->price->multiply($this->lot);
+        $this->rights = ($this->lot * 100) / $share->lot;
+        $this->update();
     }
 }

@@ -139,7 +139,7 @@ class Portfolio extends BaseModel
      */
     public function getInstantGainAttribute()
     {
-        $sharesGain = Money::TRY(0);
+        $sharesGain = $this->getMoneyAttribute('0');
 
         $this->shares->each(function ($share) use (&$sharesGain) {
             $sharesGain = $sharesGain->add($share->gain);
@@ -149,24 +149,136 @@ class Portfolio extends BaseModel
     }
 
     /**
-     * Calculate the total amount price attribute with money object.
+     * Handle buying transaction calculations.
+     *
+     * @param \App\Models\Transaction $transaction
      */
-    public function calculateMoneyAttributes()
+    public function handleBuyingCalculations(Transaction $transaction)
     {
-        $totalCommission = $totalDividend = Money::TRY(0);
-        $totalBonus = $totalRights = 0;
+        $this->total_purchase_amount = $this->total_purchase_amount->add($transaction->amount);
+        $this->paid_amount = $this->paid_amount->add($transaction->amount);
+        $this->total_commission_amount = $this->total_commission_amount->add($transaction->commission_price);
+        $this->total_gain = $this->total_gain->subtract($transaction->commission_price);
+        $this->update();
+    }
 
-        $this->shares->each(function ($share) use (&$totalCommission, &$totalDividend, &$totalBonus, &$totalRights) {
-            $totalCommission = $totalCommission->add($share->total_commission_amount);
-            $totalDividend = $totalDividend->add($share->total_dividend_gain);
-            $totalBonus = $totalBonus + $share->total_bonus_share;
-            $totalRights = $totalRights + $share->total_rights_share;
-        });
+    /**
+     * Handle deleted buying transaction calculations.
+     *
+     * @param \App\Models\Transaction $transaction
+     */
+    public function handleDeletedBuyingCalculations(Transaction $transaction)
+    {
+        $this->total_purchase_amount = $this->total_purchase_amount->subtract($transaction->amount);
+        $this->paid_amount = $this->paid_amount->subtract($transaction->amount);
+        $this->total_commission_amount = $this->total_commission_amount->subtract($transaction->commission_price);
+        $this->total_gain = $this->total_gain->add($transaction->commission_price);
+        $this->update();
+    }
 
-        $this->total_commission_amount = $totalCommission;
-        $this->total_dividend_gain = $totalDividend;
-        $this->total_bonus_share = $totalBonus;
-        $this->total_rights_share = $totalRights;
+    /**
+     * Handle sale transaction calculations.
+     *
+     * @param \App\Models\Transaction $transaction
+     * @param \Money\Money $gain
+     * @param \Money\Money $amount
+     */
+    public function handleSaleCalculations(Transaction $transaction, Money $gain, Money $amount)
+    {
+        $this->paid_amount = $this->paid_amount->subtract($amount);
+        $this->gain_loss = $this->gain_loss->add($gain);
+        $this->total_sale_amount = $this->total_sale_amount->add($transaction->amount);
+        $this->total_commission_amount = $this->total_commission_amount->add($transaction->commission_price);
+        $this->total_gain = $this->total_gain->add($gain)->subtract($transaction->commission_price);
+        $this->update();
+    }
+
+    /**
+     * Handle deleted sale transaction calculations.
+     *
+     * @param \App\Models\Transaction $transaction
+     * @param \Money\Money $gain
+     * @param \Money\Money $amount
+     */
+    public function handleDeletedSaleCalculations(Transaction $transaction, Money $gain, Money $amount)
+    {
+        $this->paid_amount = $this->paid_amount->add($amount);
+        $this->gain_loss = $this->gain_loss->subtract($gain);
+        $this->total_sale_amount = $this->total_sale_amount->subtract($transaction->amount);
+        $this->total_commission_amount = $this->total_commission_amount->subtract($transaction->commission_price);
+        $this->total_gain = $this->total_gain->subtract($gain)->add($transaction->commission_price);
+        $this->update();
+    }
+
+    /**
+     * Handle dividend transaction calculations.
+     *
+     * @param \App\Models\Transaction $transaction
+     */
+    public function handleDividendCalculations(Transaction $transaction)
+    {
+        $this->total_dividend_gain = $this->total_dividend_gain->add($transaction->dividend_gain);
+        $this->total_gain = $this->total_gain->add($transaction->dividend_gain);
+        $this->update();
+    }
+
+    /**
+     * Handle deleted dividend transaction calculations.
+     *
+     * @param \App\Models\Transaction $transaction
+     */
+    public function handleDeletedDividendCalculations(Transaction $transaction)
+    {
+        $this->total_dividend_gain = $this->total_dividend_gain->subtract($transaction->dividend_gain);
+        $this->total_gain = $this->total_gain->subtract($transaction->dividend_gain);
+        $this->update();
+    }
+
+    /**
+     * Handle bonus transaction calculations.
+     *
+     * @param \App\Models\Transaction $transaction
+     */
+    public function handleBonusCalculations(Transaction $transaction)
+    {
+        $this->total_bonus_share += $transaction->lot;
+        $this->update();
+    }
+
+    /**
+     * Handle deleted bonus transaction calculations.
+     *
+     * @param \App\Models\Transaction $transaction
+     */
+    public function handleDeletedBonusCalculations(Transaction $transaction)
+    {
+        $this->total_bonus_share -= $transaction->lot;
+        $this->update();
+    }
+
+    /**
+     * Handle rights transaction calculations.
+     *
+     * @param \App\Models\Transaction $transaction
+     */
+    public function handleRightsCalculations(Transaction $transaction)
+    {
+        $this->total_purchase_amount = $this->total_purchase_amount->add($transaction->amount);
+        $this->paid_amount = $this->paid_amount->add($transaction->amount);
+        $this->total_rights_share += $transaction->lot;
+        $this->update();
+    }
+
+    /**
+     * Handle deleted rights transaction calculations.
+     *
+     * @param \App\Models\Transaction $transaction
+     */
+    public function handleDeletedRightsCalculations(Transaction $transaction)
+    {
+        $this->total_purchase_amount = $this->total_purchase_amount->subtract($transaction->amount);
+        $this->paid_amount = $this->paid_amount->subtract($transaction->amount);
+        $this->total_rights_share -= $transaction->lot;
         $this->update();
     }
 }

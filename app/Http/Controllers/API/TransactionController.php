@@ -6,14 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\TransactionRequest;
 use App\Http\Resources\Portfolio as PortfolioResource;
 use App\Http\Resources\Share as ShareResource;
-use App\Http\Resources\Transaction as TransactionResource;
 use App\Models\Share;
 use App\Models\Transaction;
+use App\Traits\TransactionCalculator;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
+    use TransactionCalculator;
+
     /**
      * Create a new transaction instance for auth user after a valid request.
      *
@@ -24,6 +26,7 @@ class TransactionController extends Controller
     public function store(TransactionRequest $request)
     {
         $share = Share::findOrFail($request->share_id);
+
         $this->authorize('create', $share);
 
         try {
@@ -32,8 +35,8 @@ class TransactionController extends Controller
             $transaction->fill($data);
 
             $transaction->user_id = auth()->user()->id;
-            $transaction->price = (string) $data['price'];
-            $transaction->dividend_gain = (string) $data['dividend_gain'];
+            $transaction->price = $data['price'];
+            $transaction->dividend_gain = $data['dividend_gain'];
         } catch (\Exception $e) {
             return $this->respondError(
                 Response::HTTP_INTERNAL_SERVER_ERROR,
@@ -46,12 +49,13 @@ class TransactionController extends Controller
 
             $transaction->save();
 
-            $event = 'App\\Events\\'.$transaction->type->key.'TransactionCreated';
-            event(new $event($transaction));
+            $portfolio = $share->portfolio;
+            $function = 'handle'.$transaction->type->key.'Calculations';
+            $this->$function($portfolio, $share, $transaction);
 
             DB::commit();
 
-            $portfolio = $share->portfolio->makeHidden('shares')->refresh();
+            $portfolio = $portfolio->makeHidden('shares')->refresh();
             $share = $share->load('transactions')->makeHidden('portfolio')->refresh();
 
             return $this->respondSuccess([
@@ -84,15 +88,17 @@ class TransactionController extends Controller
         try {
             DB::beginTransaction();
 
-            $event = 'App\\Events\\'.$transaction->type->key.'TransactionDeleted';
-            event(new $event($transaction));
-
-            $portfolio = $transaction->share->portfolio->makeHidden('shares')->refresh();
-            $share = $transaction->share->makeHidden(['portfolio', 'symbol', 'transactions'])->refresh();
+            $portfolio = $transaction->share->portfolio;
+            $share = $transaction->share;
+            $function = 'handleDeleted'.$transaction->type->key.'Calculations';
+            $this->$function($portfolio, $share, $transaction);
 
             $transaction->delete();
 
             DB::commit();
+
+            $portfolio = $portfolio->makeHidden('shares')->refresh();
+            $share = $share->load('transactions')->makeHidden('portfolio')->refresh();
 
             return $this->respondSuccess([
                 'portfolio' => new PortfolioResource($portfolio),
