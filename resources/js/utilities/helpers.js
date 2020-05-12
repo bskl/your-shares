@@ -34,18 +34,18 @@ export function parseErrorMessage(error) {
       router.push({ name: 'Forbidden' });
     } else if (error.response.status === 404) {
       router.push({ name: 'NotFound' });
-    }
-
-    const errors = error.response.data.errors || [];
-    let message = '';
-
-    if (errors.length == 0) {
-      message = i18n.t('Undefined error! Please try again later.');
     } else {
-      message = errors[0][0];
+      const errors = error.response.data.errors || [];
+      let message = '';
+  
+      if (errors.length == 0) {
+        message = i18n.t('Undefined error! Please try again later.');
+      } else {
+        message = errors[0][0];
+      }
+  
+      store.dispatch('setSnackbar', { color: 'error', msg: message });
     }
-
-    store.dispatch('setSnackbar', { color: 'error', msg: message });
   } else {
     console.log(error);
   }
