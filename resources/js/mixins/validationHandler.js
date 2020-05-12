@@ -1,5 +1,6 @@
 import unset from "lodash/unset";
 import router from "../router";
+import store from '../store';
 
 export default {
   data() {
@@ -69,7 +70,7 @@ export default {
 
     focusFirstErrorInput() {
       for (let [key, value] of Object.entries(this.form)) {
-        if (!this.$refs[key].valid) {
+        if (typeof this.$refs[key] !== 'undefined' && !this.$refs[key].valid) {
           this.$refs[key].focus();
           break;
         }
