@@ -14,7 +14,7 @@ class SymbolUpdated
     /**
      * Create a new event instance.
      *
-     * @param Order $order
+     * @param \App\Models\Symbol $symbol
      *
      * @return void
      */

@@ -150,39 +150,47 @@ class Share extends BaseModel
     /**
      * Get instant gains to share based on instant prices.
      */
-    public function getInstantGainAttribute()
+    public function getInstantGainAttribute() : Money
     {
         return $this->gain->add($this->total_gain);
     }
 
     /**
      * Get instant gain trend.
+     *
+     * @return int
      */
-    public function getGainTrendAttribute()
+    public function getGainTrendAttribute() : int
     {
         return $this->gain->isPositive() ? 1 : ($this->gain->isNegative() ? -1 : 0);
     }
 
     /**
      * Get instant gain with dividend trend.
+     *
+     * @return int
      */
-    public function getGainWithDividendTrendAttribute()
+    public function getGainWithDividendTrendAttribute() : int
     {
         return $this->gain_with_dividend->isPositive() ? 1 : ($this->gain_with_dividend->isNegative() ? -1 : 0);
     }
 
     /**
      * Calculate the gain with dividend attribute with money object.
+     *
+     * @return void
      */
-    public function setGainWithDividend()
+    public function setGainWithDividend() : void
     {
         $this->gain_with_dividend = $this->amount->subtract($this->average_amount_with_dividend);
     }
 
     /**
      * Calculate common attributes with money object.
+     *
+     * @return void
      */
-    public function handleCommonCalculations()
+    public function handleCommonCalculations() : void
     {
         $this->amount = $this->symbol->last_price->multiply($this->lot);
         $this->gain = $this->amount->subtract($this->average_amount);
@@ -194,8 +202,10 @@ class Share extends BaseModel
      * Handle buying transaction calculations.
      *
      * @param \App\Models\Transaction $transaction
+     *
+     * @return void
      */
-    public function handleBuyingCalculations(Transaction $transaction)
+    public function handleBuyingCalculations(Transaction $transaction) : void
     {
         $this->lot += $transaction->lot;
         $this->average_amount = $this->average_amount->add($transaction->amount);
@@ -213,8 +223,10 @@ class Share extends BaseModel
      * Handle deleted buying transaction calculations.
      *
      * @param \App\Models\Transaction $transaction
+     *
+     * @return void
      */
-    public function handleDeletedBuyingCalculations(Transaction $transaction)
+    public function handleDeletedBuyingCalculations(Transaction $transaction) : void
     {
         $this->lot -= $transaction->lot;
         $this->average_amount = $this->average_amount->subtract($transaction->amount);
@@ -234,8 +246,10 @@ class Share extends BaseModel
      * @param \App\Models\Transaction $transaction
      * @param \Money\Money            $gain
      * @param \Money\Money            $amount
+     *
+     * @return void
      */
-    public function handleSaleCalculations(Transaction $transaction, Money $gain, Money $amount)
+    public function handleSaleCalculations(Transaction $transaction, Money $gain, Money $amount) : void
     {
         $this->lot -= $transaction->lot;
         $this->average_amount = $this->average_amount->subtract($amount);
@@ -256,8 +270,10 @@ class Share extends BaseModel
      * @param \App\Models\Transaction $transaction
      * @param \Money\Money            $gain
      * @param \Money\Money            $amount
+     *
+     * @return void
      */
-    public function handleDeletedSaleCalculations(Transaction $transaction, Money $gain, Money $amount)
+    public function handleDeletedSaleCalculations(Transaction $transaction, Money $gain, Money $amount) : void
     {
         $this->lot += $transaction->lot;
         $this->average_amount = $this->average_amount->add($amount);
@@ -276,8 +292,10 @@ class Share extends BaseModel
      * Handle dividend transaction calculations.
      *
      * @param \App\Models\Transaction $transaction
+     *
+     * @return void
      */
-    public function handleDividendCalculations(Transaction $transaction)
+    public function handleDividendCalculations(Transaction $transaction) : void
     {
         $this->average_amount_with_dividend = $this->average_amount_with_dividend->subtract($transaction->dividend_gain);
         $this->average_with_dividend = $this->average_amount_with_dividend->divide($this->lot);
@@ -291,8 +309,10 @@ class Share extends BaseModel
      * Handle deleted dividend transaction calculations.
      *
      * @param \App\Models\Transaction $transaction
+     *
+     * @return void
      */
-    public function handleDeletedDividendCalculations(Transaction $transaction)
+    public function handleDeletedDividendCalculations(Transaction $transaction) : void
     {
         $this->average_amount_with_dividend = $this->average_amount_with_dividend->add($transaction->dividend_gain);
         $this->average_with_dividend = $this->average_amount_with_dividend->divide($this->lot);
@@ -306,8 +326,10 @@ class Share extends BaseModel
      * Handle bonus transaction calculations.
      *
      * @param \App\Models\Transaction $transaction
+     *
+     * @return void
      */
-    public function handleBonusCalculations(Transaction $transaction)
+    public function handleBonusCalculations(Transaction $transaction) : void
     {
         $this->lot += $transaction->lot;
         $this->average = $this->average_amount->divide($this->lot);
@@ -320,8 +342,10 @@ class Share extends BaseModel
      * Handle deleted bonus transaction calculations.
      *
      * @param \App\Models\Transaction $transaction
+     *
+     * @return void
      */
-    public function handleDeletedBonusCalculations(Transaction $transaction)
+    public function handleDeletedBonusCalculations(Transaction $transaction) : void
     {
         $this->lot -= $transaction->lot;
         $this->average = $this->average_amount->divide($this->lot);
@@ -334,8 +358,10 @@ class Share extends BaseModel
      * Handle rights transaction calculations.
      *
      * @param \App\Models\Transaction $transaction
+     *
+     * @return void
      */
-    public function handleRightsCalculations(Transaction $transaction)
+    public function handleRightsCalculations(Transaction $transaction) : void
     {
         $this->lot += $transaction->lot;
         $this->average_amount = $this->average_amount->add($transaction->amount);
@@ -352,8 +378,10 @@ class Share extends BaseModel
      * Handle deleted rights transaction calculations.
      *
      * @param \App\Models\Transaction $transaction
+     *
+     * @return void
      */
-    public function handleDeletedRightsCalculations(Transaction $transaction)
+    public function handleDeletedRightsCalculations(Transaction $transaction) : void
     {
         $this->lot -= $transaction->lot;
         $this->average_amount = $this->average_amount->subtract($transaction->amount);

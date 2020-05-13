@@ -28,6 +28,9 @@ class UserEventSubscriber
      */
     public function onUserLogin($event)
     {
+        /*
+         * Create audit for user's logon information.
+         */
         $event->user->audits()->create([
             'logon_at'   => now(),
             'ip_address' => Request::ip(),

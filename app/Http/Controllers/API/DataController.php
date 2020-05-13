@@ -13,7 +13,7 @@ class DataController extends Controller
     /**
      * Get a set of application data.
      *
-     * @return JsonResponse
+     * @return array
      */
     public function getData()
     {

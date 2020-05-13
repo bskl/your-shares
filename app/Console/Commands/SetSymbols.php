@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use DOMDocument;
 use DOMXpath;
 use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 
 class SetSymbols extends Command
@@ -57,7 +58,12 @@ class SetSymbols extends Command
         }
     }
 
-    protected function getHtml()
+    /**
+     * Make a GET request to the URL.
+     *
+     * @return string $body
+     */
+    protected function getHtml() : string
     {
         do {
             $response = Http::get($this->url);
@@ -68,7 +74,12 @@ class SetSymbols extends Command
         return $body;
     }
 
-    protected function parseHtml()
+    /**
+     * Retrieve data from HTML body.
+     *
+     * @return array $allTr
+     */
+    protected function parseHtml() : array
     {
         $dom = new DOMDocument();
         $dom->preserveWhiteSpace = false;
@@ -85,7 +96,14 @@ class SetSymbols extends Command
         return $allTr;
     }
 
-    protected function parseSymbols($content)
+    /**
+     * Retrieve data from HTML body.
+     *
+     * @param array $content
+     *
+     * @return \Illuminate\Support\Collection $symbols
+     */
+    protected function parseSymbols($content) : Collection
     {
         $symbols = collect();
         $sessionTime = Carbon::now()->subMinutes(15);
@@ -106,14 +124,28 @@ class SetSymbols extends Command
         return $symbols;
     }
 
-    protected function getTrend($value)
+    /**
+     * Get trend from given value.
+     *
+     * @param string $value
+     *
+     * @return int
+     */
+    protected function getTrend($value) : int
     {
-        $value = floatval(str_replace(',', '.', $value));
+        $value = to_float($value);
 
         return $value > 0 ? 1 : ($value < 0 ? -1 : 0);
     }
 
-    protected function storeSymbols($symbols)
+    /**
+     * Update or create new symbol instance for the given collection.
+     *
+     * @param Illuminate\Support\Collection $symbols
+     *
+     * @return void
+     */
+    protected function storeSymbols($symbols) : void
     {
         foreach ($symbols as $symbol) {
             Symbol::updateOrCreate(

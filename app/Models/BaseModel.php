@@ -41,6 +41,8 @@ abstract class BaseModel extends Model
     protected $encryptable = [];
 
     /**
+     * Get an attribute from the model then format some attributes.
+     *
      * @param string $key
      *
      * @return mixed
@@ -61,6 +63,8 @@ abstract class BaseModel extends Model
     }
 
     /**
+     * Set a given attribute on the model.
+     *
      * @param string $key
      * @param mixed  $value
      *
@@ -88,9 +92,11 @@ abstract class BaseModel extends Model
     }
 
     /**
+     * Convert the model's attributes to an array then format some attributes.
+     *
      * @return array
      */
-    public function attributesToArray()
+    public function attributesToArray() : array
     {
         $attributes = parent::attributesToArray();
 
@@ -120,9 +126,9 @@ abstract class BaseModel extends Model
      *
      * @param string $value
      *
-     * @return Money
+     * @return \Money\Money
      */
-    public function getMoneyAttribute($value)
+    public function getMoneyAttribute($value) : Money
     {
         if ($value instanceof Money) {
             return $value;
@@ -134,11 +140,11 @@ abstract class BaseModel extends Model
     /**
      * Set a given attribute on the model.
      *
-     * @param mixed $value
+     * @param \Money\Money|string|int $value
      *
      * @return string
      */
-    public function setMoneyAttribute($value)
+    public function setMoneyAttribute($value) : string
     {
         if ($value instanceof Money) {
             return $value->getAmount();
@@ -159,17 +165,19 @@ abstract class BaseModel extends Model
      *
      * @return float
      */
-    public function setPercentAttribute($value)
+    public function setPercentAttribute($value) : float
     {
         return to_float($value) / 100;
     }
 
     /**
+     * Encrypt the given value.
+     *
      * @param mixed $value
      *
-     * @return mixed
+     * @return string
      */
-    private function encrypt($value)
+    private function encrypt($value) : string
     {
         try {
             $value = Crypt::encrypt($value);
@@ -180,6 +188,8 @@ abstract class BaseModel extends Model
     }
 
     /**
+     * Decrypt the given value.
+     *
      * @param mixed $value
      *
      * @return mixed
@@ -195,13 +205,13 @@ abstract class BaseModel extends Model
     }
 
     /**
-     * Move the item to the end of the collection.
+     * Move the item to the end of the collection by value for the given key.
      *
-     * @param Illuminate\Database\Eloquent\Collection $collection
-     * @param int|string                              $key
-     * @param int|string                              $value
+     * @param \Illuminate\Database\Eloquent\Collection $collection
+     * @param int|string                               $key
+     * @param int|string                               $value
      *
-     * @return Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function moveItemToEnd($collection, $key, $value)
     {
@@ -213,10 +223,5 @@ abstract class BaseModel extends Model
         }
 
         return $collection;
-    }
-
-    public function getEncryptable()
-    {
-        return $this->encryptable;
     }
 }

@@ -95,7 +95,7 @@ class ShareController extends Controller
      *
      * @param int $id
      *
-     * @return \App\Http\Resources\Share $share
+     * @return \App\Http\Resources\Transaction
      */
     public function getTransactions(int $id)
     {

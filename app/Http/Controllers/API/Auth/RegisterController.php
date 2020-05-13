@@ -44,9 +44,9 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param array $data
+     * @param \App\Http\Requests\API\RegisterRequest $request
      *
-     * @return User
+     * @return json $response
      */
     public function store(RegisterRequest $request)
     {

@@ -80,8 +80,10 @@ class Symbol extends BaseModel
 
     /**
      * Get the updated at attribute with convert to human readable timestamp.
+     *
+     * @return string
      */
-    public function getSessionTimeAttribute()
+    public function getSessionTimeAttribute() : string
     {
         return Carbon::createFromFormat('Y-m-d H:i:s', $this->attributes['session_time'])->format('d-m-Y H:i:s');
     }

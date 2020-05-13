@@ -102,8 +102,12 @@ class Transaction extends BaseModel
 
     /**
      * Set the date_at attribute with Carbon object.
+     *
+     * @param string $value
+     *
+     * @return void
      */
-    public function setDateAtAttribute($value)
+    public function setDateAtAttribute($value) : void
     {
         if ($value) {
             $this->attributes['date_at'] = Carbon::createFromFormat('d.m.Y', $value)->toDateTimeString();
@@ -112,8 +116,12 @@ class Transaction extends BaseModel
 
     /**
      * Get the date_at attribute with Carbon object.
+     *
+     * @param string $value
+     *
+     * @return string
      */
-    public function getDateAtAttribute($value)
+    public function getDateAtAttribute($value) : string
     {
         if ($value) {
             return Carbon::createFromFormat('Y-m-d H:i:s', $value)->formatLocalized('%d.%m.%Y');
@@ -122,16 +130,20 @@ class Transaction extends BaseModel
 
     /**
      * Get sale gain trend.
+     *
+     * @return int
      */
-    public function getSaleGainTrendAttribute()
+    public function getSaleGainTrendAttribute() : int
     {
         return $this->sale_gain->isPositive() ? 1 : ($this->sale_gain->isNegative() ? -1 : 0);
     }
 
     /**
      * Handle buying transaction calculations.
+     *
+     * @return void
      */
-    public function handleBuyingCalculations()
+    public function handleBuyingCalculations() : void
     {
         $this->remaining = $this->lot;
         $this->amount = $this->price->multiply($this->lot);
@@ -144,8 +156,10 @@ class Transaction extends BaseModel
      * Handle buying transaction calculations.
      *
      * @param \Money\Money $gain
+     *
+     * @return void
      */
-    public function handleSaleCalculations(Money $gain)
+    public function handleSaleCalculations(Money $gain) : void
     {
         $this->sale_gain = $this->sale_gain->add($gain);
         $this->amount = $this->price->multiply($this->lot);
@@ -158,8 +172,10 @@ class Transaction extends BaseModel
      * Handle bonus transaction calculations.
      *
      * @param \App\Models\Share $share
+     *
+     * @return void
      */
-    public function handleBonusCalculations(Share $share)
+    public function handleBonusCalculations(Share $share) : void
     {
         $this->remaining = $this->lot;
         $this->bonus = ($this->lot * 100) / $share->lot;
@@ -170,8 +186,10 @@ class Transaction extends BaseModel
      * Handle rights transaction calculations.
      *
      * @param \App\Models\Share $share
+     *
+     * @return void
      */
-    public function handleRightsCalculations(Share $share)
+    public function handleRightsCalculations(Share $share) : void
     {
         $this->remaining = $this->lot;
         $this->price = $this->getMoneyAttribute('100');

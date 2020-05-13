@@ -29,7 +29,7 @@ class ShareRequest extends Request
             'symbol_id'    => ['required', 'integer',
                 Rule::unique('shares')->where(function ($query) {
                     return $query->where('portfolio_id', $this->portfolio_id)
-                                    ->where('symbol_id', $this->symbol_id);
+                                 ->where('symbol_id', $this->symbol_id);
                 }),
             ],
         ];

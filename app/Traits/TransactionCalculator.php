@@ -18,7 +18,7 @@ trait TransactionCalculator
      *
      * @return void
      */
-    public function handleBuyingCalculations(Portfolio $portfolio, Share $share, Transaction $transaction)
+    public function handleBuyingCalculations(Portfolio $portfolio, Share $share, Transaction $transaction) : void
     {
         $transaction->handleBuyingCalculations();
         $share->handleBuyingCalculations($transaction);
@@ -34,7 +34,7 @@ trait TransactionCalculator
      *
      * @return void
      */
-    public function handleDeletedBuyingCalculations(Portfolio $portfolio, Share $share, Transaction $transaction)
+    public function handleDeletedBuyingCalculations(Portfolio $portfolio, Share $share, Transaction $transaction) : void
     {
         $share->handleDeletedBuyingCalculations($transaction);
         $portfolio->handleDeletedBuyingCalculations($transaction);
@@ -49,7 +49,7 @@ trait TransactionCalculator
      *
      * @return void
      */
-    public function handleSaleCalculations(Portfolio $portfolio, Share $share, Transaction $transaction)
+    public function handleSaleCalculations(Portfolio $portfolio, Share $share, Transaction $transaction) : void
     {
         $items = $share->getTransactionsByTypeAndNotSold();
         $lot = $transaction->lot;
@@ -88,7 +88,7 @@ trait TransactionCalculator
      *
      * @return void
      */
-    public function handleDeletedSaleCalculations(Portfolio $portfolio, Share $share, Transaction $transaction)
+    public function handleDeletedSaleCalculations(Portfolio $portfolio, Share $share, Transaction $transaction) : void
     {
         $items = $share->getTransactionsByTypeAndSold();
         $lot = $transaction->lot;
@@ -128,7 +128,7 @@ trait TransactionCalculator
      *
      * @return void
      */
-    public function handleDividendCalculations(Portfolio $portfolio, Share $share, Transaction $transaction)
+    public function handleDividendCalculations(Portfolio $portfolio, Share $share, Transaction $transaction) : void
     {
         $transaction->dividend = $transaction->dividend_gain->divide($transaction->lot);
         $transaction->update();
@@ -145,7 +145,7 @@ trait TransactionCalculator
      *
      * @return void
      */
-    public function handleDeletedDividendCalculations(Portfolio $portfolio, Share $share, Transaction $transaction)
+    public function handleDeletedDividendCalculations(Portfolio $portfolio, Share $share, Transaction $transaction) : void
     {
         $share->handleDeletedDividendCalculations($transaction);
         $portfolio->handleDeletedDividendCalculations($transaction);
@@ -160,7 +160,7 @@ trait TransactionCalculator
      *
      * @return void
      */
-    public function handleBonusCalculations(Portfolio $portfolio, Share $share, Transaction $transaction)
+    public function handleBonusCalculations(Portfolio $portfolio, Share $share, Transaction $transaction) : void
     {
         $transaction->handleBonusCalculations($share);
         $share->handleBonusCalculations($transaction);
@@ -176,7 +176,7 @@ trait TransactionCalculator
      *
      * @return void
      */
-    public function handleDeletedBonusCalculations(Portfolio $portfolio, Share $share, Transaction $transaction)
+    public function handleDeletedBonusCalculations(Portfolio $portfolio, Share $share, Transaction $transaction) : void
     {
         $share->handleDeletedBonusCalculations($transaction);
         $portfolio->handleDeletedBonusCalculations($transaction);
@@ -191,7 +191,7 @@ trait TransactionCalculator
      *
      * @return void
      */
-    public function handleRightsCalculations(Portfolio $portfolio, Share $share, Transaction $transaction)
+    public function handleRightsCalculations(Portfolio $portfolio, Share $share, Transaction $transaction) : void
     {
         $transaction->handleRightsCalculations($share);
         $share->handleRightsCalculations($transaction);
@@ -207,7 +207,7 @@ trait TransactionCalculator
      *
      * @return void
      */
-    public function handleDeletedRightsCalculations(Portfolio $portfolio, Share $share, Transaction $transaction)
+    public function handleDeletedRightsCalculations(Portfolio $portfolio, Share $share, Transaction $transaction) : void
     {
         $share->handleDeletedRightsCalculations($transaction);
         $portfolio->handleDeletedRightsCalculations($transaction);

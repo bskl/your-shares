@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
 use Money\Currency;
@@ -14,18 +15,17 @@ use Money\Money;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests;
-    use DispatchesJobs;
-    use ValidatesRequests;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /**
-     * Return response success with JSON.
+     * Return message and response success with JSON.
      *
-     * @param array $data
+     * @param array  $data
+     * @param string $message
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function respondSuccess(array $data = [], $message = '')
+    public function respondSuccess(array $data = [], $message = '') : JsonResponse
     {
         return response()->json([
             'data'    => $data,
@@ -34,7 +34,7 @@ class Controller extends BaseController
     }
 
     /**
-     * Return response error with JSON.
+     * Return message and response error with JSON.
      *
      * @param int    $status
      * @param array  $errors
@@ -42,7 +42,7 @@ class Controller extends BaseController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function respondError(int $status, array $errors, string $message = '')
+    public function respondError(int $status, array $errors, string $message = '') : JsonResponse
     {
         return response()->json([
             'message' => $message,
@@ -58,7 +58,7 @@ class Controller extends BaseController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getTransactionsByModelAndType(Model $model, string $type)
+    public function getTransactionsByModelAndType(Model $model, string $type) : JsonResponse
     {
         $transactionType = $this->getTransactionType($type);
         $attribute = $this->getRawAttribute($transactionType);
@@ -104,7 +104,7 @@ class Controller extends BaseController
      *
      * @return string
      */
-    public function getRawAttribute(array $transactionType)
+    public function getRawAttribute(array $transactionType) : string
     {
         switch ($transactionType['value'][0]) {
             case TransactionType::Buying:
@@ -138,7 +138,7 @@ class Controller extends BaseController
      *
      * @return array
      */
-    public function getTransactionType(string $type)
+    public function getTransactionType(string $type) : array
     {
         $type = TransactionType::getInstance(TransactionType::getValue(ucfirst($type)));
 
