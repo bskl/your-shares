@@ -151,10 +151,10 @@ abstract class BaseModel extends Model
         }
 
         $currencies = new ISOCurrencies();
-        //$numberFormatter = new \NumberFormatter(config('app.locale'), \NumberFormatter::DECIMAL);
+        //$numberFormatter = new \NumberFormatter('tr_TR', \NumberFormatter::DECIMAL);
         //$moneyParser = new IntlLocalizedDecimalParser($numberFormatter, $currencies);
         $moneyParser = new DecimalMoneyParser($currencies);
-        $money = $moneyParser->parse(format_decimal_symbol($value), new Currency(config('app.currency')));
+        $money = $moneyParser->parse(to_decimal($value), new Currency(config('app.currency')));
 
         return $money->getAmount();
     }
