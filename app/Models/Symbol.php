@@ -83,7 +83,7 @@ class Symbol extends BaseModel
      *
      * @return string
      */
-    public function getSessionTimeAttribute() : string
+    public function getSessionTimeAttribute(): string
     {
         return Carbon::createFromFormat('Y-m-d H:i:s', $this->attributes['session_time'])->format('d-m-Y H:i:s');
     }

@@ -96,7 +96,7 @@ abstract class BaseModel extends Model
      *
      * @return array
      */
-    public function attributesToArray() : array
+    public function attributesToArray(): array
     {
         $attributes = parent::attributesToArray();
 
@@ -128,7 +128,7 @@ abstract class BaseModel extends Model
      *
      * @return \Money\Money
      */
-    public function getMoneyAttribute($value) : Money
+    public function getMoneyAttribute($value): Money
     {
         if ($value instanceof Money) {
             return $value;
@@ -144,7 +144,7 @@ abstract class BaseModel extends Model
      *
      * @return string
      */
-    public function setMoneyAttribute($value) : string
+    public function setMoneyAttribute($value): string
     {
         if ($value instanceof Money) {
             return $value->getAmount();
@@ -165,7 +165,7 @@ abstract class BaseModel extends Model
      *
      * @return float
      */
-    public function setPercentAttribute($value) : float
+    public function setPercentAttribute($value): float
     {
         return to_float($value) / 100;
     }
@@ -177,7 +177,7 @@ abstract class BaseModel extends Model
      *
      * @return string
      */
-    private function encrypt($value) : string
+    private function encrypt($value): string
     {
         try {
             $value = Crypt::encrypt($value);
