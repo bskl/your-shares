@@ -125,7 +125,7 @@ class Portfolio extends BaseModel
      *
      * @return float
      */
-    public function getCommissionAttribute() : float
+    public function getCommissionAttribute(): float
     {
         if ($this->attributes['commission']) {
             return floatval($this->attributes['commission']);
@@ -137,7 +137,7 @@ class Portfolio extends BaseModel
      *
      * @return \Money\Money $instant_gain
      */
-    public function getInstantGainAttribute() : Money
+    public function getInstantGainAttribute(): Money
     {
         $sharesGain = $this->getMoneyAttribute('0');
 
@@ -155,7 +155,7 @@ class Portfolio extends BaseModel
      *
      * @return void
      */
-    public function handleBuyingCalculations(Transaction $transaction) : void
+    public function handleBuyingCalculations(Transaction $transaction): void
     {
         $this->total_purchase_amount = $this->total_purchase_amount->add($transaction->amount);
         $this->paid_amount = $this->paid_amount->add($transaction->amount);
@@ -171,7 +171,7 @@ class Portfolio extends BaseModel
      *
      * @return void
      */
-    public function handleDeletedBuyingCalculations(Transaction $transaction) : void
+    public function handleDeletedBuyingCalculations(Transaction $transaction): void
     {
         $this->total_purchase_amount = $this->total_purchase_amount->subtract($transaction->amount);
         $this->paid_amount = $this->paid_amount->subtract($transaction->amount);
@@ -189,7 +189,7 @@ class Portfolio extends BaseModel
      *
      * @return void
      */
-    public function handleSaleCalculations(Transaction $transaction, Money $gain, Money $amount) : void
+    public function handleSaleCalculations(Transaction $transaction, Money $gain, Money $amount): void
     {
         $this->paid_amount = $this->paid_amount->subtract($amount);
         $this->gain_loss = $this->gain_loss->add($gain);
@@ -208,7 +208,7 @@ class Portfolio extends BaseModel
      *
      * @return void
      */
-    public function handleDeletedSaleCalculations(Transaction $transaction, Money $gain, Money $amount) : void
+    public function handleDeletedSaleCalculations(Transaction $transaction, Money $gain, Money $amount): void
     {
         $this->paid_amount = $this->paid_amount->add($amount);
         $this->gain_loss = $this->gain_loss->subtract($gain);
@@ -225,7 +225,7 @@ class Portfolio extends BaseModel
      *
      * @return void
      */
-    public function handleDividendCalculations(Transaction $transaction) : void
+    public function handleDividendCalculations(Transaction $transaction): void
     {
         $this->total_dividend_gain = $this->total_dividend_gain->add($transaction->dividend_gain);
         $this->total_gain = $this->total_gain->add($transaction->dividend_gain);
@@ -239,7 +239,7 @@ class Portfolio extends BaseModel
      *
      * @return void
      */
-    public function handleDeletedDividendCalculations(Transaction $transaction) : void
+    public function handleDeletedDividendCalculations(Transaction $transaction): void
     {
         $this->total_dividend_gain = $this->total_dividend_gain->subtract($transaction->dividend_gain);
         $this->total_gain = $this->total_gain->subtract($transaction->dividend_gain);
@@ -253,7 +253,7 @@ class Portfolio extends BaseModel
      *
      * @return void
      */
-    public function handleBonusCalculations(Transaction $transaction) : void
+    public function handleBonusCalculations(Transaction $transaction): void
     {
         $this->total_bonus_share += $transaction->lot;
         $this->update();
@@ -266,7 +266,7 @@ class Portfolio extends BaseModel
      *
      * @return void
      */
-    public function handleDeletedBonusCalculations(Transaction $transaction) : void
+    public function handleDeletedBonusCalculations(Transaction $transaction): void
     {
         $this->total_bonus_share -= $transaction->lot;
         $this->update();
@@ -279,7 +279,7 @@ class Portfolio extends BaseModel
      *
      * @return void
      */
-    public function handleRightsCalculations(Transaction $transaction) : void
+    public function handleRightsCalculations(Transaction $transaction): void
     {
         $this->total_purchase_amount = $this->total_purchase_amount->add($transaction->amount);
         $this->paid_amount = $this->paid_amount->add($transaction->amount);
@@ -294,7 +294,7 @@ class Portfolio extends BaseModel
      *
      * @return void
      */
-    public function handleDeletedRightsCalculations(Transaction $transaction) : void
+    public function handleDeletedRightsCalculations(Transaction $transaction): void
     {
         $this->total_purchase_amount = $this->total_purchase_amount->subtract($transaction->amount);
         $this->paid_amount = $this->paid_amount->subtract($transaction->amount);

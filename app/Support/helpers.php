@@ -11,7 +11,7 @@ use Money\Money;
  *
  * @return string
  */
-function money_formatter(Money $money) : string
+function money_formatter(Money $money): string
 {
     $currencies = new ISOCurrencies();
 
@@ -28,7 +28,7 @@ function money_formatter(Money $money) : string
  *
  * @return string
  */
-function percent_formatter($value) : string
+function percent_formatter($value): string
 {
     $percentFormatter = new \NumberFormatter(config('app.locale'), \NumberFormatter::PERCENT);
     $percentFormatter->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, 2);
@@ -43,7 +43,7 @@ function percent_formatter($value) : string
  *
  * @return string
  */
-function decimal_formatter($value) : string
+function decimal_formatter($value): string
 {
     $decimalFormatter = new \NumberFormatter(config('app.locale'), \NumberFormatter::DECIMAL);
     $decimalFormatter->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, 3);
@@ -89,7 +89,7 @@ function format_decimal_symbol($values)
  *
  * @return float
  */
-function to_float($value) : float
+function to_float($value): float
 {
     if (strstr($value, ',')) {
         $value = str_replace('.', '', $value);

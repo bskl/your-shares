@@ -63,7 +63,7 @@ class SetSymbols extends Command
      *
      * @return string $body
      */
-    protected function getHtml() : string
+    protected function getHtml(): string
     {
         do {
             $response = Http::get($this->url);
@@ -79,7 +79,7 @@ class SetSymbols extends Command
      *
      * @return \DOMNodeList $allTr
      */
-    protected function parseHtml() : \DOMNodeList
+    protected function parseHtml(): \DOMNodeList
     {
         $dom = new DOMDocument();
         $dom->preserveWhiteSpace = false;
@@ -103,7 +103,7 @@ class SetSymbols extends Command
      *
      * @return \Illuminate\Support\Collection $symbols
      */
-    protected function parseSymbols($content) : Collection
+    protected function parseSymbols($content): Collection
     {
         $symbols = collect();
         $sessionTime = Carbon::now()->subMinutes(15);
@@ -131,7 +131,7 @@ class SetSymbols extends Command
      *
      * @return int
      */
-    protected function getTrend($value) : int
+    protected function getTrend($value): int
     {
         $value = to_float($value);
 
@@ -145,7 +145,7 @@ class SetSymbols extends Command
      *
      * @return void
      */
-    protected function storeSymbols($symbols) : void
+    protected function storeSymbols($symbols): void
     {
         foreach ($symbols as $symbol) {
             Symbol::updateOrCreate(

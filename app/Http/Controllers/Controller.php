@@ -15,7 +15,9 @@ use Money\Money;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests;
+    use DispatchesJobs;
+    use ValidatesRequests;
 
     /**
      * Return message and response success with JSON.
@@ -25,7 +27,7 @@ class Controller extends BaseController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function respondSuccess(array $data = [], $message = '') : JsonResponse
+    public function respondSuccess(array $data = [], $message = ''): JsonResponse
     {
         return response()->json([
             'data'    => $data,
@@ -42,7 +44,7 @@ class Controller extends BaseController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function respondError(int $status, array $errors, string $message = '') : JsonResponse
+    public function respondError(int $status, array $errors, string $message = ''): JsonResponse
     {
         return response()->json([
             'message' => $message,
@@ -58,7 +60,7 @@ class Controller extends BaseController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getTransactionsByModelAndType(Model $model, string $type) : JsonResponse
+    public function getTransactionsByModelAndType(Model $model, string $type): JsonResponse
     {
         $transactionType = $this->getTransactionType($type);
         $attribute = $this->getRawAttribute($transactionType);
@@ -104,7 +106,7 @@ class Controller extends BaseController
      *
      * @return string
      */
-    public function getRawAttribute(array $transactionType) : string
+    public function getRawAttribute(array $transactionType): string
     {
         switch ($transactionType['value'][0]) {
             case TransactionType::Buying:
@@ -138,7 +140,7 @@ class Controller extends BaseController
      *
      * @return array
      */
-    public function getTransactionType(string $type) : array
+    public function getTransactionType(string $type): array
     {
         $type = TransactionType::getInstance(TransactionType::getValue(ucfirst($type)));
 
