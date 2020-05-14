@@ -153,7 +153,7 @@ abstract class BaseModel extends Model
         $currencies = new ISOCurrencies();
         $numberFormatter = new \NumberFormatter(config('app.locale'), \NumberFormatter::DECIMAL);
         $moneyParser = new IntlLocalizedDecimalParser($numberFormatter, $currencies);
-        $money = $moneyParser->parse(format_decimal_symbol($value), config('app.currency'));
+        $money = $moneyParser->parse(format_decimal_symbol($value), new Currency(config('app.currency')));
 
         return $money->getAmount();
     }
