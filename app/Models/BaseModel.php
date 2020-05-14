@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Crypt;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Money;
-use Money\Parser\IntlLocalizedDecimalParser;
+use Money\Parser\DecimalMoneyParser;
 
 abstract class BaseModel extends Model
 {
@@ -151,8 +151,9 @@ abstract class BaseModel extends Model
         }
 
         $currencies = new ISOCurrencies();
-        $numberFormatter = new \NumberFormatter(config('app.locale'), \NumberFormatter::DECIMAL);
-        $moneyParser = new IntlLocalizedDecimalParser($numberFormatter, $currencies);
+        //$numberFormatter = new \NumberFormatter(config('app.locale'), \NumberFormatter::DECIMAL);
+        //$moneyParser = new IntlLocalizedDecimalParser($numberFormatter, $currencies);
+        $moneyParser = new DecimalMoneyParser($currencies);
         $money = $moneyParser->parse(format_decimal_symbol($value), new Currency(config('app.currency')));
 
         return $money->getAmount();

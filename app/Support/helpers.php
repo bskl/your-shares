@@ -73,8 +73,9 @@ function format_decimal_symbol($values)
             continue;
         }
 
-        $formatter = new \NumberFormatter(config('app.locale'), \NumberFormatter::DECIMAL);
-        $symbol = $formatter->getSymbol(\NumberFormatter::DECIMAL_SEPARATOR_SYMBOL);
+        //$formatter = new \NumberFormatter(config('app.locale'), \NumberFormatter::DECIMAL);
+        //$symbol = $formatter->getSymbol(\NumberFormatter::DECIMAL_SEPARATOR_SYMBOL);
+        $symbol = '.';
 
         $formatted[] = substr_replace($value, $symbol, $separatorPos, 1);
     }
