@@ -77,9 +77,9 @@ class SetSymbols extends Command
     /**
      * Retrieve data from HTML body.
      *
-     * @return array $allTr
+     * @return \DOMNodeList $allTr
      */
-    protected function parseHtml() : array
+    protected function parseHtml() : \DOMNodeList
     {
         $dom = new DOMDocument();
         $dom->preserveWhiteSpace = false;
