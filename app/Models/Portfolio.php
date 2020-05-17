@@ -121,7 +121,7 @@ class Portfolio extends BaseModel
     }
 
     /**
-     * Get the commission attribute with remove zeros from end of number ie. 0,18800 becomes 0,188.
+     * Get the commission attribute with remove zeros from end of number ie. 0.18800 becomes 0.188.
      *
      * @return float
      */

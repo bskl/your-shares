@@ -58,7 +58,6 @@ class PortfolioController extends Controller
         $data = $request->all();
         $data['user_id'] = Auth::user()->id;
         $data['order'] = ++$order;
-
         try {
             $portfolio = Portfolio::create($data);
             $portfolio->refresh()->load('shares');
