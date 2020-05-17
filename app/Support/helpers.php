@@ -86,7 +86,7 @@ function format_decimal_symbol($values)
 /**
  * Convert value to decimal.
  * [1.000, '0,15', '1.234,00'] becomes ['1000', '0.15', '1234']
- * 8.650.45 becomes '8650.45'
+ * 8.650.45 becomes '8650.45'.
  *
  * @param string|array $values
  *
@@ -108,7 +108,7 @@ function to_decimal($values)
             continue;
         }
 
-        $digits =  preg_replace('/\D/', '', substr($value, 0, $separatorPos));
+        $digits = preg_replace('/\D/', '', substr($value, 0, $separatorPos));
         $fraction = preg_replace('/\D/', '', substr($value, $separatorPos));
 
         $formatted[] = filled($fraction) ? $digits.'.'.$fraction : $digits;
@@ -118,7 +118,7 @@ function to_decimal($values)
 }
 
 /**
- * Convert value to float. ie. 1.000,55 becomes 1000.55 or 0,1234 becomes 0.1234
+ * Convert value to float. ie. 1.000,55 becomes 1000.55 or 0,1234 becomes 0.1234.
  *
  * @param mixed $value
  *
