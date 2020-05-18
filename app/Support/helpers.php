@@ -63,7 +63,10 @@ function format_decimal_symbol($values)
     $formatted = [];
 
     foreach (Arr::wrap($values) as $value) {
-        $value = strval($value);
+        if (!is_string($value)) {
+            throw new \Exception('Given value should be string.');
+        }
+
         $dotPos = strrpos($value, '.');
         $commaPos = strrpos($value, ',');
         $separatorPos = (($dotPos > $commaPos) && $dotPos) ? $dotPos :
@@ -85,8 +88,8 @@ function format_decimal_symbol($values)
 
 /**
  * Convert value to decimal.
- * [1.000, '0,15', '1.234,00'] becomes ['1000', '0.15', '1234']
- * 8.650.45 becomes '8650.45'.
+ * ['1.000', '0,15', '1.234,00'] becomes ['1000', '0.15', '1234']
+ * '8.650.45' becomes '8650.45'.
  *
  * @param string|array $values
  *
@@ -97,7 +100,10 @@ function to_decimal($values)
     $formatted = [];
 
     foreach (Arr::wrap($values) as $value) {
-        $value = strval($value);
+        if (!is_string($value)) {
+            throw new \Exception('Given value should be string.');
+        }
+
         $dotPos = strrpos($value, '.');
         $commaPos = strrpos($value, ',');
         $separatorPos = (($dotPos > $commaPos) && $dotPos) ? $dotPos :
