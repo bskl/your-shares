@@ -35,8 +35,8 @@ class TransactionController extends Controller
             $transaction->fill($data);
 
             $transaction->user_id = auth()->user()->id;
-            $transaction->price = $data['price'];
-            $transaction->dividend_gain = $data['dividend_gain'];
+            $transaction->price = (string) $data['price'];
+            $transaction->dividend_gain = (string) $data['dividend_gain'];
         } catch (\Exception $e) {
             return $this->respondError(
                 Response::HTTP_INTERNAL_SERVER_ERROR,
