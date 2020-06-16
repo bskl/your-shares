@@ -15,16 +15,7 @@ class Portfolio extends BaseModel
      * @var array
      */
     protected $guarded = [
-        'id',
-    ];
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'user_id', 'name', 'currency', 'commission', 'order', 'total_bonus_share', 'total_rights_share',
+        'id', 'user_id', 'order',
     ];
 
     /**

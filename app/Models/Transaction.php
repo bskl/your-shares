@@ -21,15 +21,6 @@ class Transaction extends BaseModel
     ];
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'share_id', 'type', 'date_at', 'lot', 'remaining', 'commission',
-    ];
-
-    /**
      * The attributes that are money object.
      *
      * @var array

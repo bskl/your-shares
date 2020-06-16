@@ -14,15 +14,6 @@ class Audit extends BaseModel
     ];
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'logon_at', 'ip_address', 'user_agent',
-    ];
-
-    /**
      * The attributes that should be mutated to dates.
      *
      * @var array
