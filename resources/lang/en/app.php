@@ -24,7 +24,6 @@ return [
         'update_error'   => 'Portföy güncelleme sırasında hata oluştu. Lütfen daha sonra tekrar deneyiniz.',
         'delete_success' => 'Portföy başarılı bir şekilde silinmiştir.',
         'delete_error'   => 'Portföy silme sırasında hata oluştu. Lütfen daha sonra tekrar deneyiniz.',
-        'destroy_error'  => 'Hesabınıza bağlı son portföy silinemez!',
     ],
     'share' => [
         'create_success' => 'Hisse portföyünüze başarılı bir şekilde eklenmiştir.',
