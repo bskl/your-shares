@@ -28,7 +28,7 @@ router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some((route) => route.meta.requiresAuth);
 
   if (requiresAuth) {
-    if (!to.name !== 'Login' && !store.getters.isLoggedIn) {
+    if (to.name !== 'Login' && !store.getters.isLoggedIn) {
       next({ name: 'Login', query: { redirect: to.fullPath } });
     } else {
       if (!store.getters.portfoliosCount) {
