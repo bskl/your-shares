@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Models\Portfolio;
+use App\Notifications\ConfirmationCode as ConfirmationCodeNotification;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Request;
 
@@ -13,6 +14,11 @@ class UserEventSubscriber
      */
     public function onUserRegister($event)
     {
+        $event->user->confirmation_code = hash_hmac('sha256', Str::random(60), config('app.key'));
+        $event->user->save();
+
+        $event->user->notify(new ConfirmationCodeNotification($event->user->confirmation_code));
+
         /*
          * Create standart portfolio data for new user.
          */

@@ -6,7 +6,6 @@ use App\Enums\UserType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\RegisterRequest;
 use App\Models\User;
-use App\Notifications\ConfirmationCode as ConfirmationCodeNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -51,11 +50,6 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
             'locale'   => config('app.locale'), //$request->getPreferredLanguage(['tr', 'en']),
         ]);
-
-        $user->confirmation_code = hash_hmac('sha256', Str::random(60), config('app.key'));
-        $user->save();
-
-        $user->notify(new ConfirmationCodeNotification($user->confirmation_code));
 
         event(new Registered($user));
 
