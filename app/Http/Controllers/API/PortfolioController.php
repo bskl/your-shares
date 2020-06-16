@@ -44,22 +44,15 @@ class PortfolioController extends Controller
     /**
      * Create a new portfolio instance for auth user after a valid request.
      *
-     * @param PortfolioRequest $request
+     * @param \App\Http\Requests\API\PortfolioRequest $request
      *
      * @return \App\Http\Resources\Portfolio $portfolio
      */
     public function store(PortfolioRequest $request)
     {
-        $this->authorize(Portfolio::class);
-
-        $order = Portfolio::byCurrentUser()->count();
-        $data = $request->all();
-        $data['user_id'] = Auth::user()->id;
-        $data['order'] = ++$order;
-
         try {
-            $portfolio = Portfolio::create($data);
-            $portfolio->refresh()->load('shares');
+            $portfolio = Portfolio::create($request->validated());
+            $portfolio->refresh();
 
             return (new PortfolioResource($portfolio))->additional([
                 'message' => trans('app.portfolio.create_success'),
