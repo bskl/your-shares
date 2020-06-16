@@ -10,7 +10,6 @@ use App\Notifications\ConfirmationCode as ConfirmationCodeNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -27,17 +26,13 @@ class RegisterController extends Controller
     |
     */
 
-    private $loginController;
-
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(LoginController $loginController)
+    public function __construct()
     {
-        $this->loginController = $loginController;
-
         $this->middleware('guest');
     }
 
