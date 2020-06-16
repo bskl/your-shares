@@ -17,15 +17,6 @@ class Share extends BaseModel
     ];
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'user_id', 'portfolio_id', 'symbol_id', 'lot', 'total_bonus_share', 'total_rights_share',
-    ];
-
-    /**
      * The attributes that are money object.
      *
      * @var array
