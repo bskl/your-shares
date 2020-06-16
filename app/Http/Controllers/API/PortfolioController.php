@@ -102,13 +102,6 @@ class PortfolioController extends Controller
     {
         $this->authorize($portfolio);
 
-        if (Portfolio::byCurrentUser()->count() <= 1) {
-            return $this->respondError(
-                Response::HTTP_UNPROCESSABLE_ENTITY,
-                [trans('app.portfolio.destroy_error')]
-            );
-        }
-
         try {
             $portfolio->delete();
 
