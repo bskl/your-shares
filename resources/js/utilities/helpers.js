@@ -18,7 +18,7 @@ export function redirectError(error) {
 }
 
 export function parseSuccessMessage(res) {
-  const message = res.message || [];
+  const message = res.message || res || [];
 
   if (message.length == 0) return '';
 

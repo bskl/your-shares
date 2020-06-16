@@ -65,7 +65,7 @@ export default {
         this.updatePortfolio({ id: this.$route.params.id, form: this.form })
           .then((res) => {
             this.clearErrors();
-            parseSuccessMessage(res);
+            parseSuccessMessage(this.$t('Your portfolio is successfully updated.'));
             this.$router.push({ name: 'Home' });
           })
           .catch((error) => {

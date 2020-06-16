@@ -18,11 +18,8 @@ return [
     ],
     'portfolio' => [
         'default'        => 'Portföy',
-        'create_success' => 'Yeni portföy başarılı bir şekilde oluşturulmuştur.',
         'create_error'   => 'Portföy oluşturulurken hata oluştu. Lütfen daha sonra tekrar deneyiniz.',
-        'update_success' => 'Portföyünüz başarılı bir şekilde güncellenmiştir.',
         'update_error'   => 'Portföy güncelleme sırasında hata oluştu. Lütfen daha sonra tekrar deneyiniz.',
-        'delete_success' => 'Portföy başarılı bir şekilde silinmiştir.',
         'delete_error'   => 'Portföy silme sırasında hata oluştu. Lütfen daha sonra tekrar deneyiniz.',
     ],
     'share' => [
