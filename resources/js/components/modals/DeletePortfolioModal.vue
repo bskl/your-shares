@@ -78,7 +78,7 @@ export default {
 
       this.destroyPortfolio(this.id)
         .then((res) => {
-          parseSuccessMessage(res)
+          parseSuccessMessage(this.$t('Portfolio has been successfully deleted.'));
           this.$router.push({ name: 'Home' });
         })
         .catch((error) => {

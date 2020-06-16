@@ -51,7 +51,7 @@ export default {
         this.storePortfolio(this.form)
           .then((res) => {
             this.clearErrors();
-            parseSuccessMessage(res);
+            parseSuccessMessage(this.$t('The new portfolio has been successfully created.'));
             this.$router.push({ name: 'Home' });
           })
           .catch((error) => {
