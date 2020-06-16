@@ -30,14 +30,12 @@ class PortfolioController extends Controller
     /**
      * Show the portfolio for the given id.
      *
-     * @param int $id
+     * @param \App\Models\Portfolio $portfolio
      *
      * @return \App\Http\Resources\Portfolio $portfolio
      */
-    public function show(int $id)
+    public function show(Portfolio $portfolio)
     {
-        $portfolio = Portfolio::findOrFail($id);
-
         $this->authorize($portfolio);
 
         return new PortfolioResource($portfolio->only('name', 'currency', 'commission'));
@@ -77,19 +75,17 @@ class PortfolioController extends Controller
     /**
      * Update given portfolio instance after a valid request.
      *
-     * @param PortfolioRequest $request
-     * @param int              $id
+     * @param \App\Models\Portfolio $portfolio
+     * @param \App\Http\Requests\API\PortfolioRequest $request
      *
      * @return \App\Http\Resources\Portfolio $portfolio
      */
-    public function update(PortfolioRequest $request, int $id)
+    public function update(Portfolio $portfolio, PortfolioRequest $request)
     {
-        $portfolio = Portfolio::findOrFail($id);
-
         $this->authorize($portfolio);
 
         try {
-            $portfolio->update($request->all());
+            $portfolio->update($request->validated());
 
             return (new PortfolioResource([]))->additional([
                 'message' => trans('app.portfolio.update_success'),
@@ -105,14 +101,12 @@ class PortfolioController extends Controller
     /**
      * Delete a portfolio instance.
      *
-     * @param int $id
+     * @param \App\Models\Portfolio $portfolio
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(int $id)
+    public function destroy(Portfolio $portfolio)
     {
-        $portfolio = Portfolio::findOrFail($id);
-
         $this->authorize($portfolio);
 
         if (Portfolio::byCurrentUser()->count() <= 1) {
@@ -139,15 +133,13 @@ class PortfolioController extends Controller
     /**
      * Get portfolio instance with transactions by type.
      *
-     * @param int    $id
+     * @param \App\Models\Portfolio $portfolio
      * @param string $type
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getTransactionsByType(int $id, string $type)
+    public function getTransactionsByType(Portfolio $portfolio, string $type)
     {
-        $portfolio = Portfolio::findOrFail($id);
-
         $this->authorize('view', $portfolio);
 
         return $this->getTransactionsByModelAndType($portfolio, $type);
@@ -156,16 +148,14 @@ class PortfolioController extends Controller
     /**
      * Get portfolio instance transactions by type and year.
      *
-     * @param int    $id
+     * @param \App\Models\Portfolio $portfolio
      * @param string $type
      * @param int    $year
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getTransactionsByTypeAndYear(int $id, string $type, int $year)
+    public function getTransactionsByTypeAndYear(Portfolio $portfolio, string $type, int $year)
     {
-        $portfolio = Portfolio::findOrFail($id);
-
         $this->authorize('view', $portfolio);
 
         $transactionType = $this->getTransactionType($type);
