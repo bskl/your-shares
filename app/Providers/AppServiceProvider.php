@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Portfolio;
+use App\Observers\PortfolioObserver;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -31,5 +33,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('env', function ($environment) {
             return app()->environment($environment);
         });
+
+        Portfolio::observe(PortfolioObserver::class);
     }
 }

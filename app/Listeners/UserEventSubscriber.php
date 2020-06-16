@@ -23,9 +23,7 @@ class UserEventSubscriber
          * Create standart portfolio data for new user.
          */
         Portfolio::create([
-            'user_id' => $event->user->id,
             'name'    => Lang::get('app.portfolio.default'),
-            'order'   => 1,
         ]);
     }
 
