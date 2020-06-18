@@ -41,7 +41,7 @@ Route::namespace('API')->group(function () {
         Route::get('/shares/{share}/transactions/{type}/{year}', 'ShareController@getTransactionsByTypeAndYear');
 
         Route::post('/transactions', 'TransactionController@store');
-        Route::delete('/transactions/{id}', 'TransactionController@destroy');
+        Route::delete('/transactions/{transaction}', 'TransactionController@destroy');
 
         Route::get('/symbols', 'SymbolController@index');
         Route::get('/symbols/update', 'SymbolController@update');
