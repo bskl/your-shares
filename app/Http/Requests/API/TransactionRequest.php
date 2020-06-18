@@ -31,7 +31,7 @@ class TransactionRequest extends Request
         $addRule .= ($this->type == TransactionType::Buying || $this->type == TransactionType::Sale) ? '|integer' : '';
 
         return [
-            'share_id'      => 'required|integer|exists:shares,id,user_id,'.auth()->user()->id,
+            'share_id'      => 'required|integer|exists:shares,id,user_id,'.$this->user()->id,
             'type'          => 'required|integer|enum_value:'.TransactionType::class,
             'date_at'       => 'required|date|before_or_equal:'.Carbon::today()->toDateString(),
             'lot'           => 'required|gt:0'.$addRule,
