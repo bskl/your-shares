@@ -58,6 +58,9 @@ export default {
         .then((res) => {
           this.symbols = res.data;
           this.searching = false;
+        })
+        .catch((error) => {
+          this.syncErrors(error);
         });
     }
   },
