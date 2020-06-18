@@ -125,7 +125,7 @@ export default {
   },
 
   fetchSymbolsData({ commit }) {
-    return http.get('/symbols/data')
+    return http.get('/symbols/update')
       .then((res) => {
         commit('SET_PORTFOLIOS', res.data.data);
 
