@@ -113,6 +113,7 @@ export default {
   "The page timed out while loading. Are you sure you're still connected to the Internet?": "The page timed out while loading. Are you sure you're still connected to the Internet?",
   "Return Home Page": "Return Home Page",
   "Delete share from the portfolio": "Delete share from the portfolio.",
+  "Share prices are successfully updated.": "Share prices are successfully updated.",
   "Year": "Yıl",
   "January": "January",
   "February": "February",

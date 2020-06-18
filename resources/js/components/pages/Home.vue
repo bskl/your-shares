@@ -63,7 +63,7 @@ export default {
 
       this.fetchSymbolsData()
         .then((res) => {
-          parseSuccessMessage(res);
+          parseSuccessMessage(this.$t('Share prices are successfully updated.'));
         })
         .catch((error) => {
           parseErrorMessage(error);

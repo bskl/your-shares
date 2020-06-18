@@ -48,9 +48,6 @@ class SymbolController extends Controller
 
         $portfolios = Portfolio::byCurrentUser()->get();
 
-        return PortfolioResource::collection($portfolios)
-                                ->additional([
-                                    'message' => trans('app.symbol.update_success'),
-                                ]);
+        return PortfolioResource::collection($portfolios);
     }
 }

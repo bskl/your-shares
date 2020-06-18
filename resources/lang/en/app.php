@@ -35,9 +35,6 @@ return [
         'delete_success' => 'Hissenize ait son işlem başarılı bir şekilde silinmiştir.',
         'delete_error'   => 'İşlem silme sırasında hata oluştu. Lütfen daha sonra tekrar deneyiniz.',
     ],
-    'symbol' => [
-        'update_success' => 'Hisse fiyatları başarılı bir şekilde güncellenmiştir.',
-    ],
     'auth_error'    => 'Bu işlemi yapmak için yetkiniz yoktur.',
     'service_error' => 'Servis kullanılamıyor. Lütfen daha sonra tekrar deneyiniz.',
 ];
