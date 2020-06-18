@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\Portfolio;
+use App\Models\Share;
 use App\Observers\PortfolioObserver;
+use App\Observers\ShareObserver;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -35,5 +37,6 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Portfolio::observe(PortfolioObserver::class);
+        Share::observe(ShareObserver::class);
     }
 }

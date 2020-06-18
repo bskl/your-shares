@@ -13,7 +13,7 @@ class Share extends BaseModel
      * @var array
      */
     protected $guarded = [
-        'id', 'average_with_dividend', 'average_amount_with_dividend', 'gain_with_dividend',
+        'id', 'user_id', 'average_with_dividend', 'average_amount_with_dividend', 'gain_with_dividend',
     ];
 
     /**

@@ -36,11 +36,8 @@ class ShareController extends Controller
     {
         $this->authorize(Share::class);
 
-        $data = $request->all();
-        $data['user_id'] = auth()->user()->id;
-
         try {
-            $share = Share::create($data);
+            $share = Share::create($request->validated());
             $share->refresh()->load('symbol');
 
             return (new ShareResource($share))->additional([
