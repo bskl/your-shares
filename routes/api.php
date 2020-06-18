@@ -34,11 +34,11 @@ Route::namespace('API')->group(function () {
         Route::delete('/portfolios/{portfolio}', 'PortfolioController@destroy');
 
         Route::post('/shares', 'ShareController@store');
-        Route::get('/shares/{id}', 'ShareController@show');
-        Route::delete('/shares/{id}', 'ShareController@destroy');
-        Route::get('/shares/{id}/transactions', 'ShareController@getTransactions');
-        Route::get('/shares/{id}/transactions/{type}', 'ShareController@getTransactionsByType');
-        Route::get('/shares/{id}/transactions/{type}/{year}', 'ShareController@getTransactionsByTypeAndYear');
+        Route::get('/shares/{share}', 'ShareController@show');
+        Route::delete('/shares/{share}', 'ShareController@destroy');
+        Route::get('/shares/{share}/transactions', 'ShareController@getTransactions');
+        Route::get('/shares/{share}/transactions/{type}', 'ShareController@getTransactionsByType');
+        Route::get('/shares/{share}/transactions/{type}/{year}', 'ShareController@getTransactionsByTypeAndYear');
 
         Route::post('/transactions', 'TransactionController@store');
         Route::delete('/transactions/{id}', 'TransactionController@destroy');

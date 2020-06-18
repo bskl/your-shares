@@ -14,14 +14,12 @@ class ShareController extends Controller
     /**
      * Show the share instance for the given id.
      *
-     * @param int $id
+     * @param \App\Models\Share $share
      *
      * @return \App\Http\Resources\Share $share
      */
-    public function show(int $id)
+    public function show(Share $share)
     {
-        $share = Share::findOrFail($id);
-
         $this->authorize($share);
 
         return new ShareResource($share);
@@ -30,7 +28,7 @@ class ShareController extends Controller
     /**
      * Create a new share instance for auth user after a valid request.
      *
-     * @param ShareRequest $request
+     * @param \App\Http\Requests\API\ShareRequest $request
      *
      * @return \App\Http\Resources\Share $share
      */
@@ -59,14 +57,12 @@ class ShareController extends Controller
     /**
      * Delete a share instance.
      *
-     * @param int $id
+     * @param \App\Models\Share $share
      *
      * @return \App\Http\Resources\Share $share
      */
-    public function destroy(int $id)
+    public function destroy(Share $share)
     {
-        $share = Share::findOrFail($id);
-
         $this->authorize($share);
 
         if ($share->total_purchase_amount->isPositive()) {
@@ -93,14 +89,12 @@ class ShareController extends Controller
     /**
      * Get share instance with all transactions.
      *
-     * @param int $id
+     * @param \App\Models\Share $share
      *
      * @return \App\Http\Resources\Transaction
      */
-    public function getTransactions(int $id)
+    public function getTransactions(Share $share)
     {
-        $share = Share::with('transactions')->findOrFail($id);
-
         $this->authorize('view', $share);
 
         return TransactionResource::collection($share->transactions);
@@ -109,15 +103,13 @@ class ShareController extends Controller
     /**
      * Get share instance with transactions by type.
      *
-     * @param int    $id
+     * @param \App\Models\Share $share
      * @param string $type
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getTransactionsByType(int $id, string $type)
+    public function getTransactionsByType(Share $share, string $type)
     {
-        $share = Share::findOrFail($id);
-
         $this->authorize('view', $share);
 
         return $this->getTransactionsByModelAndType($share, $type);
@@ -126,16 +118,14 @@ class ShareController extends Controller
     /**
      * Get share instance with transactions by type and year.
      *
-     * @param int    $id
+     * @param \App\Models\Share $share
      * @param string $type
      * @param int    $year
      *
      * @return \App\Http\Resources\Transaction $transactions
      */
-    public function getTransactionsByTypeAndYear(int $id, string $type, int $year)
+    public function getTransactionsByTypeAndYear(Share $share, string $type, int $year)
     {
-        $share = Share::findOrFail($id);
-
         $this->authorize('view', $share);
 
         $transactionType = $this->getTransactionType($type);
