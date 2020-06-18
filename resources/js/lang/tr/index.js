@@ -113,6 +113,7 @@ export default {
   "The page timed out while loading. Are you sure you're still connected to the Internet?": "Sayfa yüklenirken zaman aşımına uğradı. Hala internete bağlı olduğundan emin misin?",
   "Return Home Page": "Ana Sayfaya Dön",
   "Delete share from the portfolio": "Hisseyi portföyden Sil",
+  "Share prices are successfully updated.": "Hisse fiyatları başarılı bir şekilde güncellenmiştir.",
   "Year": "Yıl",
   "January": "Ocak",
   "February": "Şubat",
