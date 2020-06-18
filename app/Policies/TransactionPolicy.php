@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-use App\Models\Share;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -40,14 +39,12 @@ class TransactionPolicy
      * Determine whether the user can create transactions.
      *
      * @param \App\Models\User        $user
-     * @param \App\Models\Transaction $transaction
-     * @param \App\Models\Share       $share
      *
      * @return mixed
      */
-    public function create(User $user, Share $share)
+    public function create(User $user)
     {
-        return $user->id === $share->user_id;
+        return true;
     }
 
     /**
