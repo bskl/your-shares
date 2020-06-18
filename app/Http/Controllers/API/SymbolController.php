@@ -46,8 +46,6 @@ class SymbolController extends Controller
             );
         }
 
-        $portfolios = Portfolio::byCurrentUser()->get();
-
-        return PortfolioResource::collection($portfolios);
+        return redirect()->action('API\PortfolioController@index');
     }
 }
