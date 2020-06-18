@@ -73,14 +73,12 @@ class TransactionController extends Controller
     /**
      * Delete a transaction instance.
      *
-     * @param int $id
+     * @param \App\Models\Transaction $transaction
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(int $id)
+    public function destroy(Transaction $transaction)
     {
-        $transaction = Transaction::findOrFail($id);
-
         $this->authorize($transaction);
 
         try {
