@@ -32,7 +32,6 @@ class TransactionController extends Controller
             $transaction = new Transaction();
             $transaction->fill($data);
 
-            $transaction->user_id = auth()->user()->id;
             $transaction->price = (string) $data['price'];
             $transaction->dividend_gain = (string) $data['dividend_gain'];
         } catch (\Exception $e) {
