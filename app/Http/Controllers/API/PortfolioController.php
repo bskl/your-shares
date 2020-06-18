@@ -52,7 +52,7 @@ class PortfolioController extends Controller
     {
         try {
             $portfolio = Portfolio::create($request->validated());
-            $portfolio->refresh();
+            $portfolio->refresh()->load('share');
 
             return new PortfolioResource($portfolio);
         } catch (\Exception $e) {
