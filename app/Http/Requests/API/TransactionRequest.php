@@ -26,9 +26,13 @@ class TransactionRequest extends Request
      */
     public function rules()
     {
-        $share = Share::findOrFail($this->share_id);
-        $addRule = ($this->type == TransactionType::Sale || $this->type == TransactionType::Dividend) ? '|lte:'.$share->lot : '';
-        $addRule .= ($this->type == TransactionType::Buying || $this->type == TransactionType::Sale) ? '|integer' : '';
+        $addRule = '';
+        if ($this->type == TransactionType::Buying || $this->type == TransactionType::Sale) {
+            $addRule .= '|integer';
+        }
+        if ($this->type == TransactionType::Sale || $this->type == TransactionType::Dividend) {
+            $addRule .= '|lte:'.optional(Share::find($this->share_id))->lot;
+        }
 
         return [
             'share_id'      => 'required|integer|exists:shares,id,user_id,'.$this->user()->id,
