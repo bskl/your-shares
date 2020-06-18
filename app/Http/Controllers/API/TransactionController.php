@@ -19,18 +19,16 @@ class TransactionController extends Controller
     /**
      * Create a new transaction instance for auth user after a valid request.
      *
-     * @param TransactionRequest $request
+     * @param \App\Http\Requests\API\TransactionRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(TransactionRequest $request)
     {
-        $share = Share::findOrFail($request->share_id);
-
-        $this->authorize('create', $share);
+        $this->authorize(Transaction::class);
 
         try {
-            $data = $request->all();
+            $data = $request->validated();
             $transaction = new Transaction();
             $transaction->fill($data);
 
@@ -49,7 +47,8 @@ class TransactionController extends Controller
 
             $transaction->save();
 
-            $portfolio = $share->portfolio;
+            $portfolio = $transaction->share->portfolio;
+            $share = $transaction->share;
             $function = 'handle'.$transaction->type->key.'Calculations';
             $this->$function($portfolio, $share, $transaction);
 
