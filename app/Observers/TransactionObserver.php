@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Transaction;
+use App\Services\TransactionService;
 use Illuminate\Support\Facades\Auth;
 
 class TransactionObserver
@@ -26,7 +27,8 @@ class TransactionObserver
      */
     public function created(Transaction $transaction)
     {
-        //
+        $method = 'handleCalculationsOf'.$transaction->type->key;
+        TransactionService::{$method}($transaction);
     }
 
     /**
@@ -48,7 +50,8 @@ class TransactionObserver
      */
     public function deleted(Transaction $transaction)
     {
-        //
+        $method = 'handleCalculationsOfDeleted'.$transaction->type->key;
+        TransactionService::{$method}($transaction);
     }
 
     /**
