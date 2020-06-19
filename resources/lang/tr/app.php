@@ -23,9 +23,7 @@ return [
         'delete_error'   => 'Portföy silme sırasında hata oluştu. Lütfen daha sonra tekrar deneyiniz.',
     ],
     'share' => [
-        'create_success' => 'Hisse portföyünüze başarılı bir şekilde eklenmiştir.',
         'create_error'   => 'Hisse oluşturulurken hata oluştu. Lütfen daha sonra tekrar deneyiniz.',
-        'delete_success' => 'Hisse portföyünüzden başarılı bir şekilde silinmiştir.',
         'delete_error'   => 'Hisse silme sırasında hata oluştu. Lütfen daha sonra tekrar deneyiniz.',
         'cannot_deleted' => 'Hisse alım tutarı 0\'dan büyük olduğu için silinemez!',
     ],

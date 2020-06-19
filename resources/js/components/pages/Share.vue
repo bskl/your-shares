@@ -75,7 +75,7 @@ export default {
     deleteShare() {
       this.destroyShare({ 'id': this.share.id, 'portfolio_id': this.share.portfolio_id })
         .then((res) => {
-          parseSuccessMessage(res);
+          parseSuccessMessage(this.$t('Share has been successfully deleted from your portfolio.'));
           this.$router.push({ name: 'Home' });
         })
         .catch((error) => {

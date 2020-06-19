@@ -105,7 +105,7 @@ export default {
 
         this.storeShare(this.form)
           .then((res) => {
-            parseSuccessMessage(res);
+            parseSuccessMessage(this.$t('The new share has been successfully added to your portfolio.'));
             this.close();
           })
           .catch((error) => {
