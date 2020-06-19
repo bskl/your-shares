@@ -28,20 +28,12 @@ class TransactionController extends Controller
         $this->authorize(Transaction::class);
 
         try {
-            $data = $request->validated();
             $transaction = new Transaction();
-            $transaction->fill($data);
+            $transaction->fill($request->validated());
 
-            $transaction->price = (string) $data['price'];
-            $transaction->dividend_gain = (string) $data['dividend_gain'];
-        } catch (\Exception $e) {
-            return $this->respondError(
-                Response::HTTP_INTERNAL_SERVER_ERROR,
-                ['transaction' => trans('app.transaction.create_error')]
-            );
-        }
+            $transaction->price = (string) $request->price;
+            $transaction->dividend_gain = (string) $request->dividend_gain;
 
-        try {
             DB::beginTransaction();
 
             $transaction->save();
