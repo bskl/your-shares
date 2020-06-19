@@ -40,9 +40,7 @@ class ShareController extends Controller
             $share = Share::create($request->validated());
             $share->refresh()->load('symbol');
 
-            return (new ShareResource($share))->additional([
-                'message' => trans('app.share.create_success'),
-            ]);
+            return new ShareResource($share);
         } catch (\Exception $e) {
             return $this->respondError(
                 Response::HTTP_UNPROCESSABLE_ENTITY,
@@ -72,9 +70,7 @@ class ShareController extends Controller
         try {
             $share->delete();
 
-            return (new ShareResource([]))->additional([
-                'message' => trans('app.share.delete_success'),
-            ]);
+            return new ShareResource([]);
         } catch (\Exception $e) {
             return $this->respondError(
                 Response::HTTP_UNPROCESSABLE_ENTITY,
