@@ -23,7 +23,7 @@ class UserEventSubscriber
          * Create standart portfolio data for new user.
          */
         Portfolio::create([
-            'name'    => Lang::get('app.portfolio.default'),
+            'name' => Lang::get('app.portfolio.default'),
         ]);
     }
 
