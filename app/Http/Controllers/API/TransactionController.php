@@ -6,16 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\TransactionRequest;
 use App\Http\Resources\Portfolio as PortfolioResource;
 use App\Http\Resources\Share as ShareResource;
-use App\Models\Share;
 use App\Models\Transaction;
-use App\Traits\TransactionCalculator;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
-    use TransactionCalculator;
-
     /**
      * Create a new transaction instance for auth user after a valid request.
      *
@@ -28,25 +24,19 @@ class TransactionController extends Controller
         $this->authorize(Transaction::class);
 
         try {
-            $transaction = new Transaction();
-            $transaction->fill($request->validated());
-
-            $transaction->price = (string) $request->price;
-            $transaction->dividend_gain = (string) $request->dividend_gain;
-
             DB::beginTransaction();
 
-            $transaction->save();
+            $transaction = new Transaction();
 
-            $portfolio = $transaction->share->portfolio;
-            $share = $transaction->share;
-            $function = 'handle'.$transaction->type->key.'Calculations';
-            $this->$function($portfolio, $share, $transaction);
+            $transaction->fill($request->validated());
+            $transaction->price = (string) $request->price;
+            $transaction->dividend_gain = (string) $request->dividend_gain;
+            $transaction->save();
 
             DB::commit();
 
-            $portfolio = $portfolio->makeHidden('shares')->refresh();
-            $share = $share->load('transactions')->makeHidden('portfolio')->refresh();
+            $portfolio = $transaction->share->portfolio->makeHidden('shares')->refresh();
+            $share = $transaction->share->load('transactions')->makeHidden('portfolio')->refresh();
 
             return $this->respondSuccess([
                 'portfolio'   => new PortfolioResource($portfolio),
@@ -76,17 +66,12 @@ class TransactionController extends Controller
         try {
             DB::beginTransaction();
 
-            $portfolio = $transaction->share->portfolio;
-            $share = $transaction->share;
-            $function = 'handleDeleted'.$transaction->type->key.'Calculations';
-            $this->$function($portfolio, $share, $transaction);
-
             $transaction->delete();
 
             DB::commit();
 
-            $portfolio = $portfolio->makeHidden('shares')->refresh();
-            $share = $share->load('transactions')->makeHidden('portfolio')->refresh();
+            $portfolio = $transaction->share->portfolio->makeHidden('shares')->refresh();
+            $share = $transaction->share->load('transactions')->makeHidden('portfolio')->refresh();
 
             return $this->respondSuccess([
                 'portfolio' => new PortfolioResource($portfolio),

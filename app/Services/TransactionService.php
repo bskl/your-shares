@@ -1,57 +1,49 @@
 <?php
 
-namespace App\Traits;
+namespace App\Services;
 
-use App\Models\Portfolio;
-use App\Models\Share;
 use App\Models\Transaction;
 use Money\Money;
 
-trait TransactionCalculator
+class TransactionService
 {
     /**
      * Handle calculations when create a new buying transaction instance.
      *
-     * @param \App\Models\Portfolio   $portfolio
-     * @param \App\Models\Share       $share
      * @param \App\Models\Transaction $transaction
      *
      * @return void
      */
-    public function handleBuyingCalculations(Portfolio $portfolio, Share $share, Transaction $transaction): void
+    public static function handleCalculationsOfBuying(Transaction $transaction): void
     {
-        $transaction->handleBuyingCalculations();
-        $share->handleBuyingCalculations($transaction);
-        $portfolio->handleBuyingCalculations($transaction);
+        $transaction->handleCalculationsOfBuying();
+        $transaction->share->handleCalculationsOfBuying($transaction);
+        $transaction->share->portfolio->handleCalculationsOfBuying($transaction);
     }
 
     /**
      * Handle calculations when delete a buying transaction instance.
      *
-     * @param \App\Models\Portfolio   $portfolio
-     * @param \App\Models\Share       $share
      * @param \App\Models\Transaction $transaction
      *
      * @return void
      */
-    public function handleDeletedBuyingCalculations(Portfolio $portfolio, Share $share, Transaction $transaction): void
+    public static function handleCalculationsOfDeletedBuying(Transaction $transaction): void
     {
-        $share->handleDeletedBuyingCalculations($transaction);
-        $portfolio->handleDeletedBuyingCalculations($transaction);
+        $transaction->share->handleCalculationsOfDeletedBuying($transaction);
+        $transaction->share->portfolio->handleCalculationsOfDeletedBuying($transaction);
     }
 
     /**
      * Handle calculations when create a new sale transaction instance.
      *
-     * @param \App\Models\Portfolio   $portfolio
-     * @param \App\Models\Share       $share
      * @param \App\Models\Transaction $transaction
      *
      * @return void
      */
-    public function handleSaleCalculations(Portfolio $portfolio, Share $share, Transaction $transaction): void
+    public static function handleCalculationsOfSale(Transaction $transaction): void
     {
-        $items = $share->getTransactionsByTypeAndNotSold();
+        $items = $transaction->share->getTransactionsByTypeAndNotSold();
         $lot = $transaction->lot;
         $gain = $amount = Money::TRY(0);
 
@@ -74,23 +66,21 @@ trait TransactionCalculator
             }
         });
 
-        $transaction->handleSaleCalculations($gain);
-        $share->handleSaleCalculations($transaction, $gain, $amount);
-        $portfolio->handleSaleCalculations($transaction, $gain, $amount);
+        $transaction->handleCalculationsOfSale($gain);
+        $transaction->share->handleCalculationsOfSale($transaction, $gain, $amount);
+        $transaction->share->portfolio->handleCalculationsOfSale($transaction, $gain, $amount);
     }
 
     /**
      * Handle calculations when delete a sale transaction instance.
      *
-     * @param \App\Models\Portfolio   $portfolio
-     * @param \App\Models\Share       $share
      * @param \App\Models\Transaction $transaction
      *
      * @return void
      */
-    public function handleDeletedSaleCalculations(Portfolio $portfolio, Share $share, Transaction $transaction): void
+    public static function handleCalculationsOfDeletedSale(Transaction $transaction): void
     {
-        $items = $share->getTransactionsByTypeAndSold();
+        $items = $transaction->share->getTransactionsByTypeAndSold();
         $lot = $transaction->lot;
         $gain = $amount = Money::TRY(0);
 
@@ -115,101 +105,89 @@ trait TransactionCalculator
             }
         });
 
-        $share->handleDeletedSaleCalculations($transaction, $gain, $amount);
-        $portfolio->handleDeletedSaleCalculations($transaction, $gain, $amount);
+        $transaction->share->handleCalculationsOfDeletedSale($transaction, $gain, $amount);
+        $transaction->share->portfolio->handleCalculationsOfDeletedSale($transaction, $gain, $amount);
     }
 
     /**
      * Handle calculations when create a new dividend transaction instance.
      *
-     * @param \App\Models\Portfolio   $portfolio
-     * @param \App\Models\Share       $share
      * @param \App\Models\Transaction $transaction
      *
      * @return void
      */
-    public function handleDividendCalculations(Portfolio $portfolio, Share $share, Transaction $transaction): void
+    public static function handleCalculationsOfDividend(Transaction $transaction): void
     {
         $transaction->dividend = $transaction->dividend_gain->divide($transaction->lot);
         $transaction->update();
-        $share->handleDividendCalculations($transaction);
-        $portfolio->handleDividendCalculations($transaction);
+        $transaction->share->handleCalculationsOfDividend($transaction);
+        $transaction->share->portfolio->handleCalculationsOfDividend($transaction);
     }
 
     /**
      * Handle calculations when delete a dividend transaction instance.
      *
-     * @param \App\Models\Portfolio   $portfolio
-     * @param \App\Models\Share       $share
      * @param \App\Models\Transaction $transaction
      *
      * @return void
      */
-    public function handleDeletedDividendCalculations(Portfolio $portfolio, Share $share, Transaction $transaction): void
+    public static function handleCalculationsOfDeletedDividend(Transaction $transaction): void
     {
-        $share->handleDeletedDividendCalculations($transaction);
-        $portfolio->handleDeletedDividendCalculations($transaction);
+        $transaction->share->handleCalculationsOfDeletedDividend($transaction);
+        $transaction->share->portfolio->handleCalculationsOfDeletedDividend($transaction);
     }
 
     /**
      * Handle calculations when create a new bonus transaction instance.
      *
-     * @param \App\Models\Portfolio   $portfolio
-     * @param \App\Models\Share       $share
      * @param \App\Models\Transaction $transaction
      *
      * @return void
      */
-    public function handleBonusCalculations(Portfolio $portfolio, Share $share, Transaction $transaction): void
+    public static function handleCalculationsOfBonus(Transaction $transaction): void
     {
-        $transaction->handleBonusCalculations($share);
-        $share->handleBonusCalculations($transaction);
-        $portfolio->handleBonusCalculations($transaction);
+        $transaction->handleCalculationsOfBonus($share);
+        $transaction->share->handleCalculationsOfBonus($transaction);
+        $transaction->share->portfolio->handleCalculationsOfBonus($transaction);
     }
 
     /**
      * Handle calculations when delete a bonus transaction instance.
      *
-     * @param \App\Models\Portfolio   $portfolio
-     * @param \App\Models\Share       $share
      * @param \App\Models\Transaction $transaction
      *
      * @return void
      */
-    public function handleDeletedBonusCalculations(Portfolio $portfolio, Share $share, Transaction $transaction): void
+    public static function handleCalculationsOfDeletedBonus(Transaction $transaction): void
     {
-        $share->handleDeletedBonusCalculations($transaction);
-        $portfolio->handleDeletedBonusCalculations($transaction);
+        $transaction->share->handleCalculationsOfDeletedBonus($transaction);
+        $transaction->share->portfolio->handleCalculationsOfDeletedBonus($transaction);
     }
 
     /**
      * Handle calculations when create a new rights transaction instance.
      *
-     * @param \App\Models\Portfolio   $portfolio
-     * @param \App\Models\Share       $share
      * @param \App\Models\Transaction $transaction
      *
      * @return void
      */
-    public function handleRightsCalculations(Portfolio $portfolio, Share $share, Transaction $transaction): void
+    public static function handleCalculationsOfRights(Transaction $transaction): void
     {
-        $transaction->handleRightsCalculations($share);
-        $share->handleRightsCalculations($transaction);
-        $portfolio->handleRightsCalculations($transaction);
+        $transaction->handleCalculationsOfRights($share);
+        $transaction->share->handleCalculationsOfRights($transaction);
+        $transaction->share->portfolio->handleCalculationsOfRights($transaction);
     }
 
     /**
      * Handle calculations when delete a rights transaction instance.
      *
-     * @param \App\Models\Portfolio   $portfolio
-     * @param \App\Models\Share       $share
      * @param \App\Models\Transaction $transaction
      *
      * @return void
      */
-    public function handleDeletedRightsCalculations(Portfolio $portfolio, Share $share, Transaction $transaction): void
+    public static function handleCalculationsOfDeletedRights(Transaction $transaction): void
     {
-        $share->handleDeletedRightsCalculations($transaction);
-        $portfolio->handleDeletedRightsCalculations($transaction);
+        $transaction->share->handleCalculationsOfDeletedRights($transaction);
+        $transaction->share->portfolio->handleCalculationsOfDeletedRights($transaction);
     }
 }

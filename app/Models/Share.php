@@ -196,7 +196,7 @@ class Share extends BaseModel
      *
      * @return void
      */
-    public function handleBuyingCalculations(Transaction $transaction): void
+    public function handleCalculationsOfBuying(Transaction $transaction): void
     {
         $this->lot += $transaction->lot;
         $this->average_amount = $this->average_amount->add($transaction->amount);
@@ -217,7 +217,7 @@ class Share extends BaseModel
      *
      * @return void
      */
-    public function handleDeletedBuyingCalculations(Transaction $transaction): void
+    public function handleCalculationsOfDeletedBuying(Transaction $transaction): void
     {
         $this->lot -= $transaction->lot;
         $this->average_amount = $this->average_amount->subtract($transaction->amount);
@@ -240,7 +240,7 @@ class Share extends BaseModel
      *
      * @return void
      */
-    public function handleSaleCalculations(Transaction $transaction, Money $gain, Money $amount): void
+    public function handleCalculationsOfSale(Transaction $transaction, Money $gain, Money $amount): void
     {
         $this->lot -= $transaction->lot;
         $this->average_amount = $this->average_amount->subtract($amount);
@@ -264,7 +264,7 @@ class Share extends BaseModel
      *
      * @return void
      */
-    public function handleDeletedSaleCalculations(Transaction $transaction, Money $gain, Money $amount): void
+    public function handleCalculationsOfDeletedSale(Transaction $transaction, Money $gain, Money $amount): void
     {
         $this->lot += $transaction->lot;
         $this->average_amount = $this->average_amount->add($amount);
@@ -286,7 +286,7 @@ class Share extends BaseModel
      *
      * @return void
      */
-    public function handleDividendCalculations(Transaction $transaction): void
+    public function handleCalculationsOfDividend(Transaction $transaction): void
     {
         $this->average_amount_with_dividend = $this->average_amount_with_dividend->subtract($transaction->dividend_gain);
         $this->average_with_dividend = $this->average_amount_with_dividend->divide($this->lot);
@@ -303,7 +303,7 @@ class Share extends BaseModel
      *
      * @return void
      */
-    public function handleDeletedDividendCalculations(Transaction $transaction): void
+    public function handleCalculationsOfDeletedDividend(Transaction $transaction): void
     {
         $this->average_amount_with_dividend = $this->average_amount_with_dividend->add($transaction->dividend_gain);
         $this->average_with_dividend = $this->average_amount_with_dividend->divide($this->lot);
@@ -320,7 +320,7 @@ class Share extends BaseModel
      *
      * @return void
      */
-    public function handleBonusCalculations(Transaction $transaction): void
+    public function handleCalculationsOfBonus(Transaction $transaction): void
     {
         $this->lot += $transaction->lot;
         $this->average = $this->average_amount->divide($this->lot);
@@ -336,7 +336,7 @@ class Share extends BaseModel
      *
      * @return void
      */
-    public function handleDeletedBonusCalculations(Transaction $transaction): void
+    public function handleCalculationsOfDeletedBonus(Transaction $transaction): void
     {
         $this->lot -= $transaction->lot;
         $this->average = $this->average_amount->divide($this->lot);
@@ -352,7 +352,7 @@ class Share extends BaseModel
      *
      * @return void
      */
-    public function handleRightsCalculations(Transaction $transaction): void
+    public function handleCalculationsOfRights(Transaction $transaction): void
     {
         $this->lot += $transaction->lot;
         $this->average_amount = $this->average_amount->add($transaction->amount);
@@ -372,7 +372,7 @@ class Share extends BaseModel
      *
      * @return void
      */
-    public function handleDeletedRightsCalculations(Transaction $transaction): void
+    public function handleCalculationsOfDeletedRights(Transaction $transaction): void
     {
         $this->lot -= $transaction->lot;
         $this->average_amount = $this->average_amount->subtract($transaction->amount);
