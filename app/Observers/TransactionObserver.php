@@ -11,7 +11,8 @@ class TransactionObserver
     /**
      * Handle the transaction "creating" event.
      *
-     * @param  \App\Models\Transaction $transaction
+     * @param \App\Models\Transaction $transaction
+     *
      * @return void
      */
     public function creating(Transaction $transaction)
@@ -22,7 +23,8 @@ class TransactionObserver
     /**
      * Handle the transaction "created" event.
      *
-     * @param  \App\Models\Transaction  $transaction
+     * @param \App\Models\Transaction $transaction
+     *
      * @return void
      */
     public function created(Transaction $transaction)
@@ -34,7 +36,8 @@ class TransactionObserver
     /**
      * Handle the transaction "updated" event.
      *
-     * @param  \App\Models\Transaction  $transaction
+     * @param \App\Models\Transaction $transaction
+     *
      * @return void
      */
     public function updated(Transaction $transaction)
@@ -45,7 +48,8 @@ class TransactionObserver
     /**
      * Handle the transaction "deleted" event.
      *
-     * @param  \App\Models\Transaction  $transaction
+     * @param \App\Models\Transaction $transaction
+     *
      * @return void
      */
     public function deleted(Transaction $transaction)
@@ -57,7 +61,8 @@ class TransactionObserver
     /**
      * Handle the transaction "restored" event.
      *
-     * @param  \App\Models\Transaction  $transaction
+     * @param \App\Models\Transaction $transaction
+     *
      * @return void
      */
     public function restored(Transaction $transaction)
@@ -68,7 +73,8 @@ class TransactionObserver
     /**
      * Handle the transaction "force deleted" event.
      *
-     * @param  \App\Models\Transaction  $transaction
+     * @param \App\Models\Transaction $transaction
+     *
      * @return void
      */
     public function forceDeleted(Transaction $transaction)
