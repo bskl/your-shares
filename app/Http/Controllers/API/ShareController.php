@@ -97,7 +97,7 @@ class ShareController extends Controller
      * Get share instance with transactions by type.
      *
      * @param \App\Models\Share $share
-     * @param string $type
+     * @param string            $type
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -112,8 +112,8 @@ class ShareController extends Controller
      * Get share instance with transactions by type and year.
      *
      * @param \App\Models\Share $share
-     * @param string $type
-     * @param int    $year
+     * @param string            $type
+     * @param int               $year
      *
      * @return \App\Http\Resources\Transaction $transactions
      */

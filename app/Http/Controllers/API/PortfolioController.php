@@ -66,7 +66,7 @@ class PortfolioController extends Controller
     /**
      * Update given portfolio instance after a valid request.
      *
-     * @param \App\Models\Portfolio $portfolio
+     * @param \App\Models\Portfolio                   $portfolio
      * @param \App\Http\Requests\API\PortfolioRequest $request
      *
      * @return \App\Http\Resources\Portfolio $portfolio
@@ -114,7 +114,7 @@ class PortfolioController extends Controller
      * Get portfolio instance with transactions by type.
      *
      * @param \App\Models\Portfolio $portfolio
-     * @param string $type
+     * @param string                $type
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -129,8 +129,8 @@ class PortfolioController extends Controller
      * Get portfolio instance transactions by type and year.
      *
      * @param \App\Models\Portfolio $portfolio
-     * @param string $type
-     * @param int    $year
+     * @param string                $type
+     * @param int                   $year
      *
      * @return \Illuminate\Http\JsonResponse
      */
