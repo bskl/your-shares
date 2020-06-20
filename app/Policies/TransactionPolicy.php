@@ -38,7 +38,7 @@ class TransactionPolicy
     /**
      * Determine whether the user can create transactions.
      *
-     * @param \App\Models\User        $user
+     * @param \App\Models\User $user
      *
      * @return mixed
      */

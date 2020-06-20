@@ -10,7 +10,8 @@ class PortfolioObserver
     /**
      * Handle the portfolio "creating" event.
      *
-     * @param  \App\Models\Portfolio  $portfolio
+     * @param \App\Models\Portfolio $portfolio
+     *
      * @return void
      */
     public function creating(Portfolio $portfolio)
@@ -22,7 +23,8 @@ class PortfolioObserver
     /**
      * Handle the portfolio "created" event.
      *
-     * @param  \App\Models\Portfolio  $portfolio
+     * @param \App\Models\Portfolio $portfolio
+     *
      * @return void
      */
     public function created(Portfolio $portfolio)
@@ -33,7 +35,8 @@ class PortfolioObserver
     /**
      * Handle the portfolio "updated" event.
      *
-     * @param  \App\Models\Portfolio  $portfolio
+     * @param \App\Models\Portfolio $portfolio
+     *
      * @return void
      */
     public function updated(Portfolio $portfolio)
@@ -44,7 +47,8 @@ class PortfolioObserver
     /**
      * Handle the portfolio "deleted" event.
      *
-     * @param  \App\Models\Portfolio  $portfolio
+     * @param \App\Models\Portfolio $portfolio
+     *
      * @return void
      */
     public function deleted(Portfolio $portfolio)
@@ -55,7 +59,8 @@ class PortfolioObserver
     /**
      * Handle the portfolio "restored" event.
      *
-     * @param  \App\Models\Portfolio  $portfolio
+     * @param \App\Models\Portfolio $portfolio
+     *
      * @return void
      */
     public function restored(Portfolio $portfolio)
@@ -66,7 +71,8 @@ class PortfolioObserver
     /**
      * Handle the portfolio "force deleted" event.
      *
-     * @param  \App\Models\Portfolio  $portfolio
+     * @param \App\Models\Portfolio $portfolio
+     *
      * @return void
      */
     public function forceDeleted(Portfolio $portfolio)

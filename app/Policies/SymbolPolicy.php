@@ -13,7 +13,7 @@ class SymbolPolicy
     /**
      * Determine whether the user can view any symbols.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      *
      * @return mixed
      */
@@ -25,8 +25,8 @@ class SymbolPolicy
     /**
      * Determine whether the user can view the symbol.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Symbol  $symbol
+     * @param \App\Models\User   $user
+     * @param \App\Models\Symbol $symbol
      *
      * @return mixed
      */
@@ -38,7 +38,7 @@ class SymbolPolicy
     /**
      * Determine whether the user can create symbols.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      *
      * @return mixed
      */
@@ -50,7 +50,7 @@ class SymbolPolicy
     /**
      * Determine whether the user can update the symbol.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      *
      * @return mixed
      */
@@ -62,8 +62,8 @@ class SymbolPolicy
     /**
      * Determine whether the user can delete the symbol.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Symbol  $symbol
+     * @param \App\Models\User   $user
+     * @param \App\Models\Symbol $symbol
      *
      * @return mixed
      */
@@ -75,8 +75,8 @@ class SymbolPolicy
     /**
      * Determine whether the user can restore the symbol.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Symbol  $symbol
+     * @param \App\Models\User   $user
+     * @param \App\Models\Symbol $symbol
      *
      * @return mixed
      */
@@ -88,8 +88,8 @@ class SymbolPolicy
     /**
      * Determine whether the user can permanently delete the symbol.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Symbol  $symbol
+     * @param \App\Models\User   $user
+     * @param \App\Models\Symbol $symbol
      *
      * @return mixed
      */
