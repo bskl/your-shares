@@ -110,7 +110,7 @@ class SetSymbols extends Command
 
         foreach ($content as $tr) {
             $symbol = [
-                'code'           => preg_replace('/[^a-zA-Z0-9]/', '', $tr->childNodes[1]->nodeValue),
+                'code'           => preg_replace('/[^a-zA-Z0-9]/', '', $tr->childNodes[0]->nodeValue),
                 'title'          => $tr->childNodes[1]->hasAttribute('title') ? trim($tr->childNodes[1]->getAttribute('title')) : '',
                 'trend'          => $this->getTrend(trim($tr->childNodes[4]->nodeValue)),
                 'last_price'     => trim($tr->childNodes[2]->nodeValue),
