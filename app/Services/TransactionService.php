@@ -47,7 +47,7 @@ class TransactionService
         $lot = $transaction->lot;
         $gain = $amount = Money::TRY(0);
 
-        $items->each(function ($item) use ($transaction, $share, &$lot, &$gain, &$amount) {
+        $items->each(function ($item) use ($transaction, &$lot, &$gain, &$amount) {
             $soldLot = ($item->remaining < $lot) ? $item->remaining : $lot;
             $soldAmount = $transaction->price->multiply($soldLot);
             $item->remaining = $item->remaining - $soldLot;
@@ -84,7 +84,7 @@ class TransactionService
         $lot = $transaction->lot;
         $gain = $amount = Money::TRY(0);
 
-        $items->each(function ($item) use ($transaction, $share, &$lot, &$gain, &$amount) {
+        $items->each(function ($item) use ($transaction, &$lot, &$gain, &$amount) {
             $itemSold = $item->lot - $item->remaining;
             $soldLot = ($itemSold < $lot) ? $itemSold : $lot;
             $item->remaining = $item->remaining + $soldLot;
@@ -146,7 +146,7 @@ class TransactionService
      */
     public static function handleCalculationsOfBonus(Transaction $transaction): void
     {
-        $transaction->handleCalculationsOfBonus($share);
+        $transaction->handleCalculationsOfBonus();
         $transaction->share->handleCalculationsOfBonus($transaction);
         $transaction->share->portfolio->handleCalculationsOfBonus($transaction);
     }
@@ -173,7 +173,7 @@ class TransactionService
      */
     public static function handleCalculationsOfRights(Transaction $transaction): void
     {
-        $transaction->handleCalculationsOfRights($share);
+        $transaction->handleCalculationsOfRights();
         $transaction->share->handleCalculationsOfRights($transaction);
         $transaction->share->portfolio->handleCalculationsOfRights($transaction);
     }

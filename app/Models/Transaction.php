@@ -162,30 +162,26 @@ class Transaction extends BaseModel
     /**
      * Handle bonus transaction calculations.
      *
-     * @param \App\Models\Share $share
-     *
      * @return void
      */
-    public function handleCalculationsOfBonus(Share $share): void
+    public function handleCalculationsOfBonus(): void
     {
         $this->remaining = $this->lot;
-        $this->bonus = ($this->lot * 100) / $share->lot;
+        $this->bonus = ($this->lot * 100) / $this->share->lot;
         $this->update();
     }
 
     /**
      * Handle rights transaction calculations.
      *
-     * @param \App\Models\Share $share
-     *
      * @return void
      */
-    public function handleCalculationsOfRights(Share $share): void
+    public function handleCalculationsOfRights(): void
     {
         $this->remaining = $this->lot;
         $this->price = $this->getMoneyAttribute('100');
         $this->amount = $this->price->multiply($this->lot);
-        $this->rights = ($this->lot * 100) / $share->lot;
+        $this->rights = ($this->lot * 100) / $this->share->lot;
         $this->update();
     }
 }
