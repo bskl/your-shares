@@ -139,6 +139,7 @@ export default {
             :items="portfolio.shares"
             :hide-default-footer="portfolio.shares.length < 11"
             :no-data-text="$t('You have not created any symbol.')"
+            :items-per-page="15"
             :headers="[
               { text: $t('Symbol'), value: 'code', align: 'start' },
               { text: $t('Last Price'), value: 'last_price', align: 'center' },
