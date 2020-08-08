@@ -3,14 +3,11 @@
 namespace App\Models;
 
 use App\Enums\TransactionType;
-use BenSampo\Enum\Traits\CastsEnums;
 use Carbon\Carbon;
 use Money\Money;
 
 class Transaction extends BaseModel
 {
-    use CastsEnums;
-
     /**
      * The attributes that aren't mass assignable.
      *
@@ -75,11 +72,11 @@ class Transaction extends BaseModel
     ];
 
     /**
-     * The attributes that should be mutated to enum class.
+     * The attributes that should be cast.
      *
      * @var array
      */
-    protected $enumCasts = [
+    protected $casts = [
         'type' => TransactionType::class,
     ];
 

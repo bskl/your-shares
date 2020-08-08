@@ -1,7 +1,5 @@
 <script>
 
-import { TRANSACTION_TYPES } from '../../store/constants.js';
-
 export default {
    props: {
     items: {
@@ -20,7 +18,6 @@ export default {
    */
   data() {
     return {
-      transactionTypes: TRANSACTION_TYPES,
       pageCount: 1,
     }
   },
@@ -52,7 +49,7 @@ export default {
       </v-row>
     </template>
     <template v-slot:item.type="{ item }">
-      {{ $t(transactionTypes[item.type]) }}
+      {{ item.type.description }}
     </template>
     <template v-slot:item.gain_loss="{ item }">
       <div class="text-right"
@@ -60,12 +57,12 @@ export default {
           'red--text': item.sale_gain_trend == -1,
           'green--text': item.sale_gain_trend == 1
         }"
-        v-if="item.type == 0 || item.type == 1"
+        v-if="item.type.value == 0 || item.type.value == 1"
       >
         {{ item.sale_gain }}
       </div>
       <div class="d-flex align-center justify-end"
-        v-if="item.type == 2"
+        v-if="item.type.value == 2"
       >
         <v-col cols="auto" class="pr-0 text-right">
           {{ item.dividend_gain }}
@@ -75,7 +72,7 @@ export default {
         </v-col>
       </div>
       <div class="d-flex align-center justify-end"
-        v-if="item.type == 3"
+        v-if="item.type.value == 3"
       >
         <v-col cols="auto" class="pr-0 text-right">
           {{ item.bonus }}
@@ -85,7 +82,7 @@ export default {
         </v-col>
       </div>
       <div class="d-flex align-center justify-end"
-        v-if="item.type == 4"
+        v-if="item.type.value == 4"
       >
         <v-col cols="auto" class="pr-0 text-right">
           {{ item.rights }}

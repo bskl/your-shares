@@ -45,7 +45,7 @@ export default {
       waitFor: 'store_transaction',
       form: {
         share_id: this.shareId,
-        type: 0,
+        type: TRANSACTION_TYPES.Buying,
         date_at: null,
         lot: null,
         price: null,
@@ -63,10 +63,16 @@ export default {
 
   computed: {
     transactionTypes() {
-      return TRANSACTION_TYPES.map((item, index) => ({
-        id: index,
-        label: this.$t(item),
-      }))
+      let typeOptions = [];
+
+      for (const [key, value] of Object.entries(TRANSACTION_TYPES)) {
+        typeOptions.push({
+          id: value,
+          label: this.$t(key)
+        });
+      }
+
+      return typeOptions;
     },
   },
 

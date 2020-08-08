@@ -80,7 +80,7 @@ export default {
     }
   },
   DELETE_ITEM_DETAILS(state, { portfolioIndex, shareIndex, transaction }) {
-    const type = lowerFirst(TRANSACTION_TYPES[transaction.type]);
+    const type = lowerFirst(transaction.type.key);
     const year = transaction.date_at.split('.')[2];
 
     delete state.portfolios[portfolioIndex][type];

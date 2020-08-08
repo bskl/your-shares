@@ -37,13 +37,13 @@ export const ITEM_DETAILS = [
   },
 ];
 
-export const TRANSACTION_TYPES = [
-  'Buying',
-  'Sale',
-  'Dividend',
-  'Bonus',
-  'Rights'
-];
+export const TRANSACTION_TYPES = {
+  Buying: 0,
+  Sale: 1,
+  Dividend: 2,
+  Bonus: 3,
+  Rights: 4,
+};
 
 export const USER_TYPES = {
   user: 2,
