@@ -6,6 +6,7 @@ use App\Models\Portfolio;
 use App\Notifications\ConfirmationCode as ConfirmationCodeNotification;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Str;
 
 class UserEventSubscriber
 {
