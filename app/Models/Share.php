@@ -28,6 +28,15 @@ class Share extends BaseModel
     ];
 
     /**
+     * The attributes that are format percentages.
+     *
+     * @var array
+     */
+    protected $percent = [
+        'gain_percent',
+    ];
+
+    /**
      * The attributes that are format decimal.
      *
      * @var array
@@ -51,7 +60,7 @@ class Share extends BaseModel
      * @var array
      */
     protected $appends = [
-        'instant_gain', 'gain_trend', 'gain_with_dividend_trend',
+        'instant_gain', 'gain_percent', 'gain_trend', 'gain_with_dividend_trend',
     ];
 
     /**
@@ -129,6 +138,25 @@ class Share extends BaseModel
 
     /**
      * Get instant gains to share based on instant prices.
+     *
+     * @return float
+     */
+    public function getGainPercentAttribute(): float
+    {
+        if ($this->amount->equals($this->getMoneyAttribute('0'))) {
+            return 0;
+        }
+
+        $gain = $this->formatByDecimal($this->gain);
+        $amount = $this->formatByDecimal($this->amount);
+
+        return $gain / $amount;
+    }
+
+    /**
+     * Get instant gains to share based on instant prices.
+     *
+     * @return \Money\Money
      */
     public function getInstantGainAttribute(): Money
     {

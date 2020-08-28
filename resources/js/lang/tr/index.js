@@ -53,6 +53,7 @@ export default {
   "Amount": "Tutar",
   "Average Amount": "Ortalama Tutar",
   "Gain/Loss": "Kar/Zarar",
+  "Gain/Loss (%)": "Kar/Zarar (%)",
   "Actions": "İşlemler",
   "Transaction Date": "İşlem Tarihi",
   "Transaction": "İşlem",

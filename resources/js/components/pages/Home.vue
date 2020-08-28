@@ -149,6 +149,7 @@ export default {
               { text: $t('Amount'), value: 'amount', align: 'center' },
               { text: $t('Average Amount'), value: 'average_amount', align: 'center' },
               { text: $t('Gain/Loss'), value: 'gain', align: 'center' },
+              { text: $t('Gain/Loss (%)'), value: 'gain_percent', align: 'center' },
             ]"
           >
             <template v-slot:item.code="{ item }">
@@ -222,6 +223,15 @@ export default {
                   :class="getTextColor(item.gain_with_dividend_trend)"
                 >
                   ({{ item.gain_with_dividend }})
+                </v-col>
+              </div>
+            </template>
+            <template v-slot:item.gain_percent="{ item }">
+              <div class="d-flex align-center justify-center">
+                <v-col cols="auto" class="pr-0 text-right"
+                  :class="getTextColor(item.gain_trend)"
+                >
+                  {{ item.gain_percent }}
                 </v-col>
               </div>
             </template>

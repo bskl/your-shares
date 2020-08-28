@@ -53,6 +53,7 @@ export default {
   "Amount": "Amount",
   "Average Amount": "Average Amount",
   "Gain/Loss": "Gain/Loss",
+  "Gain/Loss (%)": "Gain/Loss (%)",
   "Actions": "Actions",
   "Transaction Date": "Transaction Date",
   "Transaction": "Transaction",

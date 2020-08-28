@@ -7,6 +7,8 @@ use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Money;
 use Money\Parser\DecimalMoneyParser;
+use Money\Formatter\IntlMoneyFormatter;
+use Money\Formatter\DecimalMoneyFormatter;
 
 abstract class BaseModel extends Model
 {
@@ -140,6 +142,39 @@ abstract class BaseModel extends Model
         $money = $moneyParser->parse(to_decimal($value), new Currency(config('app.currency')));
 
         return $money->getAmount();
+    }
+
+    /**
+     * Format given money with intl money formatter.
+     *
+     * @param \Money\Money  $money
+     *
+     * @return string
+     */
+    public function formatByIntl(Money $money) : string
+    {
+        $currencies = new ISOCurrencies();
+
+        $numberFormatter = new \NumberFormatter(config('app.locale'), \NumberFormatter::CURRENCY);
+        $moneyFormatter = new IntlMoneyFormatter($numberFormatter, $currencies);
+
+        return $moneyFormatter->format($money);
+    }
+
+    /**
+     * Format given money with decimal money formatter.
+     *
+     * @param \Money\Money  $money
+     *
+     * @return string
+     */
+    public function formatByDecimal(Money $money) : string
+    {
+        $currencies = new ISOCurrencies();
+
+        $moneyFormatter = new DecimalMoneyFormatter($currencies);
+
+        return $moneyFormatter->format($money);
     }
 
     /**
