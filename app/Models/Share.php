@@ -83,7 +83,7 @@ class Share extends BaseModel
         parent::boot();
 
         static::addGlobalScope('orderByLot', function (Builder $builder) {
-            $builder->orderByRaw('CASE WHEN lot = 0 THEN lot END ASC, symbol_id ASC');
+            $builder->orderByRaw('CASE WHEN lot < 1 THEN lot END ASC, symbol_id ASC');
         });
     }
 
