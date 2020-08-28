@@ -176,5 +176,11 @@ export default {
   },
 
   "page_text": "{itemsLength} satırdan {pageStart} - {pageStop} arası",
+
+  "Buying": "Alım",
+  "Sale": "Satım",
+  "Dividend": "Temettü",
+  "Bonus": "Bedelsiz",
+  "Rights": "Bedelli",
   "list_by_type_year_title": "{year} {code} {type} İşlemleri",
 };

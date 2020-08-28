@@ -176,5 +176,11 @@ export default {
   },
 
   "page_text": "{pageStart} - {pageStop} of {itemsLength}",
+
+  "Buying": "Buying",
+  "Sale": "Sale",
+  "Dividend": "Dividend",
+  "Bonus": "Bonus",
+  "Rights": "Rights",
   "list_by_type_year_title": "{year} {code} {type} İşlemleri",
 };
