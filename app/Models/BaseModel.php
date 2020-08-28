@@ -84,10 +84,6 @@ abstract class BaseModel extends Model
             $value = $this->setPercentAttribute($value);
         }
 
-        if (in_array($key, $this->encryptable)) {
-            $value = $this->encrypt($value);
-        }
-
         return parent::setAttribute($key, $value);
     }
 
@@ -224,5 +220,10 @@ abstract class BaseModel extends Model
         }
 
         return $collection;
+    }
+
+    public function getEncryptable()
+    {
+        return $this->encryptable;
     }
 }
