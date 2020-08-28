@@ -151,7 +151,7 @@ abstract class BaseModel extends Model
      *
      * @return string
      */
-    public function formatByIntl(Money $money) : string
+    public function formatByIntl(Money $money): string
     {
         $currencies = new ISOCurrencies();
 
@@ -168,7 +168,7 @@ abstract class BaseModel extends Model
      *
      * @return string
      */
-    public function formatByDecimal(Money $money) : string
+    public function formatByDecimal(Money $money): string
     {
         $currencies = new ISOCurrencies();
 
