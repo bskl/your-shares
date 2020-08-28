@@ -65,16 +65,6 @@ class Portfolio extends BaseModel
     ];
 
     /**
-     * The attributes that should be encrypted/decrypted.
-     *
-     * @var array
-     */
-    protected $encryptable = [
-        'total_sale_amount', 'total_purchase_amount', 'paid_amount', 'gain_loss', 'total_dividend_gain', 'total_bonus_share',
-        'total_rights_share', 'total_gain',
-    ];
-
-    /**
      * Get the user that owns the portfolio.
      */
     public function user()

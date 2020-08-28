@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Exception;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Crypt;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Money;
@@ -34,13 +32,6 @@ abstract class BaseModel extends Model
     protected $decimal = [];
 
     /**
-     * The attributes that are encryptable.
-     *
-     * @var array
-     */
-    protected $encryptable = [];
-
-    /**
      * Get an attribute from the model then format some attributes.
      *
      * @param string $key
@@ -50,10 +41,6 @@ abstract class BaseModel extends Model
     public function getAttribute($key)
     {
         $value = parent::getAttribute($key);
-
-        if (in_array($key, $this->encryptable)) {
-            $value = $this->decrypt($value);
-        }
 
         if (in_array($key, $this->money)) {
             $value = $this->getMoneyAttribute($value);
@@ -168,40 +155,6 @@ abstract class BaseModel extends Model
     }
 
     /**
-     * Encrypt the given value.
-     *
-     * @param mixed $value
-     *
-     * @return string
-     */
-    private function encrypt($value): string
-    {
-        try {
-            $value = Crypt::encrypt($value);
-        } catch (Exception $e) {
-        }
-
-        return $value;
-    }
-
-    /**
-     * Decrypt the given value.
-     *
-     * @param mixed $value
-     *
-     * @return mixed
-     */
-    private function decrypt($value)
-    {
-        try {
-            $value = Crypt::decrypt($value);
-        } catch (Exception $e) {
-        }
-
-        return $value;
-    }
-
-    /**
      * Move the item to the end of the collection by value for the given key.
      *
      * @param \Illuminate\Database\Eloquent\Collection $collection
@@ -220,10 +173,5 @@ abstract class BaseModel extends Model
         }
 
         return $collection;
-    }
-
-    public function getEncryptable()
-    {
-        return $this->encryptable;
     }
 }

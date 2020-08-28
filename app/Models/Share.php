@@ -37,17 +37,6 @@ class Share extends BaseModel
     ];
 
     /**
-     * The attributes that should be encrypted/decrypted.
-     *
-     * @var array
-     */
-    protected $encryptable = [
-        'lot', 'average', 'average_with_dividend', 'average_amount', 'average_amount_with_dividend', 'amount', 'gain', 'gain_with_dividend',
-        'total_sale_amount', 'total_purchase_amount', 'paid_amount', 'gain_loss', 'total_dividend_gain', 'total_bonus_share',
-        'total_rights_share', 'total_gain',
-    ];
-
-    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
