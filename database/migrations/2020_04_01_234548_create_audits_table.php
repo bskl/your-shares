@@ -16,7 +16,7 @@ class CreateAuditsTable extends Migration
         Schema::create('audits', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id')->unsigned();
-            $table->timestamp('logon_at');
+            $table->timestamp('logon_at')->useCurrent();
             $table->ipAddress('ip_address');
             $table->string('user_agent', 1023);
             $table->timestamps();
