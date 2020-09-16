@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Portfolio as PortfolioResource;
 use App\Http\Resources\Symbol as SymbolResource;
+use App\Models\Portfolio;
 use App\Models\Symbol;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Artisan;
@@ -43,6 +45,8 @@ class SymbolController extends Controller
             );
         }
 
-        return redirect()->action('API\PortfolioController@index');
+        $portfolios = Portfolio::byCurrentUser()->get();
+
+        return PortfolioResource::collection($portfolios);
     }
 }
