@@ -158,14 +158,14 @@ class Share extends BaseModel
      */
     public function getGainPercentAttribute(): float
     {
-        if ($this->amount->equals($this->getMoneyAttribute('0'))) {
+        if ($this->average_amount->equals($this->getMoneyAttribute('0'))) {
             return 0;
         }
 
         $gain = $this->formatByDecimal($this->gain);
-        $amount = $this->formatByDecimal($this->amount);
+        $averageAmount = $this->formatByDecimal($this->average_amount);
 
-        return $gain / $amount;
+        return $gain / $averageAmount;
     }
 
     /**
