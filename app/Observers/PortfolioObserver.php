@@ -16,8 +16,7 @@ class PortfolioObserver
      */
     public function creating(Portfolio $portfolio)
     {
-        $portfolio->user_id = Auth::id();
-        $portfolio->order = Portfolio::byCurrentUser()->count() + 1;
+        //
     }
 
     /**
