@@ -29,6 +29,7 @@ export default {
       form: {
         email: '',
         password: '',
+        password_confirmation: '',
       },
       valid: true,
     }
@@ -91,6 +92,14 @@ export default {
               v-model="form.password"
               :disabled="isLoading"
               :label="$t('Password')"
+              :rules="[rules.required, rules.gte(8)]"
+              :error-messages="getError('password')"
+            />
+            <v-text-field type="password" name="password_confirmation" ref="password_confirmation" id="password_confirmation" outlined clearable
+              prepend-inner-icon="lock"
+              v-model="form.password_confirmation"
+              :disabled="isLoading"
+              :label="$t('Password Confirmation')"
               :rules="[rules.required, rules.gte(8)]"
               :error-messages="getError('password')"
             />

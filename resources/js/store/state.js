@@ -2,7 +2,7 @@ import { DEFAULT_SNACKBAR } from './constants';
 
 export default {
   loading: [],
-  isLoggedIn: !!JSON.parse(localStorage.getItem('access_token')),
+  isLoggedIn: localStorage.getItem('is_logged_in'),
   showModal: false,
   user: [],
   portfolios: [],

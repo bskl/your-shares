@@ -3,12 +3,12 @@ import { has, upperFirst, trimEnd } from 'lodash';
 import { parseErrorMessage, parseSuccessMessage } from '../utilities/helpers.js';
 
 const http = axios.create({
-  baseURL: '/api',
+  baseURL: 'http://yourshares.test',
+  withCredentials: true,
 });
 
 http.interceptors.request.use(function (config) {
   config.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-  config.headers.common['Authorization'] = `Bearer ${JSON.parse(localStorage.getItem('access_token'))}`;
   return config;
 });
 
@@ -52,19 +52,23 @@ export default {
   },
 
   login({ dispatch, commit }, data) {
-    return http.post('/login', data)
+    return http.get('/sanctum/csrf-cookie')
       .then((res) => {
-        commit('LOGGED_IN', res.data);
 
-        return dispatch('fetchData')
-          .then(() => {
-            return Promise.resolve();
+        return http.post('/login', data)
+          .then((res) => {
+            commit('LOGGED_IN');
+
+            return dispatch('fetchData')
+              .then(() => {
+                return Promise.resolve();
+            });
           });
       });
   },
 
   setLocale({ commit }, locale) {
-    return http.get(`/locale/${locale}`)
+    return http.get(`/api/locale/${locale}`)
       .then((res) => {
         commit('SET_LOCALE', locale);
 
@@ -81,29 +85,30 @@ export default {
     });
   },
 
-  confirmUserMail({ commit }, data) {
-    return http.get(`/confirm/${data}`)
+  confirmUserMail({ commit }, token) {
+    return http.get(`/api/confirm/${token}`)
       .then((res) => {
+        commit('LOGGED_IN');
         parseSuccessMessage(res.data);
 
-        return res.data;
+        return res;
       })
       .catch((error) => {
         parseErrorMessage(error);
 
-        return error;
+        return Promise.reject(error);
       });
   },
 
-  sendPasswordResetEmail(_, data) {
-    return http.post('/password/email', data)
+  sendResetPasswordEmail(_, data) {
+    return http.post('/forgot-password', data)
       .then((res) => {
         return res.data;
       });
   },
 
-  passwordReset(_, data) {
-    return http.post('/password/reset', data)
+  resetPassword(_, data) {
+    return http.post('/reset-password', data)
       .then((res) => {
         return res.data;
       });
@@ -112,7 +117,7 @@ export default {
   fetchData({ commit, getters }) {
     commit('START_LOADING', 'fetch_data');
 
-    return http.get('/data')
+    return http.get('/api/data')
       .then((res) => {
         commit('SET_USER', res.data.user);
         commit('SET_PORTFOLIOS', res.data.portfolios);
@@ -125,7 +130,7 @@ export default {
   },
 
   fetchSymbolsData({ commit }) {
-    return http.get('/symbols/update')
+    return http.get('/api/symbols/update')
       .then((res) => {
         commit('SET_PORTFOLIOS', res.data.data);
 
@@ -134,7 +139,7 @@ export default {
   },
 
   storePortfolio({ commit }, form) {
-    return http.post('/portfolios', form)
+    return http.post('/api/portfolios', form)
       .then((res) => {
         commit('ADD_PORTFOLIO', res.data.data);
 
@@ -143,7 +148,7 @@ export default {
   },
 
   updatePortfolio({ commit, getters }, { id, form }) {
-    return http.put(`/portfolios/${id}`, form)
+    return http.put(`/api/portfolios/${id}`, form)
       .then((res) => {
         const index = getters.getPortfolioIndexById(id);
         commit('UPDATE_PORTFOLIO', { index, portfolio: form });
@@ -153,7 +158,7 @@ export default {
   },
 
   destroyPortfolio({ commit, getters }, id) {
-    return http.delete(`/portfolios/${id}`)
+    return http.delete(`/api/portfolios/${id}`)
       .then((res) => {
         const index = getters.getPortfolioIndexById(id);
         commit('DESTROY_PORTFOLIO', index);
@@ -169,14 +174,14 @@ export default {
       return Promise.resolve(portfolio);
     }
 
-    return http.get(`/portfolios/${id}`)
+    return http.get(`/api/portfolios/${id}`)
       .then((res) => {
         return res.data.data;
       });
   },
 
   storeTransaction({ commit, getters }, form) {
-    return http.post('/transactions', form)
+    return http.post('/api/transactions', form)
       .then((res) => {
         if (getters.portfoliosCount) {
           const data = res.data.data;
@@ -195,7 +200,7 @@ export default {
   },
 
   destroyTransaction({ commit, getters }, id) {
-    return http.delete(`/transactions/${id}`)
+    return http.delete(`/api/transactions/${id}`)
       .then((res) => {
         if (getters.portfoliosCount) {
           const data = res.data.data;
@@ -213,14 +218,14 @@ export default {
   },
 
   fetchSymbols() {
-    return http.get('/symbols')
+    return http.get('/api/symbols')
       .then((res) => {
         return res.data;
       });
   },
 
   storeShare({ commit, getters }, form) {
-    return http.post('/shares', form)
+    return http.post('/api/shares', form)
       .then((res) => {
         const index = getters.getPortfolioIndexById(form.portfolio_id);
         const data = res.data.data;
@@ -231,7 +236,7 @@ export default {
   },
 
   destroyShare({ commit, getters }, data) {
-    return http.delete(`/shares/${data.id}`)
+    return http.delete(`/api/shares/${data.id}`)
       .then((res) => {
         const portfolioIndex = getters.getPortfolioIndexById(data.portfolio_id);
         const index = getters.getShareIndexByPortfolioIndexAndId(portfolioIndex, data.id);
@@ -242,7 +247,7 @@ export default {
   },
 
   fetchShare(_, id) {
-    return http.get(`/shares/${id}`)
+    return http.get(`/api/shares/${id}`)
       .then((res) => {
         return res.data;
       });
@@ -257,7 +262,7 @@ export default {
       return Promise.resolve(share);
     }
 
-    return http.get(path)
+    return http.get(`/api${path}`)
       .then((res) => {
         const transactions = res.data.data;
         const { portfolioIndex, index } = getters.getShareIndexById(id);
@@ -287,7 +292,7 @@ export default {
       return Promise.resolve(collection[`${type}ByYear`][year]);
     }
 
-    return http.get(path)
+    return http.get(`/api${path}`)
       .then((res) => {
         const data = res.data.data;
         const index = getters[`get${key}IndexById`](id);

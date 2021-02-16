@@ -27,7 +27,7 @@ export default {
   methods: {
     syncErrors(error) {
       if (typeof error !== 'undefined') {
-        if (typeof error.response !== 'undefined' && error.hasOwnProperty('response') && error.response.hasOwnProperty('data')) {
+        if (typeof error.response !== 'undefined' && error.hasOwnProperty('response')) {
           if (error.response.status === 400 || error.response.status === 401) {
             store.commit('LOGGED_OUT');
             router.push({ name: 'Login' });
@@ -35,9 +35,9 @@ export default {
             router.push({ name: 'Forbidden' });
           } else if (error.response.status === 404) {
             router.push({ name: 'NotFound' });
-          }
-
-          if (error.response.data.hasOwnProperty('errors')) {
+          } else if (error.response.status === 419) {
+            router.push({ name: 'ExpiredSession' });
+          } else if (error.response.hasOwnProperty('data') && error.response.data.hasOwnProperty('errors')) {
             this.errors = Object.assign({}, error.response.data.errors);
 
             for (const key of Object.entries(this.errors)) {
@@ -49,6 +49,8 @@ export default {
             setTimeout(() => {
               this.focusFirstErrorInput();
             }, 500);
+          } else {
+            router.push({ name: 'NotFound' });
           }
         } else {
           console.log(error);

@@ -1,5 +1,5 @@
 import { has, lowerFirst } from 'lodash';
-import { TRANSACTION_TYPES, DEFAULT_SNACKBAR } from './constants.js';
+import { TRANSACTION_TYPES_MAP, DEFAULT_SNACKBAR } from './constants.js';
 
 export default {
   START_LOADING(state, payload) {
@@ -11,11 +11,9 @@ export default {
   SET_SHOW_MODAL(state, data) {
     state.showModal = data;
   },
-  LOGGED_IN(state, data) {
-    if (has(data, 'access_token') && data.access_token) {
-      localStorage.setItem('access_token', JSON.stringify(data.access_token));
-      state.isLoggedIn = true;
-    }
+  LOGGED_IN(state) {
+    localStorage.setItem('is_logged_in', true);
+    state.isLoggedIn = true;
   },
   LOGGED_OUT(state) {
     localStorage.clear();
@@ -80,7 +78,7 @@ export default {
     }
   },
   DELETE_ITEM_DETAILS(state, { portfolioIndex, shareIndex, transaction }) {
-    const type = lowerFirst(transaction.type.key);
+    const type = lowerFirst(TRANSACTION_TYPES_MAP[transaction.type]);
     const year = transaction.date_at.split('.')[2];
 
     delete state.portfolios[portfolioIndex][type];

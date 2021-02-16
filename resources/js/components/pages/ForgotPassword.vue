@@ -26,7 +26,7 @@ export default {
    */
   data() {
     return {
-      waitFor: 'send_password_reset_email',
+      waitFor: 'send_reset_password_email',
       form: {
         email: '',
       },
@@ -36,7 +36,7 @@ export default {
 
   methods: {
     ...mapActions([
-      'sendPasswordResetEmail',
+      'sendResetPasswordEmail',
     ]),
 
     /**
@@ -46,7 +46,7 @@ export default {
       if (this.$refs.form.validate()) {
         this.startLoading();
 
-        this.sendPasswordResetEmail(this.form)
+        this.sendResetPasswordEmail(this.form)
           .then((res) => {
             this.clearErrors();
             parseSuccessMessage(res);

@@ -106,7 +106,7 @@ export default {
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions class="pa-4">
-          <router-link to="/password/reset" class="link-custom">{{ $t("Forgot password?") }}</router-link>
+          <router-link to="/forgot-password" class="link-custom">{{ $t("Forgot password?") }}</router-link>
           <v-spacer></v-spacer>
           <v-progress-circular v-show="isLoading" indeterminate />
           <v-btn class="btn-action"

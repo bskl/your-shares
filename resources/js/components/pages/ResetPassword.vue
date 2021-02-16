@@ -10,7 +10,7 @@ export default {
   /**
    * The component's name.
    */
-  name: 'PasswordReset',
+  name: 'ResetPassword',
 
   mixins: [
     validationHandler,
@@ -26,7 +26,7 @@ export default {
    */
   data() {
     return {
-      waitFor: 'password_reset',
+      waitFor: 'reset_password',
       form: {
         email: '',
         password: '',
@@ -39,7 +39,7 @@ export default {
 
   methods: {
     ...mapActions([
-      'passwordReset',
+      'resetPassword',
     ]),
 
     /**
@@ -49,7 +49,7 @@ export default {
       if (this.$refs.form.validate()) {
         this.startLoading();
 
-        this.passwordReset(this.form)
+        this.resetPassword(this.form)
           .then((res) => {
             this.clearErrors();
             parseSuccessMessage(res);

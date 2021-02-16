@@ -135,20 +135,19 @@ export default [
     props: (route) => ({ initialTransactions: route.meta.tmp.transactions }),
   },
   {
-    path: "/confirm/:confirmation_code",
+    path: "/confirm/:token",
     meta: {
-      requiresAuth: true,
       beforeResolve(to, from, next) {
-        if (to.params.confirmation_code) {
-          store.dispatch('confirmUserMail', to.params.confirmation_code)
+        if (to.params.token) {
+          store.dispatch('confirmUserMail', to.params.token)
             .then(() => {
-              next({ name: 'Home', query: { redirect: to.fullPath } });
+              next({ name: 'Home' });
             })
             .catch((error) => {
               next({ name: redirectError(error) });
             });
         } else {
-          next();
+          next({ name: 'Login' });
         }
       },
     },
@@ -198,7 +197,7 @@ export default [
     },
   },
   {
-    path: "/password/reset",
+    path: "/forgot-password",
     name: 'Reset',
     component: () => lazyLoadView(import('../components/pages/ForgotPassword')),
     meta: {
@@ -212,9 +211,9 @@ export default [
     },
   },
   {
-    path: "/password/reset/:reset_password_code",
-    name: 'PasswordReset',
-    component: () => lazyLoadView(import('../components/pages/PasswordReset')),
+    path: "/reset-password/:reset_password_code",
+    name: 'ResetPassword',
+    component: () => lazyLoadView(import('../components/pages/ResetPassword')),
     meta: {
       beforeResolve(to, from, next) {
         if (store.getters.isLoggedIn) {
@@ -234,6 +233,11 @@ export default [
     path: '/404',
     name: 'NotFound',
     component: () => lazyLoadView(import('../components/pages/NotFound')),
+  },
+  {
+    path: '/419',
+    name: 'ExpiredSession',
+    component: () => lazyLoadView(import('../components/pages/ExpiredSession')),
   },
   {
     path: '*',
