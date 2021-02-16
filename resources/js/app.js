@@ -1,10 +1,10 @@
 import Vue from "vue";
 import vuetify from "./plugins/vuetify";
-import { sync } from 'vuex-router-sync'
+import { sync } from 'vuex-router-sync';
 import router from "./router";
 import store from "./store";
 import i18n from "./lang/";
-import VueCurrencyInput from 'vue-currency-input'
+import VueCurrencyInput from 'vue-currency-input';
 import App from "./App.vue";
 
 sync(store, router);

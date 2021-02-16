@@ -3,7 +3,6 @@
 namespace App\Listeners;
 
 use App\Jobs\SendConfirmationCode;
-use App\Models\Portfolio;
 use App\Notifications\ConfirmationCode as ConfirmationCodeNotification;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Request;
@@ -17,6 +16,7 @@ class UserEventSubscriber
     public function onUserRegister($event)
     {
         $event->user->confirmation_code = hash_hmac('sha256', Str::random(60), config('app.key'));
+        $event->user->locale = config('app.locale'); //$request->getPreferredLanguage(['tr', 'en'])
         $event->user->save();
 
         SendConfirmationCode::dispatch($event->user);
@@ -24,8 +24,7 @@ class UserEventSubscriber
         /*
          * Create standart portfolio data for new user.
          */
-        Portfolio::create([
-            'user_id' => $event->user->id,
+        $event->user->portfolios()->create([
             'name' => Lang::get('app.portfolio.default'),
             'order' => 1,
         ]);

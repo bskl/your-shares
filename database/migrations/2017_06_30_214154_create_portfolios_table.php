@@ -18,7 +18,7 @@ class CreatePortfoliosTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('name');
             $table->string('currency', 3)->default(App\Enums\SupportedCurrencies::DEFAULT);
-            $table->decimal('commission', 5, 5)->nullable()->default(0);
+            $table->decimal('commission', 5, 5)->default(0);
             $table->integer('order');
             $table->integer('total_sale_amount')->unsigned()->default(0);
             $table->integer('total_purchase_amount')->unsigned()->default(0);
@@ -26,7 +26,8 @@ class CreatePortfoliosTable extends Migration
             $table->integer('gain_loss')->default(0);
             $table->integer('total_commission_amount')->unsigned()->default(0);
             $table->integer('total_dividend_gain')->unsigned()->default(0);
-            $table->float('total_bonus_share', 8, 3)->unsigned()->default(0);
+            $table->float('total_bonus_share', 11, 3)->default(0);
+            $table->float('total_rights_share', 11, 3)->default(0);
             $table->integer('total_gain')->default(0);
             $table->timestamps();
 

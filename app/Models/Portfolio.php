@@ -65,6 +65,15 @@ class Portfolio extends BaseModel
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'commission' => 'float',
+    ];
+
+    /**
      * Get the user that owns the portfolio.
      */
     public function user()
@@ -98,18 +107,6 @@ class Portfolio extends BaseModel
     public function transactionsOfType(array $type)
     {
         return $this->transactions()->whereIn('type', $type);
-    }
-
-    /**
-     * Get the commission attribute with remove zeros from end of number ie. 0.18800 becomes 0.188.
-     *
-     * @return float
-     */
-    public function getCommissionAttribute(): float
-    {
-        if ($this->attributes['commission']) {
-            return floatval($this->attributes['commission']);
-        }
     }
 
     /**

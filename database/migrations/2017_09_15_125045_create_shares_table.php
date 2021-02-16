@@ -18,7 +18,7 @@ class CreateSharesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('portfolio_id')->unsigned();
             $table->integer('symbol_id')->unsigned();
-            $table->decimal('lot', 11, 3)->unsigned()->default(0);
+            $table->decimal('lot', 11, 3)->default(0);
             $table->integer('average')->unsigned()->default(0);
             $table->integer('average_amount')->unsigned()->default(0);
             $table->integer('amount')->unsigned()->default(0);
@@ -29,7 +29,8 @@ class CreateSharesTable extends Migration
             $table->integer('gain_loss')->default(0);
             $table->integer('total_commission_amount')->unsigned()->default(0);
             $table->integer('total_dividend_gain')->unsigned()->default(0);
-            $table->float('total_bonus_share', 8, 3)->unsigned()->default(0);
+            $table->float('total_bonus_share', 11, 3)->default(0);
+            $table->float('total_rights_share', 11, 3)->default(0);
             $table->integer('total_gain')->default(0);
             $table->timestamps();
 

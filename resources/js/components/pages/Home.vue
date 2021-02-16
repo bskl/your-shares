@@ -43,7 +43,7 @@ export default {
 
   methods: {
     ...mapActions([
-      'fetchSymbolsData', 'setSnackbar',
+      'fetchSymbolsData',
     ]),
 
     getColor(trend) {
@@ -72,17 +72,6 @@ export default {
           this.stopLoading();
         });
     },
-  },
-
-  created() {
-    for (let index = 0, count = this.portfoliosCount; index < count; ++index) {
-      let portfolio = this.getPortfolioByIndex(index);
-      if (portfolio.commission == null) {
-        this.setSnackbar({ color: 'error', msg: this.$t('Your portfolio commission rate has not been recorded.') });
-        this.$router.push({ name: 'EditPortfolio', params: { id: portfolio.id } });
-        break;
-      }
-    }
   },
 }
 </script>

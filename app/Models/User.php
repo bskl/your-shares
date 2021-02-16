@@ -5,15 +5,13 @@ namespace App\Models;
 use App\Enums\UserType;
 use App\Notifications\ResetPassword as PasswordResetNotification;
 use BenSampo\Enum\Traits\CastsEnums;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens;
-    use Notifiable;
-    use CastsEnums;
+    use CastsEnums, HasFactory, Notifiable;
 
     /**
      * The attributes that aren't mass assignable.

@@ -1,7 +1,7 @@
 <script>
 
 import { mapActions } from 'vuex';
-import { TRANSACTION_TYPES } from '../../store/constants.js';
+import { TRANSACTION_TYPES, TRANSACTION_TYPES_MAP } from '../../store/constants.js';
 import { parseSuccessMessage } from '../../utilities/helpers.js';
 import validationHandler from '../../mixins/validationHandler.js';
 import loadingHandler from '../../mixins/loadingHandler.js';
@@ -63,16 +63,10 @@ export default {
 
   computed: {
     transactionTypes() {
-      let typeOptions = [];
-
-      for (const [key, value] of Object.entries(TRANSACTION_TYPES)) {
-        typeOptions.push({
-          id: value,
-          label: this.$t(key)
-        });
-      }
-
-      return typeOptions;
+      return TRANSACTION_TYPES_MAP.map((item, index) => ({
+        id: index,
+        label: this.$t(item),
+      }));
     },
   },
 

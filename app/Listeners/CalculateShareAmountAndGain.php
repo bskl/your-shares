@@ -16,10 +16,10 @@ class CalculateShareAmountAndGain
      */
     public function handle(SymbolUpdated $event)
     {
-        $shares = Share::where('symbol_id', $event->symbol->id)->get();
-
-        $shares->map(function ($share) {
-            $share->handleCommonCalculations();
-        });
+        Share::whereSymbolId($event->symbol->id)
+             ->get()
+             ->each(function ($share) {
+                 $share->handleCommonCalculations();
+             });
     }
 }

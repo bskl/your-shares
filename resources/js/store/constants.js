@@ -45,6 +45,14 @@ export const TRANSACTION_TYPES = {
   Rights: 4,
 };
 
+export const TRANSACTION_TYPES_MAP = [
+  'Buying',
+  'Sale',
+  'Dividend',
+  'Bonus',
+  'Rights',
+];
+
 export const USER_TYPES = {
   user: 2,
   admin: 9,
