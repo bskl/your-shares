@@ -21,8 +21,7 @@ class SymbolController extends Controller
     {
         $this->authorize(Symbol::class);
 
-        $symbols = Symbol::select('id', 'code', 'last_price')
-                         ->get();
+        $symbols = Symbol::select('id', 'code', 'last_price')->get();
 
         return SymbolResource::collection($symbols);
     }

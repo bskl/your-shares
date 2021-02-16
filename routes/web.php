@@ -17,5 +17,3 @@ use Illuminate\Support\Facades\Route;
 Route::any('/{view?}', function () {
     return view('index');
 })->where('view', '[\/\w\.-]*')->name('home');
-
-Route::get('password/reset/{token}', 'Auth\LoginController@login')->name('password.reset');
