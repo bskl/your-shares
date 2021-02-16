@@ -91,6 +91,7 @@ return [
         'string'  => ':Attribute değeri :min karakter değerinden büyük olmalıdır.',
         'array'   => ':Attribute en az :min nesneye sahip olmalıdır.',
     ],
+    'multiple_of'          => ':Attribute :value değerinin katları olmalıdır.',
     'not_in'               => 'Seçili :attribute geçersiz.',
     'not_regex'            => 'The :attribute format is invalid.',
     'password'             => 'The password is incorrect.',
