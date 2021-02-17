@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Laravel\Fortify\Http\Controllers\NewPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::any('/{view?}', function () {
     return view('index');
 })->where('view', '[\/\w\.-]*')->name('home');
+
+Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
+    ->middleware(['guest'])
+    ->name('password.reset');
