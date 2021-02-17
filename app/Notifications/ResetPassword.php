@@ -10,6 +10,11 @@ class ResetPassword extends Notification
 {
     use Queueable;
 
+    /**
+     * The token instance.
+     *
+     * @var string
+     */
     public $token;
 
     /**
