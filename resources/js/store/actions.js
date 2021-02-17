@@ -3,7 +3,6 @@ import { has, upperFirst, trimEnd } from 'lodash';
 import { parseErrorMessage, parseSuccessMessage } from '../utilities/helpers.js';
 
 const http = axios.create({
-  baseURL: 'http://yourshares.test',
   withCredentials: true,
 });
 
