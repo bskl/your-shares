@@ -2,9 +2,10 @@
 
 namespace App\Listeners;
 
-use App\Jobs\SendConfirmationCode;
 use App\Notifications\ConfirmationCode as ConfirmationCodeNotification;
+use Exception;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 
@@ -19,7 +20,11 @@ class UserEventSubscriber
         $event->user->locale = config('app.locale'); //$request->getPreferredLanguage(['tr', 'en'])
         $event->user->save();
 
-        SendConfirmationCode::dispatch($event->user);
+        try {
+            $event->user->notify(new ConfirmationCodeNotification($event->user->confirmation_code));
+        } catch (Exception $e) {
+            Log::error($e);
+        }
 
         /*
          * Create standart portfolio data for new user.
