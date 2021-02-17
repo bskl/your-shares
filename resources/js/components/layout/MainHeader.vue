@@ -52,7 +52,6 @@ export default {
         @click.stop="drawer = !drawer" 
         v-if="isLoggedIn"
       />
-      <v-btn class="btn-action" to="/register" v-else>{{ $t("Register") }}</v-btn>
     </v-app-bar>
     <v-navigation-drawer app clipped right fixed
       v-model="drawer"
