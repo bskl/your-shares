@@ -160,13 +160,15 @@ export default {
   <v-row align="center" justify="center">
     <v-col cols="12" sm="8" md="4">
       <v-card>
-        <v-toolbar flat class="pl-2">
+        <v-card-title>
           <v-toolbar-title>
-            {{ symbolCode }}
-            <v-icon small>keyboard_arrow_right</v-icon>
-            {{ $t("Add Transaction") }}
+            <span class="title font-weight-light">
+              {{ symbolCode }}
+              <v-icon small>keyboard_arrow_right</v-icon>
+              {{ $t("Add Transaction") }}
+            </span>
           </v-toolbar-title>
-        </v-toolbar>
+        </v-card-title>
         <v-card-text>
           <v-form ref="form" v-model="valid" lazy-validation
             @keyup.native.enter="submit"
@@ -176,7 +178,7 @@ export default {
             <v-input type="hidden" name="share_id" ref="share_id" id="share_id" readonly hide-details dense
               v-model="form.share_id"
             />
-            <v-select name="type" ref="type" id="type" autofocus single-line outlined clearable
+            <v-select name="type" ref="type" id="type" autofocus single-line filled clearable
               prepend-inner-icon="format_list_bulleted"
               v-model="form.type"
               :disabled="isLoading"
@@ -195,7 +197,7 @@ export default {
               :return-value.sync="form.date_at"
             >
               <template v-slot:activator="{ on }">
-                <v-text-field name="date_at" ref="date_at" id="date_at" readonly outlined clearable
+                <v-text-field name="date_at" ref="date_at" id="date_at" readonly filled clearable
                   prepend-inner-icon="calendar_today"
                   v-model="form.date_at"
                   :disabled="isLoading"
@@ -215,7 +217,7 @@ export default {
                 <v-btn class="btn-action" @click="$refs.menu.save(form.date_at)">{{ $t("Ok") }}</v-btn>
               </v-date-picker>
             </v-menu>
-            <v-text-field type="number" name="lot" ref="lot" id="lot" outlined clearable
+            <v-text-field type="number" name="lot" ref="lot" id="lot" filled clearable
               step="1"
               prepend-inner-icon="format_list_numbered"
               v-model="form.lot"
@@ -227,7 +229,7 @@ export default {
                 this.form.type == 3 ? $t('You must write your bonus shares.') :
                 this.form.type == 4 ? $t('You must write your rights shares.') : ''"
             ></v-text-field>
-            <v-text-field type="text" name="price" ref="price" id="price" outlined clearable
+            <v-text-field type="text" name="price" ref="price" id="price" filled clearable
               v-if="this.form.type == 0 || this.form.type == 1 || this.form.type == 2"
               prepend-inner-icon="money"
               v-model.lazy="priceCurrency"
@@ -237,7 +239,7 @@ export default {
               :error-messages="getError('price')"
               v-currency
             ></v-text-field>
-            <v-text-field type="number" name="commission" ref="commission" id="commission" outlined clearable
+            <v-text-field type="number" name="commission" ref="commission" id="commission" filled clearable
               v-if="this.form.type == 0 || this.form.type == 1"
               step="0.0001"
               prepend-inner-icon="donut_large"
@@ -248,7 +250,7 @@ export default {
               :error-messages="getError('commission')"
               :hint="$t('For example; Garanti Bank: 0,188')"
             ></v-text-field>
-            <v-text-field type="text" name="dividend_gain" ref="dividend_gain" id="dividend_gain" outlined clearable
+            <v-text-field type="text" name="dividend_gain" ref="dividend_gain" id="dividend_gain" filled clearable
               v-if="this.form.type == 2"
               prepend-inner-icon="money"
               v-model.lazy="dividendGainCurrency"
@@ -260,8 +262,7 @@ export default {
             ></v-text-field>
           </v-form>
         </v-card-text>
-        <v-divider></v-divider>
-        <v-card-actions class="pa-4">
+        <v-card-actions class="pb-4 pr-4">
           <v-spacer></v-spacer>
           <v-progress-circular v-show="isLoading" indeterminate />
           <v-btn class="btn-close"

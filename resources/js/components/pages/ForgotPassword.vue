@@ -69,9 +69,9 @@ export default {
   <v-row align="center" justify="center">
     <v-col cols="12" sm="8" md="4">
       <v-card>
-        <v-toolbar flat class="pl-2">
-          <v-toolbar-title>{{ $t("Reset Password") }}</v-toolbar-title>
-        </v-toolbar>
+        <v-card-title>
+          <span class="title font-weight-light">{{ $t("Reset Password") }}</span>
+        </v-card-title>
         <v-card-text>
           <v-form v-model="valid" ref="form" lazy-validation
             @keyup.native.enter="submit"
@@ -81,18 +81,17 @@ export default {
             <input type="hidden" name="token" ref="token" id="token"
               v-model="form.token"
             />
-            <v-text-field type="email" name="email" ref="email" id="email" outlined
+            <v-text-field type="email" name="email" ref="email" id="email" filled
               prepend-inner-icon="person"
               v-model="form.email"
               :disabled="isLoading"
               :label="$t('E-Mail Address')"
               :rules="[rules.required, rules.email]"
               :error-messages="getError('email')"
-            />
+            ></v-text-field>
           </v-form>
         </v-card-text>
-        <v-divider></v-divider>
-        <v-card-actions class="pa-4">
+        <v-card-actions class="pb-4 pr-4">
           <v-spacer></v-spacer>
           <v-progress-circular v-show="isLoading" indeterminate />
           <v-btn class="btn-action"

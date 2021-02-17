@@ -125,7 +125,7 @@ export default {
 <template>
   <modal :width="460" :dialog="showModal">
     <modal-heading>
-      <v-toolbar-title>{{ $t("Add Symbol") }}</v-toolbar-title>
+      {{ $t("Add Symbol") }}
     </modal-heading>
     <modal-body>
       <v-form ref="form" v-model="valid" lazy-validation
@@ -133,7 +133,7 @@ export default {
         @keydown.native="clearError($event.target.name)"
       >
         <form-errors :errors="errors" />
-        <v-autocomplete name="symbol_id" ref="symbol_id" id="symbol_id" outlined clearable
+        <v-autocomplete name="symbol_id" ref="symbol_id" id="symbol_id" filled clearable
           v-model="form.symbol_id"
           :items="symbols"
           :loading="searching"
@@ -148,10 +148,7 @@ export default {
         />
       </v-form>
     </modal-body>
-    <v-divider></v-divider>
-    <modal-footer>
-      <v-spacer></v-spacer>
-      <v-progress-circular v-show="isLoading" indeterminate />
+    <modal-footer :is-loading="isLoading">
       <v-btn class="btn-close"
         :disabled="isLoading"
         @click="close"

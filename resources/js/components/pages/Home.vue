@@ -143,7 +143,7 @@ export default {
           >
             <template v-slot:item.code="{ item }">
               <div class="d-flex align-center justify-start">
-                <v-col cols="auto" class="px-0 text-left font-weight-bold">
+                <v-col cols="auto" class="px-0 float-left font-weight-bold">
                   {{ item.symbol.code }}
                 </v-col>
                 <v-spacer></v-spacer>
@@ -158,7 +158,7 @@ export default {
               </div>
             </template>
             <template v-slot:item.last_price="{ item }">
-              <div class="text--darken-1 text-right"
+              <div class="text--darken-1 float-right"
                 :class="getTextColor(item.symbol.trend)"
               >
                 {{ item.symbol.last_price }}
@@ -172,43 +172,43 @@ export default {
               </v-chip>
             </template>
             <template v-slot:item.lot="{ item }">
-              <div class="text-right">
+              <div class="float-right">
                 {{ item.lot }}
               </div>
             </template>
             <template v-slot:item.average="{ item }">
               <div class="d-flex align-center justify-center">
-                <v-col cols="auto" class="pr-0 text-right">
+                <v-col cols="auto" class="pr-0 float-right">
                   {{ item.average }}
                 </v-col>
-                <v-col cols="auto" class="text-right overline font-weight-thin">
+                <v-col cols="auto" class="float-right overline font-weight-thin">
                   ({{ item.average_with_dividend }})
                 </v-col>
               </div>
             </template>
             <template v-slot:item.amount="{ item }">
-              <div class="text-right">
+              <div class="float-right">
                 {{ item.amount }}
               </div>
             </template>
             <template v-slot:item.average_amount="{ item }">
               <div class="d-flex align-center justify-center">
-                <v-col cols="auto" class="pr-0 text-right">
+                <v-col cols="auto" class="pr-0 float-right">
                   {{ item.average_amount }}
                 </v-col>
-                <v-col cols="auto" class="text-right overline font-weight-thin">
+                <v-col cols="auto" class="float-right overline font-weight-thin">
                   ({{ item.average_amount_with_dividend }})
                 </v-col>
               </div>
             </template>
             <template v-slot:item.gain="{ item }">
               <div class="d-flex align-center justify-center">
-                <v-col cols="auto" class="pr-0 text-right"
+                <v-col cols="auto" class="pr-0 float-right"
                   :class="getTextColor(item.gain_trend)"
                 >
                   {{ item.gain }}
                 </v-col>
-                <v-col cols="auto" class="text-right overline font-weight-thin"
+                <v-col cols="auto" class="float-right overline font-weight-thin"
                   :class="getTextColor(item.gain_with_dividend_trend)"
                 >
                   ({{ item.gain_with_dividend }})
@@ -217,7 +217,7 @@ export default {
             </template>
             <template v-slot:item.gain_percent="{ item }">
               <div class="d-flex align-center justify-center">
-                <v-col cols="auto" class="pr-0 text-right"
+                <v-col cols="auto" class="pr-0 float-right"
                   :class="getTextColor(item.gain_trend)"
                 >
                   {{ item.gain_percent }}

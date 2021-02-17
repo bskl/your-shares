@@ -32,7 +32,7 @@ export default {
     :mobile-breakpoint="0"
     :items="items"
     :headers="[
-      { text: $t('Transaction Date'), value: 'date_at', align: 'left' },
+      { text: $t('Transaction Date'), value: 'date_at', align: 'start' },
       { text: $t('Transaction'), value: 'type', align: 'center' },
       { text: $t('Lots'), value: 'lot', align: 'center' },
       { text: $t('Transaction Price'), value: 'price', align: 'center' },
@@ -55,7 +55,7 @@ export default {
       {{ $t(transactionTypes[item.type]) }}
     </template>
     <template v-slot:item.gain_loss="{ item }">
-      <div class="text-right"
+      <div class="float-right"
         :class="{
           'red--text': item.sale_gain_trend == -1,
           'green--text': item.sale_gain_trend == 1
@@ -67,30 +67,30 @@ export default {
       <div class="d-flex align-center justify-end"
         v-if="item.type == 2"
       >
-        <v-col cols="auto" class="pr-0 text-right">
+        <v-col cols="auto" class="pr-0 float-right">
           {{ item.dividend_gain }}
         </v-col>
-        <v-col cols="auto" class="pr-0 text-right">
+        <v-col cols="auto" class="pr-0 float-right">
           ({{ item.dividend }})
         </v-col>
       </div>
       <div class="d-flex align-center justify-end"
         v-if="item.type == 3"
       >
-        <v-col cols="auto" class="pr-0 text-right">
+        <v-col cols="auto" class="pr-0 float-right">
           {{ item.bonus }}
         </v-col>
-        <v-col cols="auto" class="pr-0 text-right">
+        <v-col cols="auto" class="pr-0 float-right">
           ({{ item.sale_gain }})
         </v-col>
       </div>
       <div class="d-flex align-center justify-end"
         v-if="item.type == 4"
       >
-        <v-col cols="auto" class="pr-0 text-right">
+        <v-col cols="auto" class="pr-0 float-right">
           {{ item.rights }}
         </v-col>
-        <v-col cols="auto" class="pr-0 text-right">
+        <v-col cols="auto" class="pr-0 float-right">
           ({{ item.sale_gain }})
         </v-col>
       </div>

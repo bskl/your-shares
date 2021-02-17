@@ -1,5 +1,7 @@
 <template>
-  <v-toolbar flat class="pl-2">
-    <slot />
-  </v-toolbar>
+  <v-card-title>
+    <span class="title font-weight-light">
+      <slot />
+    </span>
+  </v-card-title>
 </template>

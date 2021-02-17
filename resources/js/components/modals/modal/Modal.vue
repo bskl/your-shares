@@ -1,7 +1,16 @@
 <script>
 
 export default {
-  props: ['dialog', 'width'],
+  props: {
+    dialog: {
+      type: Boolean,
+      required: true,
+    },
+    width: {
+      type: Number,
+      required: true,
+    },
+  },
 
   /**
    * The component's data.
@@ -15,9 +24,9 @@ export default {
 </script>
 
 <template>
-    <v-dialog v-model="dialog" persistent :max-width="dialogWidth">
-      <v-card>
-        <slot />
-      </v-card>
-    </v-dialog>
+  <v-dialog v-model="dialog" persistent :max-width="dialogWidth">
+    <v-card>
+      <slot />
+    </v-card>
+  </v-dialog>
 </template>

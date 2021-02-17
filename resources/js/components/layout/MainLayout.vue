@@ -10,7 +10,7 @@ export default {
   name: 'MainLayout',
 
   components: {
-    MainHeader, MainFooter
+    MainHeader, MainFooter,
   },
 }
 </script>
@@ -18,9 +18,9 @@ export default {
 <template>
   <v-app>
     <main-header />
-    <v-content>
+    <v-main>
       <v-responsive class="mx-auto overflow-visible">
-        <v-container class="fill-height" fluid>
+        <v-container class="fill-height" container--fluid>
           <v-responsive
             class="overflow-visible"
             min-height="90vh"
@@ -29,7 +29,7 @@ export default {
           </v-responsive>
         </v-container>
       </v-responsive>
-    </v-content>
+    </v-main>
     <main-footer />
   </v-app>
 </template>

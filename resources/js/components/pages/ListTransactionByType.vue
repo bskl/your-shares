@@ -29,7 +29,7 @@ export default {
       waitFor: 'fetch_transactions_by_params',
       transactions: this.initialTransactions,
       headers: [
-        { text: this.$t('Year'), value: 'item', align: 'left' },
+        { text: this.$t('Year'), value: 'item', align: 'start' },
         { text: this.$t('January'), value: '1', align: 'center' },
         { text: this.$t('February'), value: '2', align: 'center' },
         { text: this.$t('March'), value: '3', align: 'center' },

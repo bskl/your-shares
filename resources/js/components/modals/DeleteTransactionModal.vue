@@ -95,27 +95,24 @@ export default {
 <template>
   <modal width="360" :dialog="showModal">
     <modal-heading>
-      <v-toolbar-title>{{ $t("Delete Transaction") }}</v-toolbar-title>
+      {{ $t("Delete Transaction") }}
     </modal-heading>
-      <modal-body>
-        <div class="text-xs-center">{{ $t("Are you sure you want to delete the last transaction?") }}</div>
-      </modal-body>
-      <v-divider></v-divider>
-      <modal-footer>
-        <v-spacer></v-spacer>
-        <v-progress-circular v-show="isLoading" indeterminate />
-        <v-btn class="btn-close"
-          :disabled="isLoading"
-          @click="close"
-        >
-          {{ $t("Close") }}
-        </v-btn>
-        <v-btn class="btn-warning"
-          :disabled="isLoading"
-          @click="submit"
-        >
-          {{ $t("Delete") }}
-        </v-btn>
-      </modal-footer>
+    <modal-body>
+      <div class="text-xs-center">{{ $t("Are you sure you want to delete the last transaction?") }}</div>
+    </modal-body>
+    <modal-footer :is-loading="isLoading">
+      <v-btn class="btn-close"
+        :disabled="isLoading"
+        @click="close"
+      >
+        {{ $t("Close") }}
+      </v-btn>
+      <v-btn class="btn-warning"
+        :disabled="isLoading"
+        @click="submit"
+      >
+        {{ $t("Delete") }}
+      </v-btn>
+    </modal-footer>
   </modal>
 </template>

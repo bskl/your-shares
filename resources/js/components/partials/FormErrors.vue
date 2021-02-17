@@ -5,7 +5,8 @@ import isEmpty from "lodash/isEmpty";
 export default {
   props: {
     errors: {
-      type: Object
+      type: Object,
+      required: false,
     }
   },
 

@@ -72,16 +72,16 @@ export default {
   <v-row align="center" justify="center">
     <v-col cols="12" sm="8" md="4">
       <v-card>
-        <v-toolbar flat class="pl-2">
-          <v-toolbar-title>{{ $t("Add Portfolio") }}</v-toolbar-title>
-        </v-toolbar>
+        <v-card-title>
+          <span class="title font-weight-light">{{ $t("Add Portfolio") }}</span>
+        </v-card-title>
         <v-card-text>
           <v-form v-model="valid" ref="form" lazy-validation
             @keyup.native.enter="submit"
             @keydown.native="clearError($event.target.name)"
           >
             <form-errors :errors="errors" />
-            <v-text-field type="text" name="name" ref="name" id="name" outlined autofocus
+            <v-text-field type="text" name="name" ref="name" id="name" filled autofocus
               prepend-inner-icon="text_fields"
               v-model="form.name"
               :disabled="isLoading"
@@ -89,7 +89,7 @@ export default {
               :rules="[rules.required]"
               :error-messages="getError('name')"
             ></v-text-field>
-            <v-select type="select" name="currency" ref="currency" id="currency" outlined
+            <v-select type="select" name="currency" ref="currency" id="currency" filled
               prepend-inner-icon="money"
               v-model="form.currency"
               :disabled="isLoading"
@@ -98,7 +98,7 @@ export default {
               :rules="[rules.required]"
               :error-messages="getError('currency')"
             ></v-select>
-            <v-text-field type="number" name="commission" ref="commission" id="commission" outlined
+            <v-text-field type="number" name="commission" ref="commission" id="commission" filled
               prepend-inner-icon="donut_large"
               step="0.0001"
               v-model="form.commission"
@@ -110,8 +110,7 @@ export default {
             ></v-text-field>
           </v-form>
         </v-card-text>
-        <v-divider></v-divider>
-        <v-card-actions class="pa-4">
+        <v-card-actions class="pb-4 pr-4">
           <v-spacer></v-spacer>
           <v-progress-circular v-show="isLoading" indeterminate />
           <v-btn class="btn-close"

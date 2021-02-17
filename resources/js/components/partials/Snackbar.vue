@@ -48,15 +48,19 @@ export default {
     :multi-line="snackbar.mode === 'multi-line'"
     :vertical="snackbar.mode === 'vertical'"
     :color="snackbar.color"
+    elevation="24"
   >
     {{ snackbar.msg }}
     <v-spacer></v-spacer>
-    <v-btn class="ml-4" icon
-      :aria-label="$t('Close')"
-      :ripple="false"
-      @click.native="snack = false"
-    >
-      <v-icon>cancel</v-icon>
-    </v-btn>
+    <template v-slot:action="{ attrs }">
+      <v-btn class="ml-4" icon
+        :aria-label="$t('Close')"
+        :ripple="false"
+        v-bind="attrs"
+        @click.native="snack = false"
+      >
+        <v-icon>cancel</v-icon>
+      </v-btn>
+    </template>
   </v-snackbar>
 </template>

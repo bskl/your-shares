@@ -96,15 +96,13 @@ export default {
 <template>
   <modal :width="460" :dialog="showModal">
     <modal-heading>
-      <v-toolbar-title>{{ $t("Delete Portfolio") }}</v-toolbar-title>
+      {{ $t("Delete Portfolio") }}
     </modal-heading>
     <modal-body>
       <div class="text-xs-center">{{ $t("Are you sure you want to delete this portfolio?") }}</div>
     </modal-body>
     <v-divider></v-divider>
-    <modal-footer>
-      <v-spacer></v-spacer>
-      <v-progress-circular v-show="isLoading" indeterminate />
+    <modal-footer :is-loading="isLoading">
       <v-btn class="btn-close"
         :disabled="isLoading"
         @click="close"
