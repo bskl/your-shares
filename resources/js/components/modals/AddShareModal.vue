@@ -9,6 +9,7 @@ import ModalHeading from '../modals/modal/ModalHeading.vue';
 import ModalBody from '../modals/modal/ModalBody.vue';
 import ModalFooter from '../modals/modal/ModalFooter.vue';
 import FormErrors from '../partials/FormErrors.vue';
+import SearchSymbol from '../partials/SearchSymbol.vue';
 
 export default {
   /**
@@ -22,7 +23,7 @@ export default {
   ],
 
   components: {
-    Modal, ModalHeading, ModalBody, ModalFooter, FormErrors,
+    Modal, ModalHeading, ModalBody, ModalFooter, FormErrors, SearchSymbol,
   },
 
   /**
@@ -31,10 +32,7 @@ export default {
   data() {
     return {
       waitFor: 'store_share',
-      searching: false,
       valid: true,
-      search: null,
-      symbols: [],
       form: {
         symbol_id: 0,
         portfolio_id: 0,
@@ -48,23 +46,6 @@ export default {
     ]),
   },
 
-  watch: {
-    search (val) {
-      if (val == null || this.symbols.length > 0 || this.isLoading) return
-
-      this.searching = true;
-
-      this.fetchSymbols()
-        .then((res) => {
-          this.symbols = res.data;
-          this.searching = false;
-        })
-        .catch((error) => {
-          this.syncErrors(error);
-        });
-    }
-  },
-
   mounted() {
     document.addEventListener("keydown", (e) => {
       if (e.keyCode == 27) {
@@ -75,7 +56,7 @@ export default {
 
   methods: {
     ...mapActions([
-      'fetchSymbols', 'storeShare', 'setShowModal',
+      'storeShare', 'setShowModal',
     ]),
 
     /**
@@ -90,7 +71,6 @@ export default {
      * Close the modal and reset form elements.
      */
     close() {
-      this.searching = false;
       this.clearErrors();
       this.$refs.form.reset();
       this.setShowModal(false);
@@ -133,19 +113,7 @@ export default {
         @keydown.native="clearError($event.target.name)"
       >
         <form-errors :errors="errors" />
-        <v-autocomplete name="symbol_id" ref="symbol_id" id="symbol_id" filled clearable
-          v-model="form.symbol_id"
-          :items="symbols"
-          :loading="searching"
-          :search-input.sync="search"
-          :rules="[rules.required]"
-          :label="$t('Search Symbol')"
-          :no-data-text="$t('No data available')"
-          :error-messages="getError('symbol_id')"
-          :disabled="isLoading"
-          item-text="code"
-          item-value="id"
-        />
+        <search-symbol :symbolId.sync="form.symbol_id"></search-symbol>
       </v-form>
     </modal-body>
     <modal-footer :is-loading="isLoading">
