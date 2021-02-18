@@ -6,6 +6,7 @@ export default {
   showModal: false,
   user: [],
   portfolios: [],
+  errors: {},
   showSnackbar: false,
   snackbar: {
     ...DEFAULT_SNACKBAR,

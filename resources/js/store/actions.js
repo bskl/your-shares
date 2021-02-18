@@ -38,6 +38,14 @@ export default {
     commit('SET_SHOW_MODAL', data);
   },
 
+  setErrors({ commit }, data) {
+    commit('SET_ERRORS', data);
+  },
+
+  unsetError({ commit }, data) {
+    commit('UNSET_ERROR', data);
+  },
+
   register({ dispatch, commit }, data) {
     return http.post('/register', data)
       .then((res) => {

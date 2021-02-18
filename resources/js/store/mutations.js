@@ -1,4 +1,4 @@
-import { has, lowerFirst } from 'lodash';
+import { has, lowerFirst, unset } from 'lodash';
 import { TRANSACTION_TYPES_MAP, DEFAULT_SNACKBAR } from './constants.js';
 
 export default {
@@ -97,5 +97,11 @@ export default {
     state.snackbar = Object.assign({}, {
         ...DEFAULT_SNACKBAR,
       }, data);
+  },
+  SET_ERRORS(state, data) {
+    state.errors = Object.assign({}, data);
+  },
+  UNSET_ERROR(state, data) {
+    unset(state.errors, data);
   },
 }

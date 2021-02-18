@@ -1,11 +1,10 @@
-import unset from "lodash/unset";
+import { mapState, mapActions } from 'vuex';
 import router from "../router";
 import store from '../store';
 
 export default {
   data() {
     return {
-      errors: {},
       rules: {
         required: value => {
           return (!!value || value === 0) || this.$t("rules.required");
@@ -24,7 +23,17 @@ export default {
     }
   },
 
+  computed: {
+    ...mapState([
+      'errors',
+    ]),
+  },
+
   methods: {
+    ...mapActions([
+      'setErrors', 'unsetError',
+    ]),
+
     syncErrors(error) {
       if (typeof error !== 'undefined') {
         if (typeof error.response !== 'undefined' && error.hasOwnProperty('response')) {
@@ -38,7 +47,7 @@ export default {
           } else if (error.response.status === 419) {
             router.push({ name: 'ExpiredSession' });
           } else if (error.response.hasOwnProperty('data') && error.response.data.hasOwnProperty('errors')) {
-            this.errors = Object.assign({}, error.response.data.errors);
+            this.setErrors(error.response.data.errors);
 
             for (const key of Object.entries(this.errors)) {
               if (typeof this.$refs[key] !== 'undefined') {
@@ -59,13 +68,12 @@ export default {
     },
 
     clearErrors() {
-      this.errors = {};
+        this.setErrors({});
     },
 
     clearError(field) {
       if (this.hasErrors(field)) {
-        unset(this.errors, field);
-        this.errors = Object.assign({}, this.errors, this.errors);
+        this.unsetError(field);
         this.$refs[field].valid = true;
       }
     },
