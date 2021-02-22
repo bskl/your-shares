@@ -31,7 +31,7 @@ class TransactionRequest extends Request
         if ($this->type == TransactionType::Buying || $this->type == TransactionType::Sale) {
             $addRule .= '|integer';
         }
-        if ($this->type == TransactionType::Sale || $this->type == TransactionType::Dividend) {
+        if ($this->type == TransactionType::Sale || $this->type == TransactionType::Dividend || $this->type == TransactionType::Merger) {
             $addRule .= '|lte:'.optional(Share::find($this->share_id))->lot;
         }
 

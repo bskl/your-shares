@@ -7,6 +7,7 @@ import validationHandler from '../../mixins/validationHandler.js';
 import loadingHandler from '../../mixins/loadingHandler.js';
 import FormErrors from '../partials/FormErrors.vue';
 import VCurrencyField from '../partials/VCurrencyField.vue';
+import SearchSymbolField from '../partials/SearchSymbolField.vue';
 
 export default {
   props: {
@@ -35,7 +36,7 @@ export default {
   ],
 
   components: {
-    FormErrors, VCurrencyField,
+    FormErrors, VCurrencyField, SearchSymbolField,
   },
 
   /**
@@ -211,6 +212,7 @@ export default {
                 <v-btn class="btn-action" @click="$refs.menu.save(form.date_at)">{{ $t("Ok") }}</v-btn>
               </v-date-picker>
             </v-menu>
+            <search-symbol-field v-if="form.type == 5" :symbolId.sync="form.symbol_id"></search-symbol-field>
             <v-text-field type="number" name="lot" ref="lot" id="lot" filled clearable
               prepend-inner-icon="format_list_numbered"
               v-model="form.lot"
@@ -223,6 +225,16 @@ export default {
                 form.type == 4 ? $t('You must write your rights shares.') : ''"
             ></v-text-field>
             <v-currency-field v-if="form.type == 0 || form.type == 1 || form.type == 2" name="price" v-model="form.price"></v-currency-field>
+            <v-text-field type="number" name="exchange_ratio" ref="exchange_ratio" id="exchange_ratio" filled clearable
+              v-if="form.type == 5"
+              prepend-inner-icon="donut_large"
+              v-model="form.exchange_ratio"
+              :disabled="isLoading"
+              :label="$t('Enter Exchange Ratio')"
+              :rules="[rules.required]"
+              :error-messages="getError('exchange_ratio')"
+              :hint="$t('for_example', { example: '1,15997' })"
+            ></v-text-field>
             <v-text-field type="number" name="commission" ref="commission" id="commission" filled clearable
               v-if="form.type == 0 || form.type == 1"
               step="0.0001"

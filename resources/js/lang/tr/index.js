@@ -42,6 +42,7 @@ export default {
   "Are you sure you want to delete the last transaction?": "Son işlemi silmek istediğinize emin misiniz?",
   "Select Transaction": "İşlem Seçiniz",
   "Select Date": "Tarih Seçiniz",
+  "Enter Exchange Ratio": "Pay Değişim Oranını Giriniz",
   "Enter Share Amount": "Hisse Miktarını Giriniz",
   "Enter Transaction Price": "İşlem Fiyatını Giriniz",
   "Enter Commission Rate": "Komisyon Oranını Giriniz",
@@ -182,6 +183,7 @@ export default {
   "Dividend": "Temettü",
   "Bonus": "Bedelsiz",
   "Rights": "Bedelli",
+  "Merger": "Birleşme",
   "list_by_type_year_title": "{year} {code} {type} İşlemleri",
   "for_example": "Örneğin; {example}",
 };

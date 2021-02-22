@@ -12,4 +12,5 @@ final class TransactionType extends Enum implements LocalizedEnum
     const Dividend = 2;
     const Bonus = 3;
     const Rights = 4;
+    const Merger = 5;
 }

@@ -43,6 +43,7 @@ export default {
   "Select Transaction": "Select Transaction",
   "Select Date": "Select Date",
   "Enter Share Amount": "Enter Share Amount",
+  "Enter Exchange Ratio": "Enter Exchange Ratio",
   "Enter Transaction Price": "Enter Transaction Price",
   "Enter Commission Rate": "Enter Commission Rate",
   "Enter Dividend Gain Price": "Enter Dividend Gain Price",
@@ -182,6 +183,7 @@ export default {
   "Dividend": "Dividend",
   "Bonus": "Bonus",
   "Rights": "Rights",
+  "Merger": "Merger",
   "list_by_type_year_title": "{year} {code} {type} İşlemleri",
   "for_example": "For Example; {example}",
 };

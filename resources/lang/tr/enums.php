@@ -9,5 +9,6 @@ return [
         TransactionType::Dividend => 'Temettü',
         TransactionType::Bonus    => 'Bedelsiz',
         TransactionType::Rights   => 'Bedelli',
+        TransactionType::Merger   => 'Birleşme',
     ],
 ];
