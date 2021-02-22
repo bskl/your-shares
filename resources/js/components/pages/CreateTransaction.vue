@@ -48,6 +48,7 @@ export default {
         share_id: this.shareId,
         type: TRANSACTION_TYPES.Buying,
         date_at: null,
+        symbol_id: 0,
         lot: null,
         price: null,
         commission: this.commission,
@@ -211,7 +212,6 @@ export default {
               </v-date-picker>
             </v-menu>
             <v-text-field type="number" name="lot" ref="lot" id="lot" filled clearable
-              step="1"
               prepend-inner-icon="format_list_numbered"
               v-model="form.lot"
               :disabled="isLoading"
@@ -219,12 +219,12 @@ export default {
               :rules="[rules.required]"
               :error-messages="getError('lot')"
               :hint="
-                this.form.type == 3 ? $t('You must write your bonus shares.') :
-                this.form.type == 4 ? $t('You must write your rights shares.') : ''"
+                form.type == 3 ? $t('You must write your bonus shares.') :
+                form.type == 4 ? $t('You must write your rights shares.') : ''"
             ></v-text-field>
             <v-currency-field v-if="form.type == 0 || form.type == 1 || form.type == 2" name="price" v-model="form.price"></v-currency-field>
             <v-text-field type="number" name="commission" ref="commission" id="commission" filled clearable
-              v-if="this.form.type == 0 || this.form.type == 1"
+              v-if="form.type == 0 || form.type == 1"
               step="0.0001"
               prepend-inner-icon="donut_large"
               v-model="form.commission"
@@ -232,7 +232,7 @@ export default {
               :label="$t('Enter Commission Rate')"
               :rules="[rules.required]"
               :error-messages="getError('commission')"
-              :hint="$t('For example; Garanti Bank: 0,188')"
+              :hint="$t('for_example', { example: 'Garanti Bank: 0,188' })"
             ></v-text-field>
             <v-currency-field v-if="form.type == 2" name="dividend_gain" v-model="form.dividend_gain"></v-currency-field>
           </v-form>

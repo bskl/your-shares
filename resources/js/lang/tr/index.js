@@ -102,7 +102,6 @@ export default {
   "Gain on the instant stock price.": "Hisse son fiyatı karları ile kazanç toplamı.",
   "You must write your bonus shares.": "Bedelsiz dağıtılan hisse miktarını yazmalısınız.",
   "You must write your rights shares.": "Rüçhan hakkı ile alınan hisse miktarını yazmalısınız.",
-  "For example; Garanti Bank: 0,188": "Örneğin; Garanti Bankası: 0,188",
   "Rows per page:": "Sayfa başına satır:",
   "All": "Hepsi",
   "Connection error!": "Bağlantı hatası!",
@@ -184,4 +183,5 @@ export default {
   "Bonus": "Bedelsiz",
   "Rights": "Bedelli",
   "list_by_type_year_title": "{year} {code} {type} İşlemleri",
+  "for_example": "Örneğin; {example}",
 };

@@ -102,7 +102,6 @@ export default {
   "Gain on the instant stock price.": "Gain on the instant stock price.",
   "You must write your bonus shares.": "You must write your bonus shares.",
   "You must write your rights shares.": "You must write your rights shares.",
-  "For example; Garanti Bank: 0,188": "For example; Garanti Bank: 0,188",
   "Rows per page:": "Rows per page:",
   "All": "All",
   "Connection error!": "Connection error!",
@@ -184,4 +183,5 @@ export default {
   "Bonus": "Bonus",
   "Rights": "Rights",
   "list_by_type_year_title": "{year} {code} {type} İşlemleri",
+  "for_example": "For Example; {example}",
 };
