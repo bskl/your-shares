@@ -6,6 +6,7 @@ import { parseSuccessMessage } from '../../utilities/helpers.js';
 import validationHandler from '../../mixins/validationHandler.js';
 import loadingHandler from '../../mixins/loadingHandler.js';
 import FormErrors from '../partials/FormErrors.vue';
+import VCurrencyField from '../partials/VCurrencyField.vue';
 
 export default {
   props: {
@@ -34,7 +35,7 @@ export default {
   ],
 
   components: {
-    FormErrors,
+    FormErrors, VCurrencyField,
   },
 
   /**
@@ -56,8 +57,6 @@ export default {
       valid: true,
       menu: false,
       symbolCode: this.code,
-      priceCurrency: null,
-      dividendGainCurrency: null
     };
   },
 
@@ -74,12 +73,6 @@ export default {
     date: function (val) {
       this.form.date_at = this.formatDate(val)
     },
-    priceCurrency: function (val) {
-      this.form.price = this.$parseCurrency(val)
-    },
-    dividendGainCurrency: function (val) {
-      this.form.dividend_gain = this.$parseCurrency(val)
-    }
   },
 
   methods: {
@@ -229,16 +222,7 @@ export default {
                 this.form.type == 3 ? $t('You must write your bonus shares.') :
                 this.form.type == 4 ? $t('You must write your rights shares.') : ''"
             ></v-text-field>
-            <v-text-field type="text" name="price" ref="price" id="price" filled clearable
-              v-if="this.form.type == 0 || this.form.type == 1 || this.form.type == 2"
-              prepend-inner-icon="money"
-              v-model.lazy="priceCurrency"
-              :disabled="isLoading"
-              :label="$t('Enter Transaction Price')"
-              :rules="[rules.required]"
-              :error-messages="getError('price')"
-              v-currency
-            ></v-text-field>
+            <v-currency-field v-if="form.type == 0 || form.type == 1 || form.type == 2" name="price" v-model="form.price"></v-currency-field>
             <v-text-field type="number" name="commission" ref="commission" id="commission" filled clearable
               v-if="this.form.type == 0 || this.form.type == 1"
               step="0.0001"
@@ -250,16 +234,7 @@ export default {
               :error-messages="getError('commission')"
               :hint="$t('For example; Garanti Bank: 0,188')"
             ></v-text-field>
-            <v-text-field type="text" name="dividend_gain" ref="dividend_gain" id="dividend_gain" filled clearable
-              v-if="this.form.type == 2"
-              prepend-inner-icon="money"
-              v-model.lazy="dividendGainCurrency"
-              :disabled="isLoading"
-              :label="$t('Enter Dividend Gain Price')"
-              :rules="[rules.required]"
-              :error-messages="getError('dividend_gain')"
-              v-currency
-            ></v-text-field>
+            <v-currency-field v-if="form.type == 2" name="dividend_gain" v-model="form.dividend_gain"></v-currency-field>
           </v-form>
         </v-card-text>
         <v-card-actions class="pb-4 pr-4">
