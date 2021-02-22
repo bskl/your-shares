@@ -7,7 +7,7 @@ export default {
       required: true,
     },
     width: {
-      type: Number,
+      type: [String, Number],
       required: true,
     },
   },
