@@ -8,7 +8,7 @@ export default {
   /**
    * The component's name.
    */
-  name: "SearchSymbol",
+  name: 'SearchSymbolField',
 
   mixins: [
     validationHandler,

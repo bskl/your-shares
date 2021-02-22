@@ -9,7 +9,7 @@ import ModalHeading from '../modals/modal/ModalHeading.vue';
 import ModalBody from '../modals/modal/ModalBody.vue';
 import ModalFooter from '../modals/modal/ModalFooter.vue';
 import FormErrors from '../partials/FormErrors.vue';
-import SearchSymbol from '../partials/SearchSymbol.vue';
+import SearchSymbolField from '../partials/SearchSymbolField.vue';
 
 export default {
   /**
@@ -23,7 +23,7 @@ export default {
   ],
 
   components: {
-    Modal, ModalHeading, ModalBody, ModalFooter, FormErrors, SearchSymbol,
+    Modal, ModalHeading, ModalBody, ModalFooter, FormErrors, SearchSymbolField,
   },
 
   /**
@@ -113,7 +113,7 @@ export default {
         @keydown.native="clearError($event.target.name)"
       >
         <form-errors :errors="errors" />
-        <search-symbol :symbolId.sync="form.symbol_id"></search-symbol>
+        <search-symbol-field :symbolId.sync="form.symbol_id"></search-symbol-field>
       </v-form>
     </modal-body>
     <modal-footer :is-loading="isLoading">
