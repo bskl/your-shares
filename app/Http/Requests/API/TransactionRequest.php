@@ -40,10 +40,7 @@ class TransactionRequest extends Request
             'type'          => 'required|integer|enum_value:'.TransactionType::class,
             'date_at'       => 'required|date|before_or_equal:'.Carbon::today()->toDateString(),
             'lot'           => 'required|gt:0'.$addRule,
-            'price'         =>
-                Rule::requiredIf(function () {
-                    return ($this->type == TransactionType::Buying) || ($this->type == TransactionType::Sale);
-                }),
+            'price'         => 'required_if:type,'.TransactionType::Buying.',type,'.TransactionType::Sale,
             'commission'    => 'required|numeric',
             'dividend_gain' => 'required_if:type,'.TransactionType::Dividend,
         ];
