@@ -6,7 +6,6 @@ use App\Enums\TransactionType;
 use App\Http\Requests\Request;
 use App\Models\Share;
 use Carbon\Carbon;
-use Illuminate\Validation\Rule;
 
 class TransactionRequest extends Request
 {
