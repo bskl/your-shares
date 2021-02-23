@@ -72,7 +72,7 @@ class Controller extends BaseController
                          ->get()
                          ->groupBy(['year', 'month']);
 
-        if (!count($grouped)) {
+        if (! count($grouped)) {
             return $this->respondSuccess([]);
         }
 
