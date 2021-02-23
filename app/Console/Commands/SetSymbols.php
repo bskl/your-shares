@@ -67,7 +67,7 @@ class SetSymbols extends Command
     {
         do {
             $response = Http::get($this->url);
-        } while (!$response->successful());
+        } while (! $response->successful());
 
         $body = preg_replace('/\r|\n|\t/', '', $response->body());
 
@@ -89,7 +89,7 @@ class SetSymbols extends Command
         $xpath = new DOMXpath($dom);
         $allTr = $xpath->query("//table[contains(@data-csvname,'tumhisse')]/tbody/tr");
 
-        if (!$allTr->length) {
+        if (! $allTr->length) {
             return false;
         }
 

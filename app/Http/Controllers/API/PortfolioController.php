@@ -150,7 +150,7 @@ class PortfolioController extends Controller
                              ->get()
                              ->groupBy(['share_id', 'month']);
 
-        if (!count($grouped)) {
+        if (! count($grouped)) {
             return $this->respondSuccess([]);
         }
 

@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
+use Money\Formatter\DecimalMoneyFormatter;
+use Money\Formatter\IntlMoneyFormatter;
 use Money\Money;
 use Money\Parser\DecimalMoneyParser;
-use Money\Formatter\IntlMoneyFormatter;
-use Money\Formatter\DecimalMoneyFormatter;
 
 abstract class BaseModel extends Model
 {

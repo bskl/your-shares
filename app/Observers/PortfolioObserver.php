@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Models\Portfolio;
-use Illuminate\Support\Facades\Auth;
 
 class PortfolioObserver
 {

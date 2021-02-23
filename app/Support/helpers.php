@@ -63,7 +63,7 @@ function format_decimal_symbol($values)
     $formatted = [];
 
     foreach (Arr::wrap($values) as $value) {
-        if (!is_string($value)) {
+        if (! is_string($value)) {
             throw new \Exception('Given value should be string.');
         }
 
@@ -72,7 +72,7 @@ function format_decimal_symbol($values)
         $separatorPos = (($dotPos > $commaPos) && $dotPos) ? $dotPos :
                         ((($commaPos > $dotPos) && $commaPos) ? $commaPos : false);
 
-        if (!$separatorPos || (strlen($value) - $separatorPos) > 3) {
+        if (! $separatorPos || (strlen($value) - $separatorPos) > 3) {
             $formatted[] = strval($value);
             continue;
         }
@@ -100,7 +100,7 @@ function to_decimal($values)
     $formatted = [];
 
     foreach (Arr::wrap($values) as $value) {
-        if (!is_string($value)) {
+        if (! is_string($value)) {
             throw new \Exception('Given value should be string.');
         }
 
@@ -109,7 +109,7 @@ function to_decimal($values)
         $separatorPos = (($dotPos > $commaPos) && $dotPos) ? $dotPos :
                         ((($commaPos > $dotPos) && $commaPos) ? $commaPos : false);
 
-        if (!$separatorPos || (strlen($value) - $separatorPos) > 3) {
+        if (! $separatorPos || (strlen($value) - $separatorPos) > 3) {
             $formatted[] = preg_replace('/\D/', '', $value);
             continue;
         }
