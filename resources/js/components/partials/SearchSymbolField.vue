@@ -51,6 +51,7 @@ export default {
 
 <template>
   <v-autocomplete name="symbol_id" ref="symbol_id" id="symbol_id" filled clearable
+    prepend-inner-icon="layers"
     v-model="symbolId"
     @input="$emit('update:symbolId', symbolId)"
     :items="symbols"
