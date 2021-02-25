@@ -15,7 +15,7 @@ class Portfolio extends BaseModel
      * @var array
      */
     protected $guarded = [
-        'id', 'user_id', 'order',
+        'id',
     ];
 
     /**

@@ -50,9 +50,15 @@ class PortfolioController extends Controller
      */
     public function store(PortfolioRequest $request)
     {
+        $this->authorize(Portfolio::class);
+
+        $data = $request->validated();
+        $data['user_id'] = Auth::id();
+        $data['order'] = Portfolio::byCurrentUser()->count() + 1;
+
         try {
-            $portfolio = Portfolio::create($request->validated());
-            $portfolio->refresh()->load('share');
+            $portfolio = Portfolio::create($data);
+            $portfolio->refresh()->load('shares');
 
             return new PortfolioResource($portfolio);
         } catch (\Exception $e) {
