@@ -18,6 +18,10 @@ export default {
       type: Number,
       default: null
     },
+    label: {
+      type: String,
+      required: true,
+    },
     options: {
       type: Object,
       default: () => {}
@@ -67,7 +71,7 @@ export default {
     v-currency="options"
     :value="formattedValue"
     :disabled="isLoading"
-    :label="$t('Enter Transaction Price')"
+    :label="label"
     :rules="[rules.required]"
     :error-messages="getError(name)"
     @change="onChange"
