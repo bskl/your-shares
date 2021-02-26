@@ -125,7 +125,7 @@ export default {
             ></v-text-field>
           </v-form>
         </v-card-text>
-        <v-card-actions class="pb-4 pr-4">
+        <v-card-actions class="pb-4 px-4">
           <v-btn class="btn-warning"
             v-if="this.portfoliosCount > 1"
             @click="$refs.deletePortfolioModal.open($route.params.id)"

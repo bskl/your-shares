@@ -101,7 +101,6 @@ export default {
     <modal-body>
       <div class="text-xs-center">{{ $t("Are you sure you want to delete this portfolio?") }}</div>
     </modal-body>
-    <v-divider></v-divider>
     <modal-footer :is-loading="isLoading">
       <v-btn class="btn-close"
         :disabled="isLoading"
