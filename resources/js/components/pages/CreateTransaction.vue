@@ -193,17 +193,17 @@ export default {
               :label="$t('Select Transaction')"
               :rules="[rules.required]"
               :error-messages="getError('type')"
+              @change="onChangeType"
               item-text="label"
               item-value="id"
               menu-props="bottom"
             ></v-select>
-            <v-menu ref="menu" offset-y min-width="290px" transition="scale-transition"
+            <v-menu ref="menu" offset-y min-width="auto" transition="scale-transition"
               v-model="menu"
               :close-on-content-click="false"
               :nudge-right="40"
-              :return-value.sync="form.date_at"
             >
-              <template v-slot:activator="{ on }">
+              <template v-slot:activator="{ on, attrs }">
                 <v-text-field name="date_at" ref="date_at" id="date_at" readonly filled clearable
                   prepend-inner-icon="calendar_today"
                   v-model="form.date_at"
@@ -211,17 +211,16 @@ export default {
                   :label="$t('Select Date')"
                   :rules="[rules.required]"
                   :error-messages="getError('date_at')"
+                  v-bind="attrs"
                   v-on="on"
                 ></v-text-field>
               </template>
-              <v-date-picker no-title scrollable
+              <v-date-picker no-title scrollable elevation="15"
                 v-model="date"
                 :allowed-dates="allowedDates"
                 :first-day-of-week="1"
+                @input="menu = false"
               >
-              <v-spacer></v-spacer>
-                <v-btn class="btn-close" @click="menu = false">{{ $t("Close") }}</v-btn>
-                <v-btn class="btn-action" @click="$refs.menu.save(form.date_at)">{{ $t("Ok") }}</v-btn>
               </v-date-picker>
             </v-menu>
             <search-symbol-field v-if="form.type == 5" :symbolId.sync="form.symbol_id"></search-symbol-field>
