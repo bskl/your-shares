@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\TransactionType;
+use App\Models\Symbol;
 use Carbon\Carbon;
 use Money\Money;
 
@@ -35,14 +36,6 @@ class Transaction extends BaseModel
         'bonus', 'rights',
     ];
 
-    /**
-     * The attributes that are format decimal.
-     *
-     * @var array
-     */
-    protected $decimal = [
-        'lot',
-    ];
 
     /**
      * The attributes that should be mutated to dates.
@@ -78,6 +71,8 @@ class Transaction extends BaseModel
      */
     protected $casts = [
         'type' => TransactionType::class,
+        'exchange_ratio' => 'decimal:15',
+        'lot' => 'decimal:3',
     ];
 
     /**
@@ -86,6 +81,20 @@ class Transaction extends BaseModel
     public function share()
     {
         return $this->belongsTo('App\Models\Share');
+    }
+
+    /**
+     * Set the symbol code attribute.
+     *
+     * @param int $value
+     *
+     * @return void
+     */
+    public function setSymbolCodeAttribute($value): void
+    {
+        if ($this->type->in([TransactionType::MergerOut, TransactionType::MergerIn])) {
+            $this->attributes['symbol_code'] = Symbol::findOrFail($value)->code;
+        }
     }
 
     /**
@@ -179,6 +188,18 @@ class Transaction extends BaseModel
         $this->price = $this->getMoneyAttribute('100');
         $this->amount = $this->price->multiply($this->lot);
         $this->rights = ($this->lot * 100) / $this->share->lot;
+        $this->update();
+    }
+
+    /**
+     * Handle merger in transaction calculations.
+     *
+     * @return void
+     */
+    public function handleCalculationsOfMergerIn(): void
+    {
+        $this->remaining = $this->lot;
+        $this->amount = $this->price->multiply($this->lot);
         $this->update();
     }
 }

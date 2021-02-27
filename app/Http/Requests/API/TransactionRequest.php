@@ -30,18 +30,20 @@ class TransactionRequest extends Request
         if ($this->type == TransactionType::Buying || $this->type == TransactionType::Sale) {
             $addRule .= '|integer';
         }
-        if ($this->type == TransactionType::Sale || $this->type == TransactionType::Dividend || $this->type == TransactionType::Merger) {
+        if ($this->type == TransactionType::Sale || $this->type == TransactionType::Dividend || $this->type == TransactionType::MergerOut) {
             $addRule .= '|lte:'.optional(Share::find($this->share_id))->lot;
         }
 
         return [
-            'share_id'      => 'required|integer|exists:shares,id,user_id,'.$this->user()->id,
-            'type'          => 'required|integer|enum_value:'.TransactionType::class,
-            'date_at'       => 'required|date|before_or_equal:'.Carbon::today()->toDateString(),
-            'lot'           => 'required|gt:0'.$addRule,
-            'price'         => 'required_if:type,'.TransactionType::Buying.',type,'.TransactionType::Sale,
-            'commission'    => 'required|numeric',
-            'dividend_gain' => 'required_if:type,'.TransactionType::Dividend,
+            'share_id'       => 'required|integer|exists:shares,id,user_id,'.$this->user()->id,
+            'type'           => 'required|integer|enum_value:'.TransactionType::class,
+            'date_at'        => 'required|date|before_or_equal:'.Carbon::today()->toDateString(),
+            'lot'            => 'required|gt:0'.$addRule,
+            'price'          => 'required_if:type,'.TransactionType::Buying.',type,'.TransactionType::Sale,
+            'exchange_ratio' => 'required_if:type,'.TransactionType::MergerOut,
+            'symbol_id'      => 'integer|required_if:type,'.TransactionType::MergerOut,
+            'commission'     => 'required|numeric',
+            'dividend_gain'  => 'required_if:type,'.TransactionType::Dividend,
         ];
     }
 }

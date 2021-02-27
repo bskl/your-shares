@@ -34,6 +34,9 @@ export default {
     state.portfolios.push(portfolio);
   },
   UPDATE_PORTFOLIO(state, { index, portfolio }) {
+    state.portfolios[index] = portfolio;
+  },
+  UPDATE_PORTFOLIO_BY_KEY(state, { index, portfolio }) {
     for (const key in portfolio) {
       state.portfolios[index][key] = portfolio[key];
     }

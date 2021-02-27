@@ -30,7 +30,10 @@ class CreateTransactionsTable extends Migration
             $table->integer('sale_gain')->nullable()->default(0);
             $table->integer('dividend')->unsigned()->nullable()->default(0);
             $table->integer('dividend_gain')->unsigned()->nullable()->default(0);
-            $table->float('bonus', 5, 4)->unsigned()->nullable()->default(0);
+            $table->float('bonus', 7, 4)->unsigned()->nullable()->default(0);
+            $table->float('rights', 7, 4)->unsigned()->nullable()->default(0);
+            $table->decimal('exchange_ratio', 17, 15)->unsigned()->nullable()->default(0);
+            $table->string('symbol_code', 10)->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')

@@ -158,7 +158,7 @@ export default {
     return http.put(`/api/portfolios/${id}`, form)
       .then((res) => {
         const index = getters.getPortfolioIndexById(id);
-        commit('UPDATE_PORTFOLIO', { index, portfolio: form });
+        commit('UPDATE_PORTFOLIO_BY_KEY', { index, portfolio: form });
 
         return res.data;
       });
@@ -193,13 +193,10 @@ export default {
         if (getters.portfoliosCount) {
           const data = res.data.data;
           const portfolioIndex = getters.getPortfolioIndexById(data.portfolio.id);
-          const shareIndex = getters.getShareIndexByPortfolioIndexAndId(portfolioIndex, data.share.id);
-
           commit('UPDATE_PORTFOLIO', { index: portfolioIndex, portfolio: data.portfolio });
-          commit('UPDATE_SHARE', { portfolioIndex, shareIndex, share: data.share });
 
-          const transaction = getters.getLastTransaction(portfolioIndex, shareIndex);
-          commit('DELETE_ITEM_DETAILS', { portfolioIndex, shareIndex, transaction });
+          const shareIndex = getters.getShareIndexByPortfolioIndexAndId(portfolioIndex, form.share_id);
+          commit('ADD_TRANSACTIONS', { portfolioIndex, index: shareIndex, transactions: data.transactions });
         }
 
         return res.data;
@@ -214,10 +211,10 @@ export default {
           const portfolioIndex = getters.getPortfolioIndexById(data.portfolio.id);
           const shareIndex = getters.getShareIndexByPortfolioIndexAndId(portfolioIndex, data.share.id);
           const transaction = getters.getLastTransaction(portfolioIndex, shareIndex);
-
-          commit('UPDATE_PORTFOLIO', { index: portfolioIndex, portfolio: data.portfolio });
-          commit('UPDATE_SHARE', { portfolioIndex, shareIndex, share: data.share });
+          
+          commit('UPDATE_PORTFOLIO_BY_KEY', { index: portfolioIndex, portfolio: data.portfolio });
           commit('DELETE_ITEM_DETAILS', { portfolioIndex, shareIndex, transaction });
+          commit('UPDATE_SHARE', { portfolioIndex, shareIndex, share: data.share });
         }
 
         return res.data;

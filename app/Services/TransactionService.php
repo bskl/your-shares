@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\TransactionType;
 use App\Models\Transaction;
 use Money\Money;
 
@@ -189,5 +190,45 @@ class TransactionService
     {
         $transaction->share->handleCalculationsOfDeletedRights($transaction);
         $transaction->share->portfolio->handleCalculationsOfDeletedRights($transaction);
+    }
+
+    /**
+     * Handle calculations when create a new merger out transaction instance.
+     *
+     * @param \App\Models\Transaction $transaction
+     *
+     * @return void
+     */
+    public static function handleCalculationsOfMergerOut(Transaction $transaction): void
+    {
+        $shareAmount = $transaction->share->average_amount;
+        $transaction->share->handleCalculationsOfMergerOut($transaction);
+        $newShare = $transaction->share->portfolio->handleCalculationsOfMergerOut($transaction);
+
+        $newTransaction = new Transaction();
+        $newTransaction->fill([
+            'share_id' => $newShare->id,
+            'type' => TransactionType::MergerIn,
+            'date_at' => $transaction->date_at,
+            'lot' => ($newLot = $transaction->lot * $transaction->exchange_ratio),
+            'exchange_ratio' => $transaction->exchange_ratio,
+        ]);
+        $newTransaction->price = $shareAmount->divide($newLot);
+        $newTransaction->symbol_code = $transaction->share->symbol_id;
+        $newTransaction->save();
+    }
+
+    /**
+     * Handle calculations when create a new merger in transaction instance.
+     *
+     * @param \App\Models\Transaction $transaction
+     *
+     * @return void
+     */
+    public static function handleCalculationsOfMergerIn(Transaction $transaction): void
+    {
+        $transaction->handleCalculationsOfMergerIn();
+        $transaction->share->handleCalculationsOfMergerIn($transaction);
+        $transaction->share->portfolio->paid_amount = $transaction->share->portfolio->paid_amount->add($transaction->amount);
     }
 }

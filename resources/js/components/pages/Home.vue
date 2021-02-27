@@ -173,7 +173,7 @@ export default {
             </template>
             <template v-slot:item.lot="{ item }">
               <div class="float-right">
-                {{ item.lot }}
+                {{ $n(item.lot, 'decimal') }}
               </div>
             </template>
             <template v-slot:item.average="{ item }">

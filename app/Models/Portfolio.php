@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Symbol;
 use App\Traits\CanFilterByUser;
 use Money\Money;
 
@@ -277,5 +278,22 @@ class Portfolio extends BaseModel
         $this->paid_amount = $this->paid_amount->subtract($transaction->amount);
         $this->total_rights_share -= $transaction->lot;
         $this->update();
+    }
+
+    /**
+     * Handle merger out transaction calculations.
+     *
+     * @param \App\Models\Transaction $transaction
+     *
+     * @return \App\Models\Share
+     */
+    public function handleCalculationsOfMergerOut(Transaction $transaction): Share
+    {
+        $this->paid_amount = $this->paid_amount->subtract($transaction->share->amount);
+        $this->update();
+
+        return $this->shares()->firstOrCreate([
+            'symbol_id' => Symbol::whereCode($transaction->symbol_code)->first()->id
+        ]);
     }
 }

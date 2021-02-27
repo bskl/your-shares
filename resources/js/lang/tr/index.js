@@ -183,7 +183,8 @@ export default {
   "Dividend": "Temettü",
   "Bonus": "Bedelsiz",
   "Rights": "Bedelli",
-  "Merger": "Birleşme",
+  "MergerOut": "Birleşme Çıkış",
+  "MergerIn": "Birleşme Giriş",
   "list_by_type_year_title": "{year} {code} {type} İşlemleri",
   "for_example": "Örneğin; {example}",
 };

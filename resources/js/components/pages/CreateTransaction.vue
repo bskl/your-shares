@@ -1,6 +1,6 @@
 <script>
 
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import { TRANSACTION_TYPES, TRANSACTION_TYPES_MAP } from '../../store/constants.js';
 import { parseSuccessMessage } from '../../utilities/helpers.js';
 import validationHandler from '../../mixins/validationHandler.js';
@@ -52,6 +52,7 @@ export default {
         symbol_id: 0,
         lot: null,
         price: null,
+        exchange_ratio: 0,
         commission: this.commission,
         dividend_gain: null,
       },
@@ -63,11 +64,16 @@ export default {
   },
 
   computed: {
+    ...mapGetters([
+      'getShareById',
+    ]),
+
     transactionTypes() {
-      return TRANSACTION_TYPES_MAP.map((item, index) => ({
-        id: index,
-        label: this.$t(item),
-      }));
+      return TRANSACTION_TYPES_MAP
+        .filter((item, index) => index != TRANSACTION_TYPES.MergerIn)
+        .map((item, index) => {
+          return { id: index, label: this.$t(item) }
+        });
     },
   },
 
@@ -87,6 +93,12 @@ export default {
 
       const [year, month, day] = date.split('-')
       return `${day}.${month}.${year}`
+    },
+
+    onChangeType(type) {
+      this.form.lot = (type == TRANSACTION_TYPES.MergerOut)
+        ? this.getShareById(this.form.share_id).lot
+        : null;
     },
 
     goBack() {
@@ -220,6 +232,7 @@ export default {
               :label="$t('Enter Share Amount')"
               :rules="[rules.required]"
               :error-messages="getError('lot')"
+              :readonly="form.type == 5"
               :hint="
                 form.type == 3 ? $t('You must write your bonus shares.') :
                 form.type == 4 ? $t('You must write your rights shares.') : ''"

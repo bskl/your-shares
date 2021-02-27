@@ -43,7 +43,7 @@ class Share extends BaseModel
      * @var array
      */
     protected $decimal = [
-        'lot', 'total_bonus_share', 'total_rights_share',
+        'total_bonus_share', 'total_rights_share',
     ];
 
     /**
@@ -62,6 +62,15 @@ class Share extends BaseModel
      */
     protected $appends = [
         'instant_gain', 'gain_percent', 'gain_trend', 'gain_with_dividend_trend',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'lot' => 'decimal:3',
     ];
 
     /**
@@ -414,6 +423,41 @@ class Share extends BaseModel
         $this->total_purchase_amount = $this->total_purchase_amount->subtract($transaction->amount);
         $this->paid_amount = $this->paid_amount->subtract($transaction->amount);
         $this->total_rights_share -= $transaction->lot;
+        $this->handleCommonCalculations();
+    }
+
+    /**
+     * Handle merger out transaction calculations.
+     *
+     * @param \App\Models\Transaction $transaction
+     *
+     * @return void
+     */
+    public function handleCalculationsOfMergerOut(Transaction $transaction): void
+    {
+        $this->lot -= $transaction->lot;
+        $this->average_amount_with_dividend = $this->average_amount_with_dividend->subtract($this->average_amount);
+        $this->paid_amount = $this->paid_amount->subtract($this->average_amount);
+        $this->average_amount = $this->average = $this->average_with_dividend = '0';
+        $this->handleCommonCalculations();
+    }
+
+    /**
+     * Handle merger in transaction calculations.
+     *
+     * @param \App\Models\Transaction $transaction
+     *
+     * @return void
+     */
+    public function handleCalculationsOfMergerIn(Transaction $transaction): void
+    {
+        $this->lot += $transaction->lot;
+        $this->average_amount = $this->average_amount->add($transaction->amount);
+        $this->average = $this->average_amount->divide($this->lot);
+        $this->average_amount_with_dividend = $this->average_amount_with_dividend->add($transaction->amount);
+        $this->average_with_dividend = $this->average_amount_with_dividend->divide($this->lot);
+        $this->total_purchase_amount = $this->total_purchase_amount->add($transaction->amount);
+        $this->paid_amount = $this->paid_amount->add($transaction->amount);
         $this->handleCommonCalculations();
     }
 }

@@ -5,6 +5,31 @@ import { languages } from "./map";
 
 Vue.use(VueI18n);
 
+const numberFormats = {
+  en: {
+    percent: {
+      style: "percent",
+      minimumFractionDigits: 2
+    },
+    decimal: {
+      style: "decimal",
+      minimumFractionDigits: 3,
+      maximumFractionDigits: 3
+    }
+  },
+  tr: {
+    percent: {
+      style: "percent",
+      minimumFractionDigits: 2
+    },
+    decimal: {
+      style: "decimal",
+      minimumFractionDigits: 3,
+      maximumFractionDigits: 3
+    }
+  }
+};
+
 const fallbackLocale = "tr";
 const hasDocument = typeof document !== 'undefined';
 
@@ -47,4 +72,5 @@ export default new VueI18n({
   locale: getLocale(),
   fallbackLocale: fallbackLocale,
   messages,
+  numberFormats,
 });

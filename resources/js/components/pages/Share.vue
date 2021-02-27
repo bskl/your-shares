@@ -64,8 +64,8 @@ export default {
       return this.share.transactions.length;
     },
 
-    lastTransactionId() {
-      return last(this.share.transactions).id;
+    lastTransaction() {
+      return last(this.share.transactions);
     },
 
     getTextColor(value) {
@@ -120,8 +120,8 @@ export default {
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
               <v-btn icon small class="mx-1"
-                v-if="count()"
-                @click="$refs.deleteTransactionModal.open(lastTransactionId())"
+                v-if="count() && (lastTransaction().type != 5 && lastTransaction().type != 6)"
+                @click="$refs.deleteTransactionModal.open(lastTransaction().id)"
               >
                 <v-icon small color="red darken-2" v-on="on">backspace</v-icon>
               </v-btn>

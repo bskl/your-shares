@@ -183,7 +183,8 @@ export default {
   "Dividend": "Dividend",
   "Bonus": "Bonus",
   "Rights": "Rights",
-  "Merger": "Merger",
+  "MergerOut": "Merger Out",
+  "MergerIn": "Merger In",
   "list_by_type_year_title": "{year} {code} {type} İşlemleri",
   "for_example": "For Example; {example}",
 };

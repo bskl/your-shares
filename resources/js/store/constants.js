@@ -43,7 +43,8 @@ export const TRANSACTION_TYPES = {
   Dividend: 2,
   Bonus: 3,
   Rights: 4,
-  Merger: 5,
+  MergerOut: 5,
+  MergerIn: 6,
 };
 
 export const TRANSACTION_TYPES_MAP = [
@@ -52,7 +53,8 @@ export const TRANSACTION_TYPES_MAP = [
   'Dividend',
   'Bonus',
   'Rights',
-  'Merger',
+  'MergerOut',
+  'MergerIn',
 ];
 
 export const USER_TYPES = {
