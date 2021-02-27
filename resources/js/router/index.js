@@ -24,6 +24,7 @@ router.beforeEach((to, from, next) => {
   if (from.name !== null) {
     NProgress.start();
   }
+  store.dispatch('setErrors', {});
 
   const requiresAuth = to.matched.some((route) => route.meta.requiresAuth);
 

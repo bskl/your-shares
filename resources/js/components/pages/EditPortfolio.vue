@@ -121,7 +121,7 @@ export default {
               :label="$t('Enter Commission Rate')"
               :rules="[rules.required]"
               :error-messages="getError('commission')"
-              :hint="$t('For example; Garanti Bank: 0,188')"
+              :hint="$t('for_example', { example: 'Garanti Bank: 0,188' })"
             ></v-text-field>
           </v-form>
         </v-card-text>
