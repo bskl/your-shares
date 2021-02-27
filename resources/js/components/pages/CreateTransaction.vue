@@ -223,7 +223,10 @@ export default {
               >
               </v-date-picker>
             </v-menu>
-            <search-symbol-field v-if="form.type == 5" :symbolId.sync="form.symbol_id"></search-symbol-field>
+            <search-symbol-field
+              v-if="form.type == 5"
+              :symbolId.sync="form.symbol_id"
+            ></search-symbol-field>
             <v-text-field type="number" name="lot" ref="lot" id="lot" filled clearable
               prepend-inner-icon="format_list_numbered"
               v-model="form.lot"
@@ -236,7 +239,12 @@ export default {
                 form.type == 3 ? $t('You must write your bonus shares.') :
                 form.type == 4 ? $t('You must write your rights shares.') : ''"
             ></v-text-field>
-            <v-currency-field v-if="form.type == 0 || form.type == 1 || form.type == 2" name="price" v-model="form.price"></v-currency-field>
+            <v-currency-field
+              v-if="form.type == 0 || form.type == 1 || form.type == 2 || form.type == 5"
+              v-model="form.price"
+              name="price"
+              :label="$t('Enter Transaction Price')"
+            ></v-currency-field>
             <v-text-field type="number" name="exchange_ratio" ref="exchange_ratio" id="exchange_ratio" filled clearable
               v-if="form.type == 5"
               prepend-inner-icon="donut_large"
@@ -258,7 +266,12 @@ export default {
               :error-messages="getError('commission')"
               :hint="$t('for_example', { example: 'Garanti Bank: 0,188' })"
             ></v-text-field>
-            <v-currency-field v-if="form.type == 2" name="dividend_gain" v-model="form.dividend_gain"></v-currency-field>
+            <v-currency-field
+              v-if="form.type == 2"
+              v-model="form.dividend_gain"
+              name="dividend_gain"
+              :label="$t('Enter Dividend Gain Price')"
+            ></v-currency-field>
           </v-form>
         </v-card-text>
         <v-card-actions class="pb-4 pr-4">
