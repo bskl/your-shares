@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\TransactionType;
 use App\Models\Symbol;
 use Carbon\Carbon;
+use DateTimeInterface;
 use Money\Money;
 
 class Transaction extends BaseModel
@@ -43,7 +44,7 @@ class Transaction extends BaseModel
      * @var array
      */
     protected $dates = [
-        'created_at', 'updated_at',
+        'date_at', 'created_at', 'updated_at',
     ];
 
     /**
@@ -98,34 +99,6 @@ class Transaction extends BaseModel
     }
 
     /**
-     * Set the date_at attribute with Carbon object.
-     *
-     * @param string $value
-     *
-     * @return void
-     */
-    public function setDateAtAttribute($value): void
-    {
-        if ($value) {
-            $this->attributes['date_at'] = Carbon::createFromFormat('d.m.Y', $value)->toDateTimeString();
-        }
-    }
-
-    /**
-     * Get the date_at attribute with Carbon object.
-     *
-     * @param string $value
-     *
-     * @return string
-     */
-    public function getDateAtAttribute($value): string
-    {
-        if ($value) {
-            return Carbon::createFromFormat('Y-m-d H:i:s', $value)->formatLocalized('%d.%m.%Y');
-        }
-    }
-
-    /**
      * Get sale gain trend.
      *
      * @return int
@@ -133,6 +106,17 @@ class Transaction extends BaseModel
     public function getSaleGainTrendAttribute(): int
     {
         return $this->sale_gain->isPositive() ? 1 : ($this->sale_gain->isNegative() ? -1 : 0);
+    }
+
+    /**
+     * Prepare a date for array / JSON serialization.
+     *
+     * @param  \DateTimeInterface  $date
+     * @return string
+     */
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('d.m.Y');
     }
 
     /**
