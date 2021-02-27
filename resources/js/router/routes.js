@@ -27,8 +27,8 @@ export default [
       beforeResolve(to, from, next) {
         store.dispatch('fetchPortfolio', to.params.id)
           .then((portfolio) => {
-            to.meta.tmp.portfolio = { 
-              name: portfolio.name, 
+            to.meta.tmp.portfolio = {
+              name: portfolio.name,
               currency: portfolio.currency,
               commission: portfolio.commission,
             };

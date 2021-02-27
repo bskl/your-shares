@@ -211,7 +211,7 @@ export default {
           const portfolioIndex = getters.getPortfolioIndexById(data.portfolio.id);
           const shareIndex = getters.getShareIndexByPortfolioIndexAndId(portfolioIndex, data.share.id);
           const transaction = getters.getLastTransaction(portfolioIndex, shareIndex);
-          
+
           commit('UPDATE_PORTFOLIO_BY_KEY', { index: portfolioIndex, portfolio: data.portfolio });
           commit('DELETE_ITEM_DETAILS', { portfolioIndex, shareIndex, transaction });
           commit('UPDATE_SHARE', { portfolioIndex, shareIndex, share: data.share });
@@ -233,7 +233,7 @@ export default {
       .then((res) => {
         const index = getters.getPortfolioIndexById(form.portfolio_id);
         const data = res.data.data;
-        commit('ADD_SHARE', { index, data });     
+        commit('ADD_SHARE', { index, data });
 
         return res.data;
       });
@@ -272,7 +272,7 @@ export default {
         const { portfolioIndex, index } = getters.getShareIndexById(id);
         commit('ADD_TRANSACTIONS', { portfolioIndex, index, transactions });
         commit('STOP_LOADING', 'fetch_share_transactions');
-  
+
         return getters.getShareById(id);
       });
   },

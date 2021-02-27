@@ -37,7 +37,6 @@ class Transaction extends BaseModel
         'bonus', 'rights',
     ];
 
-
     /**
      * The attributes that should be mutated to dates.
      *

@@ -293,7 +293,7 @@ class Portfolio extends BaseModel
         $this->update();
 
         return $this->shares()->firstOrCreate([
-            'symbol_id' => Symbol::whereCode($transaction->symbol_code)->first()->id
+            'symbol_id' => Symbol::whereCode($transaction->symbol_code)->first()->id,
         ]);
     }
 }
