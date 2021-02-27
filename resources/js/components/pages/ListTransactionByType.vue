@@ -26,7 +26,6 @@ export default {
    */
   data() {
     return {
-      waitFor: 'fetch_transactions_by_params',
       transactions: this.initialTransactions,
       headers: [
         { text: this.$t('Year'), value: 'item', align: 'start' },
@@ -51,6 +50,12 @@ export default {
     ...mapGetters([
       'getShareById',
     ]),
+
+    waitFor() {
+      const [ model, id, unused, type, year ] = this.$route.to.fullPath.split('/').filter(item => item.trim().length);
+
+      return `fetch_transactions_by_${model}_${type}_${year}`;
+    },
 
     title() {
       const preTitle = (this.$route.params.model === 'shares') ? this.code() : this.$t('Portfolio');
@@ -109,15 +114,17 @@ export default {
                     {{ $t('You have not any transaction.') }}
                   </td>
                 </tr>
-                <router-link tag="tr"
+                <router-link custom v-slot="{ navigate }"
                   v-for="item in items" :key="item.item"
                   :to="itemLink(item.item)"
                 >
-                  <td class="text-center"
-                    v-for="(header, index) in headers" :key="index"
-                  >
-                    {{ item[header.value] || '-' }}
-                  </td>
+                  <tr @click="navigate" role="link">
+                    <td class="text-center"
+                      v-for="(header, index) in headers" :key="index"
+                    >
+                      {{ item[header.value] || '-' }}
+                    </td>
+                  </tr>
                 </router-link>
               </tbody>
             </template>

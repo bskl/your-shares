@@ -278,20 +278,21 @@ export default {
   },
 
   fetchTransactionsByParams({ dispatch, commit, getters }, path) {
-    commit('START_LOADING', 'fetch_transactions_by_params');
-
     const [ model, id, unused, type, year ] = path.split('/').filter(item => item.trim().length);
+    const waitFor = `fetch_transactions_by_${model}_${type}_${year}`;
+    commit('START_LOADING', waitFor);
+
     const key = trimEnd(upperFirst(model), 's');
     const collection = getters[`get${key}ById`](id);
 
     if (typeof year === 'undefined') {
       if (has(collection, type)) {
-        commit('STOP_LOADING', 'fetch_transactions_by_params');
+        commit('STOP_LOADING', waitFor);
 
         return Promise.resolve(collection[type]);
       }
     } else if (has(collection[`${type}ByYear`], year)) {
-      commit('STOP_LOADING', 'fetch_transactions_by_params');
+      commit('STOP_LOADING', waitFor);
 
       return Promise.resolve(collection[`${type}ByYear`][year]);
     }
@@ -301,7 +302,7 @@ export default {
         const data = res.data.data;
         const index = getters[`get${key}IndexById`](id);
         commit('ADD_ITEM_DETAILS', { index, type, year, data });
-        commit('STOP_LOADING', 'fetch_transactions_by_params');
+        commit('STOP_LOADING', waitFor);
 
         return data;
       });

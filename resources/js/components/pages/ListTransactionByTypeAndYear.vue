@@ -25,7 +25,6 @@ export default {
    */
   data() {
     return {
-      waitFor: 'fetch_transactions_by_params',
       transactions: this.initialTransactions,
       headers: [
         { text: this.$t('Symbol'), value: 'item', align: 'start' },
@@ -47,8 +46,14 @@ export default {
   },
 
   computed: {
+    waitFor() {
+      const [ model, id, unused, type, year ] = this.$route.to.fullPath.split('/').filter(item => item.trim().length);
+
+      return `fetch_transactions_by_${model}_${type}_${year}`;
+    },
+
     title() {
-      return this.$t('list_by_type_year_title', { 
+      return this.$t('list_by_type_year_title', {
         year: this.$route.params.year,
         code: this.$t('Portfolio'),
         type: this.$t(upperFirst(this.$route.params.type))
