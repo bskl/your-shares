@@ -240,7 +240,7 @@ export default [
     component: () => lazyLoadView(import('../components/pages/ExpiredSession')),
   },
   {
-    path: '*',
+    path: '/:pathMatch(.*)*',
     redirect: '/404',
   },
 ];
