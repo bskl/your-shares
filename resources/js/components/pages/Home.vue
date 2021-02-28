@@ -37,7 +37,7 @@ export default {
     ]),
 
     ...mapGetters([
-      'portfoliosCount', 'getPortfolioByIndex', 'isAdmin',
+      'isAdmin',
     ]),
   },
 
@@ -123,22 +123,23 @@ export default {
         </v-toolbar>
         <v-divider></v-divider>
         <v-card-text>
-          <v-data-table item-key="id" disable-sort
+          <v-data-table item-key="id"
             :mobile-breakpoint="0"
             :items="portfolio.shares"
             :hide-default-footer="portfolio.shares.length < 11"
             :no-data-text="$t('You have not created any symbol.')"
             :items-per-page="15"
+            :locale="$i18n.locale"
             :headers="[
-              { text: $t('Symbol'), value: 'code', align: 'start' },
-              { text: $t('Last Price'), value: 'last_price', align: 'center' },
-              { text: $t('Change'), value: 'rate_of_change', align: 'center' },
-              { text: $t('Lots'), value: 'lot', align: 'center' },
-              { text: $t('Average Cost'), value: 'average', align: 'center' },
-              { text: $t('Amount'), value: 'amount', align: 'center' },
-              { text: $t('Average Amount'), value: 'average_amount', align: 'center' },
-              { text: $t('Gain/Loss'), value: 'gain', align: 'center' },
-              { text: $t('Gain/Loss (%)'), value: 'gain_percent', align: 'center' },
+              { text: $t('Symbol'), sortable: true, value: 'code', align: 'start' },
+              { text: $t('Last Price'), sortable: false, value: 'last_price', align: 'center' },
+              { text: $t('Change'), sortable: false, value: 'rate_of_change', align: 'center' },
+              { text: $t('Lots'), sortable: true, value: 'lot', align: 'center' },
+              { text: $t('Average Cost'), sortable: false, value: 'average', align: 'center' },
+              { text: $t('Amount'), sortable: true, value: 'amount', align: 'center' },
+              { text: $t('Average Amount'), sortable: false, value: 'average_amount', align: 'center' },
+              { text: $t('Gain/Loss'), sortable: false, value: 'gain', align: 'center' },
+              { text: $t('Gain/Loss (%)'), sortable: true, value: 'gain_percent', align: 'center' },
             ]"
           >
             <template v-slot:item.code="{ item }">
