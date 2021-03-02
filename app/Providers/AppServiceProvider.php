@@ -2,12 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\Portfolio;
-use App\Models\Share;
-use App\Models\Transaction;
-use App\Observers\PortfolioObserver;
-use App\Observers\ShareObserver;
-use App\Observers\TransactionObserver;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -37,9 +31,5 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('env', function ($environment) {
             return app()->environment($environment);
         });
-
-        Portfolio::observe(PortfolioObserver::class);
-        Share::observe(ShareObserver::class);
-        Transaction::observe(TransactionObserver::class);
     }
 }

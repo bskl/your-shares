@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Events\SymbolUpdated;
 use Carbon\Carbon;
 
 class Symbol extends BaseModel
@@ -59,15 +58,6 @@ class Symbol extends BaseModel
     {
         return $this->hasMany('App\Models\Share');
     }
-
-    /**
-     * The event map for the model.
-     *
-     * @var array
-     */
-    protected $dispatchesEvents = [
-        'updated' => SymbolUpdated::class,
-    ];
 
     /**
      * Get the updated at attribute with convert to human readable timestamp.

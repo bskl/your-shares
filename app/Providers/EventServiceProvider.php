@@ -2,6 +2,14 @@
 
 namespace App\Providers;
 
+use App\Models\Portfolio;
+use App\Models\Share;
+use App\Models\Symbol;
+use App\Models\Transaction;
+use App\Observers\PortfolioObserver;
+use App\Observers\ShareObserver;
+use App\Observers\SymbolObserver;
+use App\Observers\TransactionObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -17,9 +25,6 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
-        ],
-        \App\Events\SymbolUpdated::class => [
-            \App\Listeners\CalculateShareAmountAndGain::class,
         ],
     ];
 
@@ -39,6 +44,9 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Portfolio::observe(PortfolioObserver::class);
+        Share::observe(ShareObserver::class);
+        Symbol::observe(SymbolObserver::class);
+        Transaction::observe(TransactionObserver::class);
     }
 }
