@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
+use DateTimeInterface;
 
 class Symbol extends BaseModel
 {
@@ -60,12 +60,13 @@ class Symbol extends BaseModel
     }
 
     /**
-     * Get the updated at attribute with convert to human readable timestamp.
+     * Prepare a date for array / JSON serialization.
      *
+     * @param  \DateTimeInterface  $date
      * @return string
      */
-    public function getSessionTimeAttribute(): string
+    protected function serializeDate(DateTimeInterface $date)
     {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $this->attributes['session_time'])->format('d-m-Y H:i:s');
+        return $date->format('d.m.Y H:i:s');
     }
 }

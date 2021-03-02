@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use DateTimeInterface;
+
 class Audit extends BaseModel
 {
     /**
@@ -28,5 +30,16 @@ class Audit extends BaseModel
     public function user()
     {
         return $this->belongsTo('App\Models\User');
+    }
+
+    /**
+     * Prepare a date for array / JSON serialization.
+     *
+     * @param  \DateTimeInterface  $date
+     * @return string
+     */
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('d.m.Y');
     }
 }
