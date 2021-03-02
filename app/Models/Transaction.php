@@ -2,39 +2,25 @@
 
 namespace App\Models;
 
+use App\Casts\Money as MoneyCast;
+use App\Casts\Percent;
 use App\Enums\TransactionType;
-use App\Models\Symbol;
-use Carbon\Carbon;
+use App\Traits\MoneyMAnager;
 use DateTimeInterface;
 use Money\Money;
 
 class Transaction extends BaseModel
 {
+    use MoneyManager;
+
     /**
      * The attributes that aren't mass assignable.
      *
      * @var array
      */
     protected $guarded = [
-        'id', 'user_id', 'price', 'amount', 'commission_price', 'sale_average', 'sale_average_amount', 'sale_gain', 'dividend', 'dividend_gain', 'bonus',
-    ];
-
-    /**
-     * The attributes that are money object.
-     *
-     * @var array
-     */
-    protected $money = [
-        'price', 'amount', 'commission_price', 'sale_average', 'sale_average_amount', 'sale_gain', 'dividend', 'dividend_gain',
-    ];
-
-    /**
-     * The attributes that are format percentages.
-     *
-     * @var array
-     */
-    protected $percent = [
-        'bonus', 'rights',
+        'id', 'user_id', 'remaining', 'price', 'amount', 'commission_price', 'sale_average', 'sale_average_amount', 'sale_gain',
+        'dividend', 'dividend_gain', 'bonus', 'rights',
     ];
 
     /**
@@ -71,8 +57,19 @@ class Transaction extends BaseModel
      */
     protected $casts = [
         'type' => TransactionType::class,
-        'exchange_ratio' => 'decimal:15',
         'lot' => 'decimal:3',
+        'price' => MoneyCast::class,
+        'amount' => MoneyCast::class,
+        'commission' => 'decimal:3',
+        'commission_price' => MoneyCast::class,
+        'sale_average' => MoneyCast::class,
+        'sale_average_amount' => MoneyCast::class,
+        'sale_gain' => MoneyCast::class,
+        'dividend' => MoneyCast::class,
+        'dividend_gain' => MoneyCast::class,
+        'bonus' => Percent::class,
+        'rights' => Percent::class,
+        'exchange_ratio' => 'decimal:15',
     ];
 
     /**

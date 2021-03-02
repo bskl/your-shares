@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Casts\Decimal;
+use App\Casts\Money as MoneyCast;
+use App\Casts\Percent;
 use App\Enums\TransactionType;
 use App\Traits\MoneyManager;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,36 +20,9 @@ class Share extends BaseModel
      * @var array
      */
     protected $guarded = [
-        'id', 'user_id', 'average_with_dividend', 'average_amount_with_dividend', 'gain_with_dividend',
-    ];
-
-    /**
-     * The attributes that are money object.
-     *
-     * @var array
-     */
-    protected $money = [
-        'average', 'average_with_dividend', 'average_amount', 'average_amount_with_dividend', 'amount', 'gain', 'gain_with_dividend',
-        'total_sale_amount', 'total_purchase_amount', 'paid_amount', 'gain_loss', 'total_commission_amount', 'total_dividend_gain',
-        'total_gain', 'instant_gain',
-    ];
-
-    /**
-     * The attributes that are format percentages.
-     *
-     * @var array
-     */
-    protected $percent = [
-        'gain_percent',
-    ];
-
-    /**
-     * The attributes that are format decimal.
-     *
-     * @var array
-     */
-    protected $decimal = [
-        'total_bonus_share', 'total_rights_share',
+        'id', 'user_id', 'lot', 'average', 'average_with_dividend', 'average_amount', 'average_amount_with_dividend', 'amount', 'gain',
+        'gain_with_dividend', 'total_sale_amount', 'total_purchase_amount', 'paid_amount', 'gain_loss', 'total_commission_amount',
+        'total_dividend_gain', 'total_bonus_share', 'total_rights_share', 'total_gain',
     ];
 
     /**
@@ -74,6 +50,22 @@ class Share extends BaseModel
      */
     protected $casts = [
         'lot' => 'decimal:3',
+        'average' => MoneyCast::class,
+        'average_with_dividend' => MoneyCast::class,
+        'average_amount' => MoneyCast::class,
+        'average_amount_with_dividend' => MoneyCast::class,
+        'amount' => MoneyCast::class,
+        'gain' => MoneyCast::class,
+        'gain_with_dividend' => MoneyCast::class,
+        'total_sale_amount' => MoneyCast::class,
+        'total_purchase_amount' => MoneyCast::class,
+        'paid_amount' => MoneyCast::class,
+        'gain_loss' => MoneyCast::class,
+        'total_commission_amount' => MoneyCast::class,
+        'total_dividend_gain' => MoneyCast::class,
+        'total_bonus_share' => Decimal::class,
+        'total_rights_share' => Decimal::class,
+        'total_gain' => MoneyCast::class,
     ];
 
     /**

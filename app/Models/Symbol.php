@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Casts\Money;
+use App\Casts\Percent;
 use DateTimeInterface;
 
 class Symbol extends BaseModel
@@ -13,24 +15,6 @@ class Symbol extends BaseModel
      */
     protected $guarded = [
         'id',
-    ];
-
-    /**
-     * The attributes that are money object.
-     *
-     * @var array
-     */
-    protected $money = [
-        'last_price',
-    ];
-
-    /**
-     * The attributes that are format percentages.
-     *
-     * @var array
-     */
-    protected $percent = [
-        'rate_of_change',
     ];
 
     /**
@@ -49,6 +33,16 @@ class Symbol extends BaseModel
      */
     protected $hidden = [
         'name', 'title', 'created_at', 'updated_at',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'rate_of_change' => Percent::class,
+        'last_price' => Money::class,
     ];
 
     /**
