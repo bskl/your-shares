@@ -113,7 +113,7 @@ class SetSymbols extends Command
                 'code'           => preg_replace('/[^a-zA-Z0-9]/', '', $tr->childNodes[1]->nodeValue),
                 'title'          => $tr->childNodes[1]->hasAttribute('title') ? trim($tr->childNodes[1]->getAttribute('title')) : '',
                 'trend'          => $this->getTrend(trim($tr->childNodes[5]->nodeValue)),
-                'last_price'     => trim($tr->childNodes[3]->nodeValue),
+                'last_price'     => $this->asDecimal(trim($tr->childNodes[3]->nodeValue)),
                 'rate_of_change' => trim($tr->childNodes[5]->nodeValue),
                 'session_time'   => $sessionTime,
             ];
@@ -133,9 +133,21 @@ class SetSymbols extends Command
      */
     protected function getTrend($value): int
     {
-        $value = to_float($value);
+        $decimal = $this->asDecimal($value);
 
-        return $value > 0 ? 1 : ($value < 0 ? -1 : 0);
+        return $decimal > 0 ? 1 : ($decimal < 0 ? -1 : 0);
+    }
+
+    /**
+     * Return a decimal as string.
+     *
+     * @param  string  $value
+     *
+     * @return string
+     */
+    protected function asDecimal($value): string
+    {
+        return preg_replace('/\.(?=.*\.)/', '', str_replace(',', '.', $value));
     }
 
     /**
