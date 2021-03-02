@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $guarded = [
-        'id', 'logon_at', 'logon_host', 'user_agent', 'confirmed', 'confirmation_code', 'remember_token',
+        'id', 'confirmed', 'confirmation_code', 'remember_token',
     ];
 
     /**
@@ -28,7 +28,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'logon_at', 'logon_host', 'confirmed', 'confirmation_code', 'remember_token', 'created_at', 'updated_at',
+        'password', 'confirmed', 'confirmation_code', 'remember_token', 'created_at', 'updated_at',
     ];
 
     /**
