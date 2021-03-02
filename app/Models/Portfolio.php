@@ -4,11 +4,12 @@ namespace App\Models;
 
 use App\Models\Symbol;
 use App\Traits\CanFilterByUser;
+use App\Traits\MoneyManager;
 use Money\Money;
 
 class Portfolio extends BaseModel
 {
-    use CanFilterByUser;
+    use CanFilterByUser, MoneyManager;
 
     /**
      * The attributes that aren't mass assignable.
@@ -113,17 +114,17 @@ class Portfolio extends BaseModel
     /**
      * Get instant gains to all shares based on instant prices.
      *
-     * @return \Money\Money $instant_gain
+     * @return string
      */
-    public function getInstantGainAttribute(): Money
+    public function getInstantGainAttribute(): string
     {
-        $sharesGain = $this->getMoneyAttribute('0');
+        $sharesGain = $this->createMoney();
 
         $this->shares->each(function ($share) use (&$sharesGain) {
             $sharesGain = $sharesGain->add($share->gain);
         });
 
-        return $sharesGain->add($this->total_gain);
+        return $this->formatByIntl($sharesGain->add($this->total_gain));
     }
 
     /**

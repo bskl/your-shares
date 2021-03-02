@@ -168,7 +168,7 @@ class Transaction extends BaseModel
     public function handleCalculationsOfRights(): void
     {
         $this->remaining = $this->lot;
-        $this->price = $this->getMoneyAttribute('100');
+        $this->price = $this->createMoney('100');
         $this->amount = $this->price->multiply($this->lot);
         $this->rights = ($this->lot * 100) / $this->share->lot;
         $this->update();

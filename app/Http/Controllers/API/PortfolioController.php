@@ -169,7 +169,7 @@ class PortfolioController extends Controller
                     $items[$index][$month] = decimal_formatter($transaction->first()->{$attribute});
                     $items[$index]['total'] = $items[$index]['total'] + $transaction->first()->lot;
                 } else {
-                    $items[$index][$month] = money_formatter($transaction->first()->{$attribute});
+                    $items[$index][$month] = $this->formatByIntl($transaction->first()->{$attribute});
                     $items[$index]['total'] = $items[$index]['total']->add($transaction->first()->{$attribute});
                 }
                 $items[$index]['item'] = $transaction->first()->share->symbol->code;
@@ -178,7 +178,7 @@ class PortfolioController extends Controller
             }
             $items[$index]['total'] = $transactionType['condition']
                 ? decimal_formatter($items[$index]['total'])
-                : money_formatter($items[$index]['total']);
+                : $this->formatByIntl($items[$index]['total']);
             $index++;
         }
 

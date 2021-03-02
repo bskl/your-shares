@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use App\Enums\TransactionType;
+use App\Traits\MoneyManager;
 use Illuminate\Database\Eloquent\Builder;
 use Money\Money;
 
 class Share extends BaseModel
 {
+    use MoneyManager;
+
     /**
      * The attributes that aren't mass assignable.
      *
@@ -167,24 +170,21 @@ class Share extends BaseModel
      */
     public function getGainPercentAttribute(): float
     {
-        if ($this->average_amount->equals($this->getMoneyAttribute('0'))) {
+        if ($this->average_amount->equals($this->createMoney())) {
             return 0;
         }
 
-        $gain = $this->formatByDecimal($this->gain);
-        $averageAmount = $this->formatByDecimal($this->average_amount);
-
-        return $gain / $averageAmount;
+        return $this->gain->ratioOf($this->average_amount);
     }
 
     /**
      * Get instant gains to share based on instant prices.
      *
-     * @return \Money\Money
+     * @return string
      */
-    public function getInstantGainAttribute(): Money
+    public function getInstantGainAttribute(): string
     {
-        return $this->gain->add($this->total_gain);
+        return $this->formatByIntl($this->gain->add($this->total_gain));
     }
 
     /**
