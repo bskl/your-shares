@@ -29,6 +29,7 @@ class CreatePortfoliosTable extends Migration
             $table->float('total_bonus_share', 11, 3)->default(0);
             $table->float('total_rights_share', 11, 3)->default(0);
             $table->integer('total_gain')->default(0);
+            $table->integer('instant_gain')->default(0);
             $table->timestamps();
 
             $table->foreign('user_id')

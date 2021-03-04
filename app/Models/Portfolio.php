@@ -19,7 +19,7 @@ class Portfolio extends BaseModel
      */
     protected $guarded = [
         'id', 'total_sale_amount', 'total_purchase_amount', 'paid_amount', 'gain_loss', 'total_commission_amount', 'total_dividend_gain',
-        'total_bonus_share', 'total_rights_share', 'total_gain',
+        'total_bonus_share', 'total_rights_share', 'total_gain', 'instant_gain',
     ];
 
     /**
@@ -29,15 +29,6 @@ class Portfolio extends BaseModel
      */
     protected $hidden = [
         'user_id', 'order', 'created_at', 'updated_at',
-    ];
-
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
-     */
-    protected $appends = [
-        'instant_gain',
     ];
 
     /**
@@ -65,6 +56,7 @@ class Portfolio extends BaseModel
         'total_bonus_share' => Decimal::class,
         'total_rights_share' => Decimal::class,
         'total_gain' => MoneyCast::class,
+        'instant_gain' => MoneyCast::class,
     ];
 
     /**
@@ -112,22 +104,6 @@ class Portfolio extends BaseModel
     public function transactionsOfType(array $type)
     {
         return $this->transactions()->whereIn('type', $type);
-    }
-
-    /**
-     * Get instant gains to all shares based on instant prices.
-     *
-     * @return string
-     */
-    public function getInstantGainAttribute(): string
-    {
-        $sharesGain = $this->createMoney();
-
-        $this->shares->each(function ($share) use (&$sharesGain) {
-            $sharesGain = $sharesGain->add($share->gain);
-        });
-
-        return $this->formatByIntl($sharesGain->add($this->total_gain));
     }
 
     /**

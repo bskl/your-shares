@@ -2,11 +2,15 @@
 
 namespace App\Observers;
 
+use App\Models\Portfolio;
 use App\Models\Share;
 use App\Models\Symbol;
+use App\Traits\MoneyManager;
 
 class SymbolObserver
 {
+    use MoneyManager;
+
     /**
      * Handle the symbol "creating" event.
      *
@@ -38,10 +42,24 @@ class SymbolObserver
     public function updated(Symbol $symbol)
     {
         Share::whereSymbolId($symbol->id)
-            ->get()
-            ->each(function ($share) {
-                $share->handleCommonCalculations();
+            ->chunkById(100, function ($shares) {
+                foreach ($shares as $share) {
+                    $share->handleCommonCalculations();
+                }
             });
+
+        Portfolio::chunkById(100, function ($portfolios) {
+            foreach ($portfolios as $portfolio) {
+                $sharesGain = $this->createMoney();
+
+                foreach ($portfolio->shares as $share) {
+                    $sharesGain = $sharesGain->add($share->gain);
+                }
+
+                $portfolio->instant_gain = $sharesGain->add($portfolio->total_gain);
+                $portfolio->update();
+            }
+        });
     }
 
     /**
