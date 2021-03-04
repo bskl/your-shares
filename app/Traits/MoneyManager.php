@@ -16,7 +16,7 @@ trait MoneyManager
      * Given value must be integer(ish) value. e.g. 100, '100', '100.00' is
      * become 1 TRY.
      *
-     * @param \Money\Money|int|string  $value
+     * @param \Money\Money|string  $value
      * @return \Money\Money
      */
     public function createMoney($value = '0'): Money
@@ -81,5 +81,16 @@ trait MoneyManager
         $moneyFormatter = new IntlMoneyFormatter($numberFormatter, $currencies);
 
         return $moneyFormatter->format($money);
+    }
+
+    /**
+     * Get trend for money attributes.
+     *
+     * @param  \Money\Money  $money
+     * @return int
+     */
+    public function getTrend(Money $money): int
+    {
+        return $money->isPositive() ? 1 : ($money->isNegative() ? -1 : 0);
     }
 }
