@@ -23,15 +23,16 @@ class Controller extends BaseController
      *
      * @param array  $data
      * @param string $message
+     * @param int    $status
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function respondSuccess(array $data = [], $message = ''): JsonResponse
+    public function respondSuccess(array $data = [], $message = '', int $status = Response::HTTP_OK): JsonResponse
     {
         return response()->json([
             'data'    => $data,
             'message' => $message,
-        ], Response::HTTP_OK);
+        ], $status);
     }
 
     /**

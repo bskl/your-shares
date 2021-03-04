@@ -37,15 +37,15 @@ class SymbolController extends Controller
 
         try {
             Artisan::call('yourshares:set-symbols');
+
+            $portfolios = Portfolio::byCurrentUser()->get();
+
+            return PortfolioResource::collection($portfolios);
         } catch (\Exception $e) {
             return $this->respondError(
                 Response::HTTP_SERVICE_UNAVAILABLE,
                 [trans('app.service_error')]
             );
         }
-
-        $portfolios = Portfolio::byCurrentUser()->get();
-
-        return PortfolioResource::collection($portfolios);
     }
 }
