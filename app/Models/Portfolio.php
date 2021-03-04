@@ -4,13 +4,13 @@ namespace App\Models;
 
 use App\Casts\Decimal;
 use App\Casts\Money as MoneyCast;
-use App\Traits\CanFilterByUser;
 use App\Traits\MoneyManager;
+use Illuminate\Support\Facades\Auth;
 use Money\Money;
 
 class Portfolio extends BaseModel
 {
-    use CanFilterByUser, MoneyManager;
+    use MoneyManager;
 
     /**
      * The attributes that aren't mass assignable.
@@ -66,6 +66,17 @@ class Portfolio extends BaseModel
         'total_rights_share' => Decimal::class,
         'total_gain' => MoneyCast::class,
     ];
+
+    /**
+     * Scope a query to only include current authenticated user portfolios.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeByCurrentUser($query)
+    {
+        return $query->whereUserId(Auth::id());
+    }
 
     /**
      * Get the user that owns the portfolio.
