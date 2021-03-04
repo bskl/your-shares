@@ -200,16 +200,6 @@ class Share extends BaseModel
     }
 
     /**
-     * Calculate the gain with dividend attribute with money object.
-     *
-     * @return void
-     */
-    public function setGainWithDividend(): void
-    {
-        $this->gain_with_dividend = $this->amount->subtract($this->average_amount_with_dividend);
-    }
-
-    /**
      * Calculate common attributes with money object.
      *
      * @return void
@@ -218,7 +208,7 @@ class Share extends BaseModel
     {
         $this->amount = $this->symbol->last_price->multiply($this->lot);
         $this->gain = $this->amount->subtract($this->average_amount);
-        $this->setGainWithDividend();
+        $this->gain_with_dividend = $this->amount->subtract($this->average_amount_with_dividend);
         $this->update();
     }
 
@@ -325,7 +315,7 @@ class Share extends BaseModel
         $this->average_with_dividend = $this->average_amount_with_dividend->divide($this->lot);
         $this->total_dividend_gain = $this->total_dividend_gain->add($transaction->dividend_gain);
         $this->total_gain = $this->total_gain->add($transaction->dividend_gain);
-        $this->setGainWithDividend();
+        $this->gain_with_dividend = $this->amount->subtract($this->average_amount_with_dividend);
         $this->update();
     }
 
@@ -342,7 +332,7 @@ class Share extends BaseModel
         $this->average_with_dividend = $this->average_amount_with_dividend->divide($this->lot);
         $this->total_dividend_gain = $this->total_dividend_gain->subtract($transaction->dividend_gain);
         $this->total_gain = $this->total_gain->subtract($transaction->dividend_gain);
-        $this->setGainWithDividend();
+        $this->gain_with_dividend = $this->amount->subtract($this->average_amount_with_dividend);
         $this->update();
     }
 
