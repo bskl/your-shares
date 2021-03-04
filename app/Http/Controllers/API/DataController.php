@@ -20,7 +20,7 @@ class DataController extends Controller
         $portfolios = Portfolio::byCurrentUser()->get();
 
         return [
-            'user'       => new UserResource(auth()->user()),
+            'user'       => new UserResource(Auth::user()),
             'portfolios' => PortfolioResource::collection($portfolios),
         ];
     }
