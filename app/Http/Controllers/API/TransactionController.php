@@ -10,6 +10,7 @@ use App\Http\Resources\Transaction as TransactionResource;
 use App\Models\Transaction;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class TransactionController extends Controller
 {
@@ -46,7 +47,8 @@ class TransactionController extends Controller
             ], trans('app.transaction.create_success'), Response::HTTP_CREATED);
         } catch (\Exception $e) {
             DB::rollBack();
-
+            Log::error($e);
+            return $e;
             return $this->respondError(
                 Response::HTTP_UNPROCESSABLE_ENTITY,
                 ['transaction' => trans('app.transaction.create_error')]
