@@ -35,7 +35,7 @@ class Money implements CastsAttributes
      */
     public function set($model, $key, $value, $attributes): string
     {
-        return $this->parseByIntlLocalizedDecimal($value)->getAmount();
+        return $this->parseByDecimal($value)->getAmount();
     }
 
     /**

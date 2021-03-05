@@ -284,7 +284,7 @@ export default {
             {{ $t("Close") }}
           </v-btn>
           <v-btn class="btn-action"
-            :disabled="isLoading" 
+            :disabled="isLoading"
             @click="submit"
           >
             {{ $t("Create") }}
