@@ -16,7 +16,7 @@ trait MoneyManager
      * Given value must be integer(ish) value. e.g. 100, '100', '100.00' is
      * become 1 TRY.
      *
-     * @param \Money\Money|string  $value
+     * @param  \Money\Money|string  $value
      * @return \Money\Money
      */
     public function createMoney($value = '0'): Money
@@ -31,7 +31,7 @@ trait MoneyManager
     /**
      * Parse given value with intl localized decimal parser to create Money object.
      *
-     * @param \Money\Money|string  $value
+     * @param  \Money\Money|string  $value
      * @return \Money\Money
      */
     public function parseByIntlLocalizedDecimal($value = '0'): Money
@@ -51,10 +51,10 @@ trait MoneyManager
     /**
      * Parse given value with decimal parser to create Money object.
      *
-     * @param \Money\Money|string  $value
+     * @param  \Money\Money|string|int  $value
      * @return \Money\Money
      */
-    public function parseByDecimal($value = '0'): Money
+    public function parseByDecimal($value = 0): Money
     {
         if ($value instanceof Money) {
             return $value;
@@ -64,13 +64,13 @@ trait MoneyManager
 
         $moneyParser = new DecimalMoneyParser($currencies);
 
-        return $moneyParser->parse($value, new Currency(config('app.currency')));
+        return $moneyParser->parse((string) $value, new Currency(config('app.currency')));
     }
 
     /**
      * Format given money with intl money formatter.
      *
-     * @param \Money\Money  $money
+     * @param  \Money\Money  $money
      * @return string
      */
     public function formatByIntl(Money $money): string

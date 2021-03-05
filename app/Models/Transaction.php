@@ -19,8 +19,8 @@ class Transaction extends BaseModel
      * @var array
      */
     protected $guarded = [
-        'id', 'user_id', 'remaining', 'price', 'amount', 'commission_price', 'sale_average', 'sale_average_amount', 'sale_gain',
-        'dividend', 'dividend_gain', 'bonus', 'rights',
+        'id', 'user_id', 'remaining', 'amount', 'commission_price', 'sale_average', 'sale_average_amount', 'sale_gain', 'dividend',
+        'bonus', 'rights',
     ];
 
     /**

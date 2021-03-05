@@ -31,8 +31,6 @@ class TransactionController extends Controller
             $transaction = new Transaction();
 
             $transaction->fill($request->validated());
-            $transaction->price = (string) $request->price;
-            $transaction->dividend_gain = (string) $request->dividend_gain;
             $transaction->symbol_code = $request->symbol_id;
             $transaction->save();
 
