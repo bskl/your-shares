@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Casts\Decimal;
 use App\Casts\Money as MoneyCast;
-use App\Casts\Percent;
 use App\Enums\TransactionType;
 use App\Traits\MoneyManager;
 use Illuminate\Database\Eloquent\Builder;

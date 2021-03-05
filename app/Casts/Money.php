@@ -5,7 +5,6 @@ namespace App\Casts;
 use App\Traits\MoneyManager;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Money\Money as PhpMoney;
-use NumberFormatter;
 
 class Money implements CastsAttributes
 {
@@ -36,7 +35,7 @@ class Money implements CastsAttributes
      */
     public function set($model, $key, $value, $attributes): string
     {
-        return $this->parseByDecimal($value)->getAmount();
+        return $this->parseByIntlLocalizedDecimal($value)->getAmount();
     }
 
     /**
