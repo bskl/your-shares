@@ -21,7 +21,7 @@ class Share extends BaseModel
     protected $guarded = [
         'id', 'user_id', 'lot', 'average', 'average_with_dividend', 'average_amount', 'average_amount_with_dividend', 'amount', 'gain',
         'gain_with_dividend', 'total_sale_amount', 'total_purchase_amount', 'paid_amount', 'gain_loss', 'total_commission_amount',
-        'total_dividend_gain', 'total_bonus_share', 'total_rights_share', 'total_gain',
+        'total_dividend_gain', 'total_bonus_share', 'total_rights_share', 'total_gain', 'instant_gain',
     ];
 
     /**
@@ -39,7 +39,7 @@ class Share extends BaseModel
      * @var array
      */
     protected $appends = [
-        'instant_gain', 'gain_percent', 'gain_trend', 'gain_with_dividend_trend',
+        'gain_percent', 'gain_trend', 'gain_with_dividend_trend',
     ];
 
     /**
@@ -65,6 +65,7 @@ class Share extends BaseModel
         'total_bonus_share' => Decimal::class,
         'total_rights_share' => Decimal::class,
         'total_gain' => MoneyCast::class,
+        'instant_gain' => MoneyCast::class,
     ];
 
     /**
@@ -169,16 +170,6 @@ class Share extends BaseModel
     }
 
     /**
-     * Get instant gains to share based on instant prices.
-     *
-     * @return string
-     */
-    public function getInstantGainAttribute(): string
-    {
-        return $this->formatByIntl($this->gain->add($this->total_gain));
-    }
-
-    /**
      * Get instant gain trend.
      *
      * @return int
@@ -208,6 +199,7 @@ class Share extends BaseModel
         $this->amount = $this->symbol->last_price->multiply($this->lot);
         $this->gain = $this->amount->subtract($this->average_amount);
         $this->gain_with_dividend = $this->amount->subtract($this->average_amount_with_dividend);
+        $this->instant_gain = $this->gain->add($this->total_gain);
         $this->update();
     }
 
