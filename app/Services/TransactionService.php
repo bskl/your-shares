@@ -229,6 +229,6 @@ class TransactionService
     {
         $transaction->handleCalculationsOfMergerIn();
         $transaction->share->handleCalculationsOfMergerIn($transaction);
-        $transaction->share->portfolio->paid_amount = $transaction->share->portfolio->paid_amount->add($transaction->amount);
+        $transaction->share->portfolio->handleCalculationsOfMergerIn($transaction);
     }
 }

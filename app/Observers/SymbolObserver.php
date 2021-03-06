@@ -50,14 +50,7 @@ class SymbolObserver
 
         Portfolio::chunkById(100, function ($portfolios) {
             foreach ($portfolios as $portfolio) {
-                $sharesGain = $this->createMoney();
-
-                foreach ($portfolio->shares as $share) {
-                    $sharesGain = $sharesGain->add($share->gain);
-                }
-
-                $portfolio->instant_gain = $sharesGain->add($portfolio->total_gain);
-                $portfolio->update();
+                $portfolio->handleCommonCalculations();
             }
         });
     }

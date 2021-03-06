@@ -87,6 +87,16 @@ class Portfolio extends BaseModel
     }
 
     /**
+     * Get the portfolio's shares by lot.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getSharesByLot()
+    {
+        return $this->shares()->where('lot', '>', 0)->get();
+    }
+
+    /**
      * Get all of the transactions for the portfolio.
      */
     public function transactions()
@@ -107,6 +117,23 @@ class Portfolio extends BaseModel
     }
 
     /**
+     * Calculate common attributes with money object.
+     *
+     * @return void
+     */
+    public function handleCommonCalculations(): void
+    {
+        $sharesGain = $this->createMoney();
+
+        foreach ($this->getSharesByLot() as $share) {
+            $sharesGain = $sharesGain->add($share->gain);
+        }
+
+        $this->instant_gain = $sharesGain->add($this->total_gain);
+        $this->update();
+    }
+
+    /**
      * Handle buying transaction calculations.
      *
      * @param \App\Models\Transaction $transaction
@@ -119,7 +146,7 @@ class Portfolio extends BaseModel
         $this->paid_amount = $this->paid_amount->add($transaction->amount);
         $this->total_commission_amount = $this->total_commission_amount->add($transaction->commission_price);
         $this->total_gain = $this->total_gain->subtract($transaction->commission_price);
-        $this->update();
+        $this->handleCommonCalculations();
     }
 
     /**
@@ -135,7 +162,7 @@ class Portfolio extends BaseModel
         $this->paid_amount = $this->paid_amount->subtract($transaction->amount);
         $this->total_commission_amount = $this->total_commission_amount->subtract($transaction->commission_price);
         $this->total_gain = $this->total_gain->add($transaction->commission_price);
-        $this->update();
+        $this->handleCommonCalculations();
     }
 
     /**
@@ -154,7 +181,7 @@ class Portfolio extends BaseModel
         $this->total_sale_amount = $this->total_sale_amount->add($transaction->amount);
         $this->total_commission_amount = $this->total_commission_amount->add($transaction->commission_price);
         $this->total_gain = $this->total_gain->add($gain)->subtract($transaction->commission_price);
-        $this->update();
+        $this->handleCommonCalculations();
     }
 
     /**
@@ -173,7 +200,7 @@ class Portfolio extends BaseModel
         $this->total_sale_amount = $this->total_sale_amount->subtract($transaction->amount);
         $this->total_commission_amount = $this->total_commission_amount->subtract($transaction->commission_price);
         $this->total_gain = $this->total_gain->subtract($gain)->add($transaction->commission_price);
-        $this->update();
+        $this->handleCommonCalculations();
     }
 
     /**
@@ -187,7 +214,7 @@ class Portfolio extends BaseModel
     {
         $this->total_dividend_gain = $this->total_dividend_gain->add($transaction->dividend_gain);
         $this->total_gain = $this->total_gain->add($transaction->dividend_gain);
-        $this->update();
+        $this->handleCommonCalculations();
     }
 
     /**
@@ -201,7 +228,7 @@ class Portfolio extends BaseModel
     {
         $this->total_dividend_gain = $this->total_dividend_gain->subtract($transaction->dividend_gain);
         $this->total_gain = $this->total_gain->subtract($transaction->dividend_gain);
-        $this->update();
+        $this->handleCommonCalculations();
     }
 
     /**
@@ -214,7 +241,7 @@ class Portfolio extends BaseModel
     public function handleCalculationsOfBonus(Transaction $transaction): void
     {
         $this->total_bonus_share += $transaction->lot;
-        $this->update();
+        $this->handleCommonCalculations();
     }
 
     /**
@@ -227,7 +254,7 @@ class Portfolio extends BaseModel
     public function handleCalculationsOfDeletedBonus(Transaction $transaction): void
     {
         $this->total_bonus_share -= $transaction->lot;
-        $this->update();
+        $this->handleCommonCalculations();
     }
 
     /**
@@ -242,7 +269,7 @@ class Portfolio extends BaseModel
         $this->total_purchase_amount = $this->total_purchase_amount->add($transaction->amount);
         $this->paid_amount = $this->paid_amount->add($transaction->amount);
         $this->total_rights_share += $transaction->lot;
-        $this->update();
+        $this->handleCommonCalculations();
     }
 
     /**
@@ -257,23 +284,34 @@ class Portfolio extends BaseModel
         $this->total_purchase_amount = $this->total_purchase_amount->subtract($transaction->amount);
         $this->paid_amount = $this->paid_amount->subtract($transaction->amount);
         $this->total_rights_share -= $transaction->lot;
-        $this->update();
+        $this->handleCommonCalculations();
     }
 
     /**
      * Handle merger out transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return \App\Models\Share
      */
     public function handleCalculationsOfMergerOut(Transaction $transaction): Share
     {
         $this->paid_amount = $this->paid_amount->subtract($transaction->share->amount);
-        $this->update();
+        $this->handleCommonCalculations();
 
         return $this->shares()->firstOrCreate([
             'symbol_id' => Symbol::whereCode($transaction->symbol_code)->first()->id,
         ]);
+    }
+
+    /**
+     * Handle merger in transaction calculations.
+     *
+     * @param  \App\Models\Transaction  $transaction
+     * @return void
+     */
+    public static function handleCalculationsOfMergerIn(Transaction $transaction): void
+    {
+        $this->paid_amount = $this->paid_amount->add($transaction->amount);
+        $this->handleCommonCalculations();
     }
 }
