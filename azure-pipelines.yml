@@ -23,6 +23,7 @@ steps:
      git checkout .
      git pull --rebase --quiet
      chmod -R 777 storage bootstrap/cache
+     chmod -R 777 storage storage
      php artisan optimize:clear
      php artisan config:cache
      php artisan event:cache
