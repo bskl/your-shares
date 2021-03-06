@@ -22,6 +22,7 @@ steps:
      cd /var/www/vhosts/shares.savaskartal.com
      git checkout .
      git pull --rebase --quiet
+     chmod -R 777 storage bootstrap/cache
      php artisan optimize:clear
      php artisan config:cache
      php artisan event:cache
