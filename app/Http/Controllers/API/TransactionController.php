@@ -10,7 +10,6 @@ use App\Http\Resources\Transaction as TransactionResource;
 use App\Models\Transaction;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class TransactionController extends Controller
 {
