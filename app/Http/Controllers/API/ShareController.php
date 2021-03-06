@@ -14,9 +14,8 @@ class ShareController extends Controller
     /**
      * Show the share instance for the given id.
      *
-     * @param \App\Models\Share $share
-     *
-     * @return \App\Http\Resources\Share $share
+     * @param  \App\Models\Share  $share
+     * @return \App\Http\Resources\Share
      */
     public function show(Share $share)
     {
@@ -28,9 +27,8 @@ class ShareController extends Controller
     /**
      * Create a new share instance for auth user after a valid request.
      *
-     * @param \App\Http\Requests\API\ShareRequest $request
-     *
-     * @return \App\Http\Resources\Share $share
+     * @param  \App\Http\Requests\API\ShareRequest  $request
+     * @return \App\Http\Resources\Share|\Illuminate\Http\JsonResponse
      */
     public function store(ShareRequest $request)
     {
@@ -52,9 +50,8 @@ class ShareController extends Controller
     /**
      * Delete a share instance.
      *
-     * @param \App\Models\Share $share
-     *
-     * @return \App\Http\Resources\Share $share
+     * @param  \App\Models\Share  $share
+     * @return \App\Http\Resources\Share|\Illuminate\Http\JsonResponse
      */
     public function destroy(Share $share)
     {
@@ -82,8 +79,7 @@ class ShareController extends Controller
     /**
      * Get share instance with all transactions.
      *
-     * @param \App\Models\Share $share
-     *
+     * @param  \App\Models\Share  $share
      * @return \App\Http\Resources\Transaction
      */
     public function getTransactions(Share $share)
@@ -96,9 +92,8 @@ class ShareController extends Controller
     /**
      * Get share instance with transactions by type.
      *
-     * @param \App\Models\Share $share
-     * @param string            $type
-     *
+     * @param  \App\Models\Share  $share
+     * @param  string  $type
      * @return \Illuminate\Http\JsonResponse
      */
     public function getTransactionsByType(Share $share, string $type)
@@ -111,11 +106,10 @@ class ShareController extends Controller
     /**
      * Get share instance with transactions by type and year.
      *
-     * @param \App\Models\Share $share
-     * @param string            $type
-     * @param int               $year
-     *
-     * @return \App\Http\Resources\Transaction $transactions
+     * @param  \App\Models\Share  $share
+     * @param  string  $type
+     * @param  int  $year
+     * @return \App\Http\Resources\Transaction
      */
     public function getTransactionsByTypeAndYear(Share $share, string $type, int $year)
     {

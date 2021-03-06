@@ -47,6 +47,8 @@ class Symbol extends BaseModel
 
     /**
      * The shares that belong to the symbol.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function shares()
     {

@@ -5,6 +5,15 @@ namespace App\Enums;
 use BenSampo\Enum\Contracts\LocalizedEnum;
 use BenSampo\Enum\Enum;
 
+/**
+ * @method static self Buying()
+ * @method static self Sale()
+ * @method static self Dividend()
+ * @method static self Bonus()
+ * @method static self Rights()
+ * @method static self MergerOut()
+ * @method static self MergerIn()
+ */
 final class TransactionType extends Enum implements LocalizedEnum
 {
     const Buying = 0;

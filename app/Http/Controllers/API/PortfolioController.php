@@ -16,7 +16,7 @@ class PortfolioController extends Controller
     /**
      * List the portfolios for the auth user.
      *
-     * @return \App\Http\Resources\Portfolio $portfolios
+     * @return \App\Http\Resources\Portfolio
      */
     public function index()
     {
@@ -30,9 +30,8 @@ class PortfolioController extends Controller
     /**
      * Show the portfolio for the given id.
      *
-     * @param \App\Models\Portfolio $portfolio
-     *
-     * @return \App\Http\Resources\Portfolio $portfolio
+     * @param  \App\Models\Portfolio  $portfolio
+     * @return \App\Http\Resources\Portfolio
      */
     public function show(Portfolio $portfolio)
     {
@@ -44,9 +43,8 @@ class PortfolioController extends Controller
     /**
      * Create a new portfolio instance for auth user after a valid request.
      *
-     * @param \App\Http\Requests\API\PortfolioRequest $request
-     *
-     * @return \App\Http\Resources\Portfolio $portfolio
+     * @param  \App\Http\Requests\API\PortfolioRequest  $request
+     * @return \App\Http\Resources\Portfolio|\Illuminate\Http\JsonResponse
      */
     public function store(PortfolioRequest $request)
     {
@@ -58,7 +56,7 @@ class PortfolioController extends Controller
 
         try {
             $portfolio = Portfolio::create($data);
-            $portfolio->refresh()->load('shares');
+            $portfolio->refresh()->load('shars');
 
             return new PortfolioResource($portfolio);
         } catch (\Exception $e) {
@@ -72,10 +70,9 @@ class PortfolioController extends Controller
     /**
      * Update given portfolio instance after a valid request.
      *
-     * @param \App\Models\Portfolio                   $portfolio
-     * @param \App\Http\Requests\API\PortfolioRequest $request
-     *
-     * @return \App\Http\Resources\Portfolio $portfolio
+     * @param  \App\Models\Portfolio  $portfolio
+     * @param  \App\Http\Requests\API\PortfolioRequest  $request
+     * @return \App\Http\Resources\Portfolio|\Illuminate\Http\JsonResponse
      */
     public function update(Portfolio $portfolio, PortfolioRequest $request)
     {
@@ -96,9 +93,8 @@ class PortfolioController extends Controller
     /**
      * Delete a portfolio instance.
      *
-     * @param \App\Models\Portfolio $portfolio
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @param  \App\Models\Portfolio  $portfolio
+     * @return \App\Http\Resources\Portfolio|\Illuminate\Http\JsonResponse
      */
     public function destroy(Portfolio $portfolio)
     {
@@ -119,9 +115,8 @@ class PortfolioController extends Controller
     /**
      * Get portfolio instance with transactions by type.
      *
-     * @param \App\Models\Portfolio $portfolio
-     * @param string                $type
-     *
+     * @param  \App\Models\Portfolio  $portfolio
+     * @param  string  $type
      * @return \Illuminate\Http\JsonResponse
      */
     public function getTransactionsByType(Portfolio $portfolio, string $type)
@@ -134,10 +129,9 @@ class PortfolioController extends Controller
     /**
      * Get portfolio instance transactions by type and year.
      *
-     * @param \App\Models\Portfolio $portfolio
-     * @param string                $type
-     * @param int                   $year
-     *
+     * @param  \App\Models\Portfolio  $portfolio
+     * @param  string  $type
+     * @param  int  $year
      * @return \Illuminate\Http\JsonResponse
      */
     public function getTransactionsByTypeAndYear(Portfolio $portfolio, string $type, int $year)

@@ -21,10 +21,9 @@ class Controller extends BaseController
     /**
      * Return message and response success with JSON.
      *
-     * @param array  $data
-     * @param string $message
-     * @param int    $status
-     *
+     * @param  array  $data
+     * @param  string  $message
+     * @param  int  $status
      * @return \Illuminate\Http\JsonResponse
      */
     public function respondSuccess(array $data = [], $message = '', int $status = Response::HTTP_OK): JsonResponse
@@ -38,10 +37,9 @@ class Controller extends BaseController
     /**
      * Return message and response error with JSON.
      *
-     * @param int    $status
-     * @param array  $errors
-     * @param string $message
-     *
+     * @param  int  $status
+     * @param  array  $errors
+     * @param  string  $message
      * @return \Illuminate\Http\JsonResponse
      */
     public function respondError(int $status, array $errors, string $message = ''): JsonResponse
@@ -55,9 +53,8 @@ class Controller extends BaseController
     /**
      * Get transactions by model and type.
      *
-     * @param mixed  $model
-     * @param string $type
-     *
+     * @param  mixed  $model
+     * @param  string  $type
      * @return \Illuminate\Http\JsonResponse
      */
     public function getTransactionsByModelAndType(Model $model, string $type): JsonResponse
@@ -102,8 +99,7 @@ class Controller extends BaseController
     /**
      * Get attribute by type for use raw statement.
      *
-     * @param array $transactionType
-     *
+     * @param  array  $transactionType
      * @return string
      */
     public function getRawAttribute(array $transactionType): string
@@ -136,8 +132,7 @@ class Controller extends BaseController
     /**
      * Get transaction type attributes by type.
      *
-     * @param string $type
-     *
+     * @param  string  $type
      * @return array
      */
     public function getTransactionType(string $type): array

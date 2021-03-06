@@ -15,7 +15,7 @@ class DataController extends Controller
      *
      * @return array
      */
-    public function getData()
+    public function getData(): array
     {
         $portfolios = Portfolio::byCurrentUser()->get();
 

@@ -14,7 +14,7 @@ class SymbolObserver
     /**
      * Handle the symbol "creating" event.
      *
-     * @param \App\Models\Symbol $symbol
+     * @param  \App\Models\Symbol  $symbol
      * @return void
      */
     public function creating(Symbol $symbol)

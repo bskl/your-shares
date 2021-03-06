@@ -46,7 +46,7 @@ class SetSymbols extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
     public function handle()
     {
@@ -61,7 +61,7 @@ class SetSymbols extends Command
     /**
      * Make a GET request to the URL.
      *
-     * @return string $body
+     * @return string  $body
      */
     protected function getHtml(): string
     {
@@ -77,7 +77,7 @@ class SetSymbols extends Command
     /**
      * Retrieve data from HTML body.
      *
-     * @return \DOMNodeList $allTr
+     * @return \DOMNodeList  $allTr
      */
     protected function parseHtml(): \DOMNodeList
     {
@@ -99,8 +99,7 @@ class SetSymbols extends Command
     /**
      * Retrieve data from HTML body.
      *
-     * @param array $content
-     *
+     * @param  array  $content
      * @return \Illuminate\Support\Collection $symbols
      */
     protected function parseSymbols($content): Collection
@@ -127,8 +126,7 @@ class SetSymbols extends Command
     /**
      * Get trend from given value.
      *
-     * @param string $value
-     *
+     * @param  string  $value
      * @return int
      */
     protected function getTrend($value): int
@@ -142,7 +140,6 @@ class SetSymbols extends Command
      * Return a decimal as string.
      *
      * @param  string  $value
-     *
      * @return string
      */
     protected function asDecimal($value): string
@@ -153,8 +150,7 @@ class SetSymbols extends Command
     /**
      * Update or create new symbol instance for the given collection.
      *
-     * @param Illuminate\Support\Collection $symbols
-     *
+     * @param  \Illuminate\Support\Collection  $symbols
      * @return void
      */
     protected function storeSymbols($symbols): void

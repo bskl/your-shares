@@ -17,8 +17,7 @@ class TransactionController extends Controller
     /**
      * Create a new transaction instance for auth user after a valid request.
      *
-     * @param \App\Http\Requests\API\TransactionRequest $request
-     *
+     * @param  \App\Http\Requests\API\TransactionRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(TransactionRequest $request)
@@ -45,8 +44,7 @@ class TransactionController extends Controller
             ], trans('app.transaction.create_success'), Response::HTTP_CREATED);
         } catch (\Exception $e) {
             DB::rollBack();
-            Log::error($e);
-            return $e;
+
             return $this->respondError(
                 Response::HTTP_UNPROCESSABLE_ENTITY,
                 ['transaction' => trans('app.transaction.create_error')]
@@ -57,8 +55,7 @@ class TransactionController extends Controller
     /**
      * Delete a transaction instance.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Transaction $transaction)

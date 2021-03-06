@@ -13,6 +13,9 @@ class UserEventSubscriber
 {
     /**
      * Handle user register events.
+     *
+     * @param  \Illuminate\Auth\Events\Registered  $event
+     * @return void
      */
     public function onUserRegister($event)
     {
@@ -37,6 +40,9 @@ class UserEventSubscriber
 
     /**
      * Handle user login events.
+     *
+     * @param  \Illuminate\Auth\Events\Login  $event
+     * @return void
      */
     public function onUserLogin($event)
     {
@@ -52,15 +58,20 @@ class UserEventSubscriber
 
     /**
      * Handle user logout events.
+     *
+     * @param  \Illuminate\Auth\Events\Logout  $event
+     * @return void
      */
     public function onUserLogout($event)
     {
+        //
     }
 
     /**
      * Register the listeners for the subscriber.
      *
-     * @param Dispatcher $events
+     * @param  \Illuminate\Events\Dispatcher  $events
+     * @return void
      */
     public function subscribe($events)
     {

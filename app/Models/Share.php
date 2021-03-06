@@ -93,6 +93,8 @@ class Share extends BaseModel
 
     /**
      * Get the user that owns the share.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
@@ -101,6 +103,8 @@ class Share extends BaseModel
 
     /**
      * Get the portfolio.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function portfolio()
     {
@@ -109,6 +113,8 @@ class Share extends BaseModel
 
     /**
      * Get the symbol.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function symbol()
     {
@@ -117,6 +123,8 @@ class Share extends BaseModel
 
     /**
      * Get the share's transactions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function transactions()
     {
@@ -126,8 +134,7 @@ class Share extends BaseModel
     /**
      * Get the share's transactions by type.
      *
-     * @param mixed $type
-     *
+     * @param  mixed  $type
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function transactionsOfType(array $type)
@@ -137,6 +144,8 @@ class Share extends BaseModel
 
     /**
      * Get the share's buying and bonus transactions by remaining.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function getTransactionsByTypeAndNotSold()
     {
@@ -147,6 +156,8 @@ class Share extends BaseModel
 
     /**
      * Get the share's buying and bonus transactions by remaining.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function getTransactionsByTypeAndSold()
     {
@@ -206,8 +217,7 @@ class Share extends BaseModel
     /**
      * Handle buying transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public function handleCalculationsOfBuying(Transaction $transaction): void
@@ -227,8 +237,7 @@ class Share extends BaseModel
     /**
      * Handle deleted buying transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public function handleCalculationsOfDeletedBuying(Transaction $transaction): void
@@ -248,10 +257,9 @@ class Share extends BaseModel
     /**
      * Handle sale transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     * @param \Money\Money            $gain
-     * @param \Money\Money            $amount
-     *
+     * @param  \App\Models\Transaction  $transaction
+     * @param  \Money\Money  $gain
+     * @param  \Money\Money  $amount
      * @return void
      */
     public function handleCalculationsOfSale(Transaction $transaction, Money $gain, Money $amount): void
@@ -272,10 +280,9 @@ class Share extends BaseModel
     /**
      * Handle deleted sale transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     * @param \Money\Money            $gain
-     * @param \Money\Money            $amount
-     *
+     * @param  \App\Models\Transaction  $transaction
+     * @param  \Money\Money  $gain
+     * @param  \Money\Money  $amount
      * @return void
      */
     public function handleCalculationsOfDeletedSale(Transaction $transaction, Money $gain, Money $amount): void
@@ -296,8 +303,7 @@ class Share extends BaseModel
     /**
      * Handle dividend transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public function handleCalculationsOfDividend(Transaction $transaction): void
@@ -313,8 +319,7 @@ class Share extends BaseModel
     /**
      * Handle deleted dividend transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public function handleCalculationsOfDeletedDividend(Transaction $transaction): void
@@ -330,8 +335,7 @@ class Share extends BaseModel
     /**
      * Handle bonus transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public function handleCalculationsOfBonus(Transaction $transaction): void
@@ -346,8 +350,7 @@ class Share extends BaseModel
     /**
      * Handle deleted bonus transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public function handleCalculationsOfDeletedBonus(Transaction $transaction): void
@@ -362,8 +365,7 @@ class Share extends BaseModel
     /**
      * Handle rights transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public function handleCalculationsOfRights(Transaction $transaction): void
@@ -382,8 +384,7 @@ class Share extends BaseModel
     /**
      * Handle deleted rights transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public function handleCalculationsOfDeletedRights(Transaction $transaction): void
@@ -402,8 +403,7 @@ class Share extends BaseModel
     /**
      * Handle merger out transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public function handleCalculationsOfMergerOut(Transaction $transaction): void
@@ -418,8 +418,7 @@ class Share extends BaseModel
     /**
      * Handle merger in transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public function handleCalculationsOfMergerIn(Transaction $transaction): void

@@ -3,8 +3,7 @@
 /**
  * Convert number to decimal format.
  *
- * @param int $value
- *
+ * @param  int  $value
  * @return string
  */
 function decimal_formatter($value): string

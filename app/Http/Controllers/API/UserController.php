@@ -14,8 +14,7 @@ class UserController extends Controller
     /**
      * Set user language for auth user.
      *
-     * @param  string $locale
-     *
+     * @param  string  $locale
      * @return \Illuminate\Http\JsonResponse
      */
     public function setLocale(string $locale)
@@ -37,9 +36,8 @@ class UserController extends Controller
     /**
      * Handle a registration request for the application.
      *
-     * @param string  $token
-     *
-     * @return JsonResponse
+     * @param  string  $token
+     * @return \Illuminate\Http\JsonResponse
      */
     public function verifyConfirmationCode(StatefulGuard $guard, string $token)
     {

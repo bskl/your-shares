@@ -72,6 +72,8 @@ class Portfolio extends BaseModel
 
     /**
      * Get the user that owns the portfolio.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
@@ -80,6 +82,8 @@ class Portfolio extends BaseModel
 
     /**
      * The shares that belong to the portfolio.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function shares()
     {
@@ -98,6 +102,8 @@ class Portfolio extends BaseModel
 
     /**
      * Get all of the transactions for the portfolio.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
     public function transactions()
     {
@@ -107,8 +113,7 @@ class Portfolio extends BaseModel
     /**
      * Get the portfolio's transactions by type.
      *
-     * @param array $type
-     *
+     * @param  array  $type
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function transactionsOfType(array $type)
@@ -136,8 +141,7 @@ class Portfolio extends BaseModel
     /**
      * Handle buying transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public function handleCalculationsOfBuying(Transaction $transaction): void
@@ -152,8 +156,7 @@ class Portfolio extends BaseModel
     /**
      * Handle deleted buying transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public function handleCalculationsOfDeletedBuying(Transaction $transaction): void
@@ -168,10 +171,9 @@ class Portfolio extends BaseModel
     /**
      * Handle sale transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     * @param \Money\Money            $gain
-     * @param \Money\Money            $amount
-     *
+     * @param  \App\Models\Transaction  $transaction
+     * @param  \Money\Money  $gain
+     * @param  \Money\Money  $amount
      * @return void
      */
     public function handleCalculationsOfSale(Transaction $transaction, Money $gain, Money $amount): void
@@ -187,10 +189,9 @@ class Portfolio extends BaseModel
     /**
      * Handle deleted sale transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     * @param \Money\Money            $gain
-     * @param \Money\Money            $amount
-     *
+     * @param  \App\Models\Transaction  $transaction
+     * @param  \Money\Money  $gain
+     * @param  \Money\Money  $amount
      * @return void
      */
     public function handleCalculationsOfDeletedSale(Transaction $transaction, Money $gain, Money $amount): void
@@ -206,8 +207,7 @@ class Portfolio extends BaseModel
     /**
      * Handle dividend transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public function handleCalculationsOfDividend(Transaction $transaction): void
@@ -220,8 +220,7 @@ class Portfolio extends BaseModel
     /**
      * Handle deleted dividend transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public function handleCalculationsOfDeletedDividend(Transaction $transaction): void
@@ -234,8 +233,7 @@ class Portfolio extends BaseModel
     /**
      * Handle bonus transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public function handleCalculationsOfBonus(Transaction $transaction): void
@@ -247,8 +245,7 @@ class Portfolio extends BaseModel
     /**
      * Handle deleted bonus transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public function handleCalculationsOfDeletedBonus(Transaction $transaction): void
@@ -260,8 +257,7 @@ class Portfolio extends BaseModel
     /**
      * Handle rights transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public function handleCalculationsOfRights(Transaction $transaction): void
@@ -275,8 +271,7 @@ class Portfolio extends BaseModel
     /**
      * Handle deleted rights transaction calculations.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public function handleCalculationsOfDeletedRights(Transaction $transaction): void

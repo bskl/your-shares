@@ -26,6 +26,8 @@ class Audit extends BaseModel
 
     /**
      * Get the user that owns the audit.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {

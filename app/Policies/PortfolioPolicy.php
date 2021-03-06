@@ -13,8 +13,7 @@ class PortfolioPolicy
     /**
      * Determine whether the user can list the portfolios.
      *
-     * @param \App\Models\User $user
-     *
+     * @param  \App\Models\User  $user
      * @return mixed
      */
     public function viewAny(User $user)
@@ -25,9 +24,8 @@ class PortfolioPolicy
     /**
      * Determine whether the user can view the portfolio.
      *
-     * @param \App\Models\User      $user
-     * @param \App\Models\Portfolio $portfolio
-     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Portfolio  $portfolio
      * @return mixed
      */
     public function view(User $user, Portfolio $portfolio)
@@ -38,8 +36,7 @@ class PortfolioPolicy
     /**
      * Determine whether the user can create portfolios.
      *
-     * @param \App\Models\User $user
-     *
+     * @param  \App\Models\User  $user
      * @return mixed
      */
     public function create(User $user)
@@ -50,9 +47,8 @@ class PortfolioPolicy
     /**
      * Determine whether the user can update the portfolio.
      *
-     * @param \App\Models\User      $user
-     * @param \App\Models\Portfolio $portfolio
-     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Portfolio  $portfolio
      * @return mixed
      */
     public function update(User $user, Portfolio $portfolio)
@@ -63,9 +59,8 @@ class PortfolioPolicy
     /**
      * Determine whether the user can delete the portfolio.
      *
-     * @param \App\Models\User      $user
-     * @param \App\Models\Portfolio $portfolio
-     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Portfolio  $portfolio
      * @return mixed
      */
     public function delete(User $user, Portfolio $portfolio)

@@ -74,6 +74,8 @@ class Transaction extends BaseModel
 
     /**
      * Get the transaction share.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function share()
     {
@@ -83,8 +85,7 @@ class Transaction extends BaseModel
     /**
      * Set the symbol code attribute.
      *
-     * @param int $value
-     *
+     * @param  int  $value
      * @return void
      */
     public function setSymbolCodeAttribute($value): void
@@ -132,8 +133,7 @@ class Transaction extends BaseModel
     /**
      * Handle buying transaction calculations.
      *
-     * @param \Money\Money $gain
-     *
+     * @param  \Money\Money  $gain
      * @return void
      */
     public function handleCalculationsOfSale(Money $gain): void

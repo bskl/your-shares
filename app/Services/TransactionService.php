@@ -11,8 +11,7 @@ class TransactionService
     /**
      * Handle calculations when create a new buying transaction instance.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public static function handleCalculationsOfBuying(Transaction $transaction): void
@@ -25,8 +24,7 @@ class TransactionService
     /**
      * Handle calculations when delete a buying transaction instance.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public static function handleCalculationsOfDeletedBuying(Transaction $transaction): void
@@ -38,8 +36,7 @@ class TransactionService
     /**
      * Handle calculations when create a new sale transaction instance.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public static function handleCalculationsOfSale(Transaction $transaction): void
@@ -75,8 +72,7 @@ class TransactionService
     /**
      * Handle calculations when delete a sale transaction instance.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public static function handleCalculationsOfDeletedSale(Transaction $transaction): void
@@ -113,8 +109,7 @@ class TransactionService
     /**
      * Handle calculations when create a new dividend transaction instance.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public static function handleCalculationsOfDividend(Transaction $transaction): void
@@ -128,8 +123,7 @@ class TransactionService
     /**
      * Handle calculations when delete a dividend transaction instance.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public static function handleCalculationsOfDeletedDividend(Transaction $transaction): void
@@ -141,8 +135,7 @@ class TransactionService
     /**
      * Handle calculations when create a new bonus transaction instance.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public static function handleCalculationsOfBonus(Transaction $transaction): void
@@ -155,8 +148,7 @@ class TransactionService
     /**
      * Handle calculations when delete a bonus transaction instance.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public static function handleCalculationsOfDeletedBonus(Transaction $transaction): void
@@ -168,8 +160,7 @@ class TransactionService
     /**
      * Handle calculations when create a new rights transaction instance.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public static function handleCalculationsOfRights(Transaction $transaction): void
@@ -182,8 +173,7 @@ class TransactionService
     /**
      * Handle calculations when delete a rights transaction instance.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public static function handleCalculationsOfDeletedRights(Transaction $transaction): void
@@ -195,8 +185,7 @@ class TransactionService
     /**
      * Handle calculations when create a new merger out transaction instance.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public static function handleCalculationsOfMergerOut(Transaction $transaction): void
@@ -221,8 +210,7 @@ class TransactionService
     /**
      * Handle calculations when create a new merger in transaction instance.
      *
-     * @param \App\Models\Transaction $transaction
-     *
+     * @param  \App\Models\Transaction  $transaction
      * @return void
      */
     public static function handleCalculationsOfMergerIn(Transaction $transaction): void

@@ -42,6 +42,8 @@ class User extends Authenticatable
 
     /**
      * Get the portfolios for the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function portfolios()
     {
@@ -50,6 +52,8 @@ class User extends Authenticatable
 
     /**
      * Get the audits for the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function audits()
     {
@@ -59,8 +63,7 @@ class User extends Authenticatable
     /**
      * Send the password reset notification.
      *
-     * @param string $token
-     *
+     * @param  string  $token
      * @return void
      */
     public function sendPasswordResetNotification($token)

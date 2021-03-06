@@ -15,7 +15,7 @@ class SymbolController extends Controller
     /**
      * Get all symbols.
      *
-     * @return \App\Http\Resources\Symbol $symbols
+     * @return \App\Http\Resources\Symbol
      */
     public function index()
     {
@@ -29,7 +29,7 @@ class SymbolController extends Controller
     /**
      * Run set symbols command and get portfolios data.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \App\Http\Resources\Portfolio|\Illuminate\Http\JsonResponse
      */
     public function update()
     {

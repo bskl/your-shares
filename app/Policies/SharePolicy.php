@@ -13,8 +13,7 @@ class SharePolicy
     /**
      * Determine whether the user can list the shares.
      *
-     * @param \App\Models\User $user
-     *
+     * @param  \App\Models\User  $user
      * @return mixed
      */
     public function viewAny(User $user)
@@ -25,9 +24,8 @@ class SharePolicy
     /**
      * Determine whether the user can view the share.
      *
-     * @param \App\Models\User  $user
-     * @param \App\Models\Share $share
-     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Share  $share
      * @return mixed
      */
     public function view(User $user, Share $share)
@@ -38,8 +36,7 @@ class SharePolicy
     /**
      * Determine whether the user can create shares.
      *
-     * @param \App\Models\User $user
-     *
+     * @param  \App\Models\User  $user
      * @return mixed
      */
     public function create(User $user)
@@ -50,9 +47,8 @@ class SharePolicy
     /**
      * Determine whether the user can update the share.
      *
-     * @param \App\Models\User  $user
-     * @param \App\Models\Share $share
-     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Share  $share
      * @return mixed
      */
     public function update(User $user, Share $share)
@@ -63,9 +59,8 @@ class SharePolicy
     /**
      * Determine whether the user can delete the share.
      *
-     * @param \App\Models\User  $user
-     * @param \App\Models\Share $share
-     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Share  $share
      * @return mixed
      */
     public function delete(User $user, Share $share)
