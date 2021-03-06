@@ -20,7 +20,6 @@ steps:
     runOptions: inline
     inline: |
      cd /var/www/vhosts/shares.savaskartal.com
-     git checkout .
      git pull --force --rebase --quiet
      php artisan optimize:clear
      php artisan config:cache
