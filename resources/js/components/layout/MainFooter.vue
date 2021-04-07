@@ -39,7 +39,7 @@ export default {
     setI18nLanguage(locale) {
       this.$i18n.locale = locale;
       this.$vuetify.lang.current = locale;
-      
+
       if (typeof document !== 'undefined') {
         document.querySelector('html').setAttribute('lang', locale)
       }
