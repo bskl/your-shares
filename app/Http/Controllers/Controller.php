@@ -143,7 +143,7 @@ class Controller extends BaseController
         $transactionType->put(
             'value',
             $type->is(TransactionType::Buying)
-                ? [TransactionType::Buying, TransactionType::Rights]
+                ? [TransactionType::Buying, TransactionType::Rights, TransactionType::PublicOffering]
                 : [$type->value]
         );
         $transactionType->put('condition', $type->is(TransactionType::Bonus));

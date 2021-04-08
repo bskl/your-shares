@@ -185,6 +185,7 @@ export default {
   "Rights": "Bedelli",
   "MergerOut": "Birleşme Çıkış",
   "MergerIn": "Birleşme Giriş",
+  "PublicOffering": "Halka Arz",
   "list_by_type_year_title": "{year} {code} {type} İşlemleri",
   "for_example": "Örneğin; {example}",
 };

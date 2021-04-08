@@ -13,6 +13,7 @@ use BenSampo\Enum\Enum;
  * @method static self Rights()
  * @method static self MergerOut()
  * @method static self MergerIn()
+ * @method static self PublicOffering()
  */
 final class TransactionType extends Enum implements LocalizedEnum
 {
@@ -23,4 +24,5 @@ final class TransactionType extends Enum implements LocalizedEnum
     const Rights = 4;
     const MergerOut = 5;
     const MergerIn = 6;
+    const PublicOffering = 7;
 }

@@ -11,5 +11,6 @@ return [
         TransactionType::Rights    => 'Bedelli',
         TransactionType::MergerOut => 'Birleşme Çıkış',
         TransactionType::MergerIn  => 'Birleşme Giriş',
+        TransactionType::PublicOffering  => 'Halka Arz',
     ],
 ];

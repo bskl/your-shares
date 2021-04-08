@@ -11,5 +11,6 @@ return [
         TransactionType::Rights    => 'Rights',
         TransactionType::MergerOut => 'Merger Out',
         TransactionType::MergerIn  => 'Merger In',
+        TransactionType::PublicOffering  => 'Public Offering',
     ],
 ];

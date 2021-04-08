@@ -45,6 +45,7 @@ export const TRANSACTION_TYPES = {
   Rights: 4,
   MergerOut: 5,
   MergerIn: 6,
+  PublicOffering: 7,
 };
 
 export const TRANSACTION_TYPES_MAP = [
@@ -55,6 +56,7 @@ export const TRANSACTION_TYPES_MAP = [
   'Rights',
   'MergerOut',
   'MergerIn',
+  'PublicOffering',
 ];
 
 export const USER_TYPES = {

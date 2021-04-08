@@ -34,6 +34,31 @@ class TransactionService
     }
 
     /**
+     * Handle calculations when create a new public offering transaction instance.
+     *
+     * @param  \App\Models\Transaction  $transaction
+     * @return void
+     */
+    public static function handleCalculationsOfPublicOffering(Transaction $transaction): void
+    {
+        $transaction->handleCalculationsOfBuying();
+        $transaction->share->handleCalculationsOfBuying($transaction);
+        $transaction->share->portfolio->handleCalculationsOfBuying($transaction);
+    }
+
+    /**
+     * Handle calculations when delete a public offering transaction instance.
+     *
+     * @param  \App\Models\Transaction  $transaction
+     * @return void
+     */
+    public static function handleCalculationsOfDeletedPublicOffering(Transaction $transaction): void
+    {
+        $transaction->share->handleCalculationsOfDeletedBuying($transaction);
+        $transaction->share->portfolio->handleCalculationsOfDeletedBuying($transaction);
+    }
+
+    /**
      * Handle calculations when create a new sale transaction instance.
      *
      * @param  \App\Models\Transaction  $transaction

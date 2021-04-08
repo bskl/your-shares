@@ -70,10 +70,10 @@ export default {
 
     transactionTypes() {
       return TRANSACTION_TYPES_MAP
-        .filter((item, index) => index != TRANSACTION_TYPES.MergerIn)
         .map((item, index) => {
           return { id: index, label: this.$t(item) }
-        });
+        })
+        .filter((item, index) => index != TRANSACTION_TYPES.MergerIn);
     },
   },
 
@@ -96,9 +96,14 @@ export default {
     },
 
     onChangeType(type) {
-      this.form.lot = (type == TRANSACTION_TYPES.MergerOut)
-        ? this.getShareById(this.form.share_id).lot
-        : null;
+      switch (type) {
+        case TRANSACTION_TYPES.MergerOut:
+          this.form.lot = this.getShareById(this.form.share_id).lot;
+          break;
+        case TRANSACTION_TYPES.PublicOffering:
+          this.form.commission = 0;
+          break;
+      }
     },
 
     goBack() {
@@ -240,7 +245,7 @@ export default {
                 form.type == 4 ? $t('You must write your rights shares.') : ''"
             ></v-text-field>
             <v-currency-field
-              v-if="form.type == 0 || form.type == 1 || form.type == 2 || form.type == 5"
+              v-if="form.type == 0 || form.type == 1 || form.type == 2 || form.type == 5 || form.type == 7"
               v-model="form.price"
               name="price"
               :label="$t('Enter Transaction Price')"
@@ -256,7 +261,7 @@ export default {
               :hint="$t('for_example', { example: '1,15997' })"
             ></v-text-field>
             <v-text-field type="number" name="commission" ref="commission" id="commission" filled clearable
-              v-if="form.type == 0 || form.type == 1"
+              v-if="form.type == 0 || form.type == 1 || form.type == 7"
               step="0.0001"
               prepend-inner-icon="donut_large"
               v-model="form.commission"

@@ -185,6 +185,7 @@ export default {
   "Rights": "Rights",
   "MergerOut": "Merger Out",
   "MergerIn": "Merger In",
+  "PublicOffering": "Public Offering",
   "list_by_type_year_title": "{year} {code} {type} İşlemleri",
   "for_example": "For Example; {example}",
 };
