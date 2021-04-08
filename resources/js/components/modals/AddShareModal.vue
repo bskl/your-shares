@@ -34,7 +34,7 @@ export default {
       waitFor: 'store_share',
       valid: true,
       form: {
-        symbol_id: 0,
+        symbol_id: null,
         portfolio_id: 0,
       },
     };
