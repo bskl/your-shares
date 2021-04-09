@@ -66,7 +66,7 @@ class TransactionService
      */
     public static function handleCalculationsOfSale(Transaction $transaction): void
     {
-        $items = $transaction->share->getTransactionsByTypeAndNotSold();
+        $items = $transaction->share->getNotSoldTransactions();
         $lot = $transaction->lot;
         $gain = $amount = Money::TRY(0);
 
@@ -102,7 +102,7 @@ class TransactionService
      */
     public static function handleCalculationsOfDeletedSale(Transaction $transaction): void
     {
-        $items = $transaction->share->getTransactionsByTypeAndSold();
+        $items = $transaction->share->getSoldTransactions();
         $lot = $transaction->lot;
         $gain = $amount = Money::TRY(0);
 

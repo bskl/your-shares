@@ -143,27 +143,26 @@ class Share extends BaseModel
     }
 
     /**
-     * Get the share's buying and bonus transactions by remaining.
+     * Get the share's sold transactions.
      *
+     * @param  string  $operator
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getTransactionsByTypeAndNotSold()
+    public function getSoldTransactions($operator = '=')
     {
-        return $this->transactionsOfType([TransactionType::Buying, TransactionType::Bonus, TransactionType::Rights])
-                    ->where('remaining', '!=', 0)
+        return $this->transactionsOfType([TransactionType::Buying, TransactionType::Bonus, TransactionType::Rights, TransactionType::MergerIn])
+                    ->where('remaining', $operator, 0)
                     ->get();
     }
 
     /**
-     * Get the share's buying and bonus transactions by remaining.
+     * Get the share's not sold transactions.
      *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getTransactionsByTypeAndSold()
+    public function getNotSoldTransactions()
     {
-        return $this->transactionsOfType([TransactionType::Buying, TransactionType::Bonus, TransactionType::Rights])
-                    ->where('lot', '!=', 'remaining')
-                    ->get();
+        return $this->getSoldTransactions('!=');
     }
 
     /**

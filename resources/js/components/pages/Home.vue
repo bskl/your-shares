@@ -159,7 +159,7 @@ export default {
               </div>
             </template>
             <template v-slot:item.symbol.last_price="{ item }">
-              <div class="text--darken-1 float-right"
+              <div class="justify-center"
                 :class="getTextColor(item.symbol.trend)"
               >
                 {{ item.symbol.last_price }}
@@ -173,7 +173,7 @@ export default {
               </v-chip>
             </template>
             <template v-slot:item.lot="{ item }">
-              <div class="float-right">
+              <div class="justify-center">
                 {{ $n(item.lot, 'decimal') }}
               </div>
             </template>
@@ -188,41 +188,27 @@ export default {
               </div>
             </template>
             <template v-slot:item.amount="{ item }">
-              <div class="float-right">
+              <div class="justify-center">
                 {{ item.amount }}
               </div>
             </template>
             <template v-slot:item.average_amount="{ item }">
-              <div class="d-flex align-center justify-center">
-                <v-col cols="auto" class="pr-0 float-right">
-                  {{ item.average_amount }}
-                </v-col>
-                <v-col cols="auto" class="float-right overline font-weight-thin">
-                  ({{ item.average_amount_with_dividend }})
-                </v-col>
+              <div class="justify-center">
+                {{ item.average_amount }}
               </div>
             </template>
             <template v-slot:item.gain="{ item }">
-              <div class="d-flex align-center justify-center">
-                <v-col cols="auto" class="pr-0 float-right"
-                  :class="getTextColor(item.gain_trend)"
-                >
-                  {{ item.gain }}
-                </v-col>
-                <v-col cols="auto" class="float-right overline font-weight-thin"
-                  :class="getTextColor(item.gain_with_dividend_trend)"
-                >
-                  ({{ item.gain_with_dividend }})
-                </v-col>
+              <div class="justify-center"
+                :class="getTextColor(item.gain_trend)"
+              >
+                {{ item.gain }}
               </div>
             </template>
             <template v-slot:item.gain_percent="{ item }">
-              <div class="d-flex align-center justify-center">
-                <v-col cols="auto" class="pr-0 float-right"
-                  :class="getTextColor(item.gain_trend)"
-                >
-                  {{ $n(item.gain_percent, 'percent') }}
-                </v-col>
+              <div class="justify-center"
+                :class="getTextColor(item.gain_trend)"
+              >
+                {{ $n(item.gain_percent, 'percent') }}
               </div>
             </template>
           </v-data-table>
