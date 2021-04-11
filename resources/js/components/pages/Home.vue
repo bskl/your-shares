@@ -131,9 +131,9 @@ export default {
             :items-per-page="15"
             :locale="$i18n.locale"
             :headers="[
-              { text: $t('Symbol'), sortable: true, value: 'symbol.code', align: 'start' },
-              { text: $t('Last Price'), sortable: false, value: 'symbol.last_price', align: 'center' },
-              { text: $t('Change'), sortable: true, value: 'symbol.rate_of_change', align: 'center' },
+              { text: $t('Symbol'), sortable: true, value: 'symbol_code', align: 'start' },
+              { text: $t('Last Price'), sortable: false, value: 'symbol_last_price', align: 'center' },
+              { text: $t('Change'), sortable: true, value: 'symbol_rate_of_change', align: 'center' },
               { text: $t('Lots'), sortable: true, value: 'lot', align: 'center' },
               { text: $t('Average Cost'), sortable: false, value: 'average', align: 'center' },
               { text: $t('Amount'), sortable: true, value: 'amount', align: 'center' },
@@ -142,7 +142,7 @@ export default {
               { text: $t('Gain/Loss (%)'), sortable: true, value: 'gain_percent', align: 'center' },
             ]"
           >
-            <template v-slot:item.symbol.code="{ item }">
+            <template v-slot:item.symbol_code="{ item }">
               <div class="d-flex align-center justify-start">
                 <v-col cols="auto" class="px-0 float-left font-weight-bold">
                   {{ item.symbol.code }}
@@ -158,14 +158,14 @@ export default {
                 </v-col>
               </div>
             </template>
-            <template v-slot:item.symbol.last_price="{ item }">
+            <template v-slot:item.symbol_last_price="{ item }">
               <div class="justify-center"
                 :class="getTextColor(item.symbol.trend)"
               >
                 {{ item.symbol.last_price }}
               </div>
             </template>
-            <template v-slot:item.symbol.rate_of_change="{ item }">
+            <template v-slot:item.symbol_rate_of_change="{ item }">
               <v-chip label small
                 :color="getColor(item.symbol.trend)"
               >
@@ -185,16 +185,6 @@ export default {
                 <v-col cols="auto" class="float-right overline font-weight-thin">
                   ({{ item.average_with_dividend }})
                 </v-col>
-              </div>
-            </template>
-            <template v-slot:item.amount="{ item }">
-              <div class="justify-center">
-                {{ item.amount }}
-              </div>
-            </template>
-            <template v-slot:item.average_amount="{ item }">
-              <div class="justify-center">
-                {{ item.average_amount }}
               </div>
             </template>
             <template v-slot:item.gain="{ item }">
