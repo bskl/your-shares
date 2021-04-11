@@ -91,7 +91,7 @@ export default {
             ({{ item.sale_gain }})
           </v-col>
         </template>
-        <template v-if="item.type == 5>
+        <template v-if="item.type == 5">
           <v-col cols="auto" class="pr-0 float-right">
             {{ item.symbol_code }} / {{ $n(item.exchange_ratio, { style: 'decimal', maximumFractionDigits: 5 }) }}
           </v-col>
