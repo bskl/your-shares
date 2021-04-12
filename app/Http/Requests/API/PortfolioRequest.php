@@ -24,9 +24,10 @@ class PortfolioRequest extends Request
     public function rules()
     {
         return [
-            'name'       => 'required|string',
-            'currency'   => 'required|string',
-            'commission' => 'required|numeric',
+            'name'       => 'sometimes|required|string',
+            'currency'   => 'sometimes|required|string',
+            'commission' => 'sometimes|required|numeric',
+            'filtered'   => 'sometimes|boolean',
         ];
     }
 }

@@ -25,6 +25,7 @@ export default {
   "Portfolio": "Portfolio",
   "Portfolio Name": "Portfolio Name",
   "Currency": "Currency",
+  "Filter stocks that are no lot": "Filter stocks that are no lot",
   "Add Portfolio": "Add Portfolio",
   "The new portfolio has been successfully created.": "The new portfolio has been successfully created.",
   "Update Portfolio": "Update Portfolio",

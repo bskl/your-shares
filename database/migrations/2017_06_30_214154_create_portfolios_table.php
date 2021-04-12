@@ -20,6 +20,7 @@ class CreatePortfoliosTable extends Migration
             $table->string('currency', 3)->default(App\Enums\SupportedCurrencies::DEFAULT);
             $table->decimal('commission', 5, 5)->default(0);
             $table->integer('order');
+            $table->boolean('filtered');
             $table->integer('total_sale_amount')->unsigned()->default(0);
             $table->integer('total_purchase_amount')->unsigned()->default(0);
             $table->integer('paid_amount')->default(0);

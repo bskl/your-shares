@@ -31,6 +31,7 @@ export default [
               name: portfolio.name,
               currency: portfolio.currency,
               commission: portfolio.commission,
+              filtered: portfolio.filtered,
             };
 
             next();

@@ -47,6 +47,7 @@ class Portfolio extends BaseModel
      */
     protected $casts = [
         'commission' => 'float',
+        'filtered' => 'boolean',
         'total_sale_amount' => MoneyCast::class,
         'total_purchase_amount' => MoneyCast::class,
         'paid_amount' => MoneyCast::class,

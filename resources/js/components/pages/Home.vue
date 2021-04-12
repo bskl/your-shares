@@ -134,7 +134,13 @@ export default {
               { text: $t('Symbol'), sortable: true, value: 'symbol_code', align: 'start' },
               { text: $t('Last Price'), sortable: false, value: 'symbol_last_price', align: 'center' },
               { text: $t('Change'), sortable: true, value: 'symbol_rate_of_change', align: 'center' },
-              { text: $t('Lots'), sortable: true, value: 'lot', align: 'center' },
+              { text: $t('Lots'), sortable: true, value: 'lot', align: 'center',
+                filter: (value, search, item) => {
+                  if (!portfolio.filtered) return true;
+
+                  return value > 0 || item.total_purchase_amount == '₺0,00';
+                }
+              },
               { text: $t('Average Cost'), sortable: false, value: 'average', align: 'center' },
               { text: $t('Amount'), sortable: true, value: 'amount', align: 'center' },
               { text: $t('Average Amount'), sortable: false, value: 'average_amount', align: 'center' },

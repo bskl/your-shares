@@ -39,6 +39,7 @@ export default {
         name: this.portfolio.name,
         currency: this.portfolio.currency,
         commission: this.portfolio.commission,
+        filtered: this.portfolio.filtered,
       },
       valid: true,
     }
@@ -123,6 +124,10 @@ export default {
               :error-messages="getError('commission')"
               :hint="$t('for_example', { example: 'Garanti Bank: 0,188' })"
             ></v-text-field>
+            <v-checkbox
+              v-model="form.filtered"
+              :label="$t('Filter stocks that are no lot')"
+            ></v-checkbox>
           </v-form>
         </v-card-text>
         <v-card-actions class="pb-4 px-4">

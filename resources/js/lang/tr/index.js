@@ -25,6 +25,7 @@ export default {
   "Portfolio": "Portföy",
   "Portfolio Name": "Portföy Adı",
   "Currency": "Para Birimi",
+  "Filter stocks that are no lot": "Lot olmayan hisseleri filtrele",
   "Add Portfolio": "Portföy Ekle",
   "The new portfolio has been successfully created.": "Yeni portföy başarılı bir şekilde oluşturulmuştur.",
   "Update Portfolio": "Portföy Güncelle",
