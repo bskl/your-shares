@@ -57,7 +57,7 @@ export default {
           'green--text': item.sale_gain_trend == 1
         }"
       >
-        <template v-if="item.type == 0 || item.type == 1">
+        <template v-if="item.type == 0 || item.type == 1 || item.type == 7">
           {{ item.sale_gain }}
         </template>
         <template v-if="item.type == 2">
