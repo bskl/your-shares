@@ -150,7 +150,7 @@ class Share extends BaseModel
      */
     public function getSoldTransactions($operator = '=')
     {
-        return $this->transactionsOfType([TransactionType::Buying, TransactionType::Bonus, TransactionType::Rights, TransactionType::MergerIn])
+        return $this->transactionsOfType([TransactionType::Buying, TransactionType::Bonus, TransactionType::Rights, TransactionType::MergerIn, TransactionType::PublicOffering])
                     ->where('remaining', $operator, 0)
                     ->get();
     }
