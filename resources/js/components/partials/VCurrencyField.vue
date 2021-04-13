@@ -1,7 +1,6 @@
 <script>
 
 import validationHandler from '../../mixins/validationHandler.js';
-import loadingHandler from '../../mixins/loadingHandler.js';
 
 export default {
   /**
@@ -24,13 +23,16 @@ export default {
     },
     options: {
       type: Object,
-      default: () => {}
-    }
+      default: {}
+    },
+    isLoading: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   mixins: [
     validationHandler,
-    loadingHandler
   ],
 
   data() {
@@ -53,16 +55,18 @@ export default {
     setValue(value) {
       this.$ci.setValue(this.$refs[this.name], value);
     },
+
     onInput(value) {
-      this.$emit("input", this.$ci.getValue(this.$refs[this.name]));
+      this.$emit('input', this.$ci.getValue(this.$refs[this.name]));
       this.formattedValue = value;
     },
+
     onChange(value) {
-      this.$emit("change", this.$ci.getValue(this.$refs[this.name]));
+      this.$emit('change', this.$ci.getValue(this.$refs[this.name]));
       this.formattedValue = value;
     }
   },
-};
+}
 </script>
 
 <template>

@@ -249,6 +249,7 @@ export default {
               v-model="form.price"
               name="price"
               :label="$t('Enter Transaction Price')"
+              :is-loading="isLoading"
             ></v-currency-field>
             <v-text-field type="number" name="exchange_ratio" ref="exchange_ratio" id="exchange_ratio" filled clearable
               v-if="form.type == 5"
@@ -276,6 +277,7 @@ export default {
               v-model="form.dividend_gain"
               name="dividend_gain"
               :label="$t('Enter Dividend Gain Price')"
+              :is-loading="isLoading"
             ></v-currency-field>
           </v-form>
         </v-card-text>
