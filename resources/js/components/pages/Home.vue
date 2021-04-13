@@ -207,11 +207,13 @@ export default {
                 {{ $n(item.gain_percent, 'percent') }}
               </div>
             </template>
+            <template v-if="portfolio.shares.length" v-slot:footer>
+              <div class="ml-4 mt-5" style="position: absolute">
+                <v-icon x-small dense>access_time</v-icon>
+                <span class="mx-1 caption font-weight-thin">SG: {{ portfolio.shares[0].symbol.session_time }}</span>
+              </div>
+            </template>
           </v-data-table>
-          <div class="ma-4" v-if="portfolio.shares.length">
-            <v-icon x-small dense>access_time</v-icon>
-            <span class="mx-1 caption font-weight-thin">SG: {{ portfolio.shares[0].symbol.session_time }}</span>
-          </div>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions style="background-color: #323639;">

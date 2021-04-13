@@ -8,6 +8,10 @@ export default {
       type: Array,
       required: true,
     },
+    sessionTime: {
+      type: String,
+      required: true,
+    },
   },
 
   /**
@@ -97,6 +101,12 @@ export default {
             ({{ item.sale_gain }})
           </v-col>
         </template>
+      </div>
+    </template>
+    <template v-slot:footer>
+      <div class="ml-4 mt-5" style="position: absolute">
+        <v-icon x-small dense>access_time</v-icon>
+        <span class="mx-1 caption font-weight-thin">SG: {{ sessionTime }}</span>
       </div>
     </template>
   </v-data-table>

@@ -51,7 +51,7 @@ export default {
         shareId: this.share.id,
         code: this.share.symbol.code,
         commission: this.getPortfolioById(this.share.portfolio_id).commission
-      } 
+      }
     }
   },
 
@@ -143,11 +143,8 @@ export default {
         <v-card-text>
           <transaction-item
             :items="share.transactions"
+            :session-time="share.symbol.session_time"
           />
-          <div class="ma-4">
-            <v-icon x-small dense>access_time</v-icon>
-            <span class="mx-1 caption font-weight-thin">SG: {{ share.symbol.session_time }}</span>
-          </div>
         </v-card-text>
         <v-card-actions style="background-color: #323639;">
           <v-flex class="px-2">
