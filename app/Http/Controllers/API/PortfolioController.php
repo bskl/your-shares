@@ -56,7 +56,7 @@ class PortfolioController extends Controller
 
         try {
             $portfolio = Portfolio::create($data);
-            $portfolio->refresh()->load('shars');
+            $portfolio->refresh()->load('shares');
 
             return new PortfolioResource($portfolio);
         } catch (\Exception $e) {
