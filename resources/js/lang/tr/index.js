@@ -188,5 +188,6 @@ export default {
   "MergerIn": "Birleşme Giriş",
   "PublicOffering": "Halka Arz",
   "list_by_type_year_title": "{year} {code} {type} İşlemleri",
+  "Garanti Bank: 0.188": "Garanti Bankası: 0.188",
   "for_example": "Örneğin; {example}",
 };
