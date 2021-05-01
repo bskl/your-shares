@@ -188,7 +188,7 @@ export default {
                 <v-col cols="auto" class="pr-0 float-right">
                   {{ item.average }}
                 </v-col>
-                <v-col cols="auto" class="float-right overline font-weight-thin">
+                <v-col cols="auto" class="float-right overline text-caption">
                   ({{ item.average_with_dividend }})
                 </v-col>
               </div>

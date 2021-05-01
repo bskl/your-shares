@@ -97,7 +97,7 @@ export default {
           </v-btn>
           <v-toolbar-title class="pl-2">{{ share.symbol.code }}</v-toolbar-title>
           <v-subheader>
-            <span class="pr-3 font-weight-thin">{{ share.symbol.last_price }}</span>
+            <span class="pr-3 text-caption">{{ share.symbol.last_price }}</span>
             <v-chip label small class="font-weight-thin"
               :color="getTextColor(share.symbol.trend)"
             >
