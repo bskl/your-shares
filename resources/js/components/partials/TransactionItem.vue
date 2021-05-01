@@ -35,6 +35,7 @@ export default {
   <v-data-table item-key="id" disable-sort
     :mobile-breakpoint="0"
     :items="items"
+    :hide-default-footer="!items.length"
     :headers="[
       { text: $t('Transaction Date'), value: 'date_at', align: 'start' },
       { text: $t('Transaction'), value: 'type', align: 'center' },
@@ -103,10 +104,11 @@ export default {
         </template>
       </div>
     </template>
-    <template v-slot:footer>
-      <div class="ml-4 mt-5" style="position: absolute">
+    <template v-if="items.length" v-slot:footer>
+      <div class="pl-4 py-5 d-flex align-center text-caption"
+        :style="!items.length ? 'border-top: thin solid hsla(0,0%,100%,.12);' : 'position: absolute;'">
         <v-icon x-small dense>access_time</v-icon>
-        <span class="mx-1 caption font-weight-thin">SG: {{ sessionTime }}</span>
+        <span class="mx-1 text-caption">SG: {{ sessionTime }}</span>
       </div>
     </template>
   </v-data-table>
