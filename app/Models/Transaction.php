@@ -153,6 +153,7 @@ class Transaction extends BaseModel
     public function handleCalculationsOfBonus(): void
     {
         $this->remaining = $this->lot;
+        $this->price = $this->createMoney('0');
         $this->bonus = ($this->lot * 100) / $this->share->lot;
         $this->update();
     }
