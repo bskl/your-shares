@@ -37,7 +37,7 @@ class TransactionRequest extends Request
         return [
             'share_id'       => 'required|integer|exists:shares,id,user_id,'.$this->user()->id,
             'type'           => 'required|integer|enum_value:'.TransactionType::class,
-            'date_at'        => 'required|date|before_or_equal:'.Carbon::today()->toDateString(),
+            'date_at'        => 'required|date_format:d.m.Y|before_or_equal:'.Carbon::today()->format('d.m.Y'),
             'lot'            => 'required|gt:0'.$addRule,
             'price'          => 'required_if:type,'.TransactionType::Buying.',type,'.TransactionType::Sale,
             'exchange_ratio' => 'required_if:type,'.TransactionType::MergerOut,
