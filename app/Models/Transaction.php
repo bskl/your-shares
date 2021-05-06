@@ -69,6 +69,7 @@ class Transaction extends BaseModel
         'dividend_gain' => MoneyCast::class,
         'bonus' => Percent::class,
         'rights' => Percent::class,
+        'preference' => 'decimal:3',
         'exchange_ratio' => 'decimal:15',
     ];
 
@@ -154,7 +155,7 @@ class Transaction extends BaseModel
     {
         $this->remaining = $this->lot;
         $this->price = $this->createMoney('0');
-        $this->bonus = ($this->lot * 100) / $this->share->lot;
+        $this->bonus = ($this->lot * 100) / $this->preference;
         $this->update();
     }
 
@@ -168,7 +169,7 @@ class Transaction extends BaseModel
         $this->remaining = $this->lot;
         $this->price = $this->createMoney('100');
         $this->amount = $this->price->multiply($this->lot);
-        $this->rights = ($this->lot * 100) / $this->share->lot;
+        $this->rights = ($this->lot * 100) / $this->preference;
         $this->update();
     }
 

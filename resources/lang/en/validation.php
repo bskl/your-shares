@@ -159,6 +159,7 @@ return [
         'name'       => 'Portfolio Name',
         'currency'   => 'Currency',
         'commission' => 'Commission',
+        'preference' => 'Preference',
     ],
 
     'values' => [

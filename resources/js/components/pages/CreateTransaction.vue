@@ -50,6 +50,7 @@ export default {
         type: TRANSACTION_TYPES.Buying,
         date_at: null,
         symbol_id: 0,
+        preference: null,
         lot: null,
         price: null,
         exchange_ratio: 0,
@@ -89,14 +90,18 @@ export default {
     ]),
 
     formatDate(date) {
-      if (!date) return null
+      if (!date) return null;
 
-      const [year, month, day] = date.split('-')
-      return `${day}.${month}.${year}`
+      const [year, month, day] = date.split('-');
+
+      return `${day}.${month}.${year}`;
     },
 
     onChangeType(type) {
       switch (type) {
+        case TRANSACTION_TYPES.Bonus || TRANSACTION_TYPES.Rights:
+          this.form.preference = this.getShareById(this.form.share_id).lot;
+          break;
         case TRANSACTION_TYPES.MergerOut:
           this.form.lot = this.getShareById(this.form.share_id).lot;
           break;
@@ -232,6 +237,18 @@ export default {
               v-if="form.type == 5"
               :symbolId.sync="form.symbol_id"
             ></search-symbol-field>
+            <v-text-field type="number" name="preference" ref="preference" id="preference" filled clearable
+              v-if="form.type == 3 || form.type == 4"
+              prepend-inner-icon="format_list_numbered"
+              v-model="form.preference"
+              :disabled="isLoading"
+              :label="$t('Enter Preference Amount')"
+              :rules="[rules.required]"
+              :error-messages="getError('preference')"
+              :hint="form.type == 3
+                ? $t('You must write your share amount on the day of bonus.')
+                : $t('You must write your share amount on the day of rights.')"
+            ></v-text-field>
             <v-text-field type="number" name="lot" ref="lot" id="lot" filled clearable
               prepend-inner-icon="format_list_numbered"
               v-model="form.lot"

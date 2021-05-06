@@ -159,6 +159,7 @@ return [
         'name'       => 'Portföy Adı',
         'currency'   => 'Para Birimi',
         'commission' => 'Komisyon',
+        'preference' => 'Rüçhan',
     ],
 
     'values' => [

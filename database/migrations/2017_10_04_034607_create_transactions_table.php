@@ -21,7 +21,7 @@ class CreateTransactionsTable extends Migration
             $table->timestamp('date_at')->useCurrent();
             $table->decimal('lot', 11, 3)->unsigned();
             $table->integer('remaining')->unsigned()->nullable()->default(0);
-            $table->integer('price')->unsigned()->default(0);
+            $table->integer('price')->unsigned()->nullable()->default(0);
             $table->integer('amount')->unsigned()->nullable()->default(0);
             $table->decimal('commission', 5, 5)->unsigned()->nullable()->default(0);
             $table->integer('commission_price')->unsigned()->nullable()->default(0);
@@ -32,6 +32,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('dividend_gain')->unsigned()->nullable()->default(0);
             $table->float('bonus', 7, 4)->unsigned()->nullable()->default(0);
             $table->float('rights', 7, 4)->unsigned()->nullable()->default(0);
+            $table->decimal('preference', 11, 3)->unsigned()->nullable()->default(0);
             $table->decimal('exchange_ratio', 17, 15)->unsigned()->nullable()->default(0);
             $table->string('symbol_code', 10)->nullable();
             $table->timestamps();

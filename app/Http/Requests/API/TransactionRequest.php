@@ -44,6 +44,7 @@ class TransactionRequest extends Request
             'symbol_id'      => 'integer|required_if:type,'.TransactionType::MergerOut,
             'commission'     => 'required|numeric',
             'dividend_gain'  => 'required_if:type,'.TransactionType::Dividend,
+            'preference'     => 'required_if:type,'.TransactionType::Bonus.',type,'.TransactionType::Rights,
         ];
     }
 }
