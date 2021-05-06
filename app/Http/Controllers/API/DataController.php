@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Portfolio as PortfolioResource;
 use App\Http\Resources\User as UserResource;
-use App\Models\Portfolio;
 use Illuminate\Support\Facades\Auth;
 
 class DataController extends Controller
@@ -17,11 +16,9 @@ class DataController extends Controller
      */
     public function getData(): array
     {
-        $portfolios = Portfolio::byCurrentUser()->get();
-
         return [
             'user'       => new UserResource(Auth::user()),
-            'portfolios' => PortfolioResource::collection($portfolios),
+            'portfolios' => PortfolioResource::collection(Auth::user()->portfolios),
         ];
     }
 }
