@@ -99,12 +99,15 @@ export default {
 
     onChangeType(type) {
       switch (type) {
-        case TRANSACTION_TYPES.Bonus || TRANSACTION_TYPES.Rights:
+        case TRANSACTION_TYPES.Bonus:
+        case TRANSACTION_TYPES.Rights:
           this.form.preference = this.getShareById(this.form.share_id).lot;
           break;
+
         case TRANSACTION_TYPES.MergerOut:
           this.form.lot = this.getShareById(this.form.share_id).lot;
           break;
+
         case TRANSACTION_TYPES.PublicOffering:
           this.form.commission = 0;
           break;
