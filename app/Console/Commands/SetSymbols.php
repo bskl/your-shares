@@ -157,7 +157,7 @@ class SetSymbols extends Command
     {
         foreach ($symbols as $symbol) {
             Symbol::updateOrCreate(
-                ['code' => $symbol['code']],
+                ['code' => $symbol['code'], 'title' => $symbol['title']],
                 $symbol
             );
         }
