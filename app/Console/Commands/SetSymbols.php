@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use DOMDocument;
 use DOMXpath;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 
@@ -156,10 +157,23 @@ class SetSymbols extends Command
     protected function storeSymbols($symbols): void
     {
         foreach ($symbols as $symbol) {
-            Symbol::updateOrCreate(
-                ['code' => $symbol['code'], 'title' => $symbol['title']],
-                $symbol
-            );
+            $oldSymbol = Symbol::whereCode($symbol['code'])->whereTitle($symbol['title'])->first();
+
+            if (filled($oldSymbol)) {
+                $oldSymbol->fill($symbol);
+                $oldSymbol->last_price = $symbol['last_price'];
+                $oldSymbol->rate_of_change = $symbol['rate_of_change'];
+                $oldSymbol->save();
+            } else {
+                if (Str::contains($symbol['title'], 'RÜÇHAN')) {
+                    $symbol['code'] = $symbol['code'].'.R';
+                }
+
+                Symbol::updateOrCreate(
+                    ['code' => $symbol['code']],
+                    $symbol
+                );
+            }
         }
     }
 }
