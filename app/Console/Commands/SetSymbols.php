@@ -7,9 +7,9 @@ use Carbon\Carbon;
 use DOMDocument;
 use DOMXpath;
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class SetSymbols extends Command
 {

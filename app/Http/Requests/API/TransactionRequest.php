@@ -27,6 +27,7 @@ class TransactionRequest extends Request
     public function rules()
     {
         $addRule = '';
+
         if ($this->type == TransactionType::Buying || $this->type == TransactionType::Sale) {
             $addRule .= '|integer';
         }
@@ -39,12 +40,12 @@ class TransactionRequest extends Request
             'type'           => 'required|integer|enum_value:'.TransactionType::class,
             'date_at'        => 'required|date_format:d.m.Y|before_or_equal:'.Carbon::today()->format('d.m.Y'),
             'lot'            => 'required|gt:0'.$addRule,
-            'price'          => 'required_if:type,'.TransactionType::Buying.',type,'.TransactionType::Sale,
+            'price'          => 'required_if:type,'.TransactionType::Buying.','.TransactionType::Sale,
             'exchange_ratio' => 'required_if:type,'.TransactionType::MergerOut,
             'symbol_id'      => 'integer|required_if:type,'.TransactionType::MergerOut,
             'commission'     => 'required|numeric',
             'dividend_gain'  => 'required_if:type,'.TransactionType::Dividend,
-            'preference'     => 'required_if:type,'.TransactionType::Bonus.',type,'.TransactionType::Rights,
+            'preference'     => 'required_if:type,'.TransactionType::Bonus.','.TransactionType::Rights,
         ];
     }
 }
