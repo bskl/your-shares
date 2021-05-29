@@ -4,14 +4,13 @@ namespace App\Models;
 
 use App\Enums\UserType;
 use App\Notifications\ResetPassword as PasswordResetNotification;
-use BenSampo\Enum\Traits\CastsEnums;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use CastsEnums, HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that aren't mass assignable.
@@ -32,11 +31,11 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be mutated to enum class.
+     * The attributes that should be cast.
      *
      * @var array
      */
-    protected $enumCasts = [
+    protected $casts = [
         'role' => UserType::class,
     ];
 
