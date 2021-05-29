@@ -166,13 +166,13 @@ class Share extends BaseModel
     }
 
     /**
-     * Get instant gains to share based on instant prices.
+     * Calculate percent of the gain.
      *
      * @return float
      */
     public function getGainPercentAttribute(): float
     {
-        if ($this->average_amount->equals($this->createMoney())) {
+        if ($this->average_amount->isZero()) {
             return 0;
         }
 
