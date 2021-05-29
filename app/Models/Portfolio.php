@@ -32,6 +32,15 @@ class Portfolio extends BaseModel
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'sum_amount', 'sum_average_amount', 'sum_gain', 'total_gain_percent',
+    ];
+
+    /**
      * The relations to eager load on every query.
      *
      * @var array
@@ -123,19 +132,75 @@ class Portfolio extends BaseModel
     }
 
     /**
+     * To sum amount attribute of shares with money object.
+     *
+     * @return string
+     */
+    public function getSumAmountAttribute(): string
+    {
+        return $this->formatByIntl($this->sumShareAttribute('amount'));
+    }
+
+    /**
+     * To sum average amount attribute of shares with money object.
+     *
+     * @return string
+     */
+    public function getSumAverageAmountAttribute()
+    {
+        return $this->formatByIntl($this->sumShareAttribute('average_amount'));
+    }
+
+    /**
+     * To sum gain attribute of shares with money object.
+     *
+     * @return string
+     */
+    public function getSumGainAttribute(): string
+    {
+        return $this->formatByIntl($this->sumShareAttribute('gain'));
+    }
+
+    /**
+     * Calculate percent of the total gain.
+     *
+     * @return float
+     */
+    public function getTotalGainPercentAttribute(): float
+    {
+        if (($money = $this->sumShareAttribute('average_amount'))->isZero()) {
+            return 0;
+        }
+
+        return $this->sumShareAttribute('gain')->ratioOf($money);
+    }
+
+    /**
+     * To sum given attribute of shares with money object.
+     *
+     * @param  string  $attribute
+     * @return \Money\Money
+     */
+    public function sumShareAttribute(string $attribute): Money
+    {
+        $money = $this->createMoney();
+
+        foreach ($this->getSharesByLot() as $share) {
+            $money = $money->add($share->$attribute);
+        }
+
+        return $money;
+    }
+
+    /**
      * Calculate common attributes with money object.
      *
      * @return void
      */
     public function handleCommonCalculations(): void
     {
-        $sharesGain = $this->createMoney();
+        $this->instant_gain = $this->sumShareAttribute('gain')->add($this->total_gain);
 
-        foreach ($this->getSharesByLot() as $share) {
-            $sharesGain = $sharesGain->add($share->gain);
-        }
-
-        $this->instant_gain = $sharesGain->add($this->total_gain);
         $this->update();
     }
 

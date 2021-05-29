@@ -143,15 +143,15 @@ export default {
                 }
               },
               { text: $t('Average Cost'), sortable: false, value: 'average', align: 'center' },
-              { text: $t('Amount'), sortable: true, value: 'amount', align: 'center' },
-              { text: $t('Average Amount'), sortable: false, value: 'average_amount', align: 'center' },
-              { text: $t('Gain/Loss'), sortable: false, value: 'gain', align: 'center' },
-              { text: $t('Gain/Loss (%)'), sortable: true, value: 'gain_percent', align: 'center' },
+              { text: $t('Amount'), sortable: true, value: 'amount', align: 'end' },
+              { text: $t('Average Amount'), sortable: false, value: 'average_amount', align: 'end' },
+              { text: $t('Gain/Loss'), sortable: false, value: 'gain', align: 'end' },
+              { text: $t('Gain/Loss (%)'), sortable: true, value: 'gain_percent', align: 'end' },
             ]"
             @current-items="hideFooter = $event.length < 11"
           >
             <template v-slot:item.symbol_code="{ item }">
-              <div class="d-flex align-center justify-start">
+              <div class="d-flex">
                 <v-col cols="auto" class="px-0 float-left font-weight-bold">
                   {{ item.symbol.code }}
                 </v-col>
@@ -167,9 +167,7 @@ export default {
               </div>
             </template>
             <template v-slot:item.symbol_last_price="{ item }">
-              <div class="justify-center"
-                :class="getTextColor(item.symbol.trend)"
-              >
+              <div :class="getTextColor(item.symbol.trend)">
                 {{ item.symbol.last_price }}
               </div>
             </template>
@@ -181,12 +179,12 @@ export default {
               </v-chip>
             </template>
             <template v-slot:item.lot="{ item }">
-              <div class="justify-center">
+              <div>
                 {{ $n(item.lot, 'decimal') }}
               </div>
             </template>
             <template v-slot:item.average="{ item }">
-              <div class="d-flex align-center justify-center">
+              <div class="d-flex">
                 <v-col cols="auto" class="pr-0 float-right">
                   {{ item.average }}
                 </v-col>
@@ -196,18 +194,24 @@ export default {
               </div>
             </template>
             <template v-slot:item.gain="{ item }">
-              <div class="justify-center"
-                :class="getTextColor(item.gain_trend)"
-              >
+              <div :class="getTextColor(item.gain_trend)">
                 {{ item.gain }}
               </div>
             </template>
             <template v-slot:item.gain_percent="{ item }">
-              <div class="justify-center"
-                :class="getTextColor(item.gain_trend)"
-              >
+              <div :class="getTextColor(item.gain_trend)">
                 {{ $n(item.gain_percent, 'percent') }}
               </div>
+            </template>
+            <template v-slot:body.append>
+              <tr>
+                <td>{{ $t('Total') }}</td>
+                <td colspan="4"></td>
+                <td class="text-end">{{ portfolio.sum_amount }}</td>
+                <td class="text-end">{{ portfolio.sum_average_amount }}</td>
+                <td class="text-end">{{ portfolio.sum_gain }}</td>
+                <td class="text-end">{{ $n(portfolio.total_gain_percent, 'percent') }}</td>
+              </tr>
             </template>
             <template v-if="portfolio.shares.length" v-slot:footer>
               <div class="pl-4 py-5 d-flex align-center text-caption"
