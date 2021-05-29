@@ -17,7 +17,7 @@ class DataController extends Controller
     public function getData(): array
     {
         return [
-            'user'       => new UserResource(Auth::user()),
+            'user'       => new UserResource(Auth::user()->only('id', 'name', 'email', 'locale', 'tr')),
             'portfolios' => PortfolioResource::collection(Auth::user()->portfolios),
         ];
     }
