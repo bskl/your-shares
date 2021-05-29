@@ -34,7 +34,7 @@ trait MoneyManager
      * @param  \Money\Money|string  $value
      * @return \Money\Money
      */
-    public function parseByIntlLocalizedDecimal($value = '0'): Money
+    public function parseByIntlLocalizedDecimal($value): Money
     {
         if ($value instanceof Money) {
             return $value;
@@ -54,7 +54,7 @@ trait MoneyManager
      * @param  \Money\Money|string|int  $value
      * @return \Money\Money
      */
-    public function parseByDecimal($value = 0): Money
+    public function parseByDecimal($value): Money
     {
         if ($value instanceof Money) {
             return $value;
