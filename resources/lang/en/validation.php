@@ -172,4 +172,5 @@ return [
         ],
     ],
 
+    'money_gt' => 'The :attribute must be greater than :value.',
 ];

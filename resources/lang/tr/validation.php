@@ -172,4 +172,5 @@ return [
         ],
     ],
 
+    'money_gt' => ':attribute alanı :value tutarından büyük olmalıdır.',
 ];

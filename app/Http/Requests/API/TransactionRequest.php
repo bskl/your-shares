@@ -55,5 +55,13 @@ class TransactionRequest extends Request
         $validator->sometimes('lot', 'lte:'.optional(Share::find($this->share_id))->lot, function ($input) {
             return in_array($input->type, [TransactionType::Sale, TransactionType::Dividend, TransactionType::MergerOut]);
         });
+
+        $validator->sometimes('price', 'money_gt:0', function ($input) {
+            return in_array($input->type, [TransactionType::Buying, TransactionType::Sale]);
+        });
+
+        $validator->sometimes('dividend_gain', 'money_gt:0', function ($input) {
+            return $input->type == TransactionType::Dividend;
+        });
     }
 }
