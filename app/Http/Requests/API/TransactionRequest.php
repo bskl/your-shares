@@ -26,20 +26,11 @@ class TransactionRequest extends Request
      */
     public function rules()
     {
-        $addRule = '';
-
-        if ($this->type == TransactionType::Buying || $this->type == TransactionType::Sale) {
-            $addRule .= '|integer';
-        }
-        if ($this->type == TransactionType::Sale || $this->type == TransactionType::Dividend || $this->type == TransactionType::MergerOut) {
-            $addRule .= '|lte:'.optional(Share::find($this->share_id))->lot;
-        }
-
         return [
             'share_id'       => 'required|integer|exists:shares,id,user_id,'.$this->user()->id,
             'type'           => 'required|integer|enum_value:'.TransactionType::class,
             'date_at'        => 'required|date_format:d.m.Y|before_or_equal:'.Carbon::today()->format('d.m.Y'),
-            'lot'            => 'required|gt:0'.$addRule,
+            'lot'            => 'required|gt:0',
             'price'          => 'required_if:type,'.TransactionType::Buying.','.TransactionType::Sale,
             'exchange_ratio' => 'required_if:type,'.TransactionType::MergerOut,
             'symbol_id'      => 'integer|required_if:type,'.TransactionType::MergerOut,
@@ -47,5 +38,22 @@ class TransactionRequest extends Request
             'dividend_gain'  => 'required_if:type,'.TransactionType::Dividend,
             'preference'     => 'required_if:type,'.TransactionType::Bonus.','.TransactionType::Rights,
         ];
+    }
+
+    /**
+     * Configure the validator instance.
+     *
+     * @param  \Illuminate\Validation\Validator  $validator
+     * @return void
+     */
+    public function withValidator($validator)
+    {
+        $validator->sometimes('lot', 'integer', function ($input) {
+            return in_array($input->type, [TransactionType::Buying, TransactionType::Sale]);
+        });
+
+        $validator->sometimes('lot', 'lte:'.optional(Share::find($this->share_id))->lot, function ($input) {
+            return in_array($input->type, [TransactionType::Sale, TransactionType::Dividend, TransactionType::MergerOut]);
+        });
     }
 }
