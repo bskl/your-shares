@@ -36,10 +36,11 @@ class AppServiceProvider extends ServiceProvider
 
         Validator::extend('money_gt', function ($attribute, $value, $parameters, $validator) {
             if (count($parameters) < 1) {
-                throw new InvalidArgumentException("Validation rule money_gt requires at least 1 parameters.");
+                throw new InvalidArgumentException('Validation rule money_gt requires at least 1 parameters.');
             }
 
             $rule = new MoneyGt($parameters[0]);
+
             return $rule->passes($attribute, $value);
         });
 

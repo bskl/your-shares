@@ -3,8 +3,6 @@
 namespace Tests\Feature;
 
 use App\Traits\MoneyManager;
-use Money\Currency;
-use Money\Money;
 use Tests\TestCase;
 
 class MoneyManagerTest extends TestCase
