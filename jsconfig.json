@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "esnext",
+    "baseUrl": "./",
+    "paths": {
+    "@/*": ["components/*"]
+    }
+  },
+  "include": [
+    "app/resources/js/*.vue",
+    "app/resources/js/*.js"
+  ]
+}
