@@ -104,6 +104,7 @@ export default {
           this.form.preference = this.getShareById(this.form.share_id).lot;
           break;
 
+        case TRANSACTION_TYPES.Dividend:
         case TRANSACTION_TYPES.MergerOut:
           this.form.lot = this.getShareById(this.form.share_id).lot;
           break;
