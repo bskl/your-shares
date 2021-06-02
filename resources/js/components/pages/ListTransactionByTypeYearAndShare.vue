@@ -49,15 +49,19 @@ export default {
     title() {
       return this.$t('list_by_type_year_title', {
         year: this.$route.params.year,
-        code: this.code(),
+        code: this.symbol().code,
         type: this.$t(upperFirst(this.$route.params.type))
       });
+    },
+
+    sessionTime() {
+      return this.symbol().session_time;
     },
   },
 
   methods: {
-    code() {
-      return this.getShareById(this.$route.params.id).symbol.code;
+    symbol() {
+      return this.getShareById(this.$route.params.id).symbol;
     },
 
     goBack() {
@@ -85,6 +89,7 @@ export default {
         <v-card-text>
           <transaction-item
             :items="transactions"
+            :session-time="sessionTime"
           />
         </v-card-text>
       </v-card>
