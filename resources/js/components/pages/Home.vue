@@ -151,7 +151,7 @@ export default {
             @current-items="hideFooter = $event.length < 11"
           >
             <template v-slot:item.symbol_code="{ item }">
-              <div class="d-flex">
+              <div class="d-flex align-center">
                 <v-col cols="auto" class="px-0 float-left font-weight-bold">
                   {{ item.symbol.code }}
                 </v-col>
