@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Casts\Money as MoneyCast;
 use App\Casts\Percent;
 use App\Enums\TransactionType;
-use App\Traits\MoneyMAnager;
+use App\Traits\MoneyManager;
 use DateTimeInterface;
 use Money\Money;
 

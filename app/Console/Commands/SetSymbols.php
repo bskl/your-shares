@@ -78,7 +78,7 @@ class SetSymbols extends Command
     /**
      * Retrieve data from HTML body.
      *
-     * @return \DOMNodeList  $allTr
+     * @return \DOMNodeList
      */
     protected function parseHtml(): \DOMNodeList
     {
@@ -101,7 +101,7 @@ class SetSymbols extends Command
      * Retrieve data from HTML body.
      *
      * @param  array  $content
-     * @return \Illuminate\Support\Collection $symbols
+     * @return \Illuminate\Support\Collection
      */
     protected function parseSymbols($content): Collection
     {

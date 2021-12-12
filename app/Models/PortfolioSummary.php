@@ -43,6 +43,8 @@ class PortfolioSummary extends BaseModel
 
     /**
      * Get the portfolio.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function portfolio()
     {

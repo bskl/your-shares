@@ -370,7 +370,7 @@ class Portfolio extends BaseModel
      * @param  \App\Models\Transaction  $transaction
      * @return void
      */
-    public static function handleCalculationsOfMergerIn(Transaction $transaction): void
+    public function handleCalculationsOfMergerIn(Transaction $transaction): void
     {
         $this->paid_amount = $this->paid_amount->add($transaction->amount);
         $this->handleCommonCalculations();

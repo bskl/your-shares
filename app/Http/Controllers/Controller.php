@@ -74,6 +74,7 @@ class Controller extends BaseController
         }
 
         $index = 0;
+        $items = [];
 
         foreach ($grouped as $key => $transactions) {
             $items[$index]['item'] = $key;
@@ -104,29 +105,12 @@ class Controller extends BaseController
      */
     public function getRawAttribute(array $transactionType): string
     {
-        switch ($transactionType['value'][0]) {
-            case TransactionType::Buying:
-                $attribute = 'amount';
-                break;
-
-            case TransactionType::Sale:
-                $attribute = 'amount';
-                break;
-
-            case TransactionType::Dividend:
-                $attribute = 'dividend_gain';
-                break;
-
-            case TransactionType::Bonus:
-                $attribute = 'lot';
-                break;
-
-            case TransactionType::Rights:
-                $attribute = 'amount';
-                break;
-        }
-
-        return $attribute;
+        return match ($transactionType['value'][0]) {
+            TransactionType::Buying || TransactionType::Sale || TransactionType::Rights => 'amount',
+            TransactionType::Dividend => 'dividend_gain',
+            TransactionType::Bonus => 'lot',
+            default => 'amount',
+        };
     }
 
     /**

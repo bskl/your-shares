@@ -19,7 +19,7 @@ class MoneyGt implements Rule
     /**
      * Create a new rule instance.
      *
-     * @param  \Money\Money|string $parameters
+     * @param  \Money\Money|string  $parameters
      * @return void
      */
     public function __construct($parameters)

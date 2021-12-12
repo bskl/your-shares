@@ -155,6 +155,7 @@ class PortfolioController extends Controller
         }
 
         $index = 0;
+        $items = [];
 
         foreach ($grouped as $key => $transactions) {
             $items[$index]['total'] = $transactionType['condition'] ? 0 : new Money(0, new Currency(config('app.currency')));
