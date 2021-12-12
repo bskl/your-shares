@@ -5,6 +5,8 @@
 /storage/*.key
 /vendor
 /.vscode
+_ide_helper.php
+_ide_helper_models.php
 .env
 .phpunit.result.cache
 docker-compose.override.yml
