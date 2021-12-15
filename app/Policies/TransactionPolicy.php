@@ -47,7 +47,7 @@ class TransactionPolicy
     /**
      * Determine whether the user can delete the transaction.
      *
-     * @param  \App\Modals\User  $user
+     * @param  \App\Models\User  $user
      * @param  \App\Models\Transaction  $transaction
      * @return bool
      */

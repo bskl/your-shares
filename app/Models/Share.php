@@ -9,6 +9,23 @@ use App\Traits\MoneyManager;
 use Illuminate\Database\Eloquent\Builder;
 use Money\Money;
 
+/**
+ * @property \Money\Money $average
+ * @property \Money\Money $average_with_dividend
+ * @property \Money\Money $average_amount
+ * @property \Money\Money $average_amount_with_dividend
+ * @property \Money\Money $amount
+ * @property \Money\Money $gain
+ * @property \Money\Money $gain_with_dividend
+ * @property \Money\Money $total_sale_amount
+ * @property \Money\Money $total_purchase_amount
+ * @property \Money\Money $paid_amount
+ * @property \Money\Money $gain_loss
+ * @property \Money\Money $total_commission_amount
+ * @property \Money\Money $total_dividend_gain
+ * @property \Money\Money $total_gain
+ * @property \Money\Money $instant_gain
+ */
 class Share extends BaseModel
 {
     use MoneyManager;
@@ -134,7 +151,7 @@ class Share extends BaseModel
     /**
      * Get the share's transactions by type.
      *
-     * @param  mixed  $type
+     * @param  array  $type
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function transactionsOfType(array $type)
@@ -146,7 +163,7 @@ class Share extends BaseModel
      * Get the share's sold transactions.
      *
      * @param  string  $operator
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Database\Eloquent\Collection<\App\Models\Transaction>
      */
     public function getSoldTransactions($operator = '=')
     {
@@ -158,7 +175,7 @@ class Share extends BaseModel
     /**
      * Get the share's not sold transactions.
      *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Database\Eloquent\Collection<\App\Models\Transaction>
      */
     public function getNotSoldTransactions()
     {

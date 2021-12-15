@@ -6,6 +6,9 @@ use App\Casts\Money;
 use App\Casts\Percent;
 use DateTimeInterface;
 
+/**
+ * @property \Money\Money $last_price
+ */
 class Symbol extends BaseModel
 {
     /**
@@ -61,7 +64,7 @@ class Symbol extends BaseModel
      * @param  \DateTimeInterface  $date
      * @return string
      */
-    protected function serializeDate(DateTimeInterface $date)
+    protected function serializeDate(DateTimeInterface $date):string
     {
         return $date->format('d.m.Y H:i:s');
     }

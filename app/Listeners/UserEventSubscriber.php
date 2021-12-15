@@ -19,12 +19,14 @@ class UserEventSubscriber
      */
     public function onUserRegister($event)
     {
-        $event->user->confirmation_code = hash_hmac('sha256', Str::random(60), config('app.key'));
-        $event->user->locale = config('app.locale'); //$request->getPreferredLanguage(['tr', 'en'])
-        $event->user->save();
+        /** @var \App\Models\User $user */
+        $user = $event->user;
+        $user->confirmation_code = hash_hmac('sha256', Str::random(60), config('app.key'));
+        $user->locale = config('app.locale'); //$request->getPreferredLanguage(['tr', 'en'])
+        $user->save();
 
         try {
-            $event->user->notify(new ConfirmationCodeNotification($event->user->confirmation_code));
+            $user->notify(new ConfirmationCodeNotification($user->confirmation_code));
         } catch (Exception $e) {
             Log::error($e);
         }
@@ -32,7 +34,7 @@ class UserEventSubscriber
         /*
          * Create standart portfolio data for new user.
          */
-        $event->user->portfolios()->create([
+        $user->portfolios()->create([
             'name' => Lang::get('app.portfolio.default'),
             'order' => 1,
         ]);
@@ -46,10 +48,9 @@ class UserEventSubscriber
      */
     public function onUserLogin($event)
     {
-        /*
-         * Create audit for user's logon information.
-         */
-        $event->user->audits()->create([
+        /** @var \App\Models\User $user */
+        $user = $event->user;
+        $user->audits()->create([
             'logon_at'   => now(),
             'ip_address' => Request::ip(),
             'user_agent' => Request::header('User-Agent'),

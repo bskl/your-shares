@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Enums\TransactionType;
+use App\Models\Portfolio;
+use App\Models\Share;
 use App\Traits\MoneyManager;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -53,11 +55,11 @@ class Controller extends BaseController
     /**
      * Get transactions by model and type.
      *
-     * @param  mixed  $model
+     * @param  \App\Models\Portfolio|\App\Models\Share  $model
      * @param  string  $type
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getTransactionsByModelAndType(Model $model, string $type): JsonResponse
+    public function getTransactionsByModelAndType(Portfolio|Share $model, string $type): JsonResponse
     {
         $transactionType = $this->getTransactionType($type);
         $attribute = $this->getRawAttribute($transactionType);

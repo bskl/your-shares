@@ -9,6 +9,16 @@ use App\Traits\MoneyManager;
 use DateTimeInterface;
 use Money\Money;
 
+/**
+ * @property \Money\Money $price
+ * @property \Money\Money $amount
+ * @property \Money\Money $commission_price
+ * @property \Money\Money $sale_average
+ * @property \Money\Money $sale_average_amount
+ * @property \Money\Money $sale_gain
+ * @property \Money\Money $dividend
+ * @property \Money\Money $dividend_gain
+ */
 class Transaction extends BaseModel
 {
     use MoneyManager;
@@ -112,7 +122,7 @@ class Transaction extends BaseModel
      * @param  \DateTimeInterface  $date
      * @return string
      */
-    protected function serializeDate(DateTimeInterface $date)
+    protected function serializeDate(DateTimeInterface $date): string
     {
         return $date->format('d.m.Y');
     }

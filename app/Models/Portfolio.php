@@ -8,6 +8,16 @@ use App\Traits\MoneyManager;
 use Illuminate\Support\Facades\Auth;
 use Money\Money;
 
+/**
+ * @property \Money\Money $total_sale_amount
+ * @property \Money\Money $total_purchase_amount
+ * @property \Money\Money $paid_amount
+ * @property \Money\Money $gain_loss
+ * @property \Money\Money $total_commission_amount
+ * @property \Money\Money $total_dividend_gain
+ * @property \Money\Money $total_gain
+ * @property \Money\Money $instant_gain
+ */
 class Portfolio extends BaseModel
 {
     use MoneyManager;
@@ -103,7 +113,7 @@ class Portfolio extends BaseModel
     /**
      * Get the portfolio's shares by lot.
      *
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return \Illuminate\Database\Eloquent\Collection<\App\Models\Share>
      */
     public function getSharesByLot()
     {
@@ -146,7 +156,7 @@ class Portfolio extends BaseModel
      *
      * @return string
      */
-    public function getSumAverageAmountAttribute()
+    public function getSumAverageAmountAttribute(): string
     {
         return $this->formatByIntl($this->sumShareAttribute('average_amount'));
     }
@@ -168,11 +178,11 @@ class Portfolio extends BaseModel
      */
     public function getTotalGainPercentAttribute(): float
     {
-        if (($money = $this->sumShareAttribute('average_amount'))->isZero()) {
-            return 0;
-        }
+        $money = $this->sumShareAttribute('average_amount');
 
-        return $this->sumShareAttribute('gain')->ratioOf($money);
+        return $money->isZero()
+            ? 0
+            : $this->sumShareAttribute('gain')->ratioOf($money);
     }
 
     /**
