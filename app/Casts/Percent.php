@@ -3,9 +3,10 @@
 namespace App\Casts;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+use Illuminate\Contracts\Database\Eloquent\SerializesCastableAttributes;
 use NumberFormatter;
 
-class Percent implements CastsAttributes
+class Percent implements CastsAttributes, SerializesCastableAttributes
 {
     /**
      * Cast the given value.
@@ -34,7 +35,9 @@ class Percent implements CastsAttributes
      */
     public function set($model, $key, $value, $attributes)
     {
-        return (float) preg_replace('/\.(?=.*\.)/', '', str_replace(',', '.', $value)) / 100;
+        $value = preg_replace('/\.(?=.*\.)/', '', str_replace(',', '.', $value));
+
+        return ($value === '0.00') ? $value : $value / 100;
     }
 
     /**
@@ -49,8 +52,7 @@ class Percent implements CastsAttributes
     public function serialize($model, string $key, $value, array $attributes)
     {
         $percentFormatter = new NumberFormatter(config('app.locale'), NumberFormatter::PERCENT);
-        $percentFormatter->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, 2);
-        $percentFormatter->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, 2);
+        $percentFormatter->setAttribute(NumberFormatter::FRACTION_DIGITS, 2);
 
         return $percentFormatter->format($value);
     }
