@@ -34,7 +34,7 @@ class Percent implements CastsAttributes
      */
     public function set($model, $key, $value, $attributes)
     {
-        return (int) preg_replace('/\.(?=.*\.)/', '', str_replace(',', '.', $value)) / 100;
+        return (float) preg_replace('/\.(?=.*\.)/', '', str_replace(',', '.', $value)) / 100;
     }
 
     /**

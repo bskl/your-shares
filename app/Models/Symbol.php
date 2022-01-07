@@ -64,7 +64,7 @@ class Symbol extends BaseModel
      * @param  \DateTimeInterface  $date
      * @return string
      */
-    protected function serializeDate(DateTimeInterface $date):string
+    protected function serializeDate(DateTimeInterface $date): string
     {
         return $date->format('d.m.Y H:i:s');
     }

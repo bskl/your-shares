@@ -62,7 +62,7 @@ class SetSymbols extends Command
     /**
      * Make a GET request to the URL.
      *
-     * @return string  $body
+     * @return string
      */
     protected function getHtml(): string
     {
