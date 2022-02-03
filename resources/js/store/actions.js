@@ -1,5 +1,5 @@
 import axios from "axios";
-import { has, upperFirst, trimEnd } from 'lodash';
+import { has, upperFirst, trimEnd } from 'lodash';
 import { parseErrorMessage, parseSuccessMessage } from '../utilities/helpers.js';
 
 const http = axios.create({
@@ -158,7 +158,7 @@ export default {
     return http.put(`/api/portfolios/${id}`, form)
       .then((res) => {
         const index = getters.getPortfolioIndexById(id);
-        commit('UPDATE_PORTFOLIO_BY_KEY', { index, portfolio: form });
+        commit('UPDATE_PORTFOLIO_BY_KEY', { index, portfolio: form });
 
         return res.data;
       });

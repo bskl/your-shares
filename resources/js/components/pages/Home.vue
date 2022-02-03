@@ -205,7 +205,7 @@ export default {
             </template>
             <template v-slot:body.append>
               <tr>
-                <td>{{ $t('Total') }}</td>
+                <td>{{ $t('Total') }}</td>
                 <td colspan="4"></td>
                 <td class="text-end">{{ portfolio.sum_amount }}</td>
                 <td class="text-end">{{ portfolio.sum_average_amount }}</td>

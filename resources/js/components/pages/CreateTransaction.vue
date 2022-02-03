@@ -266,7 +266,7 @@ export default {
                 form.type == 4 ? $t('You must write your rights shares.') : ''"
             ></v-text-field>
             <v-currency-field
-              v-if="form.type != 3 || form.type != 4 || form.type != 6"
+              v-if="form.type != 3 || form.type != 4 || form.type != 6"
               v-model="form.price"
               name="price"
               :label="$t('Enter Transaction Price')"

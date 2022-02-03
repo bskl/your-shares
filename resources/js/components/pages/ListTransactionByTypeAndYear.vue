@@ -107,7 +107,7 @@ export default {
                   <td class="text-xs-center"
                   v-for="(header, index) in headers" :key="index"
                 >
-                  {{ item[header.value] || '-' }}
+                  {{ item[header.value] || '-' }}
                 </td>
                 </router-link>
               </tbody>

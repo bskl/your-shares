@@ -63,7 +63,7 @@ export default {
       if (this.$refs.form.validate()) {
         this.startLoading();
 
-        this.updatePortfolio({ id: this.$route.params.id, form: this.form })
+        this.updatePortfolio({ id: this.$route.params.id, form: this.form })
           .then((res) => {
             this.clearErrors();
             parseSuccessMessage(this.$t('Your portfolio is successfully updated.'));

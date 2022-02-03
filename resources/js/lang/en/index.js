@@ -190,7 +190,7 @@ export default {
   "MergerOut": "Merger Out",
   "MergerIn": "Merger In",
   "PublicOffering": "Public Offering",
-  "list_by_type_year_title": "{year} {code} {type} İşlemleri",
+  "list_by_type_year_title": "{year} {code} {type} İşlemleri",
   "Garanti Bank: 0.188": "Garanti Bank: 0.188",
   "for_example": "For Example; {example}",
 };
