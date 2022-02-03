@@ -20,7 +20,7 @@ class CreateSymbolsTable extends Migration
             $table->string('title')->nullable();
             $table->tinyInteger('trend');
             $table->integer('last_price');
-            $table->string('rate_of_change', 5);
+            $table->string('rate_of_change', 10);
             $table->timestamp('session_time')->useCurrent();
             $table->timestamps();
         });
