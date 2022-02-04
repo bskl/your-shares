@@ -21,7 +21,7 @@ class Money implements CastsAttributes
      */
     public function get($model, $key, $value, $attributes): PhpMoney
     {
-        return $this->createMoney($value);
+        return $this->createMoney($value ?? '0');
     }
 
     /**
