@@ -28,7 +28,6 @@ export default {
     return {
       waitFor: 'fetch_symbols_data',
       itemDetails: ITEM_DETAILS,
-      hideFooter: true,
     }
   },
 
@@ -127,9 +126,9 @@ export default {
           <v-data-table item-key="id"
             :mobile-breakpoint="0"
             :items="portfolio.shares"
-            :hide-default-footer="hideFooter"
             :no-data-text="$t('You have not created any symbol.')"
-            :items-per-page="15"
+            hide-default-footer
+            disable-pagination
             :locale="$i18n.locale"
             :headers="[
               { text: $t('Symbol'), sortable: true, value: 'symbol_code', align: 'start' },
@@ -148,7 +147,6 @@ export default {
               { text: $t('Gain/Loss'), sortable: false, value: 'gain', align: 'end' },
               { text: $t('Gain/Loss (%)'), sortable: true, value: 'gain_percent', align: 'end' },
             ]"
-            @current-items="hideFooter = $event.length < 11"
           >
             <template v-slot:item.symbol_code="{ item }">
               <div class="d-flex align-center">
@@ -214,8 +212,7 @@ export default {
               </tr>
             </template>
             <template v-if="portfolio.shares.length" v-slot:footer>
-              <div class="pl-4 py-5 d-flex align-center text-caption"
-                :style="hideFooter ? 'border-top: thin solid hsla(0,0%,100%,.12);' : 'position: absolute;'">
+              <div class="pl-4 py-5 d-flex align-center text-caption" style="border-top: thin solid hsla(0,0%,100%,.12);">
                 <v-icon x-small dense>access_time</v-icon>
                 <span class="mx-1">SG: {{ portfolio.shares[0].symbol.session_time }}</span>
               </div>
