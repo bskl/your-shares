@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\UserType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,9 +21,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('locale', 2)->nullable();
-            $table->string('role')->default(App\Enums\UserType::User);
+            $table->string('role')->default(UserType::User->value);
             $table->rememberToken();
-            $table->boolean('confirmed')->default(App\Enums\UserType::Waiting);
+            $table->boolean('confirmed')->default(UserType::Waiting->value);
             $table->string('confirmation_code', 100)->nullable();
             $table->timestamps();
         });

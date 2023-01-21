@@ -37,6 +37,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'role' => UserType::class,
+        'confirmed' => UserType::class,
     ];
 
     /**

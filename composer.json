@@ -6,7 +6,6 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
-        "bensampo/laravel-enum": "^6.2.1",
         "doctrine/dbal": "^2.10",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/fortify": "^1.9",

@@ -2,14 +2,11 @@
 
 namespace App\Enums;
 
-use BenSampo\Enum\Enum;
+use App\Enums\Traits\Enumable;
 
-/**
- * @method static self Default()
- * @method static self Try()
- */
-final class Currency extends Enum
+enum Currency: string
 {
-    const Default = 'TRY';
-    const Try = 'TRY';
+    use Enumable;
+
+    case Try = 'TRY';
 }

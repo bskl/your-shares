@@ -13,6 +13,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Collection;
 use Money\Currency;
 use Money\Money;
 
@@ -61,8 +62,9 @@ class Controller extends BaseController
      */
     public function getTransactionsByModelAndType(Portfolio|Share $model, string $type): JsonResponse
     {
+        $type = TransactionType::fromName(ucfirst($type));
         $transactionType = $this->getTransactionType($type);
-        $attribute = $this->getRawAttribute($transactionType);
+        $attribute = $this->getRawAttribute($type);
 
         $grouped = $model->transactionsOfType($transactionType['value'])
                          ->selectRaw('transactions.*, MONTH(date_at) AS month, YEAR(date_at) AS year, SUM(transactions.'.$attribute.') AS '.$attribute)
@@ -102,12 +104,12 @@ class Controller extends BaseController
     /**
      * Get attribute by type for use raw statement.
      *
-     * @param  array  $transactionType
+     * @param  \App\Enums\TransactionType  $type
      * @return string
      */
-    public function getRawAttribute(array $transactionType): string
+    public function getRawAttribute(TransactionType $type): string
     {
-        return match ($transactionType['value'][0]) {
+        return match ($type) {
             TransactionType::Buying || TransactionType::Sale || TransactionType::Rights => 'amount',
             TransactionType::Dividend => 'dividend_gain',
             TransactionType::Bonus => 'lot',
@@ -118,22 +120,16 @@ class Controller extends BaseController
     /**
      * Get transaction type attributes by type.
      *
-     * @param  string  $type
-     * @return array
+     * @param  \App\Enums\TransactionType  $type
+     * @return array<string, array|bool>
      */
-    public function getTransactionType(string $type): array
+    public function getTransactionType(TransactionType $type): array
     {
-        $type = TransactionType::getInstance(TransactionType::getValue(ucfirst($type)));
-
-        $transactionType = collect();
-        $transactionType->put(
-            'value',
-            $type->is(TransactionType::Buying)
+        return [
+            'value' => $type->is(TransactionType::Buying)
                 ? [TransactionType::Buying, TransactionType::Rights, TransactionType::PublicOffering]
-                : [$type->value]
-        );
-        $transactionType->put('condition', $type->is(TransactionType::Bonus));
-
-        return $transactionType->all();
+                : [$type],
+            'condition' => $type->is(TransactionType::Bonus),
+        ];
     }
 }

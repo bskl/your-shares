@@ -2,18 +2,14 @@
 
 namespace App\Enums;
 
-use BenSampo\Enum\Enum;
+use App\Enums\Traits\Enumable;
 
-/**
- * @method static self Waiting()
- * @method static self Accepted()
- * @method static self User()
- * @method static self Admin()
- */
-final class UserType extends Enum
+enum UserType: int
 {
-    const Waiting = 0;
-    const Accepted = 1;
-    const User = 2;
-    const Admin = 9;
+    use Enumable;
+
+    case Waiting = 0;
+    case Accepted = 1;
+    case User = 2;
+    case Admin = 9;
 }

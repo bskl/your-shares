@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\UserType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +15,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('role')->unsigned()->default(App\Enums\UserType::User)->after('locale');
+            $table->boolean('role')->unsigned()->default(UserType::User->value)->after('locale');
         });
     }
 

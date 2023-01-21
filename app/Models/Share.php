@@ -151,7 +151,7 @@ class Share extends BaseModel
     /**
      * Get the share's transactions by type.
      *
-     * @param  array  $type
+     * @param  array<int, \App\Enums\TransactionType>  $type
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function transactionsOfType(array $type)

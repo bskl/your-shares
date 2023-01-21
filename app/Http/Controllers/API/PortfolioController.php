@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Enums\TransactionType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\PortfolioRequest;
 use App\Http\Resources\Portfolio as PortfolioResource;
@@ -138,8 +139,9 @@ class PortfolioController extends Controller
     {
         $this->authorize('view', $portfolio);
 
+        $type = TransactionType::fromName(ucfirst($type));
         $transactionType = $this->getTransactionType($type);
-        $attribute = $this->getRawAttribute($transactionType);
+        $attribute = $this->getRawAttribute($type);
 
         $grouped = $portfolio->transactionsOfType($transactionType['value'])
                              ->with('share.symbol:id,code,last_price')

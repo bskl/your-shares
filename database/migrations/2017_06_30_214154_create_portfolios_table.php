@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Currency;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +18,7 @@ return new class extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('name');
-            $table->string('currency', 3)->default(App\Enums\Currency::Default);
+            $table->string('currency', 3)->default(Currency::Try->value);
             $table->decimal('commission', 5, 5)->default(0);
             $table->integer('order');
             $table->boolean('filtered');
