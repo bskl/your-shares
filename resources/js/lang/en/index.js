@@ -1,4 +1,5 @@
 export default {
+  "Shares": "Shares",
   "Full Name": "Full Name",
   "E-Mail Address": "E-Mail Address",
   "Password": "Password",

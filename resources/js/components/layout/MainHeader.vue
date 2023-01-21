@@ -46,7 +46,7 @@ export default {
 <template>
   <v-sheet>
     <v-app-bar app clipped-right elevate-on-scroll class="seperator-line">
-      <v-toolbar-title>Hisselerim</v-toolbar-title>
+      <v-toolbar-title>{{ $t("Shares") }}</v-toolbar-title>
       <v-spacer />
       <v-app-bar-nav-icon
         @click.stop="drawer = !drawer"

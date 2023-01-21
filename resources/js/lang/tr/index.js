@@ -1,4 +1,5 @@
 export default {
+  "Shares": "Hisselerim",
   "Full Name": "Adı Soyadı",
   "E-Mail Address": "E-Posta Adresi",
   "Password": "Şifre",
