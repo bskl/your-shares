@@ -28,16 +28,16 @@ class TransactionRequest extends Request
     public function rules()
     {
         return [
-            'share_id'       => 'required|integer|exists:shares,id,user_id,'.$this->user()->id,
-            'type'           => ['required', 'integer', new Enum(TransactionType::class)],
-            'date_at'        => 'required|date_format:d.m.Y|before_or_equal:'.Carbon::today()->format('d.m.Y'),
-            'lot'            => 'required|gt:0',
-            'price'          => 'required_if:type,'.TransactionType::Buying->value.','.TransactionType::Sale->value,
+            'share_id' => 'required|integer|exists:shares,id,user_id,'.$this->user()->id,
+            'type' => ['required', 'integer', new Enum(TransactionType::class)],
+            'date_at' => 'required|date_format:d.m.Y|before_or_equal:'.Carbon::today()->format('d.m.Y'),
+            'lot' => 'required|gt:0',
+            'price' => 'required_if:type,'.TransactionType::Buying->value.','.TransactionType::Sale->value,
             'exchange_ratio' => 'required_if:type,'.TransactionType::MergerOut->value,
-            'symbol_id'      => 'integer|required_if:type,'.TransactionType::MergerOut->value,
-            'commission'     => 'required|numeric',
-            'dividend_gain'  => 'required_if:type,'.TransactionType::Dividend->value,
-            'preference'     => 'required_if:type,'.TransactionType::Bonus->value.','.TransactionType::Rights->value,
+            'symbol_id' => 'integer|required_if:type,'.TransactionType::MergerOut->value,
+            'commission' => 'required|numeric',
+            'dividend_gain' => 'required_if:type,'.TransactionType::Dividend->value,
+            'preference' => 'required_if:type,'.TransactionType::Bonus->value.','.TransactionType::Rights->value,
         ];
     }
 

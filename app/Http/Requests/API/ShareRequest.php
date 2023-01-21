@@ -26,7 +26,7 @@ class ShareRequest extends Request
     {
         return [
             'portfolio_id' => 'required|integer',
-            'symbol_id'    => ['required', 'integer', 'exists:symbols,id',
+            'symbol_id' => ['required', 'integer', 'exists:symbols,id',
                 Rule::unique('shares')->where(function ($query) {
                     return $query->where('portfolio_id', $this->portfolio_id)
                                  ->where('symbol_id', $this->symbol_id);

@@ -38,7 +38,7 @@ class TransactionController extends Controller
             $transactions = $transaction->share->transactions;
 
             return $this->respondSuccess([
-                'portfolio'    => new PortfolioResource($portfolio),
+                'portfolio' => new PortfolioResource($portfolio),
                 'transactions' => new TransactionResource($transactions),
             ], trans('app.transaction.create_success'), Response::HTTP_CREATED);
         } catch (\Exception $e) {
@@ -73,7 +73,7 @@ class TransactionController extends Controller
 
             return $this->respondSuccess([
                 'portfolio' => new PortfolioResource($portfolio),
-                'share'     => new ShareResource($share),
+                'share' => new ShareResource($share),
             ], trans('app.transaction.delete_success'));
         } catch (\Exception $e) {
             DB::rollBack();

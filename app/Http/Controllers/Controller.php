@@ -13,7 +13,6 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Collection;
 use Money\Currency;
 use Money\Money;
 
@@ -32,7 +31,7 @@ class Controller extends BaseController
     public function respondSuccess(array $data = [], $message = '', int $status = Response::HTTP_OK): JsonResponse
     {
         return response()->json([
-            'data'    => $data,
+            'data' => $data,
             'message' => $message,
         ], $status);
     }
@@ -49,7 +48,7 @@ class Controller extends BaseController
     {
         return response()->json([
             'message' => $message,
-            'errors'  => [$errors],
+            'errors' => [$errors],
         ], $status);
     }
 

@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'greeting'   => 'Merhaba!',
-    'whoops'     => 'Whoops!',
+    'greeting' => 'Merhaba!',
+    'whoops' => 'Whoops!',
     'salutation' => 'Saygılarımızla, :name',
-    'thankyou'   => 'Uygulamamızı kullandığınız için teşekkür ederiz!',
+    'thankyou' => 'Uygulamamızı kullandığınız için teşekkür ederiz!',
 ];

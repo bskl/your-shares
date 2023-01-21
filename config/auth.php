@@ -12,7 +12,7 @@ return [
     */
 
     'client' => [
-        'id'     => env('PASSWORD_CLIENT_ID', '1'),
+        'id' => env('PASSWORD_CLIENT_ID', '1'),
         'secret' => env('PASSWORD_CLIENT_SECRET', ''),
     ],
 
@@ -28,7 +28,7 @@ return [
     */
 
     'defaults' => [
-        'guard'     => 'web',
+        'guard' => 'web',
         'passwords' => 'users',
     ],
 
@@ -51,7 +51,7 @@ return [
 
     'guards' => [
         'web' => [
-            'driver'   => 'session',
+            'driver' => 'session',
             'provider' => 'users',
         ],
     ],
@@ -76,7 +76,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model'  => App\Models\User::class,
+            'model' => App\Models\User::class,
         ],
 
         // 'users' => [
@@ -103,8 +103,8 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table'    => 'password_resets',
-            'expire'   => 60,
+            'table' => 'password_resets',
+            'expire' => 60,
             'throttle' => 60,
         ],
     ],

@@ -26,10 +26,10 @@ class PortfolioRequest extends Request
     public function rules()
     {
         return [
-            'name'       => 'sometimes|required|string',
-            'currency'   => ['sometimes', 'required', new Enum(Currency::class)],
+            'name' => 'sometimes|required|string',
+            'currency' => ['sometimes', 'required', new Enum(Currency::class)],
             'commission' => 'sometimes|required|numeric',
-            'filtered'   => 'sometimes|boolean',
+            'filtered' => 'sometimes|boolean',
         ];
     }
 }
