@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\Event;
 class EventServiceProvider extends ServiceProvider
 {
     /**
-     * The event listener mappings for the application.
+     * The event to listener mappings for the application.
      *
-     * @var array
+     * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
         Registered::class => [
@@ -31,7 +31,7 @@ class EventServiceProvider extends ServiceProvider
     /**
      * The subscriber classes to register.
      *
-     * @var array
+     * @var array<int, class-string>
      */
     protected $subscribe = [
         \App\Listeners\UserEventSubscriber::class,
@@ -48,5 +48,15 @@ class EventServiceProvider extends ServiceProvider
         Share::observe(ShareObserver::class);
         Symbol::observe(SymbolObserver::class);
         Transaction::observe(TransactionObserver::class);
+    }
+
+    /**
+     * Determine if events and listeners should be automatically discovered.
+     *
+     * @return bool
+     */
+    public function shouldDiscoverEvents()
+    {
+        return false;
     }
 }

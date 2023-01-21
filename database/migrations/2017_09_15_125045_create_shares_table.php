@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSharesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -63,4 +63,4 @@ class CreateSharesTable extends Migration
     {
         Schema::dropIfExists('shares');
     }
-}
+};

@@ -15,16 +15,16 @@ class User extends Authenticatable
     /**
      * The attributes that aren't mass assignable.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $guarded = [
         'id', 'confirmed', 'confirmation_code', 'remember_token',
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
+     * The attributes that should be hidden for serialization.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $hidden = [
         'password', 'two_factor_secret', 'two_factor_recovery_codes', 'confirmed', 'confirmation_code', 'remember_token', 'created_at', 'updated_at',
@@ -33,7 +33,7 @@ class User extends Authenticatable
     /**
      * The attributes that should be cast.
      *
-     * @var array
+     * @var array<string, class-string|string>
      */
     protected $casts = [
         'role' => UserType::class,
