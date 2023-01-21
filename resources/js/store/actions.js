@@ -1,14 +1,10 @@
-import axios from "axios";
+import axios from 'axios';
 import { has, upperFirst, trimEnd } from 'lodash';
 import { parseErrorMessage, parseSuccessMessage } from '../utilities/helpers.js';
 
 const http = axios.create({
   withCredentials: true,
-});
-
-http.interceptors.request.use(function (config) {
-  config.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-  return config;
+  headers: {'X-Requested-With': 'XMLHttpRequest'},
 });
 
 http.interceptors.response.use(function (response) {
