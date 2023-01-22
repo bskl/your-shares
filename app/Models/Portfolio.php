@@ -5,6 +5,11 @@ namespace App\Models;
 use App\Casts\Decimal;
 use App\Casts\Money as MoneyCast;
 use App\Traits\MoneyManager;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Facades\Auth;
 use Money\Money;
 
@@ -23,9 +28,7 @@ class Portfolio extends BaseModel
     use MoneyManager;
 
     /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $guarded = [
         'id', 'total_sale_amount', 'total_purchase_amount', 'paid_amount', 'gain_loss', 'total_commission_amount', 'total_dividend_gain',
@@ -33,36 +36,28 @@ class Portfolio extends BaseModel
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $hidden = [
         'user_id', 'order', 'created_at', 'updated_at',
     ];
 
     /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $appends = [
         'sum_amount', 'sum_average_amount', 'sum_gain', 'total_gain_percent',
     ];
 
     /**
-     * The relations to eager load on every query.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $with = [
         'shares',
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $casts = [
         'commission' => 'float',
@@ -82,20 +77,20 @@ class Portfolio extends BaseModel
     /**
      * Scope a query to only include current authenticated user portfolios.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param  \Illuminate\Database\Eloquent\Builder<\App\Models\Portfolio>  $query
+     * @return \Illuminate\Database\Eloquent\Builder<\App\Models\Portfolio>
      */
-    public function scopeByCurrentUser($query)
+    public function scopeByCurrentUser(Builder $query): Builder
     {
-        return $query->whereUserId(Auth::id());
+        return $query->where('user_id', Auth::id());
     }
 
     /**
      * Get the user that owns the portfolio.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\User,\App\Models\Portfolio>
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo('App\Models\User');
     }
@@ -103,9 +98,9 @@ class Portfolio extends BaseModel
     /**
      * The shares that belong to the portfolio.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Share>
      */
-    public function shares()
+    public function shares(): HasMany
     {
         return $this->hasMany('App\Models\Share');
     }
@@ -115,7 +110,7 @@ class Portfolio extends BaseModel
      *
      * @return \Illuminate\Database\Eloquent\Collection<\App\Models\Share>
      */
-    public function getSharesByLot()
+    public function getSharesByLot(): Collection
     {
         return $this->shares()->where('lot', '>', 0)->get();
     }
@@ -123,9 +118,9 @@ class Portfolio extends BaseModel
     /**
      * Get all of the transactions for the portfolio.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough<\App\Models\Transaction>
      */
-    public function transactions()
+    public function transactions(): HasManyThrough
     {
         return $this->hasManyThrough('App\Models\Transaction', 'App\Models\Share');
     }
@@ -134,9 +129,9 @@ class Portfolio extends BaseModel
      * Get the portfolio's transactions by type.
      *
      * @param  array<int, \App\Enums\TransactionType>  $type
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough<\App\Models\Transaction>
      */
-    public function transactionsOfType(array $type)
+    public function transactionsOfType(array $type): HasManyThrough
     {
         return $this->transactions()->whereIn('type', $type);
     }

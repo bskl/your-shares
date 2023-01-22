@@ -4,36 +4,29 @@ namespace App\Models;
 
 use App\Casts\Decimal;
 use App\Casts\Money;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PortfolioSummary extends BaseModel
 {
     /**
-     * The table associated with the model.
-     *
-     * @var string
+     * {@inheritdoc}
      */
     protected $table = 'portfolio_summary';
 
     /**
-     * The primary key associated with the table.
-     *
-     * @var string
+     * {@inheritdoc}
      */
     protected $primaryKey = 'portfolio_id';
 
     /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $guarded = [
         'portfolio_id', 'type', 'month', 'year', 'amount', 'dividend_gain', 'lot',
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $casts = [
         'lot' => Decimal::class,
@@ -44,9 +37,9 @@ class PortfolioSummary extends BaseModel
     /**
      * Get the portfolio.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\Portfolio,\App\Models\PortfolioSummary>
      */
-    public function portfolio()
+    public function portfolio(): BelongsTo
     {
         return $this->belongsTo('App\Models\Portfolio');
     }

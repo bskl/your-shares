@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Casts\Money;
 use App\Casts\Percent;
 use DateTimeInterface;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property \Money\Money $last_price
@@ -12,36 +13,28 @@ use DateTimeInterface;
 class Symbol extends BaseModel
 {
     /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $guarded = [
         'id',
     ];
 
     /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $dates = [
         'session_time', 'created_at', 'updated_at',
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $hidden = [
         'name', 'title', 'created_at', 'updated_at',
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $casts = [
         'rate_of_change' => Percent::class,
@@ -51,9 +44,9 @@ class Symbol extends BaseModel
     /**
      * The shares that belong to the symbol.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Share>
      */
-    public function shares()
+    public function shares(): HasMany
     {
         return $this->hasMany('App\Models\Share');
     }

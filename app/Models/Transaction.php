@@ -7,6 +7,7 @@ use App\Casts\Percent;
 use App\Enums\TransactionType;
 use App\Traits\MoneyManager;
 use DateTimeInterface;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Money\Money;
 
 /**
@@ -18,15 +19,14 @@ use Money\Money;
  * @property \Money\Money $sale_gain
  * @property \Money\Money $dividend
  * @property \Money\Money $dividend_gain
+ * @property int $year
  */
 class Transaction extends BaseModel
 {
     use MoneyManager;
 
     /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $guarded = [
         'id', 'user_id', 'remaining', 'amount', 'commission_price', 'sale_average', 'sale_average_amount', 'sale_gain', 'dividend',
@@ -34,36 +34,28 @@ class Transaction extends BaseModel
     ];
 
     /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $dates = [
         'date_at', 'created_at', 'updated_at',
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $hidden = [
         'user_id', 'share_id', 'created_at', 'updated_at',
     ];
 
     /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $appends = [
         'sale_gain_trend',
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $casts = [
         'type' => TransactionType::class,
@@ -86,9 +78,9 @@ class Transaction extends BaseModel
     /**
      * Get the transaction share.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\Share,\App\Models\Transaction>
      */
-    public function share()
+    public function share(): BelongsTo
     {
         return $this->belongsTo('App\Models\Share');
     }
@@ -99,10 +91,11 @@ class Transaction extends BaseModel
      * @param  int  $value
      * @return void
      */
-    public function setSymbolCodeAttribute($value): void
+    public function setSymbolCodeAttribute(int $value): void
     {
-        if ($this->type->in([TransactionType::MergerOut, TransactionType::MergerIn])) {
-            $this->attributes['symbol_code'] = Symbol::findOrFail($value)->code;
+        if ($this->type->in([TransactionType::MergerOut, TransactionType::MergerIn]) &&
+            ! is_null($symbol = Symbol::firstWhere('id', $value))) {
+            $this->attributes['symbol_code'] = $symbol->code;
         }
     }
 

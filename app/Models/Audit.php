@@ -3,22 +3,19 @@
 namespace App\Models;
 
 use DateTimeInterface;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Audit extends BaseModel
 {
     /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $guarded = [
         'id', 'user_id', 'logon_at', 'ip_address', 'user_agent',
     ];
 
     /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $dates = [
         'logon_at', 'created_at', 'updated_at',
@@ -27,9 +24,9 @@ class Audit extends BaseModel
     /**
      * Get the user that owns the audit.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\User,\App\Models\Audit>
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo('App\Models\User');
     }
@@ -40,7 +37,7 @@ class Audit extends BaseModel
      * @param  \DateTimeInterface  $date
      * @return string
      */
-    protected function serializeDate(DateTimeInterface $date)
+    protected function serializeDate(DateTimeInterface $date): string
     {
         return $date->format('d.m.Y');
     }

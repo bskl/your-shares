@@ -3,66 +3,43 @@
 namespace App\Casts;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+use Illuminate\Contracts\Database\Eloquent\SerializesCastableAttributes;
 use NumberFormatter;
 
-class Decimal implements CastsAttributes
+class Decimal implements CastsAttributes, SerializesCastableAttributes
 {
-    /**
-     * The minimum fraction digits.
-     *
-     * @var int
-     */
-    protected $digits;
-
     /**
      * Create a new cast class instance.
      *
      * @param  int  $digits
      * @return void
      */
-    public function __construct($digits = 3)
-    {
+    public function __construct(
+        protected int $digits = 3
+    ) {
         $this->digits = $digits;
     }
 
     /**
-     * Cast the given value.
-     *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  string  $key
-     * @param  mixed  $value
-     * @param  array  $attributes
-     * @return array
+     * {@inheritdoc}
      */
-    public function get($model, $key, $value, $attributes)
+    public function get($model, string $key, $value, array $attributes): mixed
     {
         return $value;
     }
 
     /**
-     * Prepare the given value for storage.
-     *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  string  $key
-     * @param  array  $value
-     * @param  array  $attributes
-     * @return string
+     * {@inheritdoc}
      */
-    public function set($model, $key, $value, $attributes)
+    public function set($model, string $key, $value, array $attributes): mixed
     {
         return $value;
     }
 
     /**
-     * Serialize the attribute when converting the model to an array.
-     *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  string  $key
-     * @param  mixed  $value
-     * @param  array  $attributes
-     * @return mixed
+     * {@inheritdoc}
      */
-    public function serialize($model, string $key, $value, array $attributes)
+    public function serialize($model, string $key, $value, array $attributes): string
     {
         $decimalFormatter = new NumberFormatter(config('app.locale'), NumberFormatter::DECIMAL);
         $decimalFormatter->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, $this->digits);

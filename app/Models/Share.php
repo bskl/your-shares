@@ -7,6 +7,9 @@ use App\Casts\Money as MoneyCast;
 use App\Enums\TransactionType;
 use App\Traits\MoneyManager;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Money\Money;
 
 /**
@@ -31,9 +34,7 @@ class Share extends BaseModel
     use MoneyManager;
 
     /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $guarded = [
         'id', 'user_id', 'lot', 'average', 'average_with_dividend', 'average_amount', 'average_amount_with_dividend', 'amount', 'gain',
@@ -42,27 +43,21 @@ class Share extends BaseModel
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $hidden = [
         'user_id', 'symbol_id', 'created_at', 'updated_at',
     ];
 
     /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $appends = [
         'gain_percent', 'gain_trend', 'gain_with_dividend_trend',
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $casts = [
         'lot' => 'decimal:3',
@@ -86,9 +81,7 @@ class Share extends BaseModel
     ];
 
     /**
-     * The relations to eager load on every query.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $with = [
         'symbol',
@@ -99,7 +92,7 @@ class Share extends BaseModel
      *
      * @return void
      */
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 
@@ -111,9 +104,9 @@ class Share extends BaseModel
     /**
      * Get the user that owns the share.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\User,\App\Models\Share>
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo('App\Models\User');
     }
@@ -121,9 +114,9 @@ class Share extends BaseModel
     /**
      * Get the portfolio.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\Portfolio,\App\Models\Share>
      */
-    public function portfolio()
+    public function portfolio(): BelongsTo
     {
         return $this->belongsTo('App\Models\Portfolio');
     }
@@ -131,9 +124,9 @@ class Share extends BaseModel
     /**
      * Get the symbol.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\Symbol,\App\Models\Share>
      */
-    public function symbol()
+    public function symbol(): BelongsTo
     {
         return $this->belongsTo('App\Models\Symbol');
     }
@@ -141,9 +134,9 @@ class Share extends BaseModel
     /**
      * Get the share's transactions.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Transaction>
      */
-    public function transactions()
+    public function transactions(): HasMany
     {
         return $this->hasMany('App\Models\Transaction')->oldest('date_at');
     }
@@ -152,9 +145,9 @@ class Share extends BaseModel
      * Get the share's transactions by type.
      *
      * @param  array<int, \App\Enums\TransactionType>  $type
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Transaction>
      */
-    public function transactionsOfType(array $type)
+    public function transactionsOfType(array $type): HasMany
     {
         return $this->transactions()->whereIn('type', $type);
     }
@@ -165,7 +158,7 @@ class Share extends BaseModel
      * @param  string  $operator
      * @return \Illuminate\Database\Eloquent\Collection<\App\Models\Transaction>
      */
-    public function getSoldTransactions($operator = '=')
+    public function getSoldTransactions(string $operator = '='): Collection
     {
         return $this->transactionsOfType([TransactionType::Buying, TransactionType::Bonus, TransactionType::Rights, TransactionType::MergerIn, TransactionType::PublicOffering])
                     ->where('remaining', $operator, 0)
@@ -177,7 +170,7 @@ class Share extends BaseModel
      *
      * @return \Illuminate\Database\Eloquent\Collection<\App\Models\Transaction>
      */
-    public function getNotSoldTransactions()
+    public function getNotSoldTransactions(): Collection
     {
         return $this->getSoldTransactions('!=');
     }

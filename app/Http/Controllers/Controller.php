@@ -6,7 +6,6 @@ use App\Enums\TransactionType;
 use App\Models\Portfolio;
 use App\Models\Share;
 use App\Traits\MoneyManager;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -83,12 +82,13 @@ class Controller extends BaseController
             $items[$index]['item'] = $key;
             $items[$index]['total'] = $transactionType['condition'] ? 0 : new Money(0, new Currency(config('app.currency')));
             foreach ($transactions as $month => $transaction) {
+                $transaction = $transaction->first();
                 if ($transactionType['condition']) {
-                    $items[$index][$month] = decimal_formatter($transaction->first()->{$attribute});
-                    $items[$index]['total'] = $items[$index]['total'] + $transaction->first()->lot;
+                    $items[$index][$month] = decimal_formatter($transaction->{$attribute});
+                    $items[$index]['total'] = $items[$index]['total'] + $transaction->lot;
                 } else {
-                    $items[$index][$month] = $this->formatByIntl($transaction->first()->{$attribute});
-                    $items[$index]['total'] = $items[$index]['total']->add($transaction->first()->{$attribute});
+                    $items[$index][$month] = $this->formatByIntl($transaction->{$attribute});
+                    $items[$index]['total'] = $items[$index]['total']->add($transaction->{$attribute});
                 }
             }
             $items[$index]['total'] = $transactionType['condition']

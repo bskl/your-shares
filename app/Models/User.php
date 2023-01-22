@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\UserType;
 use App\Notifications\ResetPassword as PasswordResetNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -13,27 +14,21 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array<int, string>
+     * {@inheritdoc}
      */
     protected $guarded = [
         'id', 'confirmed', 'confirmation_code', 'remember_token',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
+     * {@inheritdoc}
      */
     protected $hidden = [
         'password', 'two_factor_secret', 'two_factor_recovery_codes', 'confirmed', 'confirmation_code', 'remember_token', 'created_at', 'updated_at',
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, class-string|string>
+     * {@inheritdoc}
      */
     protected $casts = [
         'role' => UserType::class,
@@ -43,9 +38,9 @@ class User extends Authenticatable
     /**
      * Get the portfolios for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Portfolio>
      */
-    public function portfolios()
+    public function portfolios(): HasMany
     {
         return $this->hasMany('App\Models\Portfolio');
     }
@@ -53,18 +48,15 @@ class User extends Authenticatable
     /**
      * Get the audits for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Audit>
      */
-    public function audits()
+    public function audits(): HasMany
     {
         return $this->hasMany('App\Models\Audit');
     }
 
     /**
-     * Send the password reset notification.
-     *
-     * @param  string  $token
-     * @return void
+     * {@inheritdoc}
      */
     public function sendPasswordResetNotification($token): void
     {

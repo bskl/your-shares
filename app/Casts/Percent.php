@@ -9,45 +9,28 @@ use NumberFormatter;
 class Percent implements CastsAttributes, SerializesCastableAttributes
 {
     /**
-     * Cast the given value.
-     *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  string  $key
-     * @param  mixed  $value
-     * @param  array  $attributes
-     * @return array
+     * {@inheritdoc}
      */
-    public function get($model, $key, $value, $attributes)
+    public function get($model, string $key, $value, array $attributes)
     {
         return $value;
     }
 
     /**
-     * Prepare the given value for storage.
      * Convert value to float. ie. '1.000,55' becomes '1000.55', '0,1234' becomes '0.1234',
      * '1.325.125,54' becomes '1325125.54', '1,325,125.54' becomes '1325125.54'.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  string  $key
-     * @param  array  $value
-     * @param  array  $attributes
-     * @return string
+     * {@inheritdoc}
      */
-    public function set($model, $key, $value, $attributes)
+    public function set($model, string $key, $value, array $attributes)
     {
         $value = preg_replace('/\.(?=.*\.)/', '', str_replace(',', '.', $value));
 
-        return ($value === '0.00') ? $value : $value / 100;
+        return (is_null($value) || $value === '0.00') ? '0.00' : (int) $value / 100;
     }
 
     /**
-     * Serialize the attribute when converting the model to an array.
-     *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  string  $key
-     * @param  mixed  $value
-     * @param  array  $attributes
-     * @return mixed
+     * {@inheritdoc}
      */
     public function serialize($model, string $key, $value, array $attributes)
     {

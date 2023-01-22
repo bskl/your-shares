@@ -162,16 +162,18 @@ class PortfolioController extends Controller
         foreach ($grouped as $transactions) {
             $items[$index]['total'] = $transactionType['condition'] ? 0 : new Money(0, new Currency(config('app.currency')));
             foreach ($transactions as $month => $transaction) {
+                $transaction = $transaction->first();
+
                 if ($transactionType['condition']) {
-                    $items[$index][$month] = decimal_formatter($transaction->first()->{$attribute});
-                    $items[$index]['total'] = $items[$index]['total'] + $transaction->first()->lot;
+                    $items[$index][$month] = decimal_formatter($transaction->{$attribute});
+                    $items[$index]['total'] = $items[$index]['total'] + $transaction->lot;
                 } else {
-                    $items[$index][$month] = $this->formatByIntl($transaction->first()->{$attribute});
-                    $items[$index]['total'] = $items[$index]['total']->add($transaction->first()->{$attribute});
+                    $items[$index][$month] = $this->formatByIntl($transaction->{$attribute});
+                    $items[$index]['total'] = $items[$index]['total']->add($transaction->{$attribute});
                 }
-                $items[$index]['item'] = $transaction->first()->share->symbol->code;
-                $items[$index]['share_id'] = $transaction->first()->share_id;
-                $items[$index]['year'] = $transaction->first()->year;
+                $items[$index]['item'] = $transaction->share->symbol->code;
+                $items[$index]['share_id'] = $transaction->share_id;
+                $items[$index]['year'] = $transaction->year;
             }
             $items[$index]['total'] = $transactionType['condition']
                 ? decimal_formatter($items[$index]['total'])

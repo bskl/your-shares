@@ -14,7 +14,7 @@ class TransactionObserver
      * @param  \App\Models\Transaction  $transaction
      * @return void
      */
-    public function creating(Transaction $transaction)
+    public function creating(Transaction $transaction): void
     {
         $transaction->user_id = Auth::id();
     }
@@ -25,9 +25,9 @@ class TransactionObserver
      * @param  \App\Models\Transaction  $transaction
      * @return void
      */
-    public function created(Transaction $transaction)
+    public function created(Transaction $transaction): void
     {
-        $method = 'handleCalculationsOf'.$transaction->type->key;
+        $method = 'handleCalculationsOf'.$transaction->type->name;
         TransactionService::{$method}($transaction);
     }
 
@@ -37,7 +37,7 @@ class TransactionObserver
      * @param  \App\Models\Transaction  $transaction
      * @return void
      */
-    public function updated(Transaction $transaction)
+    public function updated(Transaction $transaction): void
     {
         //
     }
@@ -48,9 +48,9 @@ class TransactionObserver
      * @param  \App\Models\Transaction  $transaction
      * @return void
      */
-    public function deleted(Transaction $transaction)
+    public function deleted(Transaction $transaction): void
     {
-        $method = 'handleCalculationsOfDeleted'.$transaction->type->key;
+        $method = 'handleCalculationsOfDeleted'.$transaction->type->name;
         TransactionService::{$method}($transaction);
     }
 
@@ -60,7 +60,7 @@ class TransactionObserver
      * @param  \App\Models\Transaction  $transaction
      * @return void
      */
-    public function restored(Transaction $transaction)
+    public function restored(Transaction $transaction): void
     {
         //
     }
@@ -71,7 +71,7 @@ class TransactionObserver
      * @param  \App\Models\Transaction  $transaction
      * @return void
      */
-    public function forceDeleted(Transaction $transaction)
+    public function forceDeleted(Transaction $transaction): void
     {
         //
     }
