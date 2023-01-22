@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Rules\MoneyGt;
-use App\Traits\MoneyManager;
+use App\Support\MoneyManager;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
@@ -11,8 +11,6 @@ use InvalidArgumentException;
 
 class AppServiceProvider extends ServiceProvider
 {
-    use MoneyManager;
-
     /**
      * Register any application services.
      *
@@ -45,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Validator::replacer('money_gt', function ($message, $attribute, $rule, $parameters) {
-            return str_replace(':value', $this->formatByIntl($this->parseByDecimal($parameters[0])), $message);
+            return str_replace(':value', MoneyManager::formatByIntl(MoneyManager::parseByDecimal($parameters[0])), $message);
         });
     }
 }

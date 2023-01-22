@@ -5,19 +5,17 @@ namespace App\Http\Controllers;
 use App\Enums\TransactionType;
 use App\Models\Portfolio;
 use App\Models\Share;
-use App\Traits\MoneyManager;
+use App\Support\MoneyManager;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
-use Money\Currency;
-use Money\Money;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, MoneyManager, ValidatesRequests;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /**
      * Return message and response success with JSON.
@@ -74,16 +72,16 @@ class Controller extends BaseController
 
         foreach ($grouped as $key => $transactions) {
             $items[$i]['item'] = $key;
-            $items[$i]['total'] = $transactionType['condition'] ? 0 : new Money(0, new Currency(config('app.currency')));
+            $items[$i]['total'] = $transactionType['condition'] ? 0 : MoneyManager::createMoney();
             foreach ($transactions as $month => $transaction) {
                 $transaction = $transaction->first();
                 $items[$i] += $transactionType['condition']
                     ? [$month => decimal_formatter($transaction->{$attribute}), 'total' => $items[$i]['total'] + $transaction->lot]
-                    : [$month => $this->formatByIntl($transaction->{$attribute}), 'total' => $items[$i]['total']->add($transaction->{$attribute})];
+                    : [$month => MoneyManager::formatByIntl($transaction->{$attribute}), 'total' => $items[$i]['total']->add($transaction->{$attribute})];
             }
             $items[$i]['total'] = $transactionType['condition']
                 ? decimal_formatter($items[$i]['total'])
-                : $this->formatByIntl($items[$i]['total']);
+                : MoneyManager::formatByIntl($items[$i]['total']);
             $i++;
         }
 

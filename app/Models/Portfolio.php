@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Casts\Decimal;
 use App\Casts\Money as MoneyCast;
-use App\Traits\MoneyManager;
+use App\Support\MoneyManager;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -25,8 +25,6 @@ use Money\Money;
  */
 class Portfolio extends BaseModel
 {
-    use MoneyManager;
-
     /**
      * {@inheritdoc}
      */
@@ -143,7 +141,7 @@ class Portfolio extends BaseModel
      */
     public function getSumAmountAttribute(): string
     {
-        return $this->formatByIntl($this->sumShareAttribute('amount'));
+        return MoneyManager::formatByIntl($this->sumShareAttribute('amount'));
     }
 
     /**
@@ -153,7 +151,7 @@ class Portfolio extends BaseModel
      */
     public function getSumAverageAmountAttribute(): string
     {
-        return $this->formatByIntl($this->sumShareAttribute('average_amount'));
+        return MoneyManager::formatByIntl($this->sumShareAttribute('average_amount'));
     }
 
     /**
@@ -163,7 +161,7 @@ class Portfolio extends BaseModel
      */
     public function getSumGainAttribute(): string
     {
-        return $this->formatByIntl($this->sumShareAttribute('gain'));
+        return MoneyManager::formatByIntl($this->sumShareAttribute('gain'));
     }
 
     /**
@@ -188,7 +186,7 @@ class Portfolio extends BaseModel
      */
     public function sumShareAttribute(string $attribute): Money
     {
-        $money = $this->createMoney();
+        $money = MoneyManager::createMoney();
 
         foreach ($this->getSharesByLot() as $share) {
             $money = $money->add($share->$attribute);

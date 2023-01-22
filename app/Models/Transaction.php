@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Casts\Money as MoneyCast;
 use App\Casts\Percent;
 use App\Enums\TransactionType;
-use App\Traits\MoneyManager;
+use App\Support\MoneyManager;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Money\Money;
@@ -23,8 +23,6 @@ use Money\Money;
  */
 class Transaction extends BaseModel
 {
-    use MoneyManager;
-
     /**
      * {@inheritdoc}
      */
@@ -106,7 +104,7 @@ class Transaction extends BaseModel
      */
     public function getSaleGainTrendAttribute(): int
     {
-        return $this->getTrend($this->sale_gain);
+        return MoneyManager::getTrend($this->sale_gain);
     }
 
     /**
@@ -157,7 +155,7 @@ class Transaction extends BaseModel
     public function handleCalculationsOfBonus(): void
     {
         $this->remaining = $this->lot;
-        $this->price = $this->createMoney('0');
+        $this->price = MoneyManager::createMoney();
         $this->bonus = ($this->lot * 100) / $this->preference;
         $this->update();
     }
@@ -170,7 +168,7 @@ class Transaction extends BaseModel
     public function handleCalculationsOfRights(): void
     {
         $this->remaining = $this->lot;
-        $this->price = $this->createMoney('100');
+        $this->price = MoneyManager::createMoney('100');
         $this->amount = $this->price->multiply($this->lot);
         $this->rights = ($this->lot * 100) / $this->preference;
         $this->update();

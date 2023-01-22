@@ -2,13 +2,11 @@
 
 namespace App\Rules;
 
-use App\Traits\MoneyManager;
+use App\Support\MoneyManager;
 use Illuminate\Contracts\Validation\Rule;
 
 class MoneyGt implements Rule
 {
-    use MoneyManager;
-
     /**
      * Compared value.
      *
@@ -36,8 +34,8 @@ class MoneyGt implements Rule
      */
     public function passes($attribute, $value)
     {
-        $money = $this->parseByDecimal($value);
-        $this->other = $this->parseByDecimal($this->other);
+        $money = MoneyManager::parseByDecimal($value);
+        $this->other = MoneyManager::parseByDecimal($this->other);
 
         return $money->greaterThan($this->other);
     }
@@ -49,6 +47,6 @@ class MoneyGt implements Rule
      */
     public function message()
     {
-        return trans('validation.money_gt', ['value' => $this->formatByIntl($this->other)]);
+        return trans('validation.money_gt', ['value' => MoneyManager::formatByIntl($this->other)]);
     }
 }

@@ -2,21 +2,19 @@
 
 namespace App\Casts;
 
-use App\Traits\MoneyManager;
+use App\Support\MoneyManager;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Contracts\Database\Eloquent\SerializesCastableAttributes;
 use Money\Money as PhpMoney;
 
 class Money implements CastsAttributes, SerializesCastableAttributes
 {
-    use MoneyManager;
-
     /**
      * {@inheritdoc}
      */
     public function get($model, string $key, $value, array $attributes): PhpMoney
     {
-        return $this->createMoney($value ?? '0');
+        return MoneyManager::createMoney($value ?? '0');
     }
 
     /**
@@ -24,7 +22,7 @@ class Money implements CastsAttributes, SerializesCastableAttributes
      */
     public function set($model, string $key, $value, array $attributes): string
     {
-        return $this->parseByDecimal($value)->getAmount();
+        return MoneyManager::parseByDecimal($value)->getAmount();
     }
 
     /**
@@ -32,6 +30,6 @@ class Money implements CastsAttributes, SerializesCastableAttributes
      */
     public function serialize($model, string $key, $value, array $attributes): string
     {
-        return $this->formatByIntl($value);
+        return MoneyManager::formatByIntl($value);
     }
 }

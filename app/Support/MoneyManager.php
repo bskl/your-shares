@@ -1,30 +1,30 @@
 <?php
 
-namespace App\Traits;
+namespace App\Support;
 
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
+use Money\Formatter\DecimalMoneyFormatter;
 use Money\Formatter\IntlMoneyFormatter;
 use Money\Money;
 use Money\Parser\DecimalMoneyParser;
 use Money\Parser\IntlLocalizedDecimalParser;
 
-trait MoneyManager
+final class MoneyManager
 {
     /**
      * Create Money object with given value.
      * Given value must be integer(ish) value. e.g. 100, '100', '100.00' is
      * become 1 TRY.
      *
-     * @param  \Money\Money|string  $value
+     * @param  int|string  $value
+     *
+     * @psalm-param int|numeric-string  $value
+     *
      * @return \Money\Money
      */
-    public function createMoney($value = '0'): Money
+    public static function createMoney(int|string $value = '0'): Money
     {
-        if ($value instanceof Money) {
-            return $value;
-        }
-
         return new Money($value, new Currency(config('app.currency')));
     }
 
@@ -34,7 +34,7 @@ trait MoneyManager
      * @param  \Money\Money|string  $value
      * @return \Money\Money
      */
-    public function parseByIntlLocalizedDecimal($value): Money
+    public static function parseByIntlLocalizedDecimal(Money|string $value): Money
     {
         if ($value instanceof Money) {
             return $value;
@@ -42,7 +42,7 @@ trait MoneyManager
 
         $currencies = new ISOCurrencies();
 
-        $numberFormatter = new \NumberFormatter(config('app.locale'), \NumberFormatter::DECIMAL);
+        $numberFormatter = new \NumberFormatter(app()->currentLocale(), \NumberFormatter::DECIMAL);
         $moneyParser = new IntlLocalizedDecimalParser($numberFormatter, $currencies);
 
         return $moneyParser->parse($value, new Currency(config('app.currency')));
@@ -51,10 +51,10 @@ trait MoneyManager
     /**
      * Parse given value with decimal parser to create Money object.
      *
-     * @param  \Money\Money|string|int  $value
+     * @param  \Money\Money|string  $value
      * @return \Money\Money
      */
-    public function parseByDecimal($value): Money
+    public static function parseByDecimal(Money|string $value): Money
     {
         if ($value instanceof Money) {
             return $value;
@@ -64,7 +64,7 @@ trait MoneyManager
 
         $moneyParser = new DecimalMoneyParser($currencies);
 
-        return $moneyParser->parse((string) $value, new Currency(config('app.currency')));
+        return $moneyParser->parse($value, new Currency(config('app.currency')));
     }
 
     /**
@@ -73,12 +73,27 @@ trait MoneyManager
      * @param  \Money\Money  $money
      * @return string
      */
-    public function formatByIntl(Money $money): string
+    public static function formatByIntl(Money $money): string
     {
         $currencies = new ISOCurrencies();
 
-        $numberFormatter = new \NumberFormatter(config('app.locale'), \NumberFormatter::CURRENCY);
+        $numberFormatter = new \NumberFormatter(app()->currentLocale(), \NumberFormatter::CURRENCY);
         $moneyFormatter = new IntlMoneyFormatter($numberFormatter, $currencies);
+
+        return $moneyFormatter->format($money);
+    }
+
+    /**
+     * Format given money with decimal formatter.
+     *
+     * @param  \Money\Money  $money
+     * @return string
+     */
+    public static function formatByDecimal(Money $money): string
+    {
+        $currencies = new ISOCurrencies();
+
+        $moneyFormatter = new DecimalMoneyFormatter($currencies);
 
         return $moneyFormatter->format($money);
     }
@@ -89,7 +104,7 @@ trait MoneyManager
      * @param  \Money\Money  $money
      * @return int
      */
-    public function getTrend(Money $money): int
+    public static function getTrend(Money $money): int
     {
         return $money->isPositive() ? 1 : ($money->isNegative() ? -1 : 0);
     }

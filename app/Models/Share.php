@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Casts\Decimal;
 use App\Casts\Money as MoneyCast;
 use App\Enums\TransactionType;
-use App\Traits\MoneyManager;
+use App\Support\MoneyManager;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -31,8 +31,6 @@ use Money\Money;
  */
 class Share extends BaseModel
 {
-    use MoneyManager;
-
     /**
      * {@inheritdoc}
      */
@@ -196,7 +194,7 @@ class Share extends BaseModel
      */
     public function getGainTrendAttribute(): int
     {
-        return $this->getTrend($this->gain);
+        return MoneyManager::getTrend($this->gain);
     }
 
     /**
@@ -206,7 +204,7 @@ class Share extends BaseModel
      */
     public function getGainWithDividendTrendAttribute(): int
     {
-        return $this->getTrend($this->gain_with_dividend);
+        return MoneyManager::getTrend($this->gain_with_dividend);
     }
 
     /**

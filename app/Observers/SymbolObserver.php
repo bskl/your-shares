@@ -5,12 +5,9 @@ namespace App\Observers;
 use App\Models\Portfolio;
 use App\Models\Share;
 use App\Models\Symbol;
-use App\Traits\MoneyManager;
 
 class SymbolObserver
 {
-    use MoneyManager;
-
     /**
      * Handle the symbol "creating" event.
      *

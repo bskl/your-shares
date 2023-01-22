@@ -7,10 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\PortfolioRequest;
 use App\Http\Resources\Portfolio as PortfolioResource;
 use App\Models\Portfolio;
+use App\Support\MoneyManager;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Money\Currency;
-use Money\Money;
 
 class PortfolioController extends Controller
 {
@@ -154,13 +153,13 @@ class PortfolioController extends Controller
                              ->groupBy(['share_id', 'month']);
 
         foreach ($grouped as $transactions) {
-            $items[$i]['total'] = $transactionType['condition'] ? 0 : new Money(0, new Currency(config('app.currency')));
+            $items[$i]['total'] = $transactionType['condition'] ? 0 : MoneyManager::createMoney();
             foreach ($transactions as $month => $transaction) {
                 $transaction = $transaction->first();
 
                 $items[$i] += $transactionType['condition']
                     ? [$month => decimal_formatter($transaction->{$attribute}), 'total' => $items[$i]['total'] + $transaction->lot]
-                    : [$month => $this->formatByIntl($transaction->{$attribute}), 'total' => $items[$i]['total']->add($transaction->{$attribute})];
+                    : [$month => MoneyManager::formatByIntl($transaction->{$attribute}), 'total' => $items[$i]['total']->add($transaction->{$attribute})];
 
                 $items[$i] += [
                     'item' => $transaction->share->symbol->code,
@@ -170,7 +169,7 @@ class PortfolioController extends Controller
             }
             $items[$i]['total'] = $transactionType['condition']
                 ? decimal_formatter($items[$i]['total'])
-                : $this->formatByIntl($items[$i]['total']);
+                : MoneyManager::formatByIntl($items[$i]['total']);
             $i++;
         }
 
