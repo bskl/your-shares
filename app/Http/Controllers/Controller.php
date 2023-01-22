@@ -60,10 +60,11 @@ class Controller extends BaseController
      */
     public function getTransactionsByModelAndType(Portfolio|Share $model, string $type): JsonResponse
     {
+        $i = 0;
+        $items = [];
         $type = TransactionType::fromName(ucfirst($type));
         $transactionType = $this->getTransactionType($type);
         $attribute = $this->getRawAttribute($type);
-
         $grouped = $model->transactionsOfType($transactionType['value'])
                          ->selectRaw('transactions.*, MONTH(date_at) AS month, YEAR(date_at) AS year, SUM(transactions.'.$attribute.') AS '.$attribute)
                          ->orderBy('date_at')
@@ -71,30 +72,19 @@ class Controller extends BaseController
                          ->get()
                          ->groupBy(['year', 'month']);
 
-        if (! count($grouped)) {
-            return $this->respondSuccess([]);
-        }
-
-        $index = 0;
-        $items = [];
-
         foreach ($grouped as $key => $transactions) {
-            $items[$index]['item'] = $key;
-            $items[$index]['total'] = $transactionType['condition'] ? 0 : new Money(0, new Currency(config('app.currency')));
+            $items[$i]['item'] = $key;
+            $items[$i]['total'] = $transactionType['condition'] ? 0 : new Money(0, new Currency(config('app.currency')));
             foreach ($transactions as $month => $transaction) {
                 $transaction = $transaction->first();
-                if ($transactionType['condition']) {
-                    $items[$index][$month] = decimal_formatter($transaction->{$attribute});
-                    $items[$index]['total'] = $items[$index]['total'] + $transaction->lot;
-                } else {
-                    $items[$index][$month] = $this->formatByIntl($transaction->{$attribute});
-                    $items[$index]['total'] = $items[$index]['total']->add($transaction->{$attribute});
-                }
+                $items[$i] += $transactionType['condition']
+                    ? [$month => decimal_formatter($transaction->{$attribute}), 'total' => $items[$i]['total'] + $transaction->lot]
+                    : [$month => $this->formatByIntl($transaction->{$attribute}), 'total' => $items[$i]['total']->add($transaction->{$attribute})];
             }
-            $items[$index]['total'] = $transactionType['condition']
-                ? decimal_formatter($items[$index]['total'])
-                : $this->formatByIntl($items[$index]['total']);
-            $index++;
+            $items[$i]['total'] = $transactionType['condition']
+                ? decimal_formatter($items[$i]['total'])
+                : $this->formatByIntl($items[$i]['total']);
+            $i++;
         }
 
         return $this->respondSuccess($items);
