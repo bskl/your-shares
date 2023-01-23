@@ -67,9 +67,7 @@ class SetSymbols extends Command
      */
     protected function getHtml(): string
     {
-        do {
-            $response = Http::get($this->url);
-        } while (! $response->successful());
+        $response = Http::retry(50, 6000, throw: false)->get($this->url);
 
         $body = preg_replace('/\r|\n|\t/', '', $response->body());
 
