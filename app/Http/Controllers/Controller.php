@@ -97,7 +97,7 @@ class Controller extends BaseController
     public function getRawAttribute(TransactionType $type): string
     {
         return match ($type) {
-            TransactionType::Buying || TransactionType::Sale || TransactionType::Rights => 'amount',
+            TransactionType::Buying, TransactionType::Sale, TransactionType::Rights => 'amount',
             TransactionType::Dividend => 'dividend_gain',
             TransactionType::Bonus => 'lot',
             default => 'amount',
