@@ -8,6 +8,8 @@ use App\Http\Requests\API\ShareRequest;
 use App\Http\Resources\Share as ShareResource;
 use App\Http\Resources\Transaction as TransactionResource;
 use App\Models\Share;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 
 class ShareController extends Controller
@@ -18,7 +20,7 @@ class ShareController extends Controller
      * @param  \App\Models\Share  $share
      * @return \App\Http\Resources\Share
      */
-    public function show(Share $share)
+    public function show(Share $share): ShareResource
     {
         $this->authorize($share);
 
@@ -31,7 +33,7 @@ class ShareController extends Controller
      * @param  \App\Http\Requests\API\ShareRequest  $request
      * @return \App\Http\Resources\Share|\Illuminate\Http\JsonResponse
      */
-    public function store(ShareRequest $request)
+    public function store(ShareRequest $request): ShareResource|JsonResponse
     {
         $this->authorize(Share::class);
 
@@ -54,7 +56,7 @@ class ShareController extends Controller
      * @param  \App\Models\Share  $share
      * @return \App\Http\Resources\Share|\Illuminate\Http\JsonResponse
      */
-    public function destroy(Share $share)
+    public function destroy(Share $share): ShareResource|JsonResponse
     {
         $this->authorize($share);
 
@@ -81,9 +83,9 @@ class ShareController extends Controller
      * Get share instance with all transactions.
      *
      * @param  \App\Models\Share  $share
-     * @return \App\Http\Resources\Transaction
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function getTransactions(Share $share)
+    public function getTransactions(Share $share): AnonymousResourceCollection
     {
         $this->authorize('view', $share);
 
@@ -97,7 +99,7 @@ class ShareController extends Controller
      * @param  string  $type
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getTransactionsByType(Share $share, string $type)
+    public function getTransactionsByType(Share $share, string $type): JsonResponse
     {
         $this->authorize('view', $share);
 
@@ -110,9 +112,9 @@ class ShareController extends Controller
      * @param  \App\Models\Share  $share
      * @param  string  $type
      * @param  int  $year
-     * @return \App\Http\Resources\Transaction
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function getTransactionsByTypeAndYear(Share $share, string $type, int $year)
+    public function getTransactionsByTypeAndYear(Share $share, string $type, int $year): AnonymousResourceCollection
     {
         $this->authorize('view', $share);
 

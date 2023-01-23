@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Symbol;
 use Carbon\Carbon;
 use DOMDocument;
+use DOMNodeList;
 use DOMXpath;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
@@ -78,9 +79,9 @@ class SetSymbols extends Command
     /**
      * Retrieve data from HTML body.
      *
-     * @return \DOMNodeList
+     * @return \DOMNodeList|false
      */
-    protected function parseHtml(): \DOMNodeList
+    protected function parseHtml(): \DOMNodeList|false
     {
         $dom = new DOMDocument();
         $dom->preserveWhiteSpace = false;
@@ -100,10 +101,10 @@ class SetSymbols extends Command
     /**
      * Retrieve data from HTML body.
      *
-     * @param  array  $content
-     * @return \Illuminate\Support\Collection
+     * @param  \DOMNodeList  $content
+     * @return \Illuminate\Support\Collection<int,\App\Models\Symbol>
      */
-    protected function parseSymbols($content): Collection
+    protected function parseSymbols(DOMNodeList $content): Collection
     {
         $symbols = collect();
         $sessionTime = Carbon::now()->subMinutes(15);
@@ -130,7 +131,7 @@ class SetSymbols extends Command
      * @param  string  $value
      * @return int
      */
-    protected function getTrend($value): int
+    protected function getTrend(string $value): int
     {
         $decimal = $this->asDecimal($value);
 
@@ -143,7 +144,7 @@ class SetSymbols extends Command
      * @param  string  $value
      * @return string
      */
-    protected function asDecimal($value): string
+    protected function asDecimal(string $value): string
     {
         return preg_replace('/\.(?=.*\.)/', '', str_replace(',', '.', $value));
     }
@@ -151,13 +152,13 @@ class SetSymbols extends Command
     /**
      * Update or create new symbol instance for the given collection.
      *
-     * @param  \Illuminate\Support\Collection  $symbols
+     * @param  \Illuminate\Support\Collection<int,\App\Models\Symbol>  $symbols
      * @return void
      */
-    protected function storeSymbols($symbols): void
+    protected function storeSymbols(Collection $symbols): void
     {
         foreach ($symbols as $symbol) {
-            $oldSymbol = Symbol::whereCode($symbol['code'])->whereTitle($symbol['title'])->first();
+            $oldSymbol = Symbol::where('code', $symbol['code'])->where('title', $symbol['title'])->first();
 
             if (filled($oldSymbol)) {
                 $oldSymbol->fill($symbol);

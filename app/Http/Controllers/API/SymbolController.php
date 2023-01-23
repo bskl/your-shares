@@ -7,6 +7,8 @@ use App\Http\Resources\Portfolio as PortfolioResource;
 use App\Http\Resources\Symbol as SymbolResource;
 use App\Models\Portfolio;
 use App\Models\Symbol;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Artisan;
 
@@ -15,9 +17,9 @@ class SymbolController extends Controller
     /**
      * Get all symbols.
      *
-     * @return \App\Http\Resources\Symbol
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
         $this->authorize(Symbol::class);
 
@@ -29,9 +31,9 @@ class SymbolController extends Controller
     /**
      * Run set symbols command and get portfolios data.
      *
-     * @return \App\Http\Resources\Portfolio|\Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection|\Illuminate\Http\JsonResponse
      */
-    public function update()
+    public function update(): AnonymousResourceCollection|JsonResponse
     {
         $this->authorize(Symbol::class);
 

@@ -90,7 +90,7 @@ class Portfolio extends BaseModel
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(\App\Models\User::class);
     }
 
     /**
@@ -100,7 +100,7 @@ class Portfolio extends BaseModel
      */
     public function shares(): HasMany
     {
-        return $this->hasMany('App\Models\Share');
+        return $this->hasMany(\App\Models\Share::class);
     }
 
     /**
@@ -120,7 +120,7 @@ class Portfolio extends BaseModel
      */
     public function transactions(): HasManyThrough
     {
-        return $this->hasManyThrough('App\Models\Transaction', 'App\Models\Share');
+        return $this->hasManyThrough(\App\Models\Transaction::class, \App\Models\Share::class);
     }
 
     /**
@@ -363,7 +363,7 @@ class Portfolio extends BaseModel
         $this->handleCommonCalculations();
 
         return $this->shares()->firstOrCreate([
-            'symbol_id' => Symbol::whereCode($transaction->symbol_code)->first()->id,
+            'symbol_id' => Symbol::firstWhere('code', $transaction->symbol_code)->id,
         ]);
     }
 

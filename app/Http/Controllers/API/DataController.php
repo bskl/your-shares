@@ -12,7 +12,7 @@ class DataController extends Controller
     /**
      * Get a set of application data.
      *
-     * @return array
+     * @return array<string,\App\Http\Resources\User|\Illuminate\Http\Resources\Json\AnonymousResourceCollection>
      */
     public function getData(): array
     {

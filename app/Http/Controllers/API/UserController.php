@@ -6,6 +6,7 @@ use App\Enums\UserType;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +18,7 @@ class UserController extends Controller
      * @param  string  $locale
      * @return \Illuminate\Http\JsonResponse
      */
-    public function setLocale(string $locale)
+    public function setLocale(string $locale): JsonResponse
     {
         Auth::user()->locale = $locale;
 
@@ -39,7 +40,7 @@ class UserController extends Controller
      * @param  string  $token
      * @return \Illuminate\Http\JsonResponse
      */
-    public function verifyConfirmationCode(StatefulGuard $guard, string $token)
+    public function verifyConfirmationCode(StatefulGuard $guard, string $token): JsonResponse
     {
         $user = User::where('confirmation_code', $token)->firstOrFail();
 

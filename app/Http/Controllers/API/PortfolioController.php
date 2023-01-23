@@ -8,6 +8,8 @@ use App\Http\Requests\API\PortfolioRequest;
 use App\Http\Resources\Portfolio as PortfolioResource;
 use App\Models\Portfolio;
 use App\Support\MoneyManager;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,9 +18,9 @@ class PortfolioController extends Controller
     /**
      * List the portfolios for the auth user.
      *
-     * @return \App\Http\Resources\Portfolio
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
         $this->authorize(Portfolio::class);
 
@@ -33,7 +35,7 @@ class PortfolioController extends Controller
      * @param  \App\Models\Portfolio  $portfolio
      * @return \App\Http\Resources\Portfolio
      */
-    public function show(Portfolio $portfolio)
+    public function show(Portfolio $portfolio): PortfolioResource
     {
         $this->authorize($portfolio);
 
@@ -46,7 +48,7 @@ class PortfolioController extends Controller
      * @param  \App\Http\Requests\API\PortfolioRequest  $request
      * @return \App\Http\Resources\Portfolio|\Illuminate\Http\JsonResponse
      */
-    public function store(PortfolioRequest $request)
+    public function store(PortfolioRequest $request): PortfolioResource|JsonResponse
     {
         $this->authorize(Portfolio::class);
 
@@ -74,7 +76,7 @@ class PortfolioController extends Controller
      * @param  \App\Http\Requests\API\PortfolioRequest  $request
      * @return \App\Http\Resources\Portfolio|\Illuminate\Http\JsonResponse
      */
-    public function update(Portfolio $portfolio, PortfolioRequest $request)
+    public function update(Portfolio $portfolio, PortfolioRequest $request): PortfolioResource|JsonResponse
     {
         $this->authorize($portfolio);
 
@@ -96,7 +98,7 @@ class PortfolioController extends Controller
      * @param  \App\Models\Portfolio  $portfolio
      * @return \App\Http\Resources\Portfolio|\Illuminate\Http\JsonResponse
      */
-    public function destroy(Portfolio $portfolio)
+    public function destroy(Portfolio $portfolio): PortfolioResource|JsonResponse
     {
         $this->authorize($portfolio);
 
@@ -119,7 +121,7 @@ class PortfolioController extends Controller
      * @param  string  $type
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getTransactionsByType(Portfolio $portfolio, string $type)
+    public function getTransactionsByType(Portfolio $portfolio, string $type): JsonResponse
     {
         $this->authorize('view', $portfolio);
 
@@ -134,7 +136,7 @@ class PortfolioController extends Controller
      * @param  int  $year
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getTransactionsByTypeAndYear(Portfolio $portfolio, string $type, int $year)
+    public function getTransactionsByTypeAndYear(Portfolio $portfolio, string $type, int $year): JsonResponse
     {
         $this->authorize('view', $portfolio);
 

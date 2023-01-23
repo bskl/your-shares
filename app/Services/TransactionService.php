@@ -226,9 +226,9 @@ class TransactionService
             'date_at' => $transaction->date_at,
             'lot' => ($newLot = $transaction->lot * $transaction->exchange_ratio),
             'exchange_ratio' => $transaction->exchange_ratio,
+            'symbol_code' => $transaction->share->symbol->code,
         ]);
         $newTransaction->price = $shareAmount->divide($newLot);
-        $newTransaction->symbol_code = $transaction->share->symbol_id;
         $newTransaction->save();
     }
 

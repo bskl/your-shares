@@ -41,6 +41,6 @@ class PortfolioSummary extends BaseModel
      */
     public function portfolio(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Portfolio');
+        return $this->belongsTo(\App\Models\Portfolio::class);
     }
 }

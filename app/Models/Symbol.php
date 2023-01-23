@@ -48,7 +48,7 @@ class Symbol extends BaseModel
      */
     public function shares(): HasMany
     {
-        return $this->hasMany('App\Models\Share');
+        return $this->hasMany(\App\Models\Share::class);
     }
 
     /**

@@ -80,21 +80,7 @@ class Transaction extends BaseModel
      */
     public function share(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Share');
-    }
-
-    /**
-     * Set the symbol code attribute.
-     *
-     * @param  int  $value
-     * @return void
-     */
-    public function setSymbolCodeAttribute(int $value): void
-    {
-        if ($this->type->in([TransactionType::MergerOut, TransactionType::MergerIn]) &&
-            ! is_null($symbol = Symbol::firstWhere('id', $value))) {
-            $this->attributes['symbol_code'] = $symbol->code;
-        }
+        return $this->belongsTo(\App\Models\Share::class);
     }
 
     /**

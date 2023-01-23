@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Enums\TransactionType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\TransactionRequest;
 use App\Http\Resources\Portfolio as PortfolioResource;
 use App\Http\Resources\Share as ShareResource;
 use App\Http\Resources\Transaction as TransactionResource;
+use App\Models\Symbol;
 use App\Models\Transaction;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
@@ -19,7 +22,7 @@ class TransactionController extends Controller
      * @param  \App\Http\Requests\API\TransactionRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(TransactionRequest $request)
+    public function store(TransactionRequest $request): JsonResponse
     {
         $this->authorize(Transaction::class);
 
@@ -29,7 +32,10 @@ class TransactionController extends Controller
             $transaction = new Transaction();
 
             $transaction->fill($request->validated());
-            $transaction->symbol_code = $request->symbol_id;
+            if ($transaction->type->in([TransactionType::MergerOut, TransactionType::MergerIn]) &&
+                ! is_null($symbol = Symbol::firstWhere('id', $request->symbol_id))) {
+                $transaction->symbol_code = $symbol->code;
+            }
             $transaction->save();
 
             DB::commit();
@@ -57,7 +63,7 @@ class TransactionController extends Controller
      * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Transaction $transaction)
+    public function destroy(Transaction $transaction): JsonResponse
     {
         $this->authorize($transaction);
 

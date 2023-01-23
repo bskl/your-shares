@@ -106,7 +106,7 @@ class Share extends BaseModel
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo(\App\Models\User::class);
     }
 
     /**
@@ -116,7 +116,7 @@ class Share extends BaseModel
      */
     public function portfolio(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Portfolio');
+        return $this->belongsTo(\App\Models\Portfolio::class);
     }
 
     /**
@@ -126,7 +126,7 @@ class Share extends BaseModel
      */
     public function symbol(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Symbol');
+        return $this->belongsTo(\App\Models\Symbol::class);
     }
 
     /**
@@ -136,7 +136,7 @@ class Share extends BaseModel
      */
     public function transactions(): HasMany
     {
-        return $this->hasMany('App\Models\Transaction')->oldest('date_at');
+        return $this->hasMany(\App\Models\Transaction::class)->oldest('date_at');
     }
 
     /**
@@ -176,12 +176,12 @@ class Share extends BaseModel
     /**
      * Calculate percent of the gain.
      *
-     * @return float
+     * @return string
      */
-    public function getGainPercentAttribute(): float
+    public function getGainPercentAttribute(): string
     {
         if ($this->average_amount->isZero()) {
-            return 0;
+            return '0';
         }
 
         return $this->gain->ratioOf($this->average_amount);
@@ -418,7 +418,7 @@ class Share extends BaseModel
         $this->lot -= $transaction->lot;
         $this->average_amount_with_dividend = $this->average_amount_with_dividend->subtract($this->average_amount);
         $this->paid_amount = $this->paid_amount->subtract($this->average_amount);
-        $this->average_amount = $this->average = $this->average_with_dividend = '0';
+        $this->average_amount = $this->average = $this->average_with_dividend = MoneyManager::createMoney();
         $this->handleCommonCalculations();
     }
 

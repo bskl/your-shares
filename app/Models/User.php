@@ -42,7 +42,7 @@ class User extends Authenticatable
      */
     public function portfolios(): HasMany
     {
-        return $this->hasMany('App\Models\Portfolio');
+        return $this->hasMany(\App\Models\Portfolio::class);
     }
 
     /**
@@ -52,7 +52,7 @@ class User extends Authenticatable
      */
     public function audits(): HasMany
     {
-        return $this->hasMany('App\Models\Audit');
+        return $this->hasMany(\App\Models\Audit::class);
     }
 
     /**

@@ -38,7 +38,7 @@ class SymbolObserver
      */
     public function updated(Symbol $symbol)
     {
-        Share::whereSymbolId($symbol->id)
+        Share::where('symbol_id', $symbol->id)
             ->chunkById(100, function ($shares) {
                 foreach ($shares as $share) {
                     $share->handleCommonCalculations();
