@@ -1,12 +1,6 @@
 import { mapGetters } from "vuex";
 
 export default {
-  data() {
-    return {
-      waitFor: '',
-    }
-  },
-
   computed: {
     ...mapGetters([
       'isInLoading',
