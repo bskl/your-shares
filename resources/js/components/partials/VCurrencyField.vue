@@ -54,7 +54,7 @@ export default {
     watchDebounced(numberValue, (value) => emit('input', value), { debounce: 1000 })
 
     watch(
-      () => props.modelValue, // Vue 2: props.value
+      () => props.value,
       (value) => {
         setValue(value)
       }

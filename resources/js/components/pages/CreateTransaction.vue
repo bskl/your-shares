@@ -10,21 +10,6 @@ import VCurrencyField from '../partials/VCurrencyField.vue';
 import SearchSymbolField from '../partials/SearchSymbolField.vue';
 
 export default {
-  props: {
-    shareId: {
-      type: Number,
-      required: false,
-    },
-    code: {
-      type: String,
-      required: false,
-    },
-    commission: {
-      type: Number,
-      required: false,
-    },
-  },
-
   /**
    * The component's name.
    */
@@ -36,7 +21,28 @@ export default {
   ],
 
   components: {
-    FormErrors, VCurrencyField, SearchSymbolField,
+    FormErrors,
+    VCurrencyField,
+    SearchSymbolField,
+  },
+
+
+  props: {
+    shareId: {
+      type: Number,
+      default: 0,
+      required: false,
+    },
+    code: {
+      type: String,
+      default: '',
+      required: false,
+    },
+    commission: {
+      type: Number,
+      default: 0,
+      required: false,
+    },
   },
 
   /**
@@ -82,6 +88,14 @@ export default {
     date: function (val) {
       this.form.date_at = this.formatDate(val)
     },
+  },
+
+  created() {
+    if (typeof this.shareId === 'undefined') {
+      this.readFromLocalStorage();
+    } else {
+      this.saveToLocalStorage();
+    }
   },
 
   methods: {
@@ -166,20 +180,19 @@ export default {
       this.symbolCode = storageData.code;
     }
   },
-
-  created() {
-    if (typeof this.shareId === 'undefined') {
-      this.readFromLocalStorage();
-    } else {
-      this.saveToLocalStorage();
-    }
-  },
 }
 </script>
 
 <template>
-  <v-row align="center" justify="center">
-    <v-col cols="12" sm="8" md="4">
+  <v-row
+    align="center"
+    justify="center"
+  >
+    <v-col
+      cols="12"
+      sm="8"
+      md="4"
+    >
       <v-card>
         <v-card-title>
           <v-toolbar-title>
@@ -191,15 +204,32 @@ export default {
           </v-toolbar-title>
         </v-card-title>
         <v-card-text>
-          <v-form ref="form" v-model="valid" lazy-validation
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation
             @keyup.native.enter="submit"
             @keydown.native="clearError($event.target.name)"
           >
             <form-errors :errors="errors" />
-            <v-input type="hidden" name="share_id" ref="share_id" id="share_id" readonly hide-details dense
+            <v-input
+              type="hidden"
+              name="share_id"
+              ref="share_id"
+              id="share_id"
+              readonly
+              hide-details
+              dense
               v-model="form.share_id"
             />
-            <v-select name="type" ref="type" id="type" autofocus single-line filled clearable
+            <v-select
+              name="type"
+              ref="type"
+              id="type"
+              autofocus
+              single-line
+              filled
+              clearable
               prepend-inner-icon="format_list_bulleted"
               v-model="form.type"
               :disabled="isLoading"
@@ -211,37 +241,55 @@ export default {
               item-text="label"
               item-value="id"
               menu-props="bottom"
-            ></v-select>
-            <v-menu ref="menu" offset-y min-width="auto" transition="scale-transition"
+            />
+            <v-menu
+              ref="menu"
               v-model="menu"
               :close-on-content-click="false"
+              transition="scale-transition"
+              offset-y
               :nudge-right="40"
+              min-width="auto"
             >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field name="date_at" ref="date_at" id="date_at" readonly filled clearable
-                  prepend-inner-icon="calendar_today"
+              <template #activator="{ on, attrs }">
+                <v-text-field
+                  name="date_at"
                   v-model="form.date_at"
+                  ref="date_at"
+                  id="date_at"
+                  readonly
+                  filled
+                  clearable
+                  prepend-inner-icon="calendar_today"
                   :disabled="isLoading"
                   :label="$t('Select Date')"
                   :rules="[rules.required]"
                   :error-messages="getError('date_at')"
                   v-bind="attrs"
                   v-on="on"
-                ></v-text-field>
+                />
               </template>
-              <v-date-picker no-title scrollable elevation="15"
+              <v-date-picker
                 v-model="date"
+                no-title
+                scrollable
+                elevation="15"
                 :allowed-dates="allowedDates"
                 :first-day-of-week="1"
                 @input="menu = false"
-              >
-              </v-date-picker>
+              />
             </v-menu>
             <search-symbol-field
               v-if="form.type == 5"
-              :symbolId.sync="form.symbol_id"
-            ></search-symbol-field>
-            <v-text-field type="number" name="preference" ref="preference" id="preference" filled clearable
+              :symbol-id.sync="form.symbol_id"
+            />
+            <v-text-field
+              type="number"
+              name="preference"
+              ref="preference"
+              id="preference"
+              filled
+              clearable
               v-if="form.type == 3 || form.type == 4"
               prepend-inner-icon="format_list_numbered"
               v-model="form.preference"
@@ -252,8 +300,14 @@ export default {
               :hint="form.type == 3
                 ? $t('You must write your share amount on the day of bonus.')
                 : $t('You must write your share amount on the day of rights.')"
-            ></v-text-field>
-            <v-text-field type="number" name="lot" ref="lot" id="lot" filled clearable
+            />
+            <v-text-field
+              type="number"
+              name="lot"
+              ref="lot"
+              id="lot"
+              filled
+              clearable
               prepend-inner-icon="format_list_numbered"
               v-model="form.lot"
               :disabled="isLoading"
@@ -264,7 +318,7 @@ export default {
               :hint="
                 form.type == 3 ? $t('You must write your bonus shares.') :
                 form.type == 4 ? $t('You must write your rights shares.') : ''"
-            ></v-text-field>
+            />
             <v-currency-field
               v-if="form.type != 3 || form.type != 4 || form.type != 6"
               v-model="form.price"
@@ -272,8 +326,14 @@ export default {
               :label="$t('Enter Transaction Price')"
               :is-loading="isLoading"
               @change="value = $event"
-            ></v-currency-field>
-            <v-text-field type="number" name="exchange_ratio" ref="exchange_ratio" id="exchange_ratio" filled clearable
+            />
+            <v-text-field
+              type="number"
+              name="exchange_ratio"
+              ref="exchange_ratio"
+              id="exchange_ratio"
+              filled
+              clearable
               v-if="form.type == 5"
               prepend-inner-icon="donut_large"
               v-model="form.exchange_ratio"
@@ -282,8 +342,14 @@ export default {
               :rules="[rules.required]"
               :error-messages="getError('exchange_ratio')"
               :hint="$t('for_example', { example: '1,15997' })"
-            ></v-text-field>
-            <v-text-field type="number" name="commission" ref="commission" id="commission" filled clearable
+            />
+            <v-text-field
+              type="number"
+              name="commission"
+              ref="commission"
+              id="commission"
+              filled
+              clearable
               v-if="form.type == 0 || form.type == 1 || form.type == 7"
               step="0.0001"
               prepend-inner-icon="donut_large"
@@ -293,7 +359,7 @@ export default {
               :rules="[rules.required]"
               :error-messages="getError('commission')"
               :hint="$t('for_example', { example: $t('Garanti Bank: 0.188') })"
-            ></v-text-field>
+            />
             <v-currency-field
               v-if="form.type == 2"
               v-model="form.dividend_gain"
@@ -301,19 +367,24 @@ export default {
               :label="$t('Enter Dividend Gain Price')"
               :is-loading="isLoading"
               @change="value = $event"
-            ></v-currency-field>
+            />
           </v-form>
         </v-card-text>
         <v-card-actions class="pb-4 pr-4">
-          <v-spacer></v-spacer>
-          <v-progress-circular v-show="isLoading" indeterminate />
-          <v-btn class="btn-close"
+          <v-spacer/>
+          <v-progress-circular
+            v-show="isLoading"
+            indeterminate
+          />
+          <v-btn
+            class="btn-close"
             :disabled="isLoading"
             @click="$router.go(-1)"
           >
             {{ $t("Close") }}
           </v-btn>
-          <v-btn class="btn-action"
+          <v-btn
+            class="btn-action"
             :disabled="isLoading"
             @click="submit"
           >
