@@ -47,7 +47,7 @@ export default {
 
   computed: {
     waitFor() {
-      const [ model, id, unused, type, year ] = this.$route.to.fullPath.split('/').filter(item => item.trim().length);
+      const [ model, id, unused, type, year ] = this.$route.fullPath.split('/').filter(item => item.trim().length);
 
       return `fetch_transactions_by_${model}_${type}_${year}`;
     },
