@@ -51,9 +51,11 @@ export default {
     elevation="24"
   >
     {{ snackbar.msg }}
-    <v-spacer></v-spacer>
-    <template v-slot:action="{ attrs }">
-      <v-btn class="ml-4" icon
+    <v-spacer />
+    <template #action="{ attrs }">
+      <v-btn
+        class="ml-4"
+        icon
         :aria-label="$t('Close')"
         :ripple="false"
         v-bind="attrs"

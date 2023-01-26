@@ -50,10 +50,14 @@ export default {
 </script>
 
 <template>
-  <v-autocomplete name="symbol_id" ref="symbol_id" id="symbol_id" filled clearable
-    prepend-inner-icon="layers"
+  <v-autocomplete
+    id="symbol_id"
+    ref="symbol_id"
     v-model="symbolId"
-    @input="$emit('update:symbolId', symbolId)"
+    name="symbol_id"
+    filled
+    clearable
+    prepend-inner-icon="layers"
     :items="symbols"
     :loading="searching"
     :search-input.sync="search"
@@ -64,5 +68,6 @@ export default {
     :disabled="isLoading"
     item-text="code"
     item-value="id"
-  ></v-autocomplete>
+    @input="$emit('update:symbolId', symbolId)"
+  />
 </template>

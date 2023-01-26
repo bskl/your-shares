@@ -45,22 +45,33 @@ export default {
 
 <template>
   <v-sheet>
-    <v-app-bar app clipped-right elevate-on-scroll class="seperator-line">
+    <v-app-bar
+      app
+      clipped-right
+      elevate-on-scroll
+      class="seperator-line"
+    >
       <v-toolbar-title>{{ $t("Shares") }}</v-toolbar-title>
       <v-spacer />
       <v-app-bar-nav-icon
-        @click.stop="drawer = !drawer"
         v-if="isLoggedIn"
+        @click.stop="drawer = !drawer"
       />
     </v-app-bar>
-    <v-navigation-drawer app clipped right fixed
-      v-model="drawer"
+    <v-navigation-drawer
       v-if="isLoggedIn"
+      v-model="drawer"
+      app
+      clipped
+      right
+      fixed
     >
-      <template v-slot:prepend>
+      <template #prepend>
         <v-list-item two-line>
           <v-list-item-avatar>
-            <v-icon medium>account_circle</v-icon>
+            <v-icon medium>
+              account_circle
+            </v-icon>
           </v-list-item-avatar>
 
           <v-list-item-content>
@@ -70,12 +81,13 @@ export default {
         </v-list-item>
       </template>
 
-      <v-divider></v-divider>
+      <v-divider />
 
       <v-list dense>
-        <v-list-item link
+        <v-list-item
           v-for="item in items"
           :key="item.title"
+          link
           :to="item.to"
           @click.stop="drawer = false"
         >

@@ -20,7 +20,10 @@ export default {
     <main-header />
     <v-main>
       <v-responsive class="mx-auto overflow-visible">
-        <v-container class="fill-height" container--fluid>
+        <v-container
+          class="fill-height"
+          container--fluid
+        >
           <v-responsive
             class="overflow-visible"
             min-height="90vh"

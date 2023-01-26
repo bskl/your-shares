@@ -1,6 +1,6 @@
 <script>
 
-import { mapState, mapGetters, mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import { parseSuccessMessage } from '../../utilities/helpers.js';
 import validationHandler from '../../mixins/validationHandler.js';
 import loadingHandler from '../../mixins/loadingHandler.js';
@@ -17,14 +17,14 @@ export default {
    */
   name: 'AddShareModal',
 
+  components: {
+    Modal, ModalHeading, ModalBody, ModalFooter, FormErrors, SearchSymbolField,
+  },
+
   mixins: [
     validationHandler,
     loadingHandler
   ],
-
-  components: {
-    Modal, ModalHeading, ModalBody, ModalFooter, FormErrors, SearchSymbolField,
-  },
 
   /**
    * The component's data.
@@ -103,27 +103,35 @@ export default {
 </script>
 
 <template>
-  <modal :width="460" :dialog="showModal">
+  <modal
+    :width="460"
+    :dialog="showModal"
+  >
     <modal-heading>
       {{ $t("Add Symbol") }}
     </modal-heading>
     <modal-body>
-      <v-form ref="form" v-model="valid" lazy-validation
+      <v-form
+        ref="form"
+        v-model="valid"
+        lazy-validation
         @keyup.native.enter="submit"
         @keydown.native="clearError($event.target.name)"
       >
         <form-errors :errors="errors" />
-        <search-symbol-field :symbolId.sync="form.symbol_id"></search-symbol-field>
+        <search-symbol-field :symbol-id.sync="form.symbol_id" />
       </v-form>
     </modal-body>
     <modal-footer :is-loading="isLoading">
-      <v-btn class="btn-close"
+      <v-btn
+        class="btn-close"
         :disabled="isLoading"
         @click="close"
       >
         {{ $t("Close") }}
       </v-btn>
-      <v-btn class="btn-action"
+      <v-btn
+        class="btn-action"
         :disabled="isLoading"
         @click="submit"
       >

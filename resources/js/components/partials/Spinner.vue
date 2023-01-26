@@ -1,9 +1,15 @@
 <template>
   <v-container class="fill-height">
-    <v-row align="center" justify="center">
-      <div class="spinner" role="spinner">
-        <div class="spinner-icon"></div>
-        </div>
+    <v-row
+      align="center"
+      justify="center"
+    >
+      <div
+        class="spinner"
+        role="spinner"
+      >
+        <div class="spinner-icon" />
+      </div>
     </v-row>
   </v-container>
 </template>

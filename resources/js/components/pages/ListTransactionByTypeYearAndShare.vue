@@ -6,24 +6,25 @@ import loadingHandler from '../../mixins/loadingHandler.js';
 import TransactionItem from '../partials/TransactionItem.vue';
 
 export default {
-  props: {
-    initialTransactions: {
-      type: [Array, Object],
-      required: true,
-    },
-  },
 
   /**
    * The component's name.
    */
   name: 'ListTransactionByTypeYearAndShare',
 
+  components: {
+    TransactionItem,
+  },
+
   mixins: [
     loadingHandler,
   ],
 
-  components: {
-    TransactionItem,
+  props: {
+    initialTransactions: {
+      type: [Array, Object],
+      required: true,
+    },
   },
 
   /**
@@ -74,18 +75,36 @@ export default {
 </script>
 
 <template>
-  <v-row align="center" justify="center" v-if="!isLoading">
-    <v-col cols="12" sm="8" md="4" lg="10">
+  <v-row
+    v-if="!isLoading"
+    align="center"
+    justify="center"
+  >
+    <v-col
+      cols="12"
+      sm="8"
+      md="4"
+      lg="10"
+    >
       <v-card>
-        <v-toolbar flat class="pl-2">
-          <v-btn icon exact
+        <v-toolbar
+          flat
+          class="pl-2"
+        >
+          <v-btn
+            icon
+            exact
             @click="goBack()"
           >
-            <v-icon color="grey darken-2">arrow_back</v-icon>
+            <v-icon color="grey darken-2">
+              arrow_back
+            </v-icon>
           </v-btn>
-          <v-toolbar-title class="pl-2">{{ title }}</v-toolbar-title>
+          <v-toolbar-title class="pl-2">
+            {{ title }}
+          </v-toolbar-title>
         </v-toolbar>
-        <v-divider></v-divider>
+        <v-divider />
         <v-card-text>
           <transaction-item
             :items="transactions"

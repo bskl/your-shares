@@ -1,6 +1,11 @@
 <script>
 
 export default {
+  /**
+   * The component's name.
+   */
+  name: 'ModalFooter',
+
   props: {
     isLoading: {
       type: Boolean,
@@ -12,8 +17,11 @@ export default {
 
 <template>
   <v-card-actions class="pb-6 pr-6">
-    <v-spacer></v-spacer>
-    <v-progress-circular v-show="isLoading" indeterminate />
+    <v-spacer />
+    <v-progress-circular
+      v-show="isLoading"
+      indeterminate
+    />
     <slot />
   </v-card-actions>
 </template>

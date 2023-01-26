@@ -14,13 +14,13 @@ export default {
    */
   name: 'DeletePortfolioModal',
 
-  mixins: [
-    loadingHandler
-  ],
-
   components: {
     Modal, ModalHeading, ModalBody, ModalFooter,
 },
+
+  mixins: [
+    loadingHandler
+  ],
 
   /**
    * The component's data.
@@ -94,21 +94,28 @@ export default {
 </script>
 
 <template>
-  <modal :width="460" :dialog="showModal">
+  <modal
+    :width="460"
+    :dialog="showModal"
+  >
     <modal-heading>
       {{ $t("Delete Portfolio") }}
     </modal-heading>
     <modal-body>
-      <div class="text-xs-center">{{ $t("Are you sure you want to delete this portfolio?") }}</div>
+      <div class="text-xs-center">
+        {{ $t("Are you sure you want to delete this portfolio?") }}
+      </div>
     </modal-body>
     <modal-footer :is-loading="isLoading">
-      <v-btn class="btn-close"
+      <v-btn
+        class="btn-close"
         :disabled="isLoading"
         @click="close"
       >
         {{ $t("Close") }}
       </v-btn>
-      <v-btn class="btn-warning"
+      <v-btn
+        class="btn-warning"
         :disabled="isLoading"
         @click="submit"
       >

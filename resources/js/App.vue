@@ -23,9 +23,9 @@ export default {
 
 <template>
   <main-layout>
-    <snackbar></snackbar>
+    <snackbar />
     <v-scroll-x-transition mode="out-in">
-      <router-view :key="$route.fullPath"></router-view>
+      <router-view :key="$route.fullPath" />
     </v-scroll-x-transition>
   </main-layout>
 </template>

@@ -14,13 +14,13 @@ export default {
    */
   name: 'DeleteTransactionModal',
 
-  mixins: [
-    loadingHandler
-  ],
-
   components: {
     Modal, ModalHeading, ModalBody, ModalFooter,
 },
+
+  mixins: [
+    loadingHandler
+  ],
 
   /**
    * The component's data.
@@ -93,21 +93,28 @@ export default {
 </script>
 
 <template>
-  <modal width="360" :dialog="showModal">
+  <modal
+    width="360"
+    :dialog="showModal"
+  >
     <modal-heading>
       {{ $t("Delete Transaction") }}
     </modal-heading>
     <modal-body>
-      <div class="text-xs-center">{{ $t("Are you sure you want to delete the last transaction?") }}</div>
+      <div class="text-xs-center">
+        {{ $t("Are you sure you want to delete the last transaction?") }}
+      </div>
     </modal-body>
     <modal-footer :is-loading="isLoading">
-      <v-btn class="btn-close"
+      <v-btn
+        class="btn-close"
         :disabled="isLoading"
         @click="close"
       >
         {{ $t("Close") }}
       </v-btn>
-      <v-btn class="btn-warning"
+      <v-btn
+        class="btn-warning"
         :disabled="isLoading"
         @click="submit"
       >

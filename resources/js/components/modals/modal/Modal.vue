@@ -1,9 +1,15 @@
 <script>
 
 export default {
+  /**
+   * The component's name.
+   */
+  name: 'Modal',
+
   props: {
     dialog: {
       type: Boolean,
+      default: false,
       required: true,
     },
     width: {
@@ -20,11 +26,21 @@ export default {
       dialogWidth: `${this.width}px`,
     }
   },
+
+  computed: {
+    dialogState() {
+      return this.dialog;
+    }
+  }
 }
 </script>
 
 <template>
-  <v-dialog v-model="dialog" persistent :max-width="dialogWidth">
+  <v-dialog
+    v-model="dialogState"
+    persistent
+    :max-width="dialogWidth"
+  >
     <v-card>
       <slot />
     </v-card>

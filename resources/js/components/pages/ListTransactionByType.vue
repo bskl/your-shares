@@ -5,12 +5,6 @@ import upperFirst from 'lodash/upperFirst';
 import loadingHandler from '../../mixins/loadingHandler.js';
 
 export default {
-  props: {
-    initialTransactions: {
-      type: [Array, Object],
-      required: true,
-    },
-  },
 
   /**
    * The component's name.
@@ -20,6 +14,13 @@ export default {
   mixins: [
     loadingHandler,
   ],
+
+  props: {
+    initialTransactions: {
+      type: [Array, Object],
+      required: true,
+    },
+  },
 
   /**
    * The component's data.
@@ -87,40 +88,69 @@ export default {
 </script>
 
 <template>
-  <v-row align="center" justify="center" v-if="!isLoading">
-    <v-col cols="12" sm="8" md="4" lg="10">
+  <v-row
+    v-if="!isLoading"
+    align="center"
+    justify="center"
+  >
+    <v-col
+      cols="12"
+      sm="8"
+      md="4"
+      lg="10"
+    >
       <v-card>
-        <v-toolbar flat class="pl-2">
-          <v-btn icon exact
+        <v-toolbar
+          flat
+          class="pl-2"
+        >
+          <v-btn
+            icon
+            exact
             @click="goBack()"
           >
-            <v-icon color="grey darken-2">arrow_back</v-icon>
+            <v-icon color="grey darken-2">
+              arrow_back
+            </v-icon>
           </v-btn>
-          <v-toolbar-title class="pl-2">{{ title }}</v-toolbar-title>
+          <v-toolbar-title class="pl-2">
+            {{ title }}
+          </v-toolbar-title>
         </v-toolbar>
-        <v-divider></v-divider>
+        <v-divider />
         <v-card-text>
-          <v-data-table item-key="id" disable-sort
+          <v-data-table
+            item-key="id"
+            disable-sort
             :mobile-breakpoint="0"
             :items="transactions"
             :headers="headers"
           >
-            <template v-slot:body="{ items }">
+            <template #body="{ items }">
               <tbody>
                 <tr v-if="items.length == 0">
-                  <td class="text-center"
+                  <td
+                    class="text-center"
                     :colspan="headers.length"
                   >
                     {{ $t('You have not any transaction.') }}
                   </td>
                 </tr>
-                <router-link custom v-slot="{ navigate }"
-                  v-for="item in items" :key="item.item"
+                <router-link
+                  v-for="item in items"
+                  v-slot="{ navigate }"
+                  :key="item.item"
+                  custom
                   :to="itemLink(item.item)"
                 >
-                  <tr @click="navigate" role="link">
-                    <td class="text-center"
-                      v-for="(header, index) in headers" :key="index"
+                  <tr
+                    role="link"
+                    @click="navigate"
+                  >
+                    <td
+                      v-for="(header, index) in headers"
+                      :key="index"
+                      class="text-center"
                     >
                       {{ item[header.value] || '-' }}
                     </td>

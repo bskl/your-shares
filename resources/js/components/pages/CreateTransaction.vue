@@ -15,17 +15,14 @@ export default {
    */
   name: 'CreateTransaction',
 
+  components: {
+    FormErrors, VCurrencyField, SearchSymbolField,
+  },
+
   mixins: [
     validationHandler,
     loadingHandler,
   ],
-
-  components: {
-    FormErrors,
-    VCurrencyField,
-    SearchSymbolField,
-  },
-
 
   props: {
     shareId: {
@@ -213,34 +210,34 @@ export default {
           >
             <form-errors :errors="errors" />
             <v-input
+              id="share_id"
+              ref="share_id"
+              v-model="form.share_id"
               type="hidden"
               name="share_id"
-              ref="share_id"
-              id="share_id"
               readonly
               hide-details
               dense
-              v-model="form.share_id"
             />
             <v-select
-              name="type"
-              ref="type"
               id="type"
+              ref="type"
+              v-model="form.type"
+              name="type"
               autofocus
               single-line
               filled
               clearable
               prepend-inner-icon="format_list_bulleted"
-              v-model="form.type"
               :disabled="isLoading"
               :items="transactionTypes"
               :label="$t('Select Transaction')"
               :rules="[rules.required]"
               :error-messages="getError('type')"
-              @change="onChangeType"
               item-text="label"
               item-value="id"
               menu-props="bottom"
+              @change="onChangeType"
             />
             <v-menu
               ref="menu"
@@ -253,10 +250,10 @@ export default {
             >
               <template #activator="{ on, attrs }">
                 <v-text-field
-                  name="date_at"
-                  v-model="form.date_at"
-                  ref="date_at"
                   id="date_at"
+                  ref="date_at"
+                  v-model="form.date_at"
+                  name="date_at"
                   readonly
                   filled
                   clearable
@@ -284,15 +281,15 @@ export default {
               :symbol-id.sync="form.symbol_id"
             />
             <v-text-field
+              v-if="form.type == 3 || form.type == 4"
+              id="preference"
+              ref="preference"
+              v-model="form.preference"
               type="number"
               name="preference"
-              ref="preference"
-              id="preference"
               filled
               clearable
-              v-if="form.type == 3 || form.type == 4"
               prepend-inner-icon="format_list_numbered"
-              v-model="form.preference"
               :disabled="isLoading"
               :label="$t('Enter Preference Amount')"
               :rules="[rules.required]"
@@ -302,14 +299,14 @@ export default {
                 : $t('You must write your share amount on the day of rights.')"
             />
             <v-text-field
+              id="lot"
+              ref="lot"
+              v-model="form.lot"
               type="number"
               name="lot"
-              ref="lot"
-              id="lot"
               filled
               clearable
               prepend-inner-icon="format_list_numbered"
-              v-model="form.lot"
               :disabled="isLoading"
               :label="$t('Enter Share Amount')"
               :rules="[rules.required]"
@@ -328,15 +325,15 @@ export default {
               @change="value = $event"
             />
             <v-text-field
+              v-if="form.type == 5"
+              id="exchange_ratio"
+              ref="exchange_ratio"
+              v-model="form.exchange_ratio"
               type="number"
               name="exchange_ratio"
-              ref="exchange_ratio"
-              id="exchange_ratio"
               filled
               clearable
-              v-if="form.type == 5"
               prepend-inner-icon="donut_large"
-              v-model="form.exchange_ratio"
               :disabled="isLoading"
               :label="$t('Enter Exchange Ratio')"
               :rules="[rules.required]"
@@ -344,16 +341,16 @@ export default {
               :hint="$t('for_example', { example: '1,15997' })"
             />
             <v-text-field
+              v-if="form.type == 0 || form.type == 1 || form.type == 7"
+              id="commission"
+              ref="commission"
+              v-model="form.commission"
               type="number"
               name="commission"
-              ref="commission"
-              id="commission"
               filled
               clearable
-              v-if="form.type == 0 || form.type == 1 || form.type == 7"
               step="0.0001"
               prepend-inner-icon="donut_large"
-              v-model="form.commission"
               :disabled="isLoading"
               :label="$t('Enter Commission Rate')"
               :rules="[rules.required]"
@@ -371,7 +368,7 @@ export default {
           </v-form>
         </v-card-text>
         <v-card-actions class="pb-4 pr-4">
-          <v-spacer/>
+          <v-spacer />
           <v-progress-circular
             v-show="isLoading"
             indeterminate

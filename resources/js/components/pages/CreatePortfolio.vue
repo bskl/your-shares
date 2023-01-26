@@ -12,14 +12,14 @@ export default {
    */
   name: 'CreatePortfolio',
 
+  components: {
+    FormErrors,
+  },
+
   mixins: [
     validationHandler,
     loadingHandler,
   ],
-
-  components: {
-    FormErrors,
-  },
 
   /**
    * The component's data.
@@ -69,57 +69,88 @@ export default {
 </script>
 
 <template>
-  <v-row align="center" justify="center">
-    <v-col cols="12" sm="8" md="4">
+  <v-row
+    align="center"
+    justify="center"
+  >
+    <v-col
+      cols="12"
+      sm="8"
+      md="4"
+    >
       <v-card>
         <v-card-title>
           <span class="title font-weight-light">{{ $t("Add Portfolio") }}</span>
         </v-card-title>
         <v-card-text>
-          <v-form v-model="valid" ref="form" lazy-validation
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation
             @keyup.native.enter="submit"
             @keydown.native="clearError($event.target.name)"
           >
             <form-errors :errors="errors" />
-            <v-text-field type="text" name="name" ref="name" id="name" filled autofocus
-              prepend-inner-icon="text_fields"
+            <v-text-field
+              id="name"
+              ref="name"
               v-model="form.name"
+              type="text"
+              name="name"
+              filled
+              autofocus
+              prepend-inner-icon="text_fields"
               :disabled="isLoading"
               :label="$t('Portfolio Name')"
               :rules="[rules.required]"
               :error-messages="getError('name')"
-            ></v-text-field>
-            <v-select type="select" name="currency" ref="currency" id="currency" filled
-              prepend-inner-icon="money"
+            />
+            <v-select
+              id="currency"
+              ref="currency"
               v-model="form.currency"
+              type="select"
+              name="currency"
+              filled
+              prepend-inner-icon="money"
               :disabled="isLoading"
               :items="['TRY']"
               :label="$t('Currency')"
               :rules="[rules.required]"
               :error-messages="getError('currency')"
-            ></v-select>
-            <v-text-field type="number" name="commission" ref="commission" id="commission" filled
+            />
+            <v-text-field
+              id="commission"
+              ref="commission"
+              v-model="form.commission"
+              type="number"
+              name="commission"
+              filled
               prepend-inner-icon="donut_large"
               step="0.0001"
-              v-model="form.commission"
               :disabled="isLoading"
               :label="$t('Enter Commission Rate')"
               :rules="[rules.required]"
               :error-messages="getError('commission')"
               :hint="$t('for_example', { example: $t('Garanti Bank: 0.188') })"
-            ></v-text-field>
+            />
           </v-form>
         </v-card-text>
         <v-card-actions class="pb-4 pr-4">
-          <v-spacer></v-spacer>
-          <v-progress-circular v-show="isLoading" indeterminate />
-          <v-btn class="btn-close"
+          <v-spacer />
+          <v-progress-circular
+            v-show="isLoading"
+            indeterminate
+          />
+          <v-btn
+            class="btn-close"
             :disabled="isLoading"
             :to="'/'"
           >
             {{ $t("Close") }}
           </v-btn>
-          <v-btn class="btn-action"
+          <v-btn
+            class="btn-action"
             :disabled="isLoading"
             @click="submit"
           >
