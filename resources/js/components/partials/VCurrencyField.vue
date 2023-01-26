@@ -1,5 +1,8 @@
 <script>
 
+import { watch } from 'vue';
+import { useCurrencyInput } from 'vue-currency-input';
+import { watchDebounced } from '@vueuse/core';
 import validationHandler from '../../mixins/validationHandler.js';
 
 export default {
@@ -7,6 +10,10 @@ export default {
    * The component's name.
    */
   name: 'VCurrencyField',
+
+  mixins: [
+    validationHandler,
+  ],
 
   props: {
     name: {
@@ -23,7 +30,17 @@ export default {
     },
     options: {
       type: Object,
-      default: {}
+      default() {
+        return {
+          currency: 'TRY',
+          currencyDisplay: 'narrowSymbol',
+          locale: 'tr-TR',
+          hideCurrencySymbolOnFocus: false,
+          hideGroupingSeparatorOnFocus: false,
+          hideNegligibleDecimalDigitsOnFocus: false,
+          autoDecimalDigits: true,
+        }
+      }
     },
     isLoading: {
       type: Boolean,
@@ -31,54 +48,42 @@ export default {
     },
   },
 
-  mixins: [
-    validationHandler,
-  ],
+  setup (props, { emit }) {
+    const { inputRef, numberValue, setValue, setOptions } = useCurrencyInput(props.options, false)
 
-  data() {
-    return {
-      formattedValue: null,
-    };
-  },
+    watchDebounced(numberValue, (value) => emit('input', value), { debounce: 1000 })
 
-  watch: {
-    value(value) {
-      this.setValue(value);
-    }
-  },
+    watch(
+      () => props.modelValue, // Vue 2: props.value
+      (value) => {
+        setValue(value)
+      }
+    )
 
-  mounted() {
-    this.setValue(this.value);
-  },
+    watch(
+      () => props.options,
+      (options) => {
+        setOptions(options)
+      }
+    )
 
-  methods: {
-    setValue(value) {
-      this.$ci.setValue(this.$refs[this.name], value);
-    },
-
-    onInput(value) {
-      this.$emit('input', this.$ci.getValue(this.$refs[this.name]));
-      this.formattedValue = value;
-    },
-
-    onChange(value) {
-      this.$emit('change', this.$ci.getValue(this.$refs[this.name]));
-      this.formattedValue = value;
-    }
-  },
+    return { inputRef }
+  }
 }
 </script>
 
 <template>
-  <v-text-field type="text" :name="name" :ref="name" :id="name" filled clearable
+  <v-text-field
+    :id="name"
+    ref="inputRef"
+    type="text"
+    :name="name"
+    filled
+    clearable
     prepend-inner-icon="money"
-    v-currency="options"
-    :value="formattedValue"
     :disabled="isLoading"
     :label="label"
     :rules="[rules.required]"
     :error-messages="getError(name)"
-    @change="onChange"
-    @input="onInput"
-  ></v-text-field>
+  />
 </template>
