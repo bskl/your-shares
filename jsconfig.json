@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2015",
+    "target": "es6",
     "module": "esnext",
     "baseUrl": "./",
     "paths": {
@@ -8,7 +8,8 @@
     }
   },
   "include": [
-    "app/resources/js/*.vue",
-    "app/resources/js/*.js"
-  ]
+    "resources/js/*.vue",
+    "resources/js/*.js"
+  ],
+  "exclude": ["node_modules"]
 }

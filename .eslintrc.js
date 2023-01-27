@@ -1,15 +1,81 @@
 module.exports = {
+  root: true,
+  parserOptions: {
+    sourceType: 'script',
+  },
   extends: [
-    // add more generic rulesets here, such as:
-    // 'eslint:recommended',
+    // https://github.com/vuejs/eslint-plugin-vue#bulb-rules
     'plugin:vue/recommended',
-    // 'plugin:vue/recommended' // Use this if you are using Vue.js 2.x.
+    // https://github.com/standard/standard/blob/master/docs/RULES-en.md
+    'standard',
+    // https://github.com/prettier/eslint-config-prettier
+    'prettier',
+    'prettier/standard',
+    'prettier/vue',
   ],
   rules: {
-    'vue/valid-v-slot': ['error', {
-      'allowModifiers': true,
-    }],
-    // override/add rules settings here, such as:
-    // 'vue/no-unused-vars': 'error'
-  }
+    // Only allow debugger in development
+    'no-debugger': process.env.PRE_COMMIT ? 'error' : 'off',
+    // Only allow `console.log` in development
+    'no-console': process.env.PRE_COMMIT
+      ? ['error', { allow: ['warn', 'error'] }]
+      : 'off',
+    'import/no-relative-parent-imports': 'error',
+    'import/order': 'error',
+    'vue/array-bracket-spacing': 'error',
+    'vue/arrow-spacing': 'error',
+    'vue/block-spacing': 'error',
+    'vue/brace-style': 'error',
+    'vue/camelcase': 'error',
+    'vue/comma-dangle': ['error', 'always-multiline'],
+    'vue/component-name-in-template-casing': 'error',
+    'vue/dot-location': ['error', 'property'],
+    'vue/eqeqeq': 'error',
+    'vue/key-spacing': 'error',
+    'vue/keyword-spacing': 'error',
+    'vue/no-boolean-default': ['error', 'default-false'],
+    'vue/no-deprecated-scope-attribute': 'error',
+    'vue/no-empty-pattern': 'error',
+    'vue/object-curly-spacing': ['error', 'always'],
+    'vue/padding-line-between-blocks': 'error',
+    'vue/space-infix-ops': 'error',
+    'vue/space-unary-ops': 'error',
+    'vue/v-on-function-call': 'error',
+    'vue/v-slot-style': [
+      'error',
+      {
+        atComponent: 'v-slot',
+        default: 'v-slot',
+        named: 'longform',
+      },
+    ],
+    'vue/valid-v-slot': 'error',
+  },
+  overrides: [
+    {
+      files: ['src/**/*', 'tests/unit/**/*', 'tests/e2e/**/*'],
+      parserOptions: {
+        parser: 'babel-eslint',
+        sourceType: 'module',
+      },
+      env: {
+        browser: true,
+      },
+    },
+    {
+      files: ['**/*.unit.js'],
+      parserOptions: {
+        parser: 'babel-eslint',
+        sourceType: 'module',
+      },
+      env: { jest: true },
+      globals: {
+        mount: false,
+        shallowMount: false,
+        shallowMountView: false,
+        createComponentMocks: false,
+        createModuleStore: false,
+      },
+    },
+  ],
 }
