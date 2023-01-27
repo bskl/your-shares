@@ -79,7 +79,7 @@ class SetSymbols extends Command
      *
      * @return \DOMNodeList|false
      */
-    protected function parseHtml(): \DOMNodeList|false
+    protected function parseHtml(): DOMNodeList|false
     {
         $dom = new DOMDocument();
         $dom->preserveWhiteSpace = false;
