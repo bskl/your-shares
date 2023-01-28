@@ -111,7 +111,7 @@ class Transaction extends BaseModel
      */
     public function handleCalculationsOfBuying(): void
     {
-        $this->remaining = $this->lot;
+        $this->remaining = (int) $this->lot;
         $this->amount = $this->price->multiply($this->lot);
         $this->commission_price = $this->amount->multiply($this->commission)
                                                ->divide(100);
@@ -140,7 +140,7 @@ class Transaction extends BaseModel
      */
     public function handleCalculationsOfBonus(): void
     {
-        $this->remaining = $this->lot;
+        $this->remaining = (int) $this->lot;
         $this->price = MoneyManager::createMoney();
         $this->bonus = ($this->lot * 100) / $this->preference;
         $this->update();
@@ -153,7 +153,7 @@ class Transaction extends BaseModel
      */
     public function handleCalculationsOfRights(): void
     {
-        $this->remaining = $this->lot;
+        $this->remaining = (int) $this->lot;
         $this->price = MoneyManager::createMoney('100');
         $this->amount = $this->price->multiply($this->lot);
         $this->rights = ($this->lot * 100) / $this->preference;
@@ -167,7 +167,7 @@ class Transaction extends BaseModel
      */
     public function handleCalculationsOfMergerIn(): void
     {
-        $this->remaining = $this->lot;
+        $this->remaining = (int) $this->lot;
         $this->amount = $this->price->multiply($this->lot);
         $this->update();
     }

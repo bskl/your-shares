@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('portfolio_id')->unsigned();
             $table->integer('symbol_id')->unsigned();
-            $table->decimal('lot', 11, 3)->default(0);
+            $table->float('lot', 11, 3)->unsigned()->default(0);
             $table->integer('average')->unsigned()->default(0);
             $table->integer('average_amount')->unsigned()->default(0);
             $table->integer('amount')->unsigned()->default(0);
