@@ -11,20 +11,14 @@ class ResetPassword extends Notification
     use Queueable;
 
     /**
-     * The token instance.
-     *
-     * @var string
-     */
-    public $token;
-
-    /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($token)
-    {
-        $this->token = $token;
+    public function __construct(
+        public string $token
+    ) {
+        //
     }
 
     /**

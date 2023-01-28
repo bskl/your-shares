@@ -77,7 +77,7 @@ class SetSymbols extends Command
     /**
      * Retrieve data from HTML body.
      *
-     * @return \DOMNodeList|false
+     * @return \DOMNodeList<\DOMNode>|false
      */
     protected function parseHtml(): DOMNodeList|false
     {
@@ -89,17 +89,13 @@ class SetSymbols extends Command
         $xpath = new DOMXpath($dom);
         $allTr = $xpath->query("//table[contains(@data-csvname,'tumhisse')]/tbody/tr");
 
-        if (! $allTr->length) {
-            return false;
-        }
-
         return $allTr;
     }
 
     /**
      * Retrieve data from HTML body.
      *
-     * @param  \DOMNodeList  $content
+     * @param  \DOMNodeList<\DOMNode>  $content
      * @return \Illuminate\Support\Collection<int,array<string,mixed>>
      */
     protected function parseSymbols(DOMNodeList $content): Collection

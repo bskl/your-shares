@@ -155,7 +155,7 @@ class Share extends BaseModel
      * Get the share's sold transactions.
      *
      * @param  string  $operator
-     * @return \Illuminate\Database\Eloquent\Collection<\App\Models\Transaction>
+     * @return \Illuminate\Database\Eloquent\Collection<int,\App\Models\Transaction>
      */
     public function getSoldTransactions(string $operator = '='): Collection
     {
@@ -167,7 +167,7 @@ class Share extends BaseModel
     /**
      * Get the share's not sold transactions.
      *
-     * @return \Illuminate\Database\Eloquent\Collection<\App\Models\Transaction>
+     * @return \Illuminate\Database\Eloquent\Collection<int,\App\Models\Transaction>
      */
     public function getNotSoldTransactions(): Collection
     {

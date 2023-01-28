@@ -106,7 +106,7 @@ class Portfolio extends BaseModel
     /**
      * Get the portfolio's shares by lot.
      *
-     * @return \Illuminate\Database\Eloquent\Collection<\App\Models\Share>
+     * @return \Illuminate\Database\Eloquent\Collection<int,\App\Models\Share>
      */
     public function getSharesByLot(): Collection
     {
