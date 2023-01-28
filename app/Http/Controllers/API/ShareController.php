@@ -121,7 +121,7 @@ class ShareController extends Controller
         $type = TransactionType::fromName(ucfirst($type));
         $transactionType = $this->getTransactionType($type);
         $transactions = $share->transactionsOfType($transactionType['value'])
-                              ->whereYear('date_at', $year)
+                              ->whereYear('date_at', '=', $year)
                               ->get();
 
         return TransactionResource::collection($transactions);

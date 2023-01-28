@@ -100,7 +100,7 @@ class SetSymbols extends Command
      * Retrieve data from HTML body.
      *
      * @param  \DOMNodeList  $content
-     * @return \Illuminate\Support\Collection<int,\App\Models\Symbol>
+     * @return \Illuminate\Support\Collection<int,array<string,mixed>>
      */
     protected function parseSymbols(DOMNodeList $content): Collection
     {
@@ -150,7 +150,7 @@ class SetSymbols extends Command
     /**
      * Update or create new symbol instance for the given collection.
      *
-     * @param  \Illuminate\Support\Collection<int,\App\Models\Symbol>  $symbols
+     * @param  \Illuminate\Support\Collection<int,array<string,mixed>>  $symbols
      * @return void
      */
     protected function storeSymbols(Collection $symbols): void

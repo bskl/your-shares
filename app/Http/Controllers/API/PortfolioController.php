@@ -148,7 +148,7 @@ class PortfolioController extends Controller
         $grouped = $portfolio->transactionsOfType($transactionType['value'])
                              ->with('share.symbol:id,code,last_price')
                              ->selectRaw('transactions.*, MONTH(date_at) AS month, YEAR(date_at) AS year, SUM(transactions.'.$attribute.') AS '.$attribute)
-                             ->whereYear('date_at', $year)
+                             ->whereYear('date_at', '=', $year)
                              ->orderBy('date_at')
                              ->groupBy('share_id', 'month')
                              ->get()

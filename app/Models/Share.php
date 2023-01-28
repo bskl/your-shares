@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Money\Money;
 
 /**
- * @property float $lot
+ * @property int|numeric-string $lot
  * @property \Money\Money $average
  * @property \Money\Money $average_with_dividend
  * @property \Money\Money $average_amount
