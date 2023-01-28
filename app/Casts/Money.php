@@ -22,7 +22,7 @@ class Money implements CastsAttributes, SerializesCastableAttributes
      */
     public function set($model, string $key, $value, array $attributes): string
     {
-        return MoneyManager::parseByDecimal($value)->getAmount();
+        return is_null($value) ? '0' : MoneyManager::parseByDecimal($value)->getAmount();
     }
 
     /**
