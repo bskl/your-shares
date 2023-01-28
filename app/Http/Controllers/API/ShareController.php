@@ -35,7 +35,7 @@ class ShareController extends Controller
      */
     public function store(ShareRequest $request): ShareResource|JsonResponse
     {
-        $this->authorize(Share::class);
+        $this->authorize([Share::class, $request->input('portfolio_id')]);
 
         try {
             $share = Share::create($request->validated());

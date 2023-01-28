@@ -37,11 +37,12 @@ class SharePolicy
      * Determine whether the user can create shares.
      *
      * @param  \App\Models\User  $user
+     * @param  int  $portfolioId
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user, int $portfolioId)
     {
-        return $user->portfolios->count();
+        return $user->portfolios()->where('id', $portfolioId)->exists();
     }
 
     /**
