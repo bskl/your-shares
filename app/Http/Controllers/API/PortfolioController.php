@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Enums\TransactionType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\PortfolioRequest;
-use App\Http\Resources\Portfolio as PortfolioResource;
+use App\Http\Resources\PortfolioResource;
 use App\Models\Portfolio;
 use App\Support\MoneyManager;
 use Illuminate\Http\JsonResponse;
@@ -33,7 +33,7 @@ class PortfolioController extends Controller
      * Show the portfolio for the given id.
      *
      * @param  \App\Models\Portfolio  $portfolio
-     * @return \App\Http\Resources\Portfolio
+     * @return \App\Http\Resources\PortfolioResource
      */
     public function show(Portfolio $portfolio): PortfolioResource
     {
@@ -46,7 +46,7 @@ class PortfolioController extends Controller
      * Create a new portfolio instance for auth user after a valid request.
      *
      * @param  \App\Http\Requests\API\PortfolioRequest  $request
-     * @return \App\Http\Resources\Portfolio|\Illuminate\Http\JsonResponse
+     * @return \App\Http\Resources\PortfolioResource|\Illuminate\Http\JsonResponse
      */
     public function store(PortfolioRequest $request): PortfolioResource|JsonResponse
     {
@@ -74,7 +74,7 @@ class PortfolioController extends Controller
      *
      * @param  \App\Models\Portfolio  $portfolio
      * @param  \App\Http\Requests\API\PortfolioRequest  $request
-     * @return \App\Http\Resources\Portfolio|\Illuminate\Http\JsonResponse
+     * @return \App\Http\Resources\PortfolioResource|\Illuminate\Http\JsonResponse
      */
     public function update(Portfolio $portfolio, PortfolioRequest $request): PortfolioResource|JsonResponse
     {
@@ -96,7 +96,7 @@ class PortfolioController extends Controller
      * Delete a portfolio instance.
      *
      * @param  \App\Models\Portfolio  $portfolio
-     * @return \App\Http\Resources\Portfolio|\Illuminate\Http\JsonResponse
+     * @return \App\Http\Resources\PortfolioResource|\Illuminate\Http\JsonResponse
      */
     public function destroy(Portfolio $portfolio): PortfolioResource|JsonResponse
     {

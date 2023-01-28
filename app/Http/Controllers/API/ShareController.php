@@ -5,8 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Enums\TransactionType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\ShareRequest;
-use App\Http\Resources\Share as ShareResource;
-use App\Http\Resources\Transaction as TransactionResource;
+use App\Http\Resources\ShareResource;
+use App\Http\Resources\TransactionResource;
 use App\Models\Share;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -18,7 +18,7 @@ class ShareController extends Controller
      * Show the share instance for the given id.
      *
      * @param  \App\Models\Share  $share
-     * @return \App\Http\Resources\Share
+     * @return \App\Http\Resources\ShareResource
      */
     public function show(Share $share): ShareResource
     {
@@ -31,7 +31,7 @@ class ShareController extends Controller
      * Create a new share instance for auth user after a valid request.
      *
      * @param  \App\Http\Requests\API\ShareRequest  $request
-     * @return \App\Http\Resources\Share|\Illuminate\Http\JsonResponse
+     * @return \App\Http\Resources\ShareResource|\Illuminate\Http\JsonResponse
      */
     public function store(ShareRequest $request): ShareResource|JsonResponse
     {
@@ -54,7 +54,7 @@ class ShareController extends Controller
      * Delete a share instance.
      *
      * @param  \App\Models\Share  $share
-     * @return \App\Http\Resources\Share|\Illuminate\Http\JsonResponse
+     * @return \App\Http\Resources\ShareResource|\Illuminate\Http\JsonResponse
      */
     public function destroy(Share $share): ShareResource|JsonResponse
     {
