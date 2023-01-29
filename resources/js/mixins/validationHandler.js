@@ -1,6 +1,7 @@
 import { mapState, mapActions } from 'vuex';
 import router from "../router";
 import store from '../store';
+import includes from 'lodash/includes';
 
 export default {
   data() {
@@ -31,21 +32,21 @@ export default {
 
   methods: {
     ...mapActions([
-      'setErrors', 'unsetError',
+      'setShowModal', 'setErrors', 'unsetError',
     ]),
 
     syncErrors(error) {
       if (typeof error !== 'undefined') {
         if (typeof error.response !== 'undefined' && error.hasOwnProperty('response')) {
-          if (error.response.status === 400 || error.response.status === 401) {
-            store.commit('LOGGED_OUT');
-            router.push({ name: 'Login' });
-          } else if (error.response.status === 403) {
-            router.push({ name: 'Forbidden' });
-          } else if (error.response.status === 404) {
-            router.push({ name: 'NotFound' });
-          } else if (error.response.status === 419) {
-            router.push({ name: 'ExpiredSession' });
+          if (includes([400, 401, 403, 404, 419], error.response.status)) {
+            this.setShowModal(false);
+
+            if (includes([400, 401], error.response.status)) {
+              store.commit('LOGGED_OUT');
+              router.push({ name: 'Login' });
+            } else {
+              router.push(`/${error.response.status}`);
+            }
           } else if (error.response.hasOwnProperty('data') && error.response.data.hasOwnProperty('errors')) {
             this.setErrors(error.response.data.errors);
 
@@ -59,6 +60,7 @@ export default {
               this.focusFirstErrorInput();
             }, 500);
           } else {
+            this.setShowModal(false);
             router.push({ name: 'NotFound' });
           }
         } else {
