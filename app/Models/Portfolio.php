@@ -167,14 +167,14 @@ class Portfolio extends BaseModel
     /**
      * Calculate percent of the total gain.
      *
-     * @return float
+     * @return string
      */
-    public function getTotalGainPercentAttribute(): float
+    public function getTotalGainPercentAttribute(): string
     {
         $money = $this->sumShareAttribute('average_amount');
 
         return $money->isZero()
-            ? 0
+            ? '0'
             : $this->sumShareAttribute('gain')->ratioOf($money);
     }
 

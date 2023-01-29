@@ -4,13 +4,14 @@ namespace App\Rules;
 
 use App\Support\MoneyManager;
 use Illuminate\Contracts\Validation\Rule;
+use Money\Money;
 
 class MoneyGt implements Rule
 {
     /**
      * Compared value.
      *
-     * @var \Money\Money|string
+     * @var \Money\Money
      */
     protected $other;
 
@@ -20,32 +21,25 @@ class MoneyGt implements Rule
      * @param  \Money\Money|string  $parameters
      * @return void
      */
-    public function __construct($parameters)
+    public function __construct(Money|string $parameters)
     {
-        $this->other = $parameters;
+        $this->other = MoneyManager::parseByDecimal($parameters);
     }
 
     /**
-     * Determine if the validation rule passes.
-     *
-     * @param  string  $attribute
-     * @param  int|string  $value
-     * @return bool
+     * {@inheritdoc}
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
         $money = MoneyManager::parseByDecimal($value);
-        $this->other = MoneyManager::parseByDecimal($this->other);
 
         return $money->greaterThan($this->other);
     }
 
     /**
-     * Get the validation error message.
-     *
-     * @return string
+     * {@inheritdoc}
      */
-    public function message()
+    public function message(): string
     {
         return trans('validation.money_gt', ['value' => MoneyManager::formatByIntl($this->other)]);
     }

@@ -13,7 +13,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Money\Money;
 
 /**
- * @property int|numeric-string $lot
+ * @psalm-property int|numeric-string $lot
+ *
  * @property \Money\Money $average
  * @property \Money\Money $average_with_dividend
  * @property \Money\Money $average_amount
@@ -230,7 +231,7 @@ class Share extends BaseModel
      */
     public function handleCalculationsOfBuying(Transaction $transaction): void
     {
-        $this->lot += $transaction->lot;
+        $this->lot = bcadd($this->lot, $transaction->lot, 3);
         $this->average_amount = $this->average_amount->add($transaction->amount);
         $this->average = $this->average_amount->divide($this->lot);
         $this->average_amount_with_dividend = $this->average_amount_with_dividend->add($transaction->amount);
@@ -250,11 +251,11 @@ class Share extends BaseModel
      */
     public function handleCalculationsOfDeletedBuying(Transaction $transaction): void
     {
-        $this->lot -= $transaction->lot;
+        $this->lot = bcsub($this->lot, $transaction->lot, 3);
         $this->average_amount = $this->average_amount->subtract($transaction->amount);
-        $this->average = ($this->lot == 0) ? '0' : $this->average_amount->divide($this->lot);
+        $this->average = ($this->lot == '0') ? MoneyManager::createMoney() : $this->average_amount->divide($this->lot);
         $this->average_amount_with_dividend = $this->average_amount_with_dividend->subtract($transaction->amount);
-        $this->average_with_dividend = ($this->lot == 0) ? '0' : $this->average_amount_with_dividend->divide($this->lot);
+        $this->average_with_dividend = ($this->lot == '0') ? MoneyManager::createMoney() : $this->average_amount_with_dividend->divide($this->lot);
         $this->total_purchase_amount = $this->total_purchase_amount->subtract($transaction->amount);
         $this->paid_amount = $this->paid_amount->subtract($transaction->amount);
         $this->total_commission_amount = $this->total_commission_amount->subtract($transaction->commission_price);
@@ -272,11 +273,11 @@ class Share extends BaseModel
      */
     public function handleCalculationsOfSale(Transaction $transaction, Money $gain, Money $amount): void
     {
-        $this->lot -= $transaction->lot;
+        $this->lot = bcsub($this->lot, $transaction->lot, 3);
         $this->average_amount = $this->average_amount->subtract($amount);
-        $this->average = ($this->lot == 0) ? '0' : $this->average_amount->divide($this->lot);
+        $this->average = ($this->lot == '0') ? MoneyManager::createMoney() : $this->average_amount->divide($this->lot);
         $this->average_amount_with_dividend = $this->average_amount_with_dividend->subtract($amount);
-        $this->average_with_dividend = ($this->lot == 0) ? '0' : $this->average_amount_with_dividend->divide($this->lot);
+        $this->average_with_dividend = ($this->lot == '0') ? MoneyManager::createMoney() : $this->average_amount_with_dividend->divide($this->lot);
         $this->total_sale_amount = $this->total_sale_amount->add($transaction->amount);
         $this->paid_amount = $this->paid_amount->subtract($amount);
         $this->gain_loss = $this->gain_loss->add($gain);
@@ -295,11 +296,11 @@ class Share extends BaseModel
      */
     public function handleCalculationsOfDeletedSale(Transaction $transaction, Money $gain, Money $amount): void
     {
-        $this->lot += $transaction->lot;
+        $this->lot = bcadd($this->lot, $transaction->lot, 3);
         $this->average_amount = $this->average_amount->add($amount);
-        $this->average = ($this->lot == 0) ? '0' : $this->average_amount->divide($this->lot);
+        $this->average = ($this->lot == '0') ? MoneyManager::createMoney() : $this->average_amount->divide($this->lot);
         $this->average_amount_with_dividend = $this->average_amount_with_dividend->add($amount);
-        $this->average_with_dividend = ($this->lot == 0) ? '0' : $this->average_amount_with_dividend->divide($this->lot);
+        $this->average_with_dividend = ($this->lot == '0') ? MoneyManager::createMoney() : $this->average_amount_with_dividend->divide($this->lot);
         $this->total_sale_amount = $this->total_sale_amount->subtract($transaction->amount);
         $this->paid_amount = $this->paid_amount->add($amount);
         $this->gain_loss = $this->gain_loss->subtract($gain);
@@ -348,7 +349,7 @@ class Share extends BaseModel
      */
     public function handleCalculationsOfBonus(Transaction $transaction): void
     {
-        $this->lot += $transaction->lot;
+        $this->lot = bcadd($this->lot, $transaction->lot, 3);
         $this->average = $this->average_amount->divide($this->lot);
         $this->average_with_dividend = $this->average_amount_with_dividend->divide($this->lot);
         $this->total_bonus_share += $transaction->lot;
@@ -363,7 +364,7 @@ class Share extends BaseModel
      */
     public function handleCalculationsOfDeletedBonus(Transaction $transaction): void
     {
-        $this->lot -= $transaction->lot;
+        $this->lot = bcsub($this->lot, $transaction->lot, 3);
         $this->average = $this->average_amount->divide($this->lot);
         $this->average_with_dividend = $this->average_amount_with_dividend->divide($this->lot);
         $this->total_bonus_share -= $transaction->lot;
@@ -378,7 +379,7 @@ class Share extends BaseModel
      */
     public function handleCalculationsOfRights(Transaction $transaction): void
     {
-        $this->lot += $transaction->lot;
+        $this->lot = bcadd($this->lot, $transaction->lot, 3);
         $this->average_amount = $this->average_amount->add($transaction->amount);
         $this->average = $this->average_amount->divide($this->lot);
         $this->average_amount_with_dividend = $this->average_amount_with_dividend->add($transaction->amount);
@@ -397,7 +398,7 @@ class Share extends BaseModel
      */
     public function handleCalculationsOfDeletedRights(Transaction $transaction): void
     {
-        $this->lot -= $transaction->lot;
+        $this->lot = bcsub($this->lot, $transaction->lot, 3);
         $this->average_amount = $this->average_amount->subtract($transaction->amount);
         $this->average = $this->average_amount->divide($this->lot);
         $this->average_amount_with_dividend = $this->average_amount_with_dividend->subtract($transaction->amount);
@@ -416,7 +417,7 @@ class Share extends BaseModel
      */
     public function handleCalculationsOfMergerOut(Transaction $transaction): void
     {
-        $this->lot -= $transaction->lot;
+        $this->lot = bcsub($this->lot, $transaction->lot, 3);
         $this->average_amount_with_dividend = $this->average_amount_with_dividend->subtract($this->average_amount);
         $this->paid_amount = $this->paid_amount->subtract($this->average_amount);
         $this->average_amount = $this->average = $this->average_with_dividend = MoneyManager::createMoney();
@@ -431,7 +432,7 @@ class Share extends BaseModel
      */
     public function handleCalculationsOfMergerIn(Transaction $transaction): void
     {
-        $this->lot += $transaction->lot;
+        $this->lot = bcadd($this->lot, $transaction->lot, 3);
         $this->average_amount = $this->average_amount->add($transaction->amount);
         $this->average = $this->average_amount->divide($this->lot);
         $this->average_amount_with_dividend = $this->average_amount_with_dividend->add($transaction->amount);

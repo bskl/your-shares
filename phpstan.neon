@@ -7,6 +7,9 @@ parameters:
         - app
 
     # The level 9 is the highest level
-    level: 6
+    level: 7
 
     checkMissingIterableValueType: false
+
+    ignoreErrors:
+        - '#^Property [a-zA-Z0-9\\_]+::\$user_id \(int\) does not accept int\|string\|null.$#'

@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Enums\TransactionType;
 use App\Models\Transaction;
-use Money\Money;
+use App\Support\MoneyManager;
 
 class TransactionService
 {
@@ -68,14 +68,14 @@ class TransactionService
     {
         $items = $transaction->share->getNotSoldTransactions();
         $lot = $transaction->lot;
-        $gain = $amount = Money::TRY(0);
+        $gain = $amount = MoneyManager::createMoney();
 
         $items->each(function ($item) use ($transaction, &$lot, &$gain, &$amount) {
             $soldLot = ($item->remaining < $lot) ? $item->remaining : $lot;
             $soldAmount = $transaction->price->multiply($soldLot);
-            $item->remaining = $item->remaining - $soldLot;
+            $item->remaining = bcsub($item->remaining, $soldLot);
             $item->sale_average_amount = $item->sale_average_amount->add($soldAmount);
-            $item->sale_average = $item->sale_average_amount->divide($item->lot - $item->remaining);
+            $item->sale_average = $item->sale_average_amount->divide(bcsub($item->lot, $item->remaining));
             $item->sale_gain = $item->sale_average_amount->subtract($item->amount);
             $item->update();
 
@@ -104,17 +104,17 @@ class TransactionService
     {
         $items = $transaction->share->getSoldTransactions();
         $lot = $transaction->lot;
-        $gain = $amount = Money::TRY(0);
+        $gain = $amount = MoneyManager::createMoney();
 
         $items->each(function ($item) use ($transaction, &$lot, &$gain, &$amount) {
-            $itemSold = $item->lot - $item->remaining;
+            $itemSold = bcsub($item->lot, $item->remaining);
             $soldLot = ($itemSold < $lot) ? $itemSold : $lot;
-            $item->remaining = $item->remaining + $soldLot;
+            $item->remaining = bcadd($item->remaining, $soldLot);
             $soldAmount = $transaction->price->multiply($soldLot);
             $item->sale_average_amount = $item->sale_average_amount->subtract($soldAmount);
-            $itemPreSold = (int) ($item->lot - $item->remaining);
-            $item->sale_average = ($itemPreSold == 0) ? '0' : $item->sale_average_amount->divide($itemPreSold);
-            $item->sale_gain = ($item->sale_average_amount->equals(Money::TRY(0))) ? '0' : $item->sale_average_amount->subtract($item->amount);
+            $itemPreSold = bcsub($item->lot, $item->remaining);
+            $item->sale_average = ($itemPreSold == '0') ? MoneyManager::createMoney() : $item->sale_average_amount->divide($itemPreSold);
+            $item->sale_gain = $item->sale_average_amount->equals(MoneyManager::createMoney()) ? MoneyManager::createMoney() : $item->sale_average_amount->subtract($item->amount);
             $item->update();
 
             $buyingAmount = $item->price->multiply($soldLot);
@@ -224,7 +224,7 @@ class TransactionService
             'share_id' => $newShare->id,
             'type' => TransactionType::MergerIn,
             'date_at' => $transaction->date_at,
-            'lot' => ($newLot = $transaction->lot * $transaction->exchange_ratio),
+            'lot' => ($newLot = bcmul($transaction->lot, $transaction->exchange_ratio, 3)),
             'exchange_ratio' => $transaction->exchange_ratio,
             'symbol_code' => $transaction->share->symbol->code,
         ]);

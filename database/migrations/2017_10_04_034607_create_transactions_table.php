@@ -19,8 +19,8 @@ return new class extends Migration
             $table->integer('share_id')->unsigned();
             $table->integer('type');
             $table->timestamp('date_at')->useCurrent();
-            $table->decimal('lot', 11, 3)->unsigned();
-            $table->integer('remaining')->unsigned()->nullable()->default(0);
+            $table->string('lot');
+            $table->string('remaining')->nullable()->default('0');
             $table->integer('price')->unsigned()->nullable()->default(0);
             $table->integer('amount')->unsigned()->nullable()->default(0);
             $table->decimal('commission', 5, 5)->unsigned()->nullable()->default(0);

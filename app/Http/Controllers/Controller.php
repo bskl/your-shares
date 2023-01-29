@@ -108,7 +108,7 @@ class Controller extends BaseController
      * Get transaction type attributes by type.
      *
      * @param  \App\Enums\TransactionType  $type
-     * @return array<string, array|bool>
+     * @return array{value: array<int,\App\Enums\TransactionType>, condition: bool}
      */
     public function getTransactionType(TransactionType $type): array
     {

@@ -44,6 +44,6 @@ class Decimal implements CastsAttributes, SerializesCastableAttributes
         $decimalFormatter = new NumberFormatter(config('app.locale'), NumberFormatter::DECIMAL);
         $decimalFormatter->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, $this->digits);
 
-        return $decimalFormatter->format($value);
+        return $decimalFormatter->format($value) ?: '';
     }
 }
