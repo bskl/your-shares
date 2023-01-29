@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Casts\Decimal;
-use App\Casts\Money as MoneyCast;
+use App\Casts\MoneyCast;
 use App\Enums\TransactionType;
 use App\Support\MoneyManager;
 use Illuminate\Database\Eloquent\Builder;

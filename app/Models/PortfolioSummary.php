@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Casts\Decimal;
-use App\Casts\Money;
+use App\Casts\MoneyCast;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PortfolioSummary extends BaseModel
@@ -30,8 +30,8 @@ class PortfolioSummary extends BaseModel
      */
     protected $casts = [
         'lot' => Decimal::class,
-        'amount' => Money::class,
-        'dividend_gain' => Money::class,
+        'amount' => MoneyCast::class,
+        'dividend_gain' => MoneyCast::class,
     ];
 
     /**

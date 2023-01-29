@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Casts\Money;
+use App\Casts\MoneyCast;
 use App\Casts\Percent;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -38,7 +38,7 @@ class Symbol extends BaseModel
      */
     protected $casts = [
         'rate_of_change' => Percent::class,
-        'last_price' => Money::class,
+        'last_price' => MoneyCast::class,
     ];
 
     /**

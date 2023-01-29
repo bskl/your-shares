@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Casts\Money as MoneyCast;
+use App\Casts\MoneyCast;
 use App\Casts\Percent;
 use App\Enums\TransactionType;
 use App\Support\MoneyManager;

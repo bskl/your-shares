@@ -5,14 +5,14 @@ namespace App\Casts;
 use App\Support\MoneyManager;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Contracts\Database\Eloquent\SerializesCastableAttributes;
-use Money\Money as PhpMoney;
+use Money\Money;
 
-class Money implements CastsAttributes, SerializesCastableAttributes
+class MoneyCast implements CastsAttributes, SerializesCastableAttributes
 {
     /**
      * {@inheritdoc}
      */
-    public function get($model, string $key, $value, array $attributes): PhpMoney
+    public function get($model, string $key, $value, array $attributes): Money
     {
         return MoneyManager::createMoney($value ?? '0');
     }
