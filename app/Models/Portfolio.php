@@ -58,7 +58,7 @@ class Portfolio extends BaseModel
      * {@inheritdoc}
      */
     protected $casts = [
-        'commission' => 'decimal:5ss',
+        'commission' => 'decimal:5',
         'filtered' => 'boolean',
         'total_sale_amount' => MoneyCast::class,
         'total_purchase_amount' => MoneyCast::class,

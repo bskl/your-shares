@@ -63,7 +63,7 @@ class Transaction extends BaseModel
         'lot' => 'decimal:3',
         'price' => MoneyCast::class,
         'amount' => MoneyCast::class,
-        'commission' => 'decimal:3',
+        'commission' => 'decimal:5',
         'commission_price' => MoneyCast::class,
         'sale_average' => MoneyCast::class,
         'sale_average_amount' => MoneyCast::class,
