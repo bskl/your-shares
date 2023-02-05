@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('title')->nullable();
             $table->tinyInteger('trend');
-            $table->integer('last_price');
+            $table->string('last_price')->default('0');
             $table->string('rate_of_change', 10);
             $table->timestamp('session_time')->useCurrent();
             $table->timestamps();

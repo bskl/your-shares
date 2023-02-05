@@ -6,6 +6,9 @@ use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Contracts\Database\Eloquent\SerializesCastableAttributes;
 use NumberFormatter;
 
+/**
+ * @implements CastsAttributes<string, string>
+ */
 class Decimal implements CastsAttributes, SerializesCastableAttributes
 {
     /**
@@ -17,27 +20,45 @@ class Decimal implements CastsAttributes, SerializesCastableAttributes
     public function __construct(
         protected int $digits = 3
     ) {
-        $this->digits = $digits;
+        //
     }
 
     /**
-     * {@inheritdoc}
+     * Transform the attribute from the underlying model values.
+     *
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  string  $key
+     * @param  string  $value
+     * @param  array  $attributes
+     * @return string|null
      */
-    public function get($model, string $key, $value, array $attributes): mixed
+    public function get($model, string $key, $value, array $attributes): ?string
     {
         return $value;
     }
 
     /**
-     * {@inheritdoc}
+     * Transform the attribute to its underlying model values.
+     *
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  string  $key
+     * @param  string  $value
+     * @param  array  $attributes
+     * @return string
      */
-    public function set($model, string $key, $value, array $attributes): mixed
+    public function set($model, string $key, $value, array $attributes): ?string
     {
         return $value;
     }
 
     /**
-     * {@inheritdoc}
+     * Serialize the attribute when converting the model to an array.
+     *
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  string  $key
+     * @param  mixed  $value
+     * @param  array  $attributes
+     * @return string
      */
     public function serialize($model, string $key, $value, array $attributes): string
     {

@@ -19,20 +19,20 @@ return new class extends Migration
             $table->integer('portfolio_id')->unsigned();
             $table->integer('symbol_id')->unsigned();
             $table->string('lot')->default('0');
-            $table->integer('average')->unsigned()->default(0);
-            $table->integer('average_amount')->unsigned()->default(0);
-            $table->integer('amount')->unsigned()->default(0);
-            $table->integer('gain')->default(0);
-            $table->integer('total_sale_amount')->unsigned()->default(0);
-            $table->integer('total_purchase_amount')->default(0);
-            $table->integer('paid_amount')->default(0);
-            $table->integer('gain_loss')->default(0);
-            $table->integer('total_commission_amount')->unsigned()->default(0);
-            $table->integer('total_dividend_gain')->unsigned()->default(0);
-            $table->float('total_bonus_share', 11, 3)->default(0);
-            $table->float('total_rights_share', 11, 3)->default(0);
-            $table->integer('total_gain')->default(0);
-            $table->integer('instant_gain')->default(0);
+            $table->string('average')->unsigned()->default('0');
+            $table->string('average_amount')->unsigned()->default('0');
+            $table->string('amount')->unsigned()->default('0');
+            $table->string('gain')->default('0');
+            $table->string('total_sale_amount')->unsigned()->default('0');
+            $table->string('total_purchase_amount')->default('0');
+            $table->string('paid_amount')->default('0');
+            $table->string('gain_loss')->default('0');
+            $table->string('total_commission_amount')->unsigned()->default('0');
+            $table->string('total_dividend_gain')->unsigned()->default('0');
+            $table->string('total_bonus_share')->default('0.000');
+            $table->string('total_rights_share')->default('0.000');
+            $table->string('total_gain')->default('0');
+            $table->string('instant_gain')->default('0');
             $table->timestamps();
 
             $table->foreign('user_id')

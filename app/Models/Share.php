@@ -352,7 +352,7 @@ class Share extends BaseModel
         $this->lot = bcadd($this->lot, $transaction->lot, 3);
         $this->average = $this->average_amount->divide($this->lot);
         $this->average_with_dividend = $this->average_amount_with_dividend->divide($this->lot);
-        $this->total_bonus_share += $transaction->lot;
+        $this->total_bonus_share = bcadd($this->total_bonus_share, $transaction->lot, 3);
         $this->handleCommonCalculations();
     }
 
@@ -367,7 +367,7 @@ class Share extends BaseModel
         $this->lot = bcsub($this->lot, $transaction->lot, 3);
         $this->average = $this->average_amount->divide($this->lot);
         $this->average_with_dividend = $this->average_amount_with_dividend->divide($this->lot);
-        $this->total_bonus_share -= $transaction->lot;
+        $this->total_bonus_share = bcsub($this->total_bonus_share, $transaction->lot, 3);
         $this->handleCommonCalculations();
     }
 
@@ -386,7 +386,7 @@ class Share extends BaseModel
         $this->average_with_dividend = $this->average_amount_with_dividend->divide($this->lot);
         $this->total_purchase_amount = $this->total_purchase_amount->add($transaction->amount);
         $this->paid_amount = $this->paid_amount->add($transaction->amount);
-        $this->total_rights_share += $transaction->lot;
+        $this->total_rights_share = bcadd($this->total_rights_share, $transaction->lot, 3);
         $this->handleCommonCalculations();
     }
 
@@ -405,7 +405,7 @@ class Share extends BaseModel
         $this->average_with_dividend = $this->average_amount_with_dividend->divide($this->lot);
         $this->total_purchase_amount = $this->total_purchase_amount->subtract($transaction->amount);
         $this->paid_amount = $this->paid_amount->subtract($transaction->amount);
-        $this->total_rights_share -= $transaction->lot;
+        $this->total_rights_share = bcsub($this->total_rights_share, $transaction->lot, 3);
         $this->handleCommonCalculations();
     }
 

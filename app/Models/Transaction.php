@@ -145,7 +145,7 @@ class Transaction extends BaseModel
     {
         $this->remaining = Number::fromString($this->lot)->getIntegerPart();
         $this->price = MoneyManager::createMoney();
-        $this->bonus = ($this->lot * 100) / $this->preference;
+        $this->bonus = bcdiv(bcmul($this->lot, '100'), $this->preference, 4);
         $this->update();
     }
 
@@ -159,7 +159,7 @@ class Transaction extends BaseModel
         $this->remaining = Number::fromString($this->lot)->getIntegerPart();
         $this->price = MoneyManager::createMoney('100');
         $this->amount = $this->price->multiply($this->lot);
-        $this->rights = ($this->lot * 100) / $this->preference;
+        $this->rights = bcdiv(bcmul($this->lot, '100'), $this->preference, 4);
         $this->update();
     }
 

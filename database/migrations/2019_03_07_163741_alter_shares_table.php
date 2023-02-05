@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('shares', function (Blueprint $table) {
-            $table->integer('average_with_dividend')->default(0)->after('average');
-            $table->integer('average_amount_with_dividend')->default(0)->after('average_amount');
-            $table->integer('gain_with_dividend')->default(0)->after('gain');
+            $table->string('average_with_dividend')->default('0')->after('average');
+            $table->string('average_amount_with_dividend')->default('0')->after('average_amount');
+            $table->string('gain_with_dividend')->default('0')->after('gain');
         });
     }
 

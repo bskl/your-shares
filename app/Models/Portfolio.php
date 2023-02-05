@@ -58,7 +58,7 @@ class Portfolio extends BaseModel
      * {@inheritdoc}
      */
     protected $casts = [
-        'commission' => 'float',
+        'commission' => 'decimal:5ss',
         'filtered' => 'boolean',
         'total_sale_amount' => MoneyCast::class,
         'total_purchase_amount' => MoneyCast::class,
@@ -307,7 +307,7 @@ class Portfolio extends BaseModel
      */
     public function handleCalculationsOfBonus(Transaction $transaction): void
     {
-        $this->total_bonus_share += $transaction->lot;
+        $this->total_bonus_share = bcadd($this->total_bonus_share, $transaction->lot, 3);
         $this->handleCommonCalculations();
     }
 
@@ -319,7 +319,7 @@ class Portfolio extends BaseModel
      */
     public function handleCalculationsOfDeletedBonus(Transaction $transaction): void
     {
-        $this->total_bonus_share -= $transaction->lot;
+        $this->total_bonus_share = bcsub($this->total_bonus_share, $transaction->lot, 3);
         $this->handleCommonCalculations();
     }
 
@@ -333,7 +333,7 @@ class Portfolio extends BaseModel
     {
         $this->total_purchase_amount = $this->total_purchase_amount->add($transaction->amount);
         $this->paid_amount = $this->paid_amount->add($transaction->amount);
-        $this->total_rights_share += $transaction->lot;
+        $this->total_rights_share = bcadd($this->total_rights_share, $transaction->lot, 3);
         $this->handleCommonCalculations();
     }
 
@@ -347,7 +347,7 @@ class Portfolio extends BaseModel
     {
         $this->total_purchase_amount = $this->total_purchase_amount->subtract($transaction->amount);
         $this->paid_amount = $this->paid_amount->subtract($transaction->amount);
-        $this->total_rights_share -= $transaction->lot;
+        $this->total_rights_share = bcsub($this->total_rights_share, $transaction->lot, 3);
         $this->handleCommonCalculations();
     }
 
