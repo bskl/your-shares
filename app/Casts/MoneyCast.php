@@ -18,7 +18,9 @@ class MoneyCast implements CastsAttributes, SerializesCastableAttributes
      * @param  \Illuminate\Database\Eloquent\Model  $model
      * @param  string  $key
      * @param  string|null  $value
+     *
      * @psalm-param numeric-string|null  $value
+     *
      * @param  array  $attributes
      * @return \Money\Money
      */
