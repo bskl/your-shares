@@ -1,8 +1,6 @@
 <script>
 
-import { watch } from 'vue';
 import { useCurrencyInput } from 'vue-currency-input';
-import { watchDebounced } from '@vueuse/core';
 import validationHandler from '../../mixins/validationHandler.js';
 
 export default {
@@ -22,7 +20,7 @@ export default {
     },
     value: {
       type: Number,
-      default: null
+      default: 0
     },
     label: {
       type: String,
@@ -34,11 +32,14 @@ export default {
         return {
           currency: 'TRY',
           currencyDisplay: 'narrowSymbol',
+          precision: 2,
           locale: 'tr-TR',
           hideCurrencySymbolOnFocus: false,
           hideGroupingSeparatorOnFocus: false,
           hideNegligibleDecimalDigitsOnFocus: false,
           autoDecimalDigits: true,
+          useGrouping: true,
+          accountingSign: false
         }
       }
     },
@@ -48,24 +49,8 @@ export default {
     },
   },
 
-  setup (props, { emit }) {
-    const { inputRef, numberValue, setValue, setOptions } = useCurrencyInput(props.options, false)
-
-    watchDebounced(numberValue, (value) => emit('input', value), { debounce: 1000 })
-
-    watch(
-      () => props.value,
-      (value) => {
-        setValue(value)
-      }
-    )
-
-    watch(
-      () => props.options,
-      (options) => {
-        setOptions(options)
-      }
-    )
+  setup (props) {
+    const { inputRef } = useCurrencyInput(props.options)
 
     return { inputRef }
   }
@@ -76,7 +61,6 @@ export default {
   <v-text-field
     :id="name"
     ref="inputRef"
-    type="text"
     :name="name"
     filled
     clearable

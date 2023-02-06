@@ -55,7 +55,7 @@ export default {
         symbol_id: 0,
         preference: null,
         lot: null,
-        price: null,
+        price: 0,
         exchange_ratio: 0,
         commission: this.commission,
         dividend_gain: null,
@@ -318,11 +318,11 @@ export default {
             />
             <v-currency-field
               v-if="form.type != 3 || form.type != 4 || form.type != 6"
+              ref="price"
               v-model="form.price"
               name="price"
               :label="$t('Enter Transaction Price')"
               :is-loading="isLoading"
-              @change="value = $event"
             />
             <v-text-field
               v-if="form.type == 5"
@@ -359,11 +359,11 @@ export default {
             />
             <v-currency-field
               v-if="form.type == 2"
+              ref="dividend_gain"
               v-model="form.dividend_gain"
               name="dividend_gain"
               :label="$t('Enter Dividend Gain Price')"
               :is-loading="isLoading"
-              @change="value = $event"
             />
           </v-form>
         </v-card-text>
