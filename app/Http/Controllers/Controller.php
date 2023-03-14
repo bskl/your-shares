@@ -56,7 +56,7 @@ class Controller extends BaseController
      * @param  string  $type
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getTransactionsByModelAndType(Portfolio|Share $model, string $type): JsonResponse
+    public function getTransactionsByModelAndType(Portfolio|Share $model, string $type)
     {
         $i = 0;
         $items = [];
@@ -75,11 +75,16 @@ class Controller extends BaseController
             $items[$i]['total'] = $transactionType['condition'] ? 0 : MoneyManager::createMoney();
             foreach ($transactions as $month => $transaction) {
                 $transaction = $transaction->first();
-                $items[$i] += $transactionType['condition']
-                    ? [$month => decimal_formatter($transaction->{$attribute}), 'total' => $items[$i]['total'] + $transaction->lot]
-                    : [$month => MoneyManager::formatByIntl($transaction->{$attribute}), 'total' => $items[$i]['total']->add($transaction->{$attribute})];
+                if ($transactionType['condition'] === true) {
+                    $items[$i][$month] = decimal_formatter($transaction->{$attribute});
+                    $items[$i]['total'] = $items[$i]['total'] + $transaction->lot;
+                } else {
+                    $items[$i][$month] = MoneyManager::formatByIntl($transaction->{$attribute});
+                    $items[$i]['total'] = $items[$i]['total']->add($transaction->{$attribute});
+                }
             }
-            $items[$i]['total'] = $transactionType['condition']
+
+            $items[$i]['total'] = ($transactionType['condition'] === true)
                 ? decimal_formatter($items[$i]['total'])
                 : MoneyManager::formatByIntl($items[$i]['total']);
             $i++;

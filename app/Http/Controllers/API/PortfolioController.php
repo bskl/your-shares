@@ -158,18 +158,20 @@ class PortfolioController extends Controller
             $items[$i]['total'] = $transactionType['condition'] ? 0 : MoneyManager::createMoney();
             foreach ($transactions as $month => $transaction) {
                 $transaction = $transaction->first();
-
-                $items[$i] += $transactionType['condition']
-                    ? [$month => decimal_formatter($transaction->{$attribute}), 'total' => $items[$i]['total'] + $transaction->lot]
-                    : [$month => MoneyManager::formatByIntl($transaction->{$attribute}), 'total' => $items[$i]['total']->add($transaction->{$attribute})];
-
+                if ($transactionType['condition'] === true) {
+                    $items[$i][$month] = decimal_formatter($transaction->{$attribute});
+                    $items[$i]['total'] = $items[$i]['total'] + $transaction->lot;
+                } else {
+                    $items[$i][$month] = MoneyManager::formatByIntl($transaction->{$attribute});
+                    $items[$i]['total'] = $items[$i]['total']->add($transaction->{$attribute});
+                }
                 $items[$i] += [
                     'item' => $transaction->share->symbol->code,
                     'share_id' => $transaction->share_id,
                     'year' => $transaction->year,
                 ];
             }
-            $items[$i]['total'] = $transactionType['condition']
+            $items[$i]['total'] = ($transactionType['condition'] === true)
                 ? decimal_formatter($items[$i]['total'])
                 : MoneyManager::formatByIntl($items[$i]['total']);
             $i++;
